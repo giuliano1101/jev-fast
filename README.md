@@ -48,7 +48,7 @@ npm run bench:mock
 
 S7 在真实 Wikipedia、日期计算网站及本机抖音 App 上完成六道题的分档对比。原 Jev 基线 6/12，最终修复版 8/12，普通 computer use 12/12；8 组双方成功配对的完整工作流耗时比中位数为 3.72×。搜索与复杂组合筛选仍有低置信度停止，当前不能稳定替代普通 computer use。题目、失败、优化消融和费用均在 [S7 报告](artifacts/real/report.md) 中。
 
-新增 [S8 混合执行设计](docs/hybrid-execution-design.md)：自动探路、流程验证、Jev/确定性执行与异常接管。**目前为设计提案，自动 teacher 接管尚未实现**；[首个实施计划](docs/superpowers/plans/2026-10-30-hybrid-routing.md) 明确了离线路由策略与测试。
+已实现 [S8 有界混合执行研究接口](docs/hybrid-implementation.md)：自动请求 teacher、流程证据验证、Jev/确定性执行、共享预算和跨重启 UNKNOWN 隔离。真实主机必须提供可信观察器、持久账本和 teacher 回调；目前不是独立运行的通用智能体。离线故障测试和真实本地浏览器重绘/重置回归见 [S8 验证报告](artifacts/hybrid/report.md)。S7 实测成绩不变，手机实测另行记录。
 
 ## 使用接口
 

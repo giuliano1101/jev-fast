@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Hybrid filter fault fixture</title>
+<h1>Public sample filters</h1>
+<p>Local synthetic fault fixture. No account or remote service.</p>
+<section id="controls" aria-busy="false">
+ <button id="sort" aria-pressed="false">Highest views</button>
+ <button id="published" aria-pressed="true">Published</button>
+ <button id="image" aria-pressed="true">Image text</button>
+</section>
+<p id="status" role="status">Ready</p>
+<output id="counts">sort:0 published:0 image:0</output>
+<script>
+const controls=document.querySelector('#controls'),statusNode=document.querySelector('#status');
+const mode=new URLSearchParams(location.search).get('mode');
+const counts={sort:0,published:0,image:0};
+function pressed(id,value){document.getElementById(id).setAttribute('aria-pressed',String(value));}
+for(const button of controls.querySelectorAll('button'))button.addEventListener('click',()=>{
+ if(controls.getAttribute('aria-busy')==='true')return;
+ counts[button.id]++;document.querySelector('#counts').textContent=`sort:${counts.sort} published:${counts.published} image:${counts.image}`;
+ if(button.id!=='sort'){pressed(button.id,true);return;}
+ controls.setAttribute('aria-busy','true');statusNode.textContent='Loading';
+ for(const b of controls.querySelectorAll('button'))b.disabled=true;
+ pressed('published',false);pressed('image',false);
+ setTimeout(()=>{
+  pressed('sort',true);
+  if(mode==='transient'){pressed('published',true);pressed('image',true);}
+  controls.setAttribute('aria-busy','false');statusNode.textContent='Ready';
+  for(const b of controls.querySelectorAll('button'))b.disabled=false;
+ },80);
+});
+</script>

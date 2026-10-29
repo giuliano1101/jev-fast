@@ -8,7 +8,7 @@
 
 **Tech Stack:** Existing TypeScript, Zod, node:test. No new dependency.
 
-Status: implementation plan only. All boxes below are intentionally unchecked.
+Status: historical first-stage plan, superseded by the integrated S8 implementation on 2026-10-30. Routing, contracts, procedure store, controller, teacher rendezvous and durable execution journal were implemented and reviewed together. The checklist below is retained as the original plan, not an outstanding-work tracker. See [implementation](../../hybrid-implementation.md) and [verification](../../../artifacts/hybrid/report.md).
 
 ## Task 1 — Contract and executable policy
 
