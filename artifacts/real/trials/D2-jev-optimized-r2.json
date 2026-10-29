@@ -1,0 +1,171 @@
+{
+  "trial_id": "D2-jev-optimized-r2",
+  "task_id": "D2",
+  "mode": "jev-optimized",
+  "repeat": 2,
+  "started_at": 1793310894948,
+  "finished_at": 1793310897669,
+  "elapsed_ms": 2721,
+  "actions": 1,
+  "requests": 2,
+  "status": "FAILED",
+  "reason": "LOW_CONFIDENCE",
+  "decision_files": [
+    "1793310895238-b235f730-782a-4634-8a21-a36d5818affc.json",
+    "1793310897374-16cf550e-033b-4ae5-a205-0eaaa9051a13.json"
+  ],
+  "session": {
+    "status": "failed",
+    "failure_code": "LOW_CONFIDENCE",
+    "actions": [
+      {
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 104.80591700039804
+      }
+    ],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 461,
+          "output_tokens": 28
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000019362000000000002,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 1,
+        "elapsed_ms": 784.324082999985,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_audit",
+          "effective_candidates": [
+            "open_audit"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      },
+      {
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 60
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000022722000000000004,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.88,
+        "elapsed_ms": 264.4402499999851,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "select_published",
+          "effective_candidates": [
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 2720.545667000115
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 461,
+        "output_tokens": 28
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019362000000000002,
+      "unknown_usage_requests": 0,
+      "candidate_id": "open_audit",
+      "confidence": 1,
+      "elapsed_ms": 784.324082999985,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "open_audit",
+        "effective_candidates": [
+          "open_audit"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works",
+        "open_audit"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit",
+        "select_all",
+        "select_published",
+        "select_reviewing",
+        "select_rejected"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "action",
+      "candidate_id": "open_audit",
+      "status": "verified",
+      "elapsed_ms": 104.80591700039804
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 541,
+        "output_tokens": 60
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000022722000000000004,
+      "unknown_usage_requests": 0,
+      "candidate_id": "select_published",
+      "confidence": 0.88,
+      "elapsed_ms": 264.4402499999851,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "select_published",
+        "effective_candidates": [
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "failure",
+      "code": "LOW_CONFIDENCE"
+    }
+  ]
+}

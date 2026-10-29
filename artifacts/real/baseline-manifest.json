@@ -1,0 +1,91 @@
+{
+  "created_at": "2026-10-29T21:21:27.402Z",
+  "tasks": {
+    "W1": {
+      "goal": "From the multilingual Wikipedia homepage, open English Wikipedia.",
+      "controls": [
+        "open_english",
+        "open_chinese",
+        "open_japanese"
+      ]
+    },
+    "W2": {
+      "goal": "On the multilingual Wikipedia homepage, set the search language to English, search for Kyoto, and open its article.",
+      "controls": [
+        "language_english",
+        "fill_query",
+        "submit_search",
+        "open_english",
+        "open_chinese",
+        "open_japanese"
+      ]
+    },
+    "W3": {
+      "goal": "On calculator.net, calculate the duration from November 1, 2026 through November 15, 2026, including the end date.",
+      "controls": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ]
+    },
+    "D1": {
+      "goal": "In Douyin creator tools, open content management, then open collections.",
+      "controls": [
+        "open_works",
+        "open_collections"
+      ]
+    },
+    "D2": {
+      "goal": "In Douyin content management, filter publication status to Published.",
+      "controls": [
+        "open_works",
+        "open_audit",
+        "select_all",
+        "select_published",
+        "select_reviewing",
+        "select_rejected"
+      ]
+    },
+    "D3": {
+      "goal": "In Douyin content management, filter publication status to Published, filter content type to image and text, and sort by highest views.",
+      "controls": [
+        "open_works",
+        "open_audit",
+        "select_all",
+        "select_published",
+        "select_reviewing",
+        "select_rejected",
+        "open_genre",
+        "open_sort",
+        "select_image_text",
+        "select_short_video",
+        "select_long_image_text",
+        "sort_latest",
+        "sort_views",
+        "sort_likes"
+      ]
+    }
+  },
+  "sha256": {
+    "bench/real/catalog.ts": "ea5e67cc80fdff0d5e6c35ced153d217468c461c41936ff0071c08ffafef6823",
+    "bench/real/decision.ts": "e1550ed25e2d9361ef928d916ca6e851f9ff062abf82b47a9dd6d38ac2a45fc1",
+    "dist/bench/real/catalog.js": "23c52d9bfd4560497e8479c53e077ace48858d4f0d4797009140be0a01486329",
+    "dist/bench/real/decision.js": "a058e0e286aa1111bd63417df9ad468ae59a870315ac2d8acdb23325a6ab1dd0"
+  },
+  "confidence_threshold": 0.9,
+  "maximum_actions": 12,
+  "deadline_ms": 300000,
+  "measurement": "Controller-mediated same CUA surface. Wall clock before initial observation through verified result includes orchestration and supervision. Native AX data stays local. Two repetitions per task/method. Methods batched; learning/order confounds retained.",
+  "budget_before": {
+    "version": 1,
+    "requests": 115,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  }
+}

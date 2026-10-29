@@ -1,0 +1,46 @@
+{
+  "data_classification": "real-public-controls",
+  "approval_id": "user-20261030-usd3",
+  "scope": "real-public-controls",
+  "created_at": "2026-10-29T21:54:55.239Z",
+  "input": {
+    "task_id": "D2",
+    "variant": "optimized",
+    "trial_id": "D2-jev-optimized-r2",
+    "completed": [
+      "open_works"
+    ],
+    "candidates": [
+      "open_works",
+      "open_audit"
+    ]
+  },
+  "status": "decided",
+  "result": {
+    "candidate_id": "open_audit",
+    "confidence": 1,
+    "elapsed_ms": 784.324082999985,
+    "usage": {
+      "input_tokens": 461,
+      "output_tokens": 28
+    },
+    "request_count": 1,
+    "known_cost_usd": 0.000019362000000000002,
+    "unknown_usage_requests": 0,
+    "request_plan": {
+      "variant": "optimized",
+      "phase": "open_audit",
+      "effective_candidates": [
+        "open_audit"
+      ],
+      "batches": {}
+    }
+  },
+  "budget": {
+    "requests": 156,
+    "reservedUsd": 1.56,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  }
+}

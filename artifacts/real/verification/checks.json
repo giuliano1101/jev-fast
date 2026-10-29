@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-10-29T22:01:19.230409+00:00",
+  "checks": [
+    {
+      "check": "typecheck",
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "elapsed_ms": 1676,
+      "log": "typecheck.log"
+    },
+    {
+      "check": "lint",
+      "command": "npm run lint",
+      "exit_code": 0,
+      "elapsed_ms": 1208,
+      "log": "lint.log"
+    },
+    {
+      "check": "unit-core",
+      "command": "npm test",
+      "exit_code": 0,
+      "elapsed_ms": 6360,
+      "log": "unit-core.log"
+    },
+    {
+      "check": "integration",
+      "command": "npm run test:integration",
+      "exit_code": 1,
+      "elapsed_ms": 43037,
+      "log": "integration.log"
+    },
+    {
+      "check": "safety",
+      "command": "npm run test:safety",
+      "exit_code": 0,
+      "elapsed_ms": 17538,
+      "log": "safety.log"
+    },
+    {
+      "check": "typecheck-final",
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "elapsed_ms": 1539,
+      "log": "typecheck-final.log"
+    },
+    {
+      "check": "lint-final",
+      "command": "npm run lint",
+      "exit_code": 0,
+      "elapsed_ms": 1207,
+      "log": "lint-final.log"
+    },
+    {
+      "check": "integration-retest",
+      "command": "npm run test:integration",
+      "exit_code": 0,
+      "elapsed_ms": 43332,
+      "log": "integration-retest.log"
+    }
+  ],
+  "all_passed": true,
+  "final_verification_at": "2026-10-29T22:03:55.177435+00:00",
+  "initial_failure_retained": true,
+  "repair": "Async fixture can finish between loop condition and observe. Missing candidate now requires verified terminal state; no execution core changes."
+}

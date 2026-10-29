@@ -1,0 +1,45 @@
+{
+  "data_classification": "real-public-controls",
+  "approval_id": "user-20261030-usd3",
+  "scope": "real-public-controls",
+  "created_at": "2026-10-29T21:51:56.442Z",
+  "input": {
+    "task_id": "W1",
+    "variant": "baseline",
+    "trial_id": "W1-jev-integrated-baseline-r2",
+    "completed": [],
+    "candidates": [
+      "open_english",
+      "open_chinese",
+      "open_japanese"
+    ]
+  },
+  "status": "failed",
+  "error": {
+    "code": "PROVIDER_TRANSPORT_ERROR",
+    "accounting": {
+      "usage": null,
+      "request_count": 1,
+      "known_cost_usd": 0,
+      "unknown_usage_requests": 1
+    },
+    "elapsed_ms": 59.09716700000001,
+    "request_plan": {
+      "variant": "baseline",
+      "phase": "baseline",
+      "effective_candidates": [
+        "open_english",
+        "open_chinese",
+        "open_japanese"
+      ],
+      "batches": {}
+    }
+  },
+  "budget": {
+    "requests": 136,
+    "reservedUsd": 1.36,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  }
+}

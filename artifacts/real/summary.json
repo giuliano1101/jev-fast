@@ -1,0 +1,132 @@
+{
+  "created_at": "2026-10-29T22:05:27.836209+00:00",
+  "groups": {
+    "computer-use": {
+      "started": 12,
+      "successes": 12,
+      "median_all_started_ms": 20793.0,
+      "median_success_ms": 20793.0,
+      "actions": 42,
+      "failures": {}
+    },
+    "jev-baseline": {
+      "started": 12,
+      "successes": 6,
+      "median_all_started_ms": 24714.0,
+      "median_success_ms": 27541.0,
+      "actions": 13,
+      "failures": {
+        "LOW_CONFIDENCE": 6
+      }
+    },
+    "jev-integrated-baseline": {
+      "started": 8,
+      "successes": 3,
+      "median_all_started_ms": 1724.0,
+      "median_success_ms": 3549,
+      "actions": 6,
+      "failures": {
+        "DECISION_FAILED": 3,
+        "LOW_CONFIDENCE": 2
+      }
+    },
+    "jev-optimized": {
+      "started": 12,
+      "successes": 5,
+      "median_all_started_ms": 2116.0,
+      "median_success_ms": 2377,
+      "actions": 17,
+      "failures": {
+        "EXECUTION_UNCERTAIN": 2,
+        "LOW_CONFIDENCE": 5
+      }
+    },
+    "jev-final": {
+      "started": 12,
+      "successes": 8,
+      "median_all_started_ms": 2678.5,
+      "median_success_ms": 3616.0,
+      "actions": 20,
+      "failures": {
+        "LOW_CONFIDENCE": 4
+      }
+    }
+  },
+  "cost": {
+    "s7_known_usd": 0.0012656700000000002,
+    "s7_unknown_usage_requests": 2,
+    "s7_reserved_attempts": 60,
+    "prior_known_usd": 0.003050334,
+    "prior_unknown_usage_requests": 1,
+    "cumulative_known_usd": 0.004316004,
+    "cumulative_unknown_usage_requests": 3,
+    "cumulative_reserved_attempts": 175,
+    "cumulative_reserved_usd": 1.75,
+    "budget_usd": 3,
+    "computer_use_cost": "unknown, not zero"
+  },
+  "api_success_latency_median_ms": 837.2700410000107,
+  "singleton_decisions": 10,
+  "final_success_pairs": {
+    "count": 8,
+    "median_ratio": 3.7152656940559177,
+    "rows": [
+      {
+        "task_id": "D1",
+        "repeat": 1,
+        "computer_use_ms": 8673,
+        "optimized_ms": 2767,
+        "ratio": 3.134441633538128
+      },
+      {
+        "task_id": "D1",
+        "repeat": 2,
+        "computer_use_ms": 8447,
+        "optimized_ms": 1817,
+        "ratio": 4.6488717666483215
+      },
+      {
+        "task_id": "D2",
+        "repeat": 1,
+        "computer_use_ms": 12090,
+        "optimized_ms": 3930,
+        "ratio": 3.0763358778625953
+      },
+      {
+        "task_id": "D2",
+        "repeat": 2,
+        "computer_use_ms": 12372,
+        "optimized_ms": 3302,
+        "ratio": 3.7468201090248336
+      },
+      {
+        "task_id": "W1",
+        "repeat": 1,
+        "computer_use_ms": 24854,
+        "optimized_ms": 6747,
+        "ratio": 3.6837112790870017
+      },
+      {
+        "task_id": "W1",
+        "repeat": 2,
+        "computer_use_ms": 16732,
+        "optimized_ms": 2590,
+        "ratio": 6.46023166023166
+      },
+      {
+        "task_id": "W3",
+        "repeat": 1,
+        "computer_use_ms": 43609,
+        "optimized_ms": 7280,
+        "ratio": 5.990247252747253
+      },
+      {
+        "task_id": "W3",
+        "repeat": 2,
+        "computer_use_ms": 14100,
+        "optimized_ms": 9197,
+        "ratio": 1.533108622376862
+      }
+    ]
+  }
+}

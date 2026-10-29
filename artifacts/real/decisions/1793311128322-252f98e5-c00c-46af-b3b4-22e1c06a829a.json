@@ -1,0 +1,54 @@
+{
+  "data_classification": "real-public-controls",
+  "approval_id": "user-20261030-usd3",
+  "scope": "real-public-controls",
+  "created_at": "2026-10-29T21:58:48.322Z",
+  "input": {
+    "task_id": "D2",
+    "variant": "optimized",
+    "trial_id": "D2-jev-final-r2",
+    "completed": [
+      "open_works",
+      "open_audit"
+    ],
+    "candidates": [
+      "open_works",
+      "open_audit",
+      "select_all",
+      "select_published",
+      "select_reviewing",
+      "select_rejected"
+    ]
+  },
+  "status": "decided",
+  "result": {
+    "candidate_id": "select_published",
+    "confidence": 0.97,
+    "elapsed_ms": 255.3492499999993,
+    "usage": {
+      "input_tokens": 541,
+      "output_tokens": 60
+    },
+    "request_count": 1,
+    "known_cost_usd": 0.000022722000000000004,
+    "unknown_usage_requests": 0,
+    "request_plan": {
+      "variant": "optimized",
+      "phase": "select_published",
+      "effective_candidates": [
+        "select_all",
+        "select_published",
+        "select_reviewing",
+        "select_rejected"
+      ],
+      "batches": {}
+    }
+  },
+  "budget": {
+    "requests": 173,
+    "reservedUsd": 1.73,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  }
+}

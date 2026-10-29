@@ -1,0 +1,50 @@
+[
+  {
+    "id": "W1",
+    "difficulty": "简单",
+    "surface": "Wikipedia",
+    "question": "从多语言首页打开英文 Wikipedia",
+    "start": "https://www.wikipedia.org/",
+    "success": "英文首页 URL /wiki/Main_Page"
+  },
+  {
+    "id": "W2",
+    "difficulty": "中等",
+    "surface": "Wikipedia",
+    "question": "将搜索语言设为英文，搜索 Kyoto，打开词条",
+    "start": "https://www.wikipedia.org/",
+    "success": "英文 Kyoto 词条 URL /wiki/Kyoto"
+  },
+  {
+    "id": "W3",
+    "difficulty": "复杂",
+    "surface": "Calculator.net",
+    "question": "计算 2026-11-01 到 2026-11-15 的天数，并包含结束日期",
+    "start": "https://www.calculator.net/date-calculator.html",
+    "success": "日期匹配，结果为 15 calendar days"
+  },
+  {
+    "id": "D1",
+    "difficulty": "简单",
+    "surface": "本机抖音 App",
+    "question": "在内容管理中打开作品合集",
+    "start": "内容管理，默认筛选",
+    "success": "合集视图显示创建合集控件；不创建合集"
+  },
+  {
+    "id": "D2",
+    "difficulty": "中等",
+    "surface": "本机抖音 App",
+    "question": "将作品审核状态筛选为已发布",
+    "start": "内容管理，默认筛选",
+    "success": "审核状态控件显示已发布"
+  },
+  {
+    "id": "D3",
+    "difficulty": "复杂",
+    "surface": "本机抖音 App",
+    "question": "筛选已发布的图文作品，并按最高播放排序",
+    "start": "内容管理，默认筛选与最新发布排序",
+    "success": "三个控件同时显示已发布、图文、最高播放；不验证后台排序实现"
+  }
+]

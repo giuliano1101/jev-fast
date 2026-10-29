@@ -1,0 +1,386 @@
+{
+  "trial_id": "W3-jev-optimized-r1",
+  "task_id": "W3",
+  "mode": "jev-optimized",
+  "repeat": 1,
+  "started_at": 1793310819935,
+  "finished_at": 1793310826040,
+  "elapsed_ms": 6105,
+  "actions": 5,
+  "requests": 1,
+  "status": "FAILED",
+  "reason": "EXECUTION_UNCERTAIN",
+  "decision_files": [
+    "1793310820082-8ec9a931-0eb0-48b0-ac68-559a2ad21320.json"
+  ],
+  "session": {
+    "status": "failed",
+    "failure_code": "EXECUTION_UNCERTAIN",
+    "actions": [
+      {
+        "candidate_id": "fill_m1",
+        "status": "verified",
+        "elapsed_ms": 9.437791000120342
+      },
+      {
+        "candidate_id": "fill_d1",
+        "status": "verified",
+        "elapsed_ms": 4.237500000745058
+      },
+      {
+        "candidate_id": "fill_m2",
+        "status": "verified",
+        "elapsed_ms": 8.451708000153303
+      },
+      {
+        "candidate_id": "fill_d2",
+        "status": "verified",
+        "elapsed_ms": 4.09479200001806
+      },
+      {
+        "candidate_id": "include_end",
+        "status": "uncertain",
+        "elapsed_ms": 3036.897917000577
+      }
+    ],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 571,
+          "output_tokens": 34
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000023982000000000002,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_dates",
+        "confidence": 1,
+        "elapsed_ms": 247.18516700000328,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_dates",
+          "effective_candidates": [
+            "prepare_dates",
+            "calculate_duration"
+          ],
+          "batches": {
+            "prepare_dates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end"
+            ]
+          }
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 6104.828834000044
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 571,
+        "output_tokens": 34
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000023982000000000002,
+      "unknown_usage_requests": 0,
+      "candidate_id": "prepare_dates",
+      "confidence": 1,
+      "elapsed_ms": 247.18516700000328,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "prepare_dates",
+        "effective_candidates": [
+          "prepare_dates",
+          "calculate_duration"
+        ],
+        "batches": {
+          "prepare_dates": [
+            "fill_m1",
+            "fill_d1",
+            "fill_y1",
+            "fill_m2",
+            "fill_d2",
+            "fill_y2",
+            "include_end"
+          ]
+        }
+      }
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "action",
+      "candidate_id": "fill_m1",
+      "status": "verified",
+      "elapsed_ms": 9.437791000120342
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "action",
+      "candidate_id": "fill_d1",
+      "status": "verified",
+      "elapsed_ms": 4.237500000745058
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "action",
+      "candidate_id": "fill_m2",
+      "status": "verified",
+      "elapsed_ms": 8.451708000153303
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "action",
+      "candidate_id": "fill_d2",
+      "status": "verified",
+      "elapsed_ms": 4.09479200001806
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2"
+      ],
+      "candidates": [
+        "fill_m1",
+        "fill_d1",
+        "fill_y1",
+        "fill_m2",
+        "fill_d2",
+        "fill_y2",
+        "include_end",
+        "calculate_duration"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "failure",
+      "code": "EXECUTION_UNCERTAIN"
+    }
+  ]
+}

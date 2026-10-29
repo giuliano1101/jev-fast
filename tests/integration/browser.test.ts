@@ -10,7 +10,10 @@ for(const language of ['en','zh'] as const) test(`F01–F03 real browser all twe
   const id=`task_${task}`;await browser.open(id,'standard');const goal:Goal={task,language,seed:3};
   let actions=0; await browser.observe(id,goal);
   while(!await browser.check(id,{kind:'task_complete'})&&actions<8){
-   const snapshot=await browser.observe(id,goal);const choice=snapshot.candidates[0];assert.ok(choice,task);
+   const snapshot=await browser.observe(id,goal);const choice=snapshot.candidates[0];
+   // Async fixtures may finish between the loop check and this observation.
+   // An empty candidate set is valid only when the terminal state is now verified.
+   if(!choice){assert.ok(await browser.check(id,{kind:'task_complete'}),`${task}: no candidate before completion`);break;}
    assert.equal(await browser.validate(id,snapshot,choice,goal,signal),true);
    seen.add(choice.operation);await browser.execute(id,choice,goal,signal);assert.equal(await browser.check(id,choice.expected_postcondition),true,`${task}: ${choice.description}`);actions++;
   }

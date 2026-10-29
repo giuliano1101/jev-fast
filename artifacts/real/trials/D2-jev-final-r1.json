@@ -1,0 +1,208 @@
+{
+  "trial_id": "D2-jev-final-r1",
+  "task_id": "D2",
+  "mode": "jev-final",
+  "repeat": 1,
+  "started_at": 1793311120414,
+  "finished_at": 1793311124344,
+  "elapsed_ms": 3930,
+  "actions": 2,
+  "requests": 2,
+  "status": "SUCCEEDED",
+  "decision_files": [
+    "1793311120532-d8f783d7-2727-4a14-b99c-10db248f61c1.json",
+    "1793311122944-bc256b75-52dd-4326-9f1d-9b5a1320344c.json"
+  ],
+  "session": {
+    "status": "success",
+    "actions": [
+      {
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 125.3837919998914
+      },
+      {
+        "candidate_id": "select_published",
+        "status": "verified",
+        "elapsed_ms": 102.95600000023842
+      }
+    ],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 461,
+          "output_tokens": 28
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000019362000000000002,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 1,
+        "elapsed_ms": 1065.1072080000013,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_audit",
+          "effective_candidates": [
+            "open_audit"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      },
+      {
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 60
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000022722000000000004,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.96,
+        "elapsed_ms": 318.3168749999895,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "select_published",
+          "effective_candidates": [
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 3929.6101670004427
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 461,
+        "output_tokens": 28
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019362000000000002,
+      "unknown_usage_requests": 0,
+      "candidate_id": "open_audit",
+      "confidence": 1,
+      "elapsed_ms": 1065.1072080000013,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "open_audit",
+        "effective_candidates": [
+          "open_audit"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works",
+        "open_audit"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit",
+        "select_all",
+        "select_published",
+        "select_reviewing",
+        "select_rejected"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "action",
+      "candidate_id": "open_audit",
+      "status": "verified",
+      "elapsed_ms": 125.3837919998914
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 541,
+        "output_tokens": 60
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000022722000000000004,
+      "unknown_usage_requests": 0,
+      "candidate_id": "select_published",
+      "confidence": 0.96,
+      "elapsed_ms": 318.3168749999895,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "select_published",
+        "effective_candidates": [
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works",
+        "open_audit"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit",
+        "select_all",
+        "select_published",
+        "select_reviewing",
+        "select_rejected"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works",
+        "select_published"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit"
+      ],
+      "terminal": true
+    },
+    {
+      "type": "action",
+      "candidate_id": "select_published",
+      "status": "verified",
+      "elapsed_ms": 102.95600000023842
+    },
+    {
+      "type": "terminal",
+      "status": "success"
+    }
+  ]
+}

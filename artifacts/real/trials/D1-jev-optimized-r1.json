@@ -1,0 +1,115 @@
+{
+  "trial_id": "D1-jev-optimized-r1",
+  "task_id": "D1",
+  "mode": "jev-optimized",
+  "repeat": 1,
+  "started_at": 1793310874924,
+  "finished_at": 1793310877301,
+  "elapsed_ms": 2377,
+  "actions": 1,
+  "requests": 1,
+  "status": "SUCCEEDED",
+  "decision_files": [
+    "1793310875089-a1e9cd01-5f2e-42f2-a239-acc58c605121.json"
+  ],
+  "session": {
+    "status": "success",
+    "actions": [
+      {
+        "candidate_id": "open_collections",
+        "status": "verified",
+        "elapsed_ms": 108.43779200036079
+      }
+    ],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 457,
+          "output_tokens": 30
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000019194000000000003,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_collections",
+        "confidence": 1,
+        "elapsed_ms": 837.2700410000107,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_collections",
+          "effective_candidates": [
+            "open_collections"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 2375.889458999969
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_collections"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 457,
+        "output_tokens": 30
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019194000000000003,
+      "unknown_usage_requests": 0,
+      "candidate_id": "open_collections",
+      "confidence": 1,
+      "elapsed_ms": 837.2700410000107,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "open_collections",
+        "effective_candidates": [
+          "open_collections"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_collections"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_works"
+      ],
+      "candidates": [
+        "open_works",
+        "open_collections"
+      ],
+      "terminal": true
+    },
+    {
+      "type": "action",
+      "candidate_id": "open_collections",
+      "status": "verified",
+      "elapsed_ms": 108.43779200036079
+    },
+    {
+      "type": "terminal",
+      "status": "success"
+    }
+  ]
+}

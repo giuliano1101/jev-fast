@@ -1,0 +1,31 @@
+{
+  "frozen_at": "2026-10-29T21:57:10.564942+00:00",
+  "sources": {
+    "bench/real/catalog.ts": "ea5e67cc80fdff0d5e6c35ced153d217468c461c41936ff0071c08ffafef6823",
+    "bench/real/cua-adapter.ts": "4d7bce1806f061a0b5d8f4df09764b5aa6636e7bc2742edfee4b3cb54df72fd9",
+    "bench/real/decision.ts": "89f4494e7770eb189196a94ea4cb2c796b08ea7479990637a8292f7af99c9536",
+    "bench/real/observation.ts": "ca454928cd9716b3111ad4aa1b186fb24ccb64f65537307c7582a700754d7558",
+    "bench/real/optimization.ts": "5aa4f68bddbd3b679e9fdb5acfdc6f818f4e71ca10d8cdbe7443b5971193e4cc",
+    "bench/real/session.ts": "ff33aaadcc12eb102b2311627772dbf33a67adb30fff8f8c4aadae555379e41b",
+    "bench/real/worker.ts": "48810995092c5015d666f0aa8eb8f493ca5af66a30afce7fb8f0e000b1eb77ae",
+    "dist/bench/real/catalog.js": "23c52d9bfd4560497e8479c53e077ace48858d4f0d4797009140be0a01486329",
+    "dist/bench/real/cua-adapter.js": "784066a215c6d090658a1587b3596b641b603e756a54f9fc7cf185fb252d2d8d",
+    "dist/bench/real/decision.js": "c5efff8d73ee834c76701ffba47f30d712e0e884f78f4704f1d0b8054c356fdf",
+    "dist/bench/real/observation.js": "c53b12b4a108c7d7e6447015ff27aed0c1cb68ec42bb370651635f6e1c361bf4",
+    "dist/bench/real/optimization.js": "5ce200848dc99a62ed44d86ba60419a532eb21c9022594c72cd379649ea22363",
+    "dist/bench/real/session.js": "5a96e2ff9a2f52e5b0798c05455b7f305dccfe808083961687a0ded238a566d2",
+    "dist/bench/real/worker.js": "39cca843e5b88d4e4f7336bf65ff5d861d0fd4e093614e02c9cfee271a1caaad"
+  },
+  "confidence_threshold": 0.9,
+  "max_actions": 12,
+  "time_budget_ms": 300000,
+  "design": "Final full six-question twice retest after native AX checkbox compatibility fix; original optimized12 remain archived",
+  "budget_before": {
+    "version": 1,
+    "requests": 159,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  },
+  "probe_manifest": "integrated-probe-manifest.json"
+}

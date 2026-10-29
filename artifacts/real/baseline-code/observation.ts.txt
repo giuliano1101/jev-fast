@@ -1,0 +1,73 @@
+import {PUBLIC_TASKS,type PublicControlId,type PublicDecisionInput} from './catalog.js';
+
+export interface PublicObservation {completed:string[];candidates:string[];bindings:Record<string,number>;terminal:boolean}
+interface Line {index:number;text:string;position:number}
+type TaskId=PublicDecisionInput['task_id'];
+function currentBrowserURL(text:string):URL|undefined{
+ const headers=text.split('\n').filter(line=>/^Browser tab:/.test(line));
+ if(headers.length>1)throw new Error('AMBIGUOUS_PUBLIC_CONTROL');
+ const address=headers[0]?.match(/, URL: "([^"]+)"\.?\s*$/)?.[1];
+ try{return address?new URL(address):undefined;}catch{return undefined;}
+}
+function valueOf(line:Line):string|undefined{return line.text.match(/\bValue:\s*(.*?)(?=,\s*ID:|$)/)?.[1]?.trim();}
+/** Pure local AX parsing. Bindings expire with this snapshot and must never enter API state. */
+export function observePublic(axText:string,taskId:TaskId):PublicObservation{
+ if(typeof axText!=='string'||Buffer.byteLength(axText)>1_048_576||!Object.hasOwn(PUBLIC_TASKS,taskId))throw new Error('INVALID_PUBLIC_OBSERVATION');
+ const task=PUBLIC_TASKS[taskId];const allowed:readonly string[]=task.controls;
+ const lines:Line[]=axText.split('\n').flatMap((text,position)=>{const match=text.match(/^\s*(\d+)\s+(.*)$/);return match?[{index:Number(match[1]),text:match[2]!,position}]:[];});
+ const bindings:Partial<Record<PublicControlId,number>>={};const completed=new Set<PublicControlId>();
+ const bind=(id:PublicControlId,matches:Line[])=>{if(!allowed.includes(id))return;if(matches.length>1||matches.some(line=>!Number.isSafeInteger(line.index)))throw new Error('AMBIGUOUS_PUBLIC_CONTROL');if(matches[0])bindings[id]=matches[0].index;};
+ const matchingID=(id:string)=>lines.filter(line=>new RegExp(`\\bID:\\s*${id}(?:,|$)`).test(line.text));
+ const mark=(id:PublicControlId,condition:boolean)=>{if(condition&&allowed.includes(id))completed.add(id);};
+ let terminal=false;
+ if(taskId==='W1'||taskId==='W2'){
+  const url=currentBrowserURL(axText);
+  for(const [id,domID] of [['open_english','js-link-box-en'],['open_chinese','js-link-box-zh'],['open_japanese','js-link-box-ja']] as const)bind(id,matchingID(domID));
+  const language=matchingID('searchLanguage'),query=matchingID('searchInput');
+  bind('language_english',language);bind('fill_query',query);bind('submit_search',lines.filter(line=>/^button Search(?:,|$)/.test(line.text)));
+  mark('language_english',language.length===1&&valueOf(language[0]!)==='English');
+  mark('fill_query',query.length===1&&valueOf(query[0]!)==='Kyoto');
+  const english=url?.protocol==='https:'&&url.hostname==='en.wikipedia.org';
+  mark('open_english',!!english&&url.pathname==='/wiki/Main_Page');
+  terminal=!!english&&url.pathname===(taskId==='W1'?'/wiki/Main_Page':'/wiki/Kyoto');
+  mark('submit_search',taskId==='W2'&&terminal);
+ }else if(taskId==='W3'){
+  const fields=[['fill_m1','today_Month_ID','Nov'],['fill_d1','today_Day_ID','1'],['fill_y1','today_Year_ID','2026'],['fill_m2','ageat_Month_ID','Nov'],['fill_d2','ageat_Day_ID','15'],['fill_y2','ageat_Year_ID','2026'],['include_end','addendday','1']] as const;
+  for(const [id,domID,expected] of fields){const matches=matchingID(domID);bind(id,matches);mark(id,matches.length===1&&valueOf(matches[0]!)===expected);}
+  const boundaries=lines.filter(line=>/(?:heading|标题) Add to or Subtract from a Date(?:,|$)/.test(line.text));
+  if(boundaries.length>1)throw new Error('AMBIGUOUS_PUBLIC_CONTROL');
+  if(boundaries[0])bind('calculate_duration',lines.filter(line=>line.position<boundaries[0]!.position&&/^button Calculate(?:,|$)/.test(line.text)));
+  const resultHeaders=lines.filter(line=>/^(?:heading|标题) Result(?: Save this calculation)?(?:,|$)/.test(line.text));
+  if(resultHeaders.length>1)throw new Error('AMBIGUOUS_PUBLIC_CONTROL');
+  const resultStart=resultHeaders[0]?.position;
+  if(resultStart!==undefined){const result=lines.filter(line=>line.position>resultStart&&(!boundaries[0]||line.position<boundaries[0].position)).map(line=>line.text).join('\n');terminal=/Difference between Nov 1, 2026 and Nov 15, 2026 \(including both days\):/.test(result)&&/\bor 15 calendar days\b/.test(result);}
+  mark('calculate_duration',terminal);
+ }else{
+  const documents=lines.filter(line=>/^HTML 内容 .*?, URL:\s*creator\.douyin\.com\/creator-micro\/content\/manage(?:[/?#]|$)/.test(line.text));
+  if(documents.length>1)throw new Error('AMBIGUOUS_PUBLIC_CONTROL');
+  const onManage=documents.length===1;
+  bind('open_works',lines.filter(line=>/^(?:(?:文本|按钮|链接|button|text) )?内容管理$/.test(line.text)));
+  bind('open_collections',lines.filter(line=>/^(?:按钮|button) 作品合集(?:\s*[（(]\d+[)）])?$/.test(line.text)));
+  mark('open_works',onManage);
+  const combos=lines.filter(line=>/^(?:组合框|combo box)\b/.test(line.text)||/^组合框(?:\s|$)/.test(line.text));
+  const audit=combos.filter(line=>/审核状态/.test(line.text)||/^(?:已发布|审核中|未通过|全部)$/.test(valueOf(line)??''));
+  const genre=combos.filter(line=>/体裁|Closable Tag: (?:图文|短视频|长图文)/.test(line.text));
+  const sort=combos.filter(line=>/最新发布|最高播放|最高点赞/.test(line.text));
+  bind('open_audit',audit);bind('open_genre',genre);bind('open_sort',sort);
+  mark('select_published',audit.length===1&&valueOf(audit[0]!)==='已发布');
+  mark('select_reviewing',audit.length===1&&valueOf(audit[0]!)==='审核中');
+  mark('select_rejected',audit.length===1&&valueOf(audit[0]!)==='未通过');
+  mark('select_all',audit.length===1&&valueOf(audit[0]!)==='全部');
+  for(const [id,label] of [['select_image_text','图文'],['select_short_video','短视频'],['select_long_image_text','长图文']] as const)mark(id,genre.length===1&&valueOf(genre[0]!)===`Closable Tag: ${label} clear`);
+  for(const [id,label] of [['sort_latest','最新发布'],['sort_views','最高播放'],['sort_likes','最高点赞']] as const)mark(id,sort.length===1&&new RegExp(`(?:^|[ :])${label}(?:$|,)`).test(sort[0]!.text));
+  const ticks=lines.flatMap(line=>{const match=line.text.match(/^(?:\(selected\) )?tick (全部|已发布|审核中|未通过|图文|短视频|长图文|最新发布|最高播放|最高点赞)$/)??line.text.match(/^(?:未选择|已选择)[“"]tick (全部|已发布|审核中|未通过|图文|短视频|长图文|最新发布|最高播放|最高点赞)[”"]$/);return match?[{line,label:match[1]!}]:[];});
+  const auditMenu=ticks.some(t=>['已发布','审核中','未通过'].includes(t.label));
+  mark('open_audit',auditMenu);mark('open_genre',ticks.some(t=>['图文','短视频','长图文'].includes(t.label)));mark('open_sort',ticks.some(t=>['最新发布','最高播放','最高点赞'].includes(t.label)));
+  for(const [id,label] of [['select_all','全部'],['select_published','已发布'],['select_reviewing','审核中'],['select_rejected','未通过'],['select_image_text','图文'],['select_short_video','短视频'],['select_long_image_text','长图文'],['sort_latest','最新发布'],['sort_views','最高播放'],['sort_likes','最高点赞']] as const){if(id!=='select_all'||auditMenu)bind(id,ticks.filter(t=>t.label===label).map(t=>t.line));}
+  if(taskId==='D1')terminal=onManage&&lines.some(line=>/^(?:按钮|button) 创建合集$/.test(line.text));
+  if(taskId==='D2')terminal=onManage&&completed.has('select_published');
+  if(taskId==='D3')terminal=onManage&&completed.has('select_published')&&completed.has('select_image_text')&&completed.has('sort_views');
+ }
+ const candidates=task.controls.filter(id=>bindings[id]!==undefined);
+ return {completed:task.controls.filter(id=>completed.has(id)),candidates,bindings:Object.fromEntries(candidates.map(id=>[id,bindings[id]!])),terminal};
+}

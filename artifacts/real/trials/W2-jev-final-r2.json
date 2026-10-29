@@ -1,0 +1,103 @@
+{
+  "trial_id": "W2-jev-final-r2",
+  "task_id": "W2",
+  "mode": "jev-final",
+  "repeat": 2,
+  "started_at": 1793311100992,
+  "finished_at": 1793311101703,
+  "elapsed_ms": 711,
+  "actions": 0,
+  "requests": 1,
+  "status": "FAILED",
+  "reason": "LOW_CONFIDENCE",
+  "decision_files": [
+    "1793311101207-f465eaf1-8748-4544-8713-3e9f3e0fde27.json"
+  ],
+  "session": {
+    "status": "failed",
+    "failure_code": "LOW_CONFIDENCE",
+    "actions": [],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 530,
+          "output_tokens": 62
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000022260000000000004,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_search",
+        "confidence": 0.86,
+        "elapsed_ms": 453.96450000000186,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_search",
+          "effective_candidates": [
+            "prepare_search",
+            "submit_search",
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {
+            "prepare_search": [
+              "language_english",
+              "fill_query"
+            ]
+          }
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 710.9318749997765
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [],
+      "candidates": [
+        "language_english",
+        "fill_query",
+        "submit_search",
+        "open_english",
+        "open_chinese",
+        "open_japanese"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 530,
+        "output_tokens": 62
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000022260000000000004,
+      "unknown_usage_requests": 0,
+      "candidate_id": "prepare_search",
+      "confidence": 0.86,
+      "elapsed_ms": 453.96450000000186,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "prepare_search",
+        "effective_candidates": [
+          "prepare_search",
+          "submit_search",
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "batches": {
+          "prepare_search": [
+            "language_english",
+            "fill_query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "failure",
+      "code": "LOW_CONFIDENCE"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 # jev-fast · Jev 电脑操控加速层
 
-当前阶段：**v0.1.0-s6**，本地浏览器 P0 与真实 API 对比实验已完成。仓库为阶段交付记录，仍是受限合成环境，不是全电脑自动操作产品。
+当前阶段：**v0.2.0-s7**。保留 S6 本地浏览器 P0，并新增真实网站与本机抖音 App 的受限交互研究适配器。它还不是通用电脑自动操作产品。
 
-[真实对比报告](artifacts/live/report/summary.md) · [原始逐项结果](artifacts/live/report/rows.csv) · [最终检查记录](artifacts/live/offline-verification/final/checks.json) · [阶段变更](CHANGELOG.md)
+[S7 真实网站与抖音报告](artifacts/real/report.md) · [六道测试题](artifacts/real/tasks.json) · [S7 复现说明](docs/real-testing.md) · [S6 合成环境对比报告](artifacts/live/report/summary.md) · [原始逐项结果](artifacts/live/report/rows.csv) · [S7 检查记录](artifacts/real/verification/checks.json) · [S6 检查记录](artifacts/live/offline-verification/final/checks.json) · [阶段变更](CHANGELOG.md)
 
-根据 `docs/handoff/` 的交接包实现。本阶段是**隔离浏览器 + 本地模拟页面**的工程版本：主流程给出有界任务，provider 只选择合法完整动作，执行器逐步执行并独立验证。默认 mock，不读取已有 API key、不调用 Jev 正式服务。
+根据 `docs/handoff/` 的交接包实现。P0 核心是**隔离浏览器 + 本地模拟页面**的工程版本：主流程给出有界任务，provider 只选择合法完整动作，执行器逐步执行并独立验证。默认 mock，不读取已有 API key、不调用 Jev 正式服务。
 
 ## 本机启动与测试
 
@@ -46,6 +46,8 @@ npm run bench:mock
 
 已完成 [S6 真实浏览器对比](artifacts/live/report/summary.md)：Jev 25/30 成功，普通 computer use 18/18；双方成功的 16 项配对耗时比中位数 5.49×。困难组 Jev 仅 5/10 成功，5 次低置信度停止，不能作为稳定替代方案。包含两轮校准的已知 API 费用约 $0.00305，另有一次认证失败用量未知。
 
+S7 在真实 Wikipedia、日期计算网站及本机抖音 App 上完成六道题的分档对比。原 Jev 基线 6/12，最终修复版 8/12，普通 computer use 12/12；8 组双方成功配对的完整工作流耗时比中位数为 3.72×。搜索与复杂组合筛选仍有低置信度停止，当前不能稳定替代普通 computer use。题目、失败、优化消融和费用均在 [S7 报告](artifacts/real/report.md) 中。
+
 ## 使用接口
 
 目录索引：`src/` 为执行核心与接口，`fixtures/` 为合成页面，`tests/` 为回归测试，`bench/` 为基准工具，`docs/` 为交接与设计记录，`artifacts/` 为已归档证据。运行状态和密钥不入库；大体积重复 ZIP 留在本机，GitHub 直接保存展开后的源码与结果。
@@ -67,7 +69,7 @@ MCP 和 CLI 共享同一 coordinator 与安全核心。完整配置和命令见 
 
 Snapshot 绑定文档、变更版本、节点身份与输入属性，默认有效 2 秒。只有执行器能证明**物理操作尚未开始**的过期拒绝才可重新观察，最多两次；不会把旧候选套到新页面。真正的超时、崩溃、执行结果不明仍记为 `UNKNOWN`，隔离会话，禁止重放。
 
-账本先持久化后执行，使用独占 owner lock、原子替换及 fsync；同键同参数返回原记录，不同参数冲突。原始 DOM、输入值和密钥不入账本。日志和模型输入仅含合成白名单状态。
+账本先持久化后执行，使用独占 owner lock、原子替换及 fsync；同键同参数返回原记录，不同参数冲突。原始 DOM、输入值和密钥不入账本。P0 日志和模型输入仅含合成白名单状态；S7 独立桥接仅发送固定公开控件与测试值。
 
 ## 停止、恢复与回滚
 
@@ -79,7 +81,7 @@ Snapshot 绑定文档、变更版本、节点身份与输入属性，默认有�
 
 ## 已知限制与真实测试
 
-这是可复现的 P0 工程，不是 macOS 全应用控制器。只支持本地 fixture；原生 AX、截图/Box、真实网站、上传下载、付款、删除、登录和公网桥接均不在范围。
+P0 MCP/CLI 核心仍只支持本地 fixture。S7 的独立研究适配器额外支持固定的 Wikipedia、日期计算与抖音创作者筛选题；它依赖 Codex CUA，尚未并入通用 MCP 执行能力。上传、付款、删除、登录等不属于本轮题库。
 
 两个 MCP 测试客户端证明本地协议接入和仲裁，不能据此声称已接入任意商业 agent。身份凭据的隔离是同一 macOS 用户下的逻辑隔离，不抵御拥有同一用户文件权限的恶意进程。
 

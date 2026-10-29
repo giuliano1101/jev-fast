@@ -1,0 +1,114 @@
+{
+  "trial_id": "W1-jev-final-r1",
+  "task_id": "W1",
+  "mode": "jev-final",
+  "repeat": 1,
+  "started_at": 1793311077416,
+  "finished_at": 1793311084163,
+  "elapsed_ms": 6747,
+  "actions": 1,
+  "requests": 1,
+  "status": "SUCCEEDED",
+  "decision_files": [
+    "1793311077519-97b1c9a8-e60f-4cbc-aa4e-f3109e2354b9.json"
+  ],
+  "session": {
+    "status": "success",
+    "actions": [
+      {
+        "candidate_id": "open_english",
+        "status": "verified",
+        "elapsed_ms": 24.63566599972546
+      }
+    ],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 467,
+          "output_tokens": 47
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000019614000000000002,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_english",
+        "confidence": 1,
+        "elapsed_ms": 2138.612291999998,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_english",
+          "effective_candidates": [
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 6747.027625000104
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [],
+      "candidates": [
+        "open_english",
+        "open_chinese",
+        "open_japanese"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 467,
+        "output_tokens": 47
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019614000000000002,
+      "unknown_usage_requests": 0,
+      "candidate_id": "open_english",
+      "confidence": 1,
+      "elapsed_ms": 2138.612291999998,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "open_english",
+        "effective_candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "observation",
+      "completed": [],
+      "candidates": [
+        "open_english",
+        "open_chinese",
+        "open_japanese"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "observation",
+      "completed": [
+        "open_english"
+      ],
+      "candidates": [],
+      "terminal": true
+    },
+    {
+      "type": "action",
+      "candidate_id": "open_english",
+      "status": "verified",
+      "elapsed_ms": 24.63566599972546
+    },
+    {
+      "type": "terminal",
+      "status": "success"
+    }
+  ]
+}

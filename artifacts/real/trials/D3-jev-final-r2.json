@@ -1,0 +1,90 @@
+{
+  "trial_id": "D3-jev-final-r2",
+  "task_id": "D3",
+  "mode": "jev-final",
+  "repeat": 2,
+  "started_at": 1793311135175,
+  "finished_at": 1793311136253,
+  "elapsed_ms": 1078,
+  "actions": 0,
+  "requests": 1,
+  "status": "FAILED",
+  "reason": "LOW_CONFIDENCE",
+  "decision_files": [
+    "1793311135664-95806d97-61d6-4e80-abdf-79ef069e6ee6.json"
+  ],
+  "session": {
+    "status": "failed",
+    "failure_code": "LOW_CONFIDENCE",
+    "actions": [],
+    "decisions": [
+      {
+        "usage": {
+          "input_tokens": 558,
+          "output_tokens": 44
+        },
+        "request_count": 1,
+        "known_cost_usd": 0.000023436000000000004,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_sort",
+        "confidence": 0.82,
+        "elapsed_ms": 465.21908399999666,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_sort",
+          "effective_candidates": [
+            "open_audit",
+            "open_genre",
+            "open_sort"
+          ],
+          "batches": {}
+        },
+        "status": "decided"
+      }
+    ],
+    "elapsed_ms": 1077.7469999995083
+  },
+  "events": [
+    {
+      "type": "observation",
+      "completed": [
+        "open_works",
+        "sort_latest"
+      ],
+      "candidates": [
+        "open_works",
+        "open_audit",
+        "open_genre",
+        "open_sort"
+      ],
+      "terminal": false
+    },
+    {
+      "type": "decision",
+      "usage": {
+        "input_tokens": 558,
+        "output_tokens": 44
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000023436000000000004,
+      "unknown_usage_requests": 0,
+      "candidate_id": "open_sort",
+      "confidence": 0.82,
+      "elapsed_ms": 465.21908399999666,
+      "request_plan": {
+        "variant": "optimized",
+        "phase": "open_sort",
+        "effective_candidates": [
+          "open_audit",
+          "open_genre",
+          "open_sort"
+        ],
+        "batches": {}
+      }
+    },
+    {
+      "type": "failure",
+      "code": "LOW_CONFIDENCE"
+    }
+  ]
+}

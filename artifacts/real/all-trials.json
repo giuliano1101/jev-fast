@@ -1,0 +1,5620 @@
+[
+  {
+    "trial_id": "W1-cua-r1",
+    "task_id": "W1",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793307986790,
+    "finished_at": 1793308011644,
+    "elapsed_ms": 24854,
+    "actions": 1,
+    "status": "SUCCEEDED",
+    "evidence": "English Wikipedia main page"
+  },
+  {
+    "trial_id": "W1-cua-r2",
+    "task_id": "W1",
+    "mode": "computer-use",
+    "repeat": 2,
+    "started_at": 1793308035957,
+    "finished_at": 1793308052689,
+    "elapsed_ms": 16732,
+    "actions": 1,
+    "status": "SUCCEEDED",
+    "evidence": "English Wikipedia main page"
+  },
+  {
+    "trial_id": "W2-cua-r1",
+    "task_id": "W2",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793308075486,
+    "finished_at": 1793308111642,
+    "elapsed_ms": 36156,
+    "actions": 3,
+    "status": "SUCCEEDED",
+    "evidence": "English Kyoto article"
+  },
+  {
+    "trial_id": "W2-cua-r2",
+    "task_id": "W2",
+    "mode": "computer-use",
+    "repeat": 2,
+    "started_at": 1793308132442,
+    "finished_at": 1793308168716,
+    "elapsed_ms": 36274,
+    "actions": 3,
+    "status": "SUCCEEDED",
+    "evidence": "English Kyoto article"
+  },
+  {
+    "trial_id": "W3-cua-r1",
+    "task_id": "W3-blocked-site",
+    "surface": "timeanddate.com",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793308196832,
+    "finished_at": 1793308280678,
+    "elapsed_ms": 83846,
+    "actions": 8,
+    "status": "BLOCKED",
+    "evidence": "Date form submitted with requested values; result replaced by Just a moment interstitial",
+    "reason": "SITE_ANTIBOT_INTERSTITIAL"
+  },
+  {
+    "trial_id": "W3-calculator-cua-r1",
+    "task_id": "W3",
+    "surface": "calculator.net",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793308329523,
+    "finished_at": 1793308373132,
+    "elapsed_ms": 43609,
+    "actions": 6,
+    "status": "SUCCEEDED",
+    "evidence": "2026-11-01 through 2026-11-15 inclusive = 15 days",
+    "verification_note": "Result text is 15 calendar days; initial exact phrase check needed correction, no extra UI action."
+  },
+  {
+    "trial_id": "W3-calculator-cua-r2",
+    "task_id": "W3",
+    "surface": "calculator.net",
+    "mode": "computer-use",
+    "repeat": 2,
+    "started_at": 1793308374377,
+    "finished_at": 1793308388477,
+    "elapsed_ms": 14100,
+    "actions": 6,
+    "status": "SUCCEEDED",
+    "evidence": "2026-11-01 through 2026-11-15 inclusive = 15 calendar days"
+  },
+  {
+    "trial_id": "D1-cua-r1",
+    "task_id": "D1",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793308407041,
+    "finished_at": 1793308415714,
+    "elapsed_ms": 8673,
+    "actions": 1,
+    "status": "SUCCEEDED",
+    "evidence": "Collections view visible; no collection created"
+  },
+  {
+    "trial_id": "D1-cua-r2",
+    "task_id": "D1",
+    "mode": "computer-use",
+    "repeat": 2,
+    "started_at": 1793308422914,
+    "finished_at": 1793308431361,
+    "elapsed_ms": 8447,
+    "actions": 1,
+    "status": "SUCCEEDED",
+    "evidence": "Collections view visible; no collection created"
+  },
+  {
+    "trial_id": "D2-cua-r1",
+    "task_id": "D2",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793308438273,
+    "finished_at": 1793308450363,
+    "elapsed_ms": 12090,
+    "actions": 2,
+    "status": "SUCCEEDED",
+    "evidence": "Audit filter visibly 已发布"
+  },
+  {
+    "trial_id": "D2-cua-r2",
+    "task_id": "D2",
+    "mode": "computer-use",
+    "repeat": 2,
+    "started_at": 1793308481222,
+    "finished_at": 1793308493594,
+    "elapsed_ms": 12372,
+    "actions": 2,
+    "status": "SUCCEEDED",
+    "evidence": "Audit filter visibly 已发布"
+  },
+  {
+    "trial_id": "D3-cua-r1",
+    "task_id": "D3",
+    "mode": "computer-use",
+    "repeat": 1,
+    "started_at": 1793308499672,
+    "finished_at": 1793308574320,
+    "elapsed_ms": 74648,
+    "actions": 10,
+    "status": "SUCCEEDED",
+    "evidence": "Current controls verify all three requested values",
+    "recoveries": 1,
+    "recovery_reason": "SORT_RESET_FILTERS"
+  },
+  {
+    "trial_id": "D3-cua-r2",
+    "task_id": "D3",
+    "mode": "computer-use",
+    "repeat": 2,
+    "started_at": 1793308687146,
+    "finished_at": 1793308726399,
+    "elapsed_ms": 39253,
+    "actions": 6,
+    "status": "SUCCEEDED",
+    "evidence": "Current controls visibly Published + image-text + highest-views",
+    "strategy_note": "Second repetition applies sorting before filters after first repetition observation."
+  },
+  {
+    "trial_id": "W1-jev-baseline-r1",
+    "task_id": "W1",
+    "mode": "jev-baseline",
+    "repeat": 1,
+    "started_at": 1793308905946,
+    "finished_at": 1793308941012,
+    "elapsed_ms": 35066,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "evidence": "Jev selected open_english at confidence 1; fresh control bound before click"
+  },
+  {
+    "trial_id": "W1-jev-baseline-r2",
+    "task_id": "W1",
+    "mode": "jev-baseline",
+    "repeat": 2,
+    "started_at": 1793308948598,
+    "finished_at": 1793308968614,
+    "elapsed_ms": 20016,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "evidence": "English main page; Jev choice 1.0 confidence"
+  },
+  {
+    "trial_id": "W2-jev-baseline-r1",
+    "task_id": "W2",
+    "mode": "jev-baseline",
+    "repeat": 1,
+    "started_at": 1793308977088,
+    "finished_at": 1793308998622,
+    "elapsed_ms": 21534,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "confidence": 0.44,
+    "evidence": "Selected language_english but stopped before any physical action",
+    "timing_note": "Start restored from previously emitted timestamp after REPL var redeclaration reset; no inferred timestamp."
+  },
+  {
+    "trial_id": "W2-jev-baseline-r2",
+    "task_id": "W2",
+    "mode": "jev-baseline",
+    "repeat": 2,
+    "started_at": 1793308998622,
+    "finished_at": 1793309025181,
+    "elapsed_ms": 26559,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "confidence": 0.46,
+    "evidence": "language_english rejected before input"
+  },
+  {
+    "trial_id": "W3-jev-baseline-r1",
+    "task_id": "W3",
+    "surface": "calculator.net",
+    "mode": "jev-baseline",
+    "repeat": 1,
+    "started_at": 1793309074194,
+    "finished_at": 1793309175228,
+    "elapsed_ms": 101034,
+    "actions": 4,
+    "requests": 5,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "confidence": 0.83,
+    "evidence": "Date fields set correctly; include_end choice refused before checking/submitting"
+  },
+  {
+    "trial_id": "W3-jev-baseline-r2",
+    "task_id": "W3",
+    "surface": "calculator.net",
+    "mode": "jev-baseline",
+    "repeat": 2,
+    "started_at": 1793309176504,
+    "finished_at": 1793309231239,
+    "elapsed_ms": 54735,
+    "actions": 1,
+    "requests": 2,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "confidence": 0.84,
+    "evidence": "Start month set; fill_d1 refused before input"
+  },
+  {
+    "trial_id": "D1-jev-baseline-r1",
+    "task_id": "D1",
+    "mode": "jev-baseline",
+    "repeat": 1,
+    "started_at": 1793309259271,
+    "finished_at": 1793309277404,
+    "elapsed_ms": 18133,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "evidence": "Jev selected collections; collections view confirmed"
+  },
+  {
+    "trial_id": "D1-jev-baseline-r2",
+    "task_id": "D1",
+    "mode": "jev-baseline",
+    "repeat": 2,
+    "started_at": 1793309282836,
+    "finished_at": 1793309300844,
+    "elapsed_ms": 18008,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "evidence": "Collections view confirmed"
+  },
+  {
+    "trial_id": "D2-jev-baseline-r1",
+    "task_id": "D2",
+    "mode": "jev-baseline",
+    "repeat": 1,
+    "started_at": 1793309316974,
+    "finished_at": 1793309352759,
+    "elapsed_ms": 35785,
+    "actions": 2,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "evidence": "Current audit combobox shows Published"
+  },
+  {
+    "trial_id": "D2-jev-baseline-r2",
+    "task_id": "D2",
+    "mode": "jev-baseline",
+    "repeat": 2,
+    "started_at": 1793309371308,
+    "finished_at": 1793309407266,
+    "elapsed_ms": 35958,
+    "actions": 2,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "evidence": "Current audit combobox shows Published"
+  },
+  {
+    "trial_id": "D3-jev-baseline-r1",
+    "task_id": "D3",
+    "mode": "jev-baseline",
+    "repeat": 1,
+    "started_at": 1793309416401,
+    "finished_at": 1793309439270,
+    "elapsed_ms": 22869,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "confidence": 0.88,
+    "evidence": "open_audit selected but not executed"
+  },
+  {
+    "trial_id": "D3-jev-baseline-r2",
+    "task_id": "D3",
+    "mode": "jev-baseline",
+    "repeat": 2,
+    "started_at": 1793309439270,
+    "finished_at": 1793309455413,
+    "elapsed_ms": 16143,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "confidence": 0.84,
+    "evidence": "open_audit selected but not executed"
+  },
+  {
+    "trial_id": "D1-jev-final-r1",
+    "task_id": "D1",
+    "mode": "jev-final",
+    "repeat": 1,
+    "started_at": 1793311105864,
+    "finished_at": 1793311108631,
+    "elapsed_ms": 2767,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311106076-2579d4c9-dfa7-4695-953a-07c761d2ec04.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_collections",
+          "status": "verified",
+          "elapsed_ms": 104.84779099933803
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 457,
+            "output_tokens": 30
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9194000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_collections",
+          "confidence": 1,
+          "elapsed_ms": 1199.3662080000067,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_collections",
+            "effective_candidates": [
+              "open_collections"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 2765.6667080000043
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 457,
+          "output_tokens": 30
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9194000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_collections",
+        "confidence": 1,
+        "elapsed_ms": 1199.3662080000067,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_collections",
+          "effective_candidates": [
+            "open_collections"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_collections",
+        "status": "verified",
+        "elapsed_ms": 104.84779099933803
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D1-jev-final-r2",
+    "task_id": "D1",
+    "mode": "jev-final",
+    "repeat": 2,
+    "started_at": 1793311110633,
+    "finished_at": 1793311112450,
+    "elapsed_ms": 1817,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311110785-5798fa2d-0551-4edc-964f-1a4398fae294.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_collections",
+          "status": "verified",
+          "elapsed_ms": 101.11349999997765
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 457,
+            "output_tokens": 30
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9194000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_collections",
+          "confidence": 1,
+          "elapsed_ms": 246.37799999999697,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_collections",
+            "effective_candidates": [
+              "open_collections"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 1816.7115409998223
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 457,
+          "output_tokens": 30
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9194000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_collections",
+        "confidence": 1,
+        "elapsed_ms": 246.37799999999697,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_collections",
+          "effective_candidates": [
+            "open_collections"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_collections",
+        "status": "verified",
+        "elapsed_ms": 101.11349999997765
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D1-jev-integrated-baseline-r1",
+    "task_id": "D1",
+    "mode": "jev-integrated-baseline",
+    "repeat": 1,
+    "started_at": 1793310775654,
+    "finished_at": 1793310778118,
+    "elapsed_ms": 2464,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310775766-047b5c76-a026-4d37-af91-37df012c7d3c.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_collections",
+          "status": "verified",
+          "elapsed_ms": 98.10966699942946
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 420,
+            "output_tokens": 39
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.7640000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_collections",
+          "confidence": 1,
+          "elapsed_ms": 998.1117919999961,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "open_works",
+              "open_collections"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 2463.0943750003353
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 420,
+          "output_tokens": 39
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.7640000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_collections",
+        "confidence": 1,
+        "elapsed_ms": 998.1117919999961,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "open_works",
+            "open_collections"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_collections",
+        "status": "verified",
+        "elapsed_ms": 98.10966699942946
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D1-jev-optimized-r1",
+    "task_id": "D1",
+    "mode": "jev-optimized",
+    "repeat": 1,
+    "started_at": 1793310874924,
+    "finished_at": 1793310877301,
+    "elapsed_ms": 2377,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310875089-a1e9cd01-5f2e-42f2-a239-acc58c605121.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_collections",
+          "status": "verified",
+          "elapsed_ms": 108.43779200036079
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 457,
+            "output_tokens": 30
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9194000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_collections",
+          "confidence": 1,
+          "elapsed_ms": 837.2700410000107,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_collections",
+            "effective_candidates": [
+              "open_collections"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 2375.889458999969
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 457,
+          "output_tokens": 30
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9194000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_collections",
+        "confidence": 1,
+        "elapsed_ms": 837.2700410000107,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_collections",
+          "effective_candidates": [
+            "open_collections"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_collections",
+        "status": "verified",
+        "elapsed_ms": 108.43779200036079
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D1-jev-optimized-r2",
+    "task_id": "D1",
+    "mode": "jev-optimized",
+    "repeat": 2,
+    "started_at": 1793310879061,
+    "finished_at": 1793310880916,
+    "elapsed_ms": 1855,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310879220-bac770af-7a0c-4757-9e90-cbf77314fa4c.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_collections",
+          "status": "verified",
+          "elapsed_ms": 106.38200000021607
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 457,
+            "output_tokens": 30
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9194000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_collections",
+          "confidence": 1,
+          "elapsed_ms": 320.13991699999315,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_collections",
+            "effective_candidates": [
+              "open_collections"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 1855.1569999996573
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 457,
+          "output_tokens": 30
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9194000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_collections",
+        "confidence": 1,
+        "elapsed_ms": 320.13991699999315,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_collections",
+          "effective_candidates": [
+            "open_collections"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_collections"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_collections",
+        "status": "verified",
+        "elapsed_ms": 106.38200000021607
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D2-jev-final-r1",
+    "task_id": "D2",
+    "mode": "jev-final",
+    "repeat": 1,
+    "started_at": 1793311120414,
+    "finished_at": 1793311124344,
+    "elapsed_ms": 3930,
+    "actions": 2,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311120532-d8f783d7-2727-4a14-b99c-10db248f61c1.json",
+      "1793311122944-bc256b75-52dd-4326-9f1d-9b5a1320344c.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_audit",
+          "status": "verified",
+          "elapsed_ms": 125.3837919998914
+        },
+        {
+          "candidate_id": "select_published",
+          "status": "verified",
+          "elapsed_ms": 102.95600000023842
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 28
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9362000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_audit",
+          "confidence": 1,
+          "elapsed_ms": 1065.1072080000013,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_audit",
+            "effective_candidates": [
+              "open_audit"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 541,
+            "output_tokens": 60
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2722000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "select_published",
+          "confidence": 0.96,
+          "elapsed_ms": 318.3168749999895,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "select_published",
+            "effective_candidates": [
+              "select_all",
+              "select_published",
+              "select_reviewing",
+              "select_rejected"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 3929.6101670004427
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 461,
+          "output_tokens": 28
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9362000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 1,
+        "elapsed_ms": 1065.1072080000013,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_audit",
+          "effective_candidates": [
+            "open_audit"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 125.3837919998914
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 60
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2722000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.96,
+        "elapsed_ms": 318.3168749999895,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "select_published",
+          "effective_candidates": [
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "select_published"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "select_published",
+        "status": "verified",
+        "elapsed_ms": 102.95600000023842
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D2-jev-final-r2",
+    "task_id": "D2",
+    "mode": "jev-final",
+    "repeat": 2,
+    "started_at": 1793311126352,
+    "finished_at": 1793311129654,
+    "elapsed_ms": 3302,
+    "actions": 2,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311126550-5bf84d3b-8c80-45bd-9bc7-f93819fd3a37.json",
+      "1793311128322-252f98e5-c00c-46af-b3b4-22e1c06a829a.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_audit",
+          "status": "verified",
+          "elapsed_ms": 102.82545900065452
+        },
+        {
+          "candidate_id": "select_published",
+          "status": "verified",
+          "elapsed_ms": 105.45949999988079
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 28
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9362000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_audit",
+          "confidence": 1,
+          "elapsed_ms": 418.33895800000755,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_audit",
+            "effective_candidates": [
+              "open_audit"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 541,
+            "output_tokens": 60
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2722000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "select_published",
+          "confidence": 0.97,
+          "elapsed_ms": 255.3492499999993,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "select_published",
+            "effective_candidates": [
+              "select_all",
+              "select_published",
+              "select_reviewing",
+              "select_rejected"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 3301.3467499995604
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 461,
+          "output_tokens": 28
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9362000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 1,
+        "elapsed_ms": 418.33895800000755,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_audit",
+          "effective_candidates": [
+            "open_audit"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 102.82545900065452
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 60
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2722000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.97,
+        "elapsed_ms": 255.3492499999993,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "select_published",
+          "effective_candidates": [
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "select_published"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "select_published",
+        "status": "verified",
+        "elapsed_ms": 105.45949999988079
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D2-jev-integrated-baseline-r1",
+    "task_id": "D2",
+    "mode": "jev-integrated-baseline",
+    "repeat": 1,
+    "started_at": 1793310779894,
+    "finished_at": 1793310783443,
+    "elapsed_ms": 3549,
+    "actions": 2,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310780004-9008a778-e4ca-4279-a7be-17c1863b0afd.json",
+      "1793310781757-7ad4db9d-f053-4254-bff8-becda9496cb1.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_audit",
+          "status": "verified",
+          "elapsed_ms": 91.08808299992234
+        },
+        {
+          "candidate_id": "select_published",
+          "status": "verified",
+          "elapsed_ms": 104.69483300019056
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 419,
+            "output_tokens": 37
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.7598000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_audit",
+          "confidence": 0.98,
+          "elapsed_ms": 408.58612500000163,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "open_works",
+              "open_audit"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 514,
+            "output_tokens": 78
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.1588000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "select_published",
+          "confidence": 0.99,
+          "elapsed_ms": 583.7594170000084,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "open_works",
+              "open_audit",
+              "select_all",
+              "select_published",
+              "select_reviewing",
+              "select_rejected"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 3548.968708000146
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 419,
+          "output_tokens": 37
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.7598000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 0.98,
+        "elapsed_ms": 408.58612500000163,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "open_works",
+            "open_audit"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 91.08808299992234
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 514,
+          "output_tokens": 78
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.1588000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.99,
+        "elapsed_ms": 583.7594170000084,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "open_works",
+            "open_audit",
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "select_published"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "select_published",
+        "status": "verified",
+        "elapsed_ms": 104.69483300019056
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D2-jev-optimized-r1",
+    "task_id": "D2",
+    "mode": "jev-optimized",
+    "repeat": 1,
+    "started_at": 1793310888216,
+    "finished_at": 1793310892099,
+    "elapsed_ms": 3883,
+    "actions": 2,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310888539-37c49e6b-6ce7-46f5-9e2b-0d3d0e44c387.json",
+      "1793310890667-28cc8b10-2168-4a91-b334-3d1bae9a3d4d.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_audit",
+          "status": "verified",
+          "elapsed_ms": 100.67883300036192
+        },
+        {
+          "candidate_id": "select_published",
+          "status": "verified",
+          "elapsed_ms": 107.74454199988395
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 28
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9362000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_audit",
+          "confidence": 1,
+          "elapsed_ms": 779.2221669999999,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_audit",
+            "effective_candidates": [
+              "open_audit"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 541,
+            "output_tokens": 60
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2722000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "select_published",
+          "confidence": 0.93,
+          "elapsed_ms": 338.0608749999956,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "select_published",
+            "effective_candidates": [
+              "select_all",
+              "select_published",
+              "select_reviewing",
+              "select_rejected"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 3883.547833999619
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 461,
+          "output_tokens": 28
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9362000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 1,
+        "elapsed_ms": 779.2221669999999,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_audit",
+          "effective_candidates": [
+            "open_audit"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 100.67883300036192
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 60
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2722000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.93,
+        "elapsed_ms": 338.0608749999956,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "select_published",
+          "effective_candidates": [
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "select_published"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "select_published",
+        "status": "verified",
+        "elapsed_ms": 107.74454199988395
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "D2-jev-optimized-r2",
+    "task_id": "D2",
+    "mode": "jev-optimized",
+    "repeat": 2,
+    "started_at": 1793310894948,
+    "finished_at": 1793310897669,
+    "elapsed_ms": 2721,
+    "actions": 1,
+    "requests": 2,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310895238-b235f730-782a-4634-8a21-a36d5818affc.json",
+      "1793310897374-16cf550e-033b-4ae5-a205-0eaaa9051a13.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [
+        {
+          "candidate_id": "open_audit",
+          "status": "verified",
+          "elapsed_ms": 104.80591700039804
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 461,
+            "output_tokens": 28
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9362000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_audit",
+          "confidence": 1,
+          "elapsed_ms": 784.324082999985,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_audit",
+            "effective_candidates": [
+              "open_audit"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 541,
+            "output_tokens": 60
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2722000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "select_published",
+          "confidence": 0.88,
+          "elapsed_ms": 264.4402499999851,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "select_published",
+            "effective_candidates": [
+              "select_all",
+              "select_published",
+              "select_reviewing",
+              "select_rejected"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 2720.545667000115
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 461,
+          "output_tokens": 28
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9362000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 1,
+        "elapsed_ms": 784.324082999985,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_audit",
+          "effective_candidates": [
+            "open_audit"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "open_audit"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "select_all",
+          "select_published",
+          "select_reviewing",
+          "select_rejected"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_audit",
+        "status": "verified",
+        "elapsed_ms": 104.80591700039804
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 60
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2722000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "select_published",
+        "confidence": 0.88,
+        "elapsed_ms": 264.4402499999851,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "select_published",
+          "effective_candidates": [
+            "select_all",
+            "select_published",
+            "select_reviewing",
+            "select_rejected"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "D3-jev-final-r1",
+    "task_id": "D3",
+    "mode": "jev-final",
+    "repeat": 1,
+    "started_at": 1793311131598,
+    "finished_at": 1793311132133,
+    "elapsed_ms": 535,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793311131794-9303b900-fa57-462b-8bd6-be7db9829f42.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 558,
+            "output_tokens": 44
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3436000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_sort",
+          "confidence": 0.86,
+          "elapsed_ms": 257.6929589999927,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_sort",
+            "effective_candidates": [
+              "open_audit",
+              "open_genre",
+              "open_sort"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 535.2602920001373
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "sort_latest"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "open_genre",
+          "open_sort"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 558,
+          "output_tokens": 44
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3436000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_sort",
+        "confidence": 0.86,
+        "elapsed_ms": 257.6929589999927,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_sort",
+          "effective_candidates": [
+            "open_audit",
+            "open_genre",
+            "open_sort"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "D3-jev-final-r2",
+    "task_id": "D3",
+    "mode": "jev-final",
+    "repeat": 2,
+    "started_at": 1793311135175,
+    "finished_at": 1793311136253,
+    "elapsed_ms": 1078,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793311135664-95806d97-61d6-4e80-abdf-79ef069e6ee6.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 558,
+            "output_tokens": 44
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3436000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_sort",
+          "confidence": 0.82,
+          "elapsed_ms": 465.21908399999666,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_sort",
+            "effective_candidates": [
+              "open_audit",
+              "open_genre",
+              "open_sort"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 1077.7469999995083
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "sort_latest"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "open_genre",
+          "open_sort"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 558,
+          "output_tokens": 44
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3436000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_sort",
+        "confidence": 0.82,
+        "elapsed_ms": 465.21908399999666,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_sort",
+          "effective_candidates": [
+            "open_audit",
+            "open_genre",
+            "open_sort"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "D3-jev-integrated-baseline-r1",
+    "task_id": "D3",
+    "mode": "jev-integrated-baseline",
+    "repeat": 1,
+    "started_at": 1793310785352,
+    "finished_at": 1793310785794,
+    "elapsed_ms": 442,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310785464-db3eb2ef-90b1-482d-b861-91f151e2a35c.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 489,
+            "output_tokens": 54
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.0538000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_audit",
+          "confidence": 0.61,
+          "elapsed_ms": 268.42866700000013,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "open_works",
+              "open_audit",
+              "open_genre",
+              "open_sort"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 441.8537499997765
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "sort_latest"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "open_genre",
+          "open_sort"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 489,
+          "output_tokens": 54
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.0538000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_audit",
+        "confidence": 0.61,
+        "elapsed_ms": 268.42866700000013,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "open_works",
+            "open_audit",
+            "open_genre",
+            "open_sort"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "D3-jev-optimized-r1",
+    "task_id": "D3",
+    "mode": "jev-optimized",
+    "repeat": 1,
+    "started_at": 1793310900919,
+    "finished_at": 1793310901593,
+    "elapsed_ms": 674,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310901260-55090135-6ded-4107-9ce3-5e4c0f0adec3.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 558,
+            "output_tokens": 44
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3436000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_sort",
+          "confidence": 0.86,
+          "elapsed_ms": 273.1151249999821,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_sort",
+            "effective_candidates": [
+              "open_audit",
+              "open_genre",
+              "open_sort"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 674.3437919998541
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "sort_latest"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "open_genre",
+          "open_sort"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 558,
+          "output_tokens": 44
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3436000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_sort",
+        "confidence": 0.86,
+        "elapsed_ms": 273.1151249999821,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_sort",
+          "effective_candidates": [
+            "open_audit",
+            "open_genre",
+            "open_sort"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "D3-jev-optimized-r2",
+    "task_id": "D3",
+    "mode": "jev-optimized",
+    "repeat": 2,
+    "started_at": 1793310918672,
+    "finished_at": 1793310919635,
+    "elapsed_ms": 963,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310918821-870c665b-76b3-41b8-9aae-80abca7d7eb0.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 558,
+            "output_tokens": 44
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3436000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_sort",
+          "confidence": 0.83,
+          "elapsed_ms": 772.6789580000041,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_sort",
+            "effective_candidates": [
+              "open_audit",
+              "open_genre",
+              "open_sort"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 962.9095839997754
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "open_works",
+          "sort_latest"
+        ],
+        "candidates": [
+          "open_works",
+          "open_audit",
+          "open_genre",
+          "open_sort"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 558,
+          "output_tokens": 44
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3436000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_sort",
+        "confidence": 0.83,
+        "elapsed_ms": 772.6789580000041,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_sort",
+          "effective_candidates": [
+            "open_audit",
+            "open_genre",
+            "open_sort"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-final-r1",
+    "task_id": "W1",
+    "mode": "jev-final",
+    "repeat": 1,
+    "started_at": 1793311077416,
+    "finished_at": 1793311084163,
+    "elapsed_ms": 6747,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311077519-97b1c9a8-e60f-4cbc-aa4e-f3109e2354b9.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_english",
+          "status": "verified",
+          "elapsed_ms": 24.63566599972546
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 467,
+            "output_tokens": 47
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9614000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_english",
+          "confidence": 1,
+          "elapsed_ms": 2138.612291999998,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_english",
+            "effective_candidates": [
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 6747.027625000104
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 467,
+          "output_tokens": 47
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9614000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_english",
+        "confidence": 1,
+        "elapsed_ms": 2138.612291999998,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_english",
+          "effective_candidates": [
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_english"
+        ],
+        "candidates": [],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_english",
+        "status": "verified",
+        "elapsed_ms": 24.63566599972546
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-final-r2",
+    "task_id": "W1",
+    "mode": "jev-final",
+    "repeat": 2,
+    "started_at": 1793311084894,
+    "finished_at": 1793311087484,
+    "elapsed_ms": 2590,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311085059-1ac42bf2-5edf-498a-8caf-60c566015bff.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_english",
+          "status": "verified",
+          "elapsed_ms": 21.373457999899983
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 467,
+            "output_tokens": 47
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9614000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_english",
+          "confidence": 1,
+          "elapsed_ms": 1005.3544580000016,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_english",
+            "effective_candidates": [
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 2589.698792000301
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 467,
+          "output_tokens": 47
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9614000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_english",
+        "confidence": 1,
+        "elapsed_ms": 1005.3544580000016,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_english",
+          "effective_candidates": [
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_english"
+        ],
+        "candidates": [],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_english",
+        "status": "verified",
+        "elapsed_ms": 21.373457999899983
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-integrated-baseline-r1",
+    "task_id": "W1",
+    "mode": "jev-integrated-baseline",
+    "repeat": 1,
+    "started_at": 1793310368568,
+    "finished_at": 1793310369018,
+    "elapsed_ms": 450,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "DECISION_FAILED",
+    "decision_files": [
+      "1793310368932-d3b5bfaf-c21a-4b2c-8842-772c36c4cf3c.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "DECISION_FAILED",
+      "actions": [],
+      "decisions": [
+        {
+          "status": "failed",
+          "failure_code": "DECISION_FAILED",
+          "usage": null,
+          "request_count": 1,
+          "known_cost_usd": 0,
+          "unknown_usage_requests": 1
+        }
+      ],
+      "elapsed_ms": 449.5106669999659
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "failure",
+        "code": "DECISION_FAILED"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-integrated-baseline-r2",
+    "task_id": "W1",
+    "mode": "jev-integrated-baseline",
+    "repeat": 2,
+    "started_at": 1793310716270,
+    "finished_at": 1793310716550,
+    "elapsed_ms": 280,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "DECISION_FAILED",
+    "decision_files": [
+      "1793310716441-5a396250-adc8-40f4-a043-e9fd29cb043f.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "DECISION_FAILED",
+      "actions": [],
+      "decisions": [
+        {
+          "status": "failed",
+          "failure_code": "DECISION_FAILED",
+          "usage": null,
+          "request_count": 1,
+          "known_cost_usd": 0,
+          "unknown_usage_requests": 1
+        }
+      ],
+      "elapsed_ms": 279.94583300035447
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "failure",
+        "code": "DECISION_FAILED"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-integrated-baseline-r3",
+    "task_id": "W1",
+    "mode": "jev-integrated-baseline",
+    "repeat": 3,
+    "started_at": 1793310741864,
+    "finished_at": 1793310747381,
+    "elapsed_ms": 5517,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310742119-a3370eeb-7aeb-44da-a126-c917f76b4070.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_english",
+          "status": "verified",
+          "elapsed_ms": 37.15995899960399
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 413,
+            "output_tokens": 47
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.7346000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_english",
+          "confidence": 1,
+          "elapsed_ms": 1042.572291999997,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 5515.881209000014
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 413,
+          "output_tokens": 47
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.7346000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_english",
+        "confidence": 1,
+        "elapsed_ms": 1042.572291999997,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_english"
+        ],
+        "candidates": [],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_english",
+        "status": "verified",
+        "elapsed_ms": 37.15995899960399
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-optimized-r1",
+    "task_id": "W1",
+    "mode": "jev-optimized",
+    "repeat": 1,
+    "started_at": 1793310801880,
+    "finished_at": 1793310805895,
+    "elapsed_ms": 4015,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310802085-4af973f2-bb44-4b25-b2de-dc20bd921844.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_english",
+          "status": "verified",
+          "elapsed_ms": 175.7809170000255
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 467,
+            "output_tokens": 47
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9614000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_english",
+          "confidence": 1,
+          "elapsed_ms": 1398.7314579999947,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_english",
+            "effective_candidates": [
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 4013.872250000015
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 467,
+          "output_tokens": 47
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9614000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_english",
+        "confidence": 1,
+        "elapsed_ms": 1398.7314579999947,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_english",
+          "effective_candidates": [
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_english"
+        ],
+        "candidates": [],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_english",
+        "status": "verified",
+        "elapsed_ms": 175.7809170000255
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W1-jev-optimized-r2",
+    "task_id": "W1",
+    "mode": "jev-optimized",
+    "repeat": 2,
+    "started_at": 1793310806821,
+    "finished_at": 1793310808476,
+    "elapsed_ms": 1655,
+    "actions": 1,
+    "requests": 1,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793310806978-e6616be9-89eb-4e4f-9e18-0c787b44c107.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "open_english",
+          "status": "verified",
+          "elapsed_ms": 12.380625000223517
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 467,
+            "output_tokens": 47
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9614000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "open_english",
+          "confidence": 1,
+          "elapsed_ms": 279.3253330000007,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "open_english",
+            "effective_candidates": [
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 1653.6359590003267
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 467,
+          "output_tokens": 47
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9614000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "open_english",
+        "confidence": 1,
+        "elapsed_ms": 279.3253330000007,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "open_english",
+          "effective_candidates": [
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "open_english"
+        ],
+        "candidates": [],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "open_english",
+        "status": "verified",
+        "elapsed_ms": 12.380625000223517
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W2-jev-final-r1",
+    "task_id": "W2",
+    "mode": "jev-final",
+    "repeat": 1,
+    "started_at": 1793311099223,
+    "finished_at": 1793311100420,
+    "elapsed_ms": 1197,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793311099384-eb020318-86ba-4b33-a7be-008717d22f07.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 62
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2260000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_search",
+          "confidence": 0.84,
+          "elapsed_ms": 988.2171669999952,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_search",
+            "effective_candidates": [
+              "prepare_search",
+              "submit_search",
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {
+              "prepare_search": [
+                "language_english",
+                "fill_query"
+              ]
+            }
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 1196.9984579999
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "language_english",
+          "fill_query",
+          "submit_search",
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 530,
+          "output_tokens": 62
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2260000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_search",
+        "confidence": 0.84,
+        "elapsed_ms": 988.2171669999952,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_search",
+          "effective_candidates": [
+            "prepare_search",
+            "submit_search",
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {
+            "prepare_search": [
+              "language_english",
+              "fill_query"
+            ]
+          }
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "W2-jev-final-r2",
+    "task_id": "W2",
+    "mode": "jev-final",
+    "repeat": 2,
+    "started_at": 1793311100992,
+    "finished_at": 1793311101703,
+    "elapsed_ms": 711,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793311101207-f465eaf1-8748-4544-8713-3e9f3e0fde27.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 62
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2260000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_search",
+          "confidence": 0.86,
+          "elapsed_ms": 453.96450000000186,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_search",
+            "effective_candidates": [
+              "prepare_search",
+              "submit_search",
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {
+              "prepare_search": [
+                "language_english",
+                "fill_query"
+              ]
+            }
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 710.9318749997765
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "language_english",
+          "fill_query",
+          "submit_search",
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 530,
+          "output_tokens": 62
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2260000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_search",
+        "confidence": 0.86,
+        "elapsed_ms": 453.96450000000186,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_search",
+          "effective_candidates": [
+            "prepare_search",
+            "submit_search",
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {
+            "prepare_search": [
+              "language_english",
+              "fill_query"
+            ]
+          }
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "W2-jev-integrated-baseline-r1",
+    "task_id": "W2",
+    "mode": "jev-integrated-baseline",
+    "repeat": 1,
+    "started_at": 1793310755892,
+    "finished_at": 1793310756876,
+    "elapsed_ms": 984,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310756068-e13ebe77-f3e0-4966-b627-466c4a0a06f3.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 476,
+            "output_tokens": 72
+          },
+          "request_count": 1,
+          "known_cost_usd": 1.9992e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "language_english",
+          "confidence": 0.48,
+          "elapsed_ms": 781.4594999999972,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "language_english",
+              "fill_query",
+              "submit_search",
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 984.0298330001533
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "language_english",
+          "fill_query",
+          "submit_search",
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 476,
+          "output_tokens": 72
+        },
+        "request_count": 1,
+        "known_cost_usd": 1.9992e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "language_english",
+        "confidence": 0.48,
+        "elapsed_ms": 781.4594999999972,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "language_english",
+            "fill_query",
+            "submit_search",
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "W2-jev-optimized-r1",
+    "task_id": "W2",
+    "mode": "jev-optimized",
+    "repeat": 1,
+    "started_at": 1793310809445,
+    "finished_at": 1793310809828,
+    "elapsed_ms": 383,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310809544-54364a1c-af46-4869-967e-cca4fb13494b.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 62
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2260000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_search",
+          "confidence": 0.85,
+          "elapsed_ms": 248.7300830000022,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_search",
+            "effective_candidates": [
+              "prepare_search",
+              "submit_search",
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {
+              "prepare_search": [
+                "language_english",
+                "fill_query"
+              ]
+            }
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 382.953000000678
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "language_english",
+          "fill_query",
+          "submit_search",
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 530,
+          "output_tokens": 62
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2260000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_search",
+        "confidence": 0.85,
+        "elapsed_ms": 248.7300830000022,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_search",
+          "effective_candidates": [
+            "prepare_search",
+            "submit_search",
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {
+            "prepare_search": [
+              "language_english",
+              "fill_query"
+            ]
+          }
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "W2-jev-optimized-r2",
+    "task_id": "W2",
+    "mode": "jev-optimized",
+    "repeat": 2,
+    "started_at": 1793310817091,
+    "finished_at": 1793310818195,
+    "elapsed_ms": 1104,
+    "actions": 0,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "LOW_CONFIDENCE",
+    "decision_files": [
+      "1793310817302-18254c1e-7105-45d3-920d-b6a235c6236c.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "LOW_CONFIDENCE",
+      "actions": [],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 62
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.2260000000000004e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_search",
+          "confidence": 0.87,
+          "elapsed_ms": 829.6222080000007,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_search",
+            "effective_candidates": [
+              "prepare_search",
+              "submit_search",
+              "open_english",
+              "open_chinese",
+              "open_japanese"
+            ],
+            "batches": {
+              "prepare_search": [
+                "language_english",
+                "fill_query"
+              ]
+            }
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 1103.983332999982
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [],
+        "candidates": [
+          "language_english",
+          "fill_query",
+          "submit_search",
+          "open_english",
+          "open_chinese",
+          "open_japanese"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 530,
+          "output_tokens": 62
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.2260000000000004e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_search",
+        "confidence": 0.87,
+        "elapsed_ms": 829.6222080000007,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_search",
+          "effective_candidates": [
+            "prepare_search",
+            "submit_search",
+            "open_english",
+            "open_chinese",
+            "open_japanese"
+          ],
+          "batches": {
+            "prepare_search": [
+              "language_english",
+              "fill_query"
+            ]
+          }
+        }
+      },
+      {
+        "type": "failure",
+        "code": "LOW_CONFIDENCE"
+      }
+    ]
+  },
+  {
+    "trial_id": "W3-jev-final-r1",
+    "task_id": "W3",
+    "mode": "jev-final",
+    "repeat": 1,
+    "started_at": 1793311044158,
+    "finished_at": 1793311051438,
+    "elapsed_ms": 7280,
+    "actions": 6,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311044358-d5106303-803e-45c8-a569-dc9d3fcde108.json",
+      "1793311049349-722eafcb-21a8-4c04-8a92-9dca0226bbee.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "fill_m1",
+          "status": "verified",
+          "elapsed_ms": 11.454624999314547
+        },
+        {
+          "candidate_id": "fill_d1",
+          "status": "verified",
+          "elapsed_ms": 6.387249999679625
+        },
+        {
+          "candidate_id": "fill_m2",
+          "status": "verified",
+          "elapsed_ms": 6.212208000011742
+        },
+        {
+          "candidate_id": "fill_d2",
+          "status": "verified",
+          "elapsed_ms": 5.216625000350177
+        },
+        {
+          "candidate_id": "include_end",
+          "status": "verified",
+          "elapsed_ms": 24.388708000071347
+        },
+        {
+          "candidate_id": "calculate_duration",
+          "status": "verified",
+          "elapsed_ms": 20.021415999159217
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 571,
+            "output_tokens": 34
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3982000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_dates",
+          "confidence": 1,
+          "elapsed_ms": 1107.8460000000014,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_dates",
+            "effective_candidates": [
+              "prepare_dates",
+              "calculate_duration"
+            ],
+            "batches": {
+              "prepare_dates": [
+                "fill_m1",
+                "fill_d1",
+                "fill_y1",
+                "fill_m2",
+                "fill_d2",
+                "fill_y2",
+                "include_end"
+              ]
+            }
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 672,
+            "output_tokens": 26
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.8224000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "calculate_duration",
+          "confidence": 1,
+          "elapsed_ms": 246.60991600000125,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "calculate_duration",
+            "effective_candidates": [
+              "calculate_duration"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 7280.387333000079
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 571,
+          "output_tokens": 34
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3982000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_dates",
+        "confidence": 1,
+        "elapsed_ms": 1107.8460000000014,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_dates",
+          "effective_candidates": [
+            "prepare_dates",
+            "calculate_duration"
+          ],
+          "batches": {
+            "prepare_dates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end"
+            ]
+          }
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m1",
+        "status": "verified",
+        "elapsed_ms": 11.454624999314547
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d1",
+        "status": "verified",
+        "elapsed_ms": 6.387249999679625
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m2",
+        "status": "verified",
+        "elapsed_ms": 6.212208000011742
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d2",
+        "status": "verified",
+        "elapsed_ms": 5.216625000350177
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "include_end",
+        "status": "verified",
+        "elapsed_ms": 24.388708000071347
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 672,
+          "output_tokens": 26
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.8224000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "calculate_duration",
+        "confidence": 1,
+        "elapsed_ms": 246.60991600000125,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "calculate_duration",
+          "effective_candidates": [
+            "calculate_duration"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "calculate_duration",
+        "status": "verified",
+        "elapsed_ms": 20.021415999159217
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W3-jev-final-r2",
+    "task_id": "W3",
+    "mode": "jev-final",
+    "repeat": 2,
+    "started_at": 1793311064392,
+    "finished_at": 1793311073589,
+    "elapsed_ms": 9197,
+    "actions": 6,
+    "requests": 2,
+    "status": "SUCCEEDED",
+    "decision_files": [
+      "1793311064631-fc693008-398f-4d07-a240-99da02fb59a6.json",
+      "1793311069733-15bed4f4-1135-4fbc-9203-dea11fded1be.json"
+    ],
+    "session": {
+      "status": "success",
+      "actions": [
+        {
+          "candidate_id": "fill_m1",
+          "status": "verified",
+          "elapsed_ms": 12.61600000038743
+        },
+        {
+          "candidate_id": "fill_d1",
+          "status": "verified",
+          "elapsed_ms": 5.723749999888241
+        },
+        {
+          "candidate_id": "fill_m2",
+          "status": "verified",
+          "elapsed_ms": 5.700792000629008
+        },
+        {
+          "candidate_id": "fill_d2",
+          "status": "verified",
+          "elapsed_ms": 4.820458000525832
+        },
+        {
+          "candidate_id": "include_end",
+          "status": "verified",
+          "elapsed_ms": 12.98033400066197
+        },
+        {
+          "candidate_id": "calculate_duration",
+          "status": "verified",
+          "elapsed_ms": 101.08962500002235
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 571,
+            "output_tokens": 34
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3982000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_dates",
+          "confidence": 1,
+          "elapsed_ms": 827.5646249999991,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_dates",
+            "effective_candidates": [
+              "prepare_dates",
+              "calculate_duration"
+            ],
+            "batches": {
+              "prepare_dates": [
+                "fill_m1",
+                "fill_d1",
+                "fill_y1",
+                "fill_m2",
+                "fill_d2",
+                "fill_y2",
+                "include_end"
+              ]
+            }
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 672,
+            "output_tokens": 26
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.8224000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "calculate_duration",
+          "confidence": 1,
+          "elapsed_ms": 840.369375000002,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "calculate_duration",
+            "effective_candidates": [
+              "calculate_duration"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 9195.855042000301
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 571,
+          "output_tokens": 34
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3982000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_dates",
+        "confidence": 1,
+        "elapsed_ms": 827.5646249999991,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_dates",
+          "effective_candidates": [
+            "prepare_dates",
+            "calculate_duration"
+          ],
+          "batches": {
+            "prepare_dates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end"
+            ]
+          }
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m1",
+        "status": "verified",
+        "elapsed_ms": 12.61600000038743
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d1",
+        "status": "verified",
+        "elapsed_ms": 5.723749999888241
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m2",
+        "status": "verified",
+        "elapsed_ms": 5.700792000629008
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d2",
+        "status": "verified",
+        "elapsed_ms": 4.820458000525832
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "include_end",
+        "status": "verified",
+        "elapsed_ms": 12.98033400066197
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 672,
+          "output_tokens": 26
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.8224000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "calculate_duration",
+        "confidence": 1,
+        "elapsed_ms": 840.369375000002,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "calculate_duration",
+          "effective_candidates": [
+            "calculate_duration"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": true
+      },
+      {
+        "type": "action",
+        "candidate_id": "calculate_duration",
+        "status": "verified",
+        "elapsed_ms": 101.08962500002235
+      },
+      {
+        "type": "terminal",
+        "status": "success"
+      }
+    ]
+  },
+  {
+    "trial_id": "W3-jev-integrated-baseline-r1",
+    "task_id": "W3",
+    "mode": "jev-integrated-baseline",
+    "repeat": 1,
+    "started_at": 1793310762596,
+    "finished_at": 1793310766588,
+    "elapsed_ms": 3992,
+    "actions": 2,
+    "requests": 3,
+    "status": "FAILED",
+    "reason": "DECISION_FAILED",
+    "decision_files": [
+      "1793310762999-9f78d6e4-c400-4b14-85e4-cc727a02293a.json",
+      "1793310765292-b1617c57-72f1-4201-b5c8-739381dee23e.json",
+      "1793310766243-9fe1a1b5-91ee-4eb1-aabd-752e8aaf3442.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "DECISION_FAILED",
+      "actions": [
+        {
+          "candidate_id": "fill_m1",
+          "status": "verified",
+          "elapsed_ms": 16.537791999988258
+        },
+        {
+          "candidate_id": "fill_d1",
+          "status": "verified",
+          "elapsed_ms": 6.200540999881923
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 595,
+            "output_tokens": 89
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.4990000000000003e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "fill_m1",
+          "confidence": 0.92,
+          "elapsed_ms": 1536.2057090000017,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end",
+              "calculate_duration"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "usage": {
+            "input_tokens": 620,
+            "output_tokens": 89
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.6040000000000005e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "fill_d1",
+          "confidence": 0.91,
+          "elapsed_ms": 421.13795799999934,
+          "request_plan": {
+            "variant": "baseline",
+            "phase": "baseline",
+            "effective_candidates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end",
+              "calculate_duration"
+            ],
+            "batches": {}
+          },
+          "status": "decided"
+        },
+        {
+          "status": "failed",
+          "failure_code": "DECISION_FAILED",
+          "usage": {
+            "input_tokens": 646,
+            "output_tokens": 89
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.7132000000000004e-05,
+          "unknown_usage_requests": 0
+        }
+      ],
+      "elapsed_ms": 3990.667166000232
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 595,
+          "output_tokens": 89
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.4990000000000003e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "fill_m1",
+        "confidence": 0.92,
+        "elapsed_ms": 1536.2057090000017,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "fill_m1",
+            "fill_d1",
+            "fill_y1",
+            "fill_m2",
+            "fill_d2",
+            "fill_y2",
+            "include_end",
+            "calculate_duration"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m1",
+        "status": "verified",
+        "elapsed_ms": 16.537791999988258
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 620,
+          "output_tokens": 89
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.6040000000000005e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "fill_d1",
+        "confidence": 0.91,
+        "elapsed_ms": 421.13795799999934,
+        "request_plan": {
+          "variant": "baseline",
+          "phase": "baseline",
+          "effective_candidates": [
+            "fill_m1",
+            "fill_d1",
+            "fill_y1",
+            "fill_m2",
+            "fill_d2",
+            "fill_y2",
+            "include_end",
+            "calculate_duration"
+          ],
+          "batches": {}
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d1",
+        "status": "verified",
+        "elapsed_ms": 6.200540999881923
+      },
+      {
+        "type": "failure",
+        "code": "DECISION_FAILED"
+      }
+    ]
+  },
+  {
+    "trial_id": "W3-jev-optimized-r1",
+    "task_id": "W3",
+    "mode": "jev-optimized",
+    "repeat": 1,
+    "started_at": 1793310819935,
+    "finished_at": 1793310826040,
+    "elapsed_ms": 6105,
+    "actions": 5,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "EXECUTION_UNCERTAIN",
+    "decision_files": [
+      "1793310820082-8ec9a931-0eb0-48b0-ac68-559a2ad21320.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "EXECUTION_UNCERTAIN",
+      "actions": [
+        {
+          "candidate_id": "fill_m1",
+          "status": "verified",
+          "elapsed_ms": 9.437791000120342
+        },
+        {
+          "candidate_id": "fill_d1",
+          "status": "verified",
+          "elapsed_ms": 4.237500000745058
+        },
+        {
+          "candidate_id": "fill_m2",
+          "status": "verified",
+          "elapsed_ms": 8.451708000153303
+        },
+        {
+          "candidate_id": "fill_d2",
+          "status": "verified",
+          "elapsed_ms": 4.09479200001806
+        },
+        {
+          "candidate_id": "include_end",
+          "status": "uncertain",
+          "elapsed_ms": 3036.897917000577
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 571,
+            "output_tokens": 34
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3982000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_dates",
+          "confidence": 1,
+          "elapsed_ms": 247.18516700000328,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_dates",
+            "effective_candidates": [
+              "prepare_dates",
+              "calculate_duration"
+            ],
+            "batches": {
+              "prepare_dates": [
+                "fill_m1",
+                "fill_d1",
+                "fill_y1",
+                "fill_m2",
+                "fill_d2",
+                "fill_y2",
+                "include_end"
+              ]
+            }
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 6104.828834000044
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 571,
+          "output_tokens": 34
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3982000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_dates",
+        "confidence": 1,
+        "elapsed_ms": 247.18516700000328,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_dates",
+          "effective_candidates": [
+            "prepare_dates",
+            "calculate_duration"
+          ],
+          "batches": {
+            "prepare_dates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end"
+            ]
+          }
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m1",
+        "status": "verified",
+        "elapsed_ms": 9.437791000120342
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d1",
+        "status": "verified",
+        "elapsed_ms": 4.237500000745058
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m2",
+        "status": "verified",
+        "elapsed_ms": 8.451708000153303
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d2",
+        "status": "verified",
+        "elapsed_ms": 4.09479200001806
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "failure",
+        "code": "EXECUTION_UNCERTAIN"
+      }
+    ]
+  },
+  {
+    "trial_id": "W3-jev-optimized-r2",
+    "task_id": "W3",
+    "mode": "jev-optimized",
+    "repeat": 2,
+    "started_at": 1793310864963,
+    "finished_at": 1793310872195,
+    "elapsed_ms": 7232,
+    "actions": 5,
+    "requests": 1,
+    "status": "FAILED",
+    "reason": "EXECUTION_UNCERTAIN",
+    "decision_files": [
+      "1793310865200-fdfe3236-d808-4dbb-9c3f-972de96972b2.json"
+    ],
+    "session": {
+      "status": "failed",
+      "failure_code": "EXECUTION_UNCERTAIN",
+      "actions": [
+        {
+          "candidate_id": "fill_m1",
+          "status": "verified",
+          "elapsed_ms": 11.553917000070214
+        },
+        {
+          "candidate_id": "fill_d1",
+          "status": "verified",
+          "elapsed_ms": 6.921333000063896
+        },
+        {
+          "candidate_id": "fill_m2",
+          "status": "verified",
+          "elapsed_ms": 7.653791000135243
+        },
+        {
+          "candidate_id": "fill_d2",
+          "status": "verified",
+          "elapsed_ms": 6.042750000022352
+        },
+        {
+          "candidate_id": "include_end",
+          "status": "uncertain",
+          "elapsed_ms": 3024.675290999934
+        }
+      ],
+      "decisions": [
+        {
+          "usage": {
+            "input_tokens": 571,
+            "output_tokens": 34
+          },
+          "request_count": 1,
+          "known_cost_usd": 2.3982000000000002e-05,
+          "unknown_usage_requests": 0,
+          "candidate_id": "prepare_dates",
+          "confidence": 1,
+          "elapsed_ms": 877.2592089999816,
+          "request_plan": {
+            "variant": "optimized",
+            "phase": "prepare_dates",
+            "effective_candidates": [
+              "prepare_dates",
+              "calculate_duration"
+            ],
+            "batches": {
+              "prepare_dates": [
+                "fill_m1",
+                "fill_d1",
+                "fill_y1",
+                "fill_m2",
+                "fill_d2",
+                "fill_y2",
+                "include_end"
+              ]
+            }
+          },
+          "status": "decided"
+        }
+      ],
+      "elapsed_ms": 7232.07658400014
+    },
+    "events": [
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "decision",
+        "usage": {
+          "input_tokens": 571,
+          "output_tokens": 34
+        },
+        "request_count": 1,
+        "known_cost_usd": 2.3982000000000002e-05,
+        "unknown_usage_requests": 0,
+        "candidate_id": "prepare_dates",
+        "confidence": 1,
+        "elapsed_ms": 877.2592089999816,
+        "request_plan": {
+          "variant": "optimized",
+          "phase": "prepare_dates",
+          "effective_candidates": [
+            "prepare_dates",
+            "calculate_duration"
+          ],
+          "batches": {
+            "prepare_dates": [
+              "fill_m1",
+              "fill_d1",
+              "fill_y1",
+              "fill_m2",
+              "fill_d2",
+              "fill_y2",
+              "include_end"
+            ]
+          }
+        }
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m1",
+        "status": "verified",
+        "elapsed_ms": 11.553917000070214
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d1",
+        "status": "verified",
+        "elapsed_ms": 6.921333000063896
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_m2",
+        "status": "verified",
+        "elapsed_ms": 7.653791000135243
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "action",
+        "candidate_id": "fill_d2",
+        "status": "verified",
+        "elapsed_ms": 6.042750000022352
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "observation",
+        "completed": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2"
+        ],
+        "candidates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end",
+          "calculate_duration"
+        ],
+        "terminal": false
+      },
+      {
+        "type": "failure",
+        "code": "EXECUTION_UNCERTAIN"
+      }
+    ]
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "data_classification": "real-public-controls",
+  "approval_id": "user-20261030-usd3",
+  "scope": "real-public-controls",
+  "created_at": "2026-10-29T21:57:24.358Z",
+  "input": {
+    "task_id": "W3",
+    "variant": "optimized",
+    "trial_id": "W3-jev-final-r1",
+    "completed": [
+      "fill_y1",
+      "fill_y2"
+    ],
+    "candidates": [
+      "fill_m1",
+      "fill_d1",
+      "fill_y1",
+      "fill_m2",
+      "fill_d2",
+      "fill_y2",
+      "include_end",
+      "calculate_duration"
+    ]
+  },
+  "status": "decided",
+  "result": {
+    "candidate_id": "prepare_dates",
+    "confidence": 1,
+    "elapsed_ms": 1107.8460000000014,
+    "usage": {
+      "input_tokens": 571,
+      "output_tokens": 34
+    },
+    "request_count": 1,
+    "known_cost_usd": 0.000023982000000000002,
+    "unknown_usage_requests": 0,
+    "request_plan": {
+      "variant": "optimized",
+      "phase": "prepare_dates",
+      "effective_candidates": [
+        "prepare_dates",
+        "calculate_duration"
+      ],
+      "batches": {
+        "prepare_dates": [
+          "fill_m1",
+          "fill_d1",
+          "fill_y1",
+          "fill_m2",
+          "fill_d2",
+          "fill_y2",
+          "include_end"
+        ]
+      }
+    }
+  },
+  "budget": {
+    "requests": 160,
+    "reservedUsd": 1.6,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  }
+}
