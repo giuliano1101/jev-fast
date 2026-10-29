@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.runtime/
+.env
+.env.*
+
+# Stage evidence is intentionally versioned; secrets and runtime state are not.
+.DS_Store
+*.pem
+*.key
+api-key
+artifacts/live/report-output.json
+artifacts/repository-verification/
+*.zip
+*.zip.sha256

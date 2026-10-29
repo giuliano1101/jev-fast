@@ -1,0 +1,746 @@
+[
+  {
+    "family": "locate",
+    "difficulty": "easy",
+    "seed": 1,
+    "mode": "cua",
+    "run": "cua-locate-easy-1",
+    "page_start_at": 1793305458967,
+    "ready_at": 1793305458968,
+    "completed_at": 1793305466220,
+    "elapsed_ms": 7251,
+    "page_elapsed_ms": 7253,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 1,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 7252
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "easy",
+    "seed": 1,
+    "mode": "cua",
+    "run": "cua-form-easy-1",
+    "page_start_at": 1793305469995,
+    "ready_at": 1793305469996,
+    "completed_at": 1793305473054,
+    "elapsed_ms": 3059,
+    "page_elapsed_ms": 3059,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 3,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 3028
+      },
+      {
+        "kind": "change",
+        "at_ms": 3028
+      },
+      {
+        "kind": "click",
+        "at_ms": 3059
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "Sample-1",
+      "category": "",
+      "checked": false,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "easy",
+    "seed": 2,
+    "mode": "cua",
+    "run": "cua-locate-easy-2",
+    "page_start_at": 1793305476332,
+    "ready_at": 1793305476333,
+    "completed_at": 1793305480677,
+    "elapsed_ms": 4344,
+    "page_elapsed_ms": 4344,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 1,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 4344
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "easy",
+    "seed": 2,
+    "mode": "cua",
+    "run": "cua-form-easy-2",
+    "page_start_at": 1793305484840,
+    "ready_at": 1793305484841,
+    "completed_at": 1793305487349,
+    "elapsed_ms": 2509,
+    "page_elapsed_ms": 2510,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 3,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 2484
+      },
+      {
+        "kind": "change",
+        "at_ms": 2484
+      },
+      {
+        "kind": "click",
+        "at_ms": 2509
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "Sample-2",
+      "category": "",
+      "checked": false,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "easy",
+    "seed": 3,
+    "mode": "cua",
+    "run": "cua-locate-easy-3",
+    "page_start_at": 1793305490451,
+    "ready_at": 1793305490451,
+    "completed_at": 1793305493385,
+    "elapsed_ms": 2934,
+    "page_elapsed_ms": 2934,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 1,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 2934
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "easy",
+    "seed": 3,
+    "mode": "cua",
+    "run": "cua-form-easy-3",
+    "page_start_at": 1793305496283,
+    "ready_at": 1793305496283,
+    "completed_at": 1793305500870,
+    "elapsed_ms": 4587,
+    "page_elapsed_ms": 4587,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 3,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 4563
+      },
+      {
+        "kind": "change",
+        "at_ms": 4563
+      },
+      {
+        "kind": "click",
+        "at_ms": 4587
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "Sample-3",
+      "category": "",
+      "checked": false,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "medium",
+    "seed": 1,
+    "mode": "cua",
+    "run": "cua-locate-medium-1",
+    "page_start_at": 1793305504002,
+    "ready_at": 1793305504002,
+    "completed_at": 1793305507324,
+    "elapsed_ms": 3322,
+    "page_elapsed_ms": 3322,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 1,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 3322
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "medium",
+    "seed": 1,
+    "mode": "cua",
+    "run": "cua-form-medium-1",
+    "page_start_at": 1793305510485,
+    "ready_at": 1793305510487,
+    "completed_at": 1793305522837,
+    "elapsed_ms": 12351,
+    "page_elapsed_ms": 12352,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 6,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 7101
+      },
+      {
+        "kind": "change",
+        "at_ms": 7101
+      },
+      {
+        "kind": "input",
+        "at_ms": 7122
+      },
+      {
+        "kind": "change",
+        "at_ms": 7122
+      },
+      {
+        "kind": "click",
+        "at_ms": 7142
+      },
+      {
+        "kind": "click",
+        "at_ms": 12352
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "Sample-1",
+      "category": "beta",
+      "checked": false,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "medium",
+    "seed": 2,
+    "mode": "cua",
+    "run": "cua-locate-medium-2",
+    "page_start_at": 1793305525719,
+    "ready_at": 1793305525720,
+    "completed_at": 1793305528820,
+    "elapsed_ms": 3100,
+    "page_elapsed_ms": 3101,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 1,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 3100
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "medium",
+    "seed": 2,
+    "mode": "cua",
+    "run": "cua-form-medium-2",
+    "page_start_at": 1793305532157,
+    "ready_at": 1793305532157,
+    "completed_at": 1793305539141,
+    "elapsed_ms": 6984,
+    "page_elapsed_ms": 6984,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 6,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 3455
+      },
+      {
+        "kind": "change",
+        "at_ms": 3455
+      },
+      {
+        "kind": "input",
+        "at_ms": 3470
+      },
+      {
+        "kind": "change",
+        "at_ms": 3470
+      },
+      {
+        "kind": "click",
+        "at_ms": 3503
+      },
+      {
+        "kind": "click",
+        "at_ms": 6983
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "Sample-2",
+      "category": "alpha",
+      "checked": false,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "medium",
+    "seed": 3,
+    "mode": "cua",
+    "run": "cua-locate-medium-3",
+    "page_start_at": 1793305542098,
+    "ready_at": 1793305542099,
+    "completed_at": 1793305546033,
+    "elapsed_ms": 3935,
+    "page_elapsed_ms": 3935,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 1,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 3935
+      }
+    ],
+    "final_state": {
+      "stage": 0,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "medium",
+    "seed": 3,
+    "mode": "cua",
+    "run": "cua-form-medium-3",
+    "page_start_at": 1793305549344,
+    "ready_at": 1793305549345,
+    "completed_at": 1793305555695,
+    "elapsed_ms": 6350,
+    "page_elapsed_ms": 6351,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 6,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 3563
+      },
+      {
+        "kind": "change",
+        "at_ms": 3563
+      },
+      {
+        "kind": "input",
+        "at_ms": 3577
+      },
+      {
+        "kind": "change",
+        "at_ms": 3577
+      },
+      {
+        "kind": "click",
+        "at_ms": 3608
+      },
+      {
+        "kind": "click",
+        "at_ms": 6350
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "Sample-3",
+      "category": "gamma",
+      "checked": false,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "hard",
+    "seed": 1,
+    "mode": "cua",
+    "run": "cua-locate-hard-1",
+    "page_start_at": 1793305558721,
+    "ready_at": 1793305558721,
+    "completed_at": 1793305570780,
+    "elapsed_ms": 12059,
+    "page_elapsed_ms": 12059,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 2,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 8834
+      },
+      {
+        "kind": "click",
+        "at_ms": 12059
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "hard",
+    "seed": 1,
+    "mode": "cua",
+    "run": "cua-form-hard-1",
+    "page_start_at": 1793305575326,
+    "ready_at": 1793305576130,
+    "completed_at": 1793305600092,
+    "elapsed_ms": 23962,
+    "page_elapsed_ms": 24766,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 10,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 7053
+      },
+      {
+        "kind": "change",
+        "at_ms": 7053
+      },
+      {
+        "kind": "input",
+        "at_ms": 7067
+      },
+      {
+        "kind": "change",
+        "at_ms": 7067
+      },
+      {
+        "kind": "click",
+        "at_ms": 7098
+      },
+      {
+        "kind": "scroll",
+        "at_ms": 17384
+      },
+      {
+        "kind": "click",
+        "at_ms": 21006
+      },
+      {
+        "kind": "input",
+        "at_ms": 21007
+      },
+      {
+        "kind": "change",
+        "at_ms": 21007
+      },
+      {
+        "kind": "click",
+        "at_ms": 24765
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "Sample-1",
+      "category": "beta",
+      "checked": true,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "hard",
+    "seed": 2,
+    "mode": "cua",
+    "run": "cua-locate-hard-2",
+    "page_start_at": 1793305604189,
+    "ready_at": 1793305604190,
+    "completed_at": 1793305618961,
+    "elapsed_ms": 14771,
+    "page_elapsed_ms": 14772,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 2,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 11587
+      },
+      {
+        "kind": "click",
+        "at_ms": 14771
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "hard",
+    "seed": 2,
+    "mode": "cua",
+    "run": "cua-form-hard-2",
+    "page_start_at": 1793305621998,
+    "ready_at": 1793305622803,
+    "completed_at": 1793305640803,
+    "elapsed_ms": 18000,
+    "page_elapsed_ms": 18804,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 10,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 6719
+      },
+      {
+        "kind": "change",
+        "at_ms": 6719
+      },
+      {
+        "kind": "input",
+        "at_ms": 6730
+      },
+      {
+        "kind": "change",
+        "at_ms": 6730
+      },
+      {
+        "kind": "click",
+        "at_ms": 6758
+      },
+      {
+        "kind": "scroll",
+        "at_ms": 11598
+      },
+      {
+        "kind": "click",
+        "at_ms": 15653
+      },
+      {
+        "kind": "input",
+        "at_ms": 15653
+      },
+      {
+        "kind": "change",
+        "at_ms": 15654
+      },
+      {
+        "kind": "click",
+        "at_ms": 18804
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "Sample-2",
+      "category": "alpha",
+      "checked": true,
+      "opened": false
+    }
+  },
+  {
+    "family": "locate",
+    "difficulty": "hard",
+    "seed": 3,
+    "mode": "cua",
+    "run": "cua-locate-hard-3",
+    "page_start_at": 1793305643962,
+    "ready_at": 1793305643962,
+    "completed_at": 1793305652867,
+    "elapsed_ms": 8905,
+    "page_elapsed_ms": 8905,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 2,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "click",
+        "at_ms": 5652
+      },
+      {
+        "kind": "click",
+        "at_ms": 8905
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "",
+      "category": "",
+      "checked": false,
+      "opened": true
+    }
+  },
+  {
+    "family": "form",
+    "difficulty": "hard",
+    "seed": 3,
+    "mode": "cua",
+    "run": "cua-form-hard-3",
+    "page_start_at": 1793305657684,
+    "ready_at": 1793305658488,
+    "completed_at": 1793305677134,
+    "elapsed_ms": 18646,
+    "page_elapsed_ms": 19450,
+    "success": true,
+    "wrong_actions": 0,
+    "actions": 10,
+    "complete_count": 1,
+    "recovered": false,
+    "interactions": [
+      {
+        "kind": "input",
+        "at_ms": 6259
+      },
+      {
+        "kind": "change",
+        "at_ms": 6259
+      },
+      {
+        "kind": "input",
+        "at_ms": 6271
+      },
+      {
+        "kind": "change",
+        "at_ms": 6271
+      },
+      {
+        "kind": "click",
+        "at_ms": 6295
+      },
+      {
+        "kind": "scroll",
+        "at_ms": 10262
+      },
+      {
+        "kind": "click",
+        "at_ms": 16186
+      },
+      {
+        "kind": "input",
+        "at_ms": 16187
+      },
+      {
+        "kind": "change",
+        "at_ms": 16187
+      },
+      {
+        "kind": "click",
+        "at_ms": 19450
+      }
+    ],
+    "final_state": {
+      "stage": 1,
+      "sample_name": "Sample-3",
+      "category": "gamma",
+      "checked": true,
+      "opened": false
+    }
+  }
+]

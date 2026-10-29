@@ -1,0 +1,37 @@
+✔ mock benchmark exports both modes, all rows, actual manifest and no secrets (3734.091458ms)
+✔ benchmark exceptions replace stale success artifacts and retain started task failures (1151.476125ms)
+✔ F01–F03 real browser all twelve tasks en (7408.75575ms)
+✔ F01–F03 real browser all twelve tasks zh (5157.004ms)
+✔ challenge fixture exports its public browser contract (0.384541ms)
+✔ all challenge variants and seeds complete through visible labels with a single terminal completion (19495.137375ms)
+✔ wrong choices are recoverable, observations do not leak oracle, rerenders reject stale inputs (2004.180375ms)
+✔ server validates challenge queries and rejects nonlocal origins and unbounded events (13.949834ms)
+✔ bound actions reject changed values and never classify a post-input error as safe stale (567.302291ms)
+✔ mutating a returned candidate cannot alter its private authorized action (585.436084ms)
+✔ expiry crossing during preflight rejects input and action waits use the remaining deadline (947.592375ms)
+✔ a hung preflight read settles stale by its deadline without input (562.262ms)
+✔ observations prune only current-value no-ops and preserve visible field state and alternatives (589.248541ms)
+✔ bounded graded harness exports its runner (0.382916ms)
+✔ scripted visible-controls baseline solves all six variants and includes loading time (5736.233833ms)
+✔ low confidence and invalid candidate answers stop before physical input; reasons are redacted (1121.820208ms)
+✔ Jev routes a singleton wait through its provider and awaits audit before execution (628.826916ms)
+✔ post-input lost acknowledgement remains UNKNOWN even when scoring oracle says success (752.898667ms)
+✔ stale snapshots refresh at most twice, consume decisions, and never execute (6854.188083ms)
+✔ recoverable wrong choices remain scored and known usage is summed (629.749ms)
+✔ twelve-step cap retains every wrong action and audit failure prevents input (1185.36025ms)
+✔ manifest plan freezes six calibration cases and sixty alternating evaluation trials (0.314917ms)
+✔ partial usage retains known spend while total remains unknown (634.853708ms)
+✔ terminal commit clears active before detail failure, preserving exactly one row (0.369959ms)
+✔ durable start event carries absolute epoch and immutable trial identity (0.086875ms)
+✔ calibration seed 102 stays separate from evaluation seeds and invalid seed overrides fail (0.134875ms)
+✔ two real MCP stdio clients share one local coordinator while keeping default identities isolated (2753.62425ms)
+✔ server ACL permits deliberate two-client BUSY and cancellation without overlapping actions (1553.329458ms)
+✔ MCP queries UNKNOWN physical-action outcome and idempotent retry never replays (1345.327375ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25004.060334

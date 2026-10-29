@@ -1,0 +1,49 @@
+{
+  "title": "Jev P0 mock benchmark — synthetic fixture only",
+  "created_at": "2026-10-29T19:14:23.999Z",
+  "timezone": "Asia/Shanghai",
+  "samples": 240,
+  "templates": 12,
+  "evaluation_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "calibration_seeds": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "hardware": {
+    "cpu": "Apple M4",
+    "memory_bytes": 17179869184,
+    "platform": "darwin",
+    "os": "27.0.0",
+    "arch": "arm64"
+  },
+  "runtime": "v24.19.0",
+  "browser": "148.0.7778.96",
+  "code_commit": null,
+  "lock_hash": "8430d5f336491f1af13b7e067874d7d0450707b0b17574931486eaecfd459fb5",
+  "fixture_hash": "e665c58495c6df13ab1c96b0aa942f2a0346cc8e028bdd197b4be87d09faf24f",
+  "models": [
+    "mock-v1",
+    "scripted-v1"
+  ],
+  "live_api_called": false,
+  "authorization_id": null,
+  "max_steps": 8,
+  "time_budget_ms": 60000,
+  "snapshot_ttl_ms": 2000,
+  "confidence_threshold": 0.9,
+  "order": "paired alternating deterministic",
+  "cold_start": "first task includes browser launch; other tasks reuse browser, fresh contexts",
+  "baseline": "scripted first locally recommended candidate; mock uses same deterministic selection, no real LLM",
+  "cost": "mock simulation 0 USD; no paid request",
+  "unknown_actions": 6,
+  "network_boundary": "loopback fixture only; cross-origin sink test evidence in safety suite"
+}

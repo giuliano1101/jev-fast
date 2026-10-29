@@ -1,0 +1,156 @@
+{
+  "status": "stopped",
+  "started_at": "2026-10-29T20:22:39.841Z",
+  "origin": "http://127.0.0.1:60967",
+  "tasks": [
+    {
+      "family": "locate",
+      "difficulty": "easy",
+      "seed": 1,
+      "mode": "cua",
+      "run": "cua-locate-easy-1",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=easy&seed=1&mode=cua&run=cua-locate-easy-1"
+    },
+    {
+      "family": "form",
+      "difficulty": "easy",
+      "seed": 1,
+      "mode": "cua",
+      "run": "cua-form-easy-1",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=easy&seed=1&mode=cua&run=cua-form-easy-1"
+    },
+    {
+      "family": "locate",
+      "difficulty": "easy",
+      "seed": 2,
+      "mode": "cua",
+      "run": "cua-locate-easy-2",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=easy&seed=2&mode=cua&run=cua-locate-easy-2"
+    },
+    {
+      "family": "form",
+      "difficulty": "easy",
+      "seed": 2,
+      "mode": "cua",
+      "run": "cua-form-easy-2",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=easy&seed=2&mode=cua&run=cua-form-easy-2"
+    },
+    {
+      "family": "locate",
+      "difficulty": "easy",
+      "seed": 3,
+      "mode": "cua",
+      "run": "cua-locate-easy-3",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=easy&seed=3&mode=cua&run=cua-locate-easy-3"
+    },
+    {
+      "family": "form",
+      "difficulty": "easy",
+      "seed": 3,
+      "mode": "cua",
+      "run": "cua-form-easy-3",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=easy&seed=3&mode=cua&run=cua-form-easy-3"
+    },
+    {
+      "family": "locate",
+      "difficulty": "medium",
+      "seed": 1,
+      "mode": "cua",
+      "run": "cua-locate-medium-1",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=medium&seed=1&mode=cua&run=cua-locate-medium-1"
+    },
+    {
+      "family": "form",
+      "difficulty": "medium",
+      "seed": 1,
+      "mode": "cua",
+      "run": "cua-form-medium-1",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=medium&seed=1&mode=cua&run=cua-form-medium-1"
+    },
+    {
+      "family": "locate",
+      "difficulty": "medium",
+      "seed": 2,
+      "mode": "cua",
+      "run": "cua-locate-medium-2",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=medium&seed=2&mode=cua&run=cua-locate-medium-2"
+    },
+    {
+      "family": "form",
+      "difficulty": "medium",
+      "seed": 2,
+      "mode": "cua",
+      "run": "cua-form-medium-2",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=medium&seed=2&mode=cua&run=cua-form-medium-2"
+    },
+    {
+      "family": "locate",
+      "difficulty": "medium",
+      "seed": 3,
+      "mode": "cua",
+      "run": "cua-locate-medium-3",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=medium&seed=3&mode=cua&run=cua-locate-medium-3"
+    },
+    {
+      "family": "form",
+      "difficulty": "medium",
+      "seed": 3,
+      "mode": "cua",
+      "run": "cua-form-medium-3",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=medium&seed=3&mode=cua&run=cua-form-medium-3"
+    },
+    {
+      "family": "locate",
+      "difficulty": "hard",
+      "seed": 1,
+      "mode": "cua",
+      "run": "cua-locate-hard-1",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=hard&seed=1&mode=cua&run=cua-locate-hard-1"
+    },
+    {
+      "family": "form",
+      "difficulty": "hard",
+      "seed": 1,
+      "mode": "cua",
+      "run": "cua-form-hard-1",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=hard&seed=1&mode=cua&run=cua-form-hard-1"
+    },
+    {
+      "family": "locate",
+      "difficulty": "hard",
+      "seed": 2,
+      "mode": "cua",
+      "run": "cua-locate-hard-2",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=hard&seed=2&mode=cua&run=cua-locate-hard-2"
+    },
+    {
+      "family": "form",
+      "difficulty": "hard",
+      "seed": 2,
+      "mode": "cua",
+      "run": "cua-form-hard-2",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=hard&seed=2&mode=cua&run=cua-form-hard-2"
+    },
+    {
+      "family": "locate",
+      "difficulty": "hard",
+      "seed": 3,
+      "mode": "cua",
+      "run": "cua-locate-hard-3",
+      "url": "http://127.0.0.1:60967/challenge?family=locate&difficulty=hard&seed=3&mode=cua&run=cua-locate-hard-3"
+    },
+    {
+      "family": "form",
+      "difficulty": "hard",
+      "seed": 3,
+      "mode": "cua",
+      "run": "cua-form-hard-3",
+      "url": "http://127.0.0.1:60967/challenge?family=form&difficulty=hard&seed=3&mode=cua&run=cua-form-hard-3"
+    }
+  ],
+  "mode": "Current Codex conversation computer use via DOM/AX; no Jev; incremental API cost unavailable",
+  "timeout_per_task_ms": 120000,
+  "primary_timing": "page initialization to terminal; includes initial delay, model/tool latency and recovery",
+  "warning": "This lane must be driven from visible browser state; do not use the source/hidden oracle to select actions.",
+  "stopped_at": "2026-10-29T20:50:53.328Z"
+}

@@ -1,0 +1,45 @@
+
+> jev-p0@0.1.0 test:integration
+> npm run build && node --test dist/tests/integration/*.test.js
+
+
+> jev-p0@0.1.0 build
+> tsc
+
+✔ mock benchmark exports both modes, all rows, actual manifest and no secrets (4090.078625ms)
+✔ benchmark exceptions replace stale success artifacts and retain started task failures (1298.158375ms)
+✔ F01–F03 real browser all twelve tasks en (8223.47525ms)
+✔ F01–F03 real browser all twelve tasks zh (5159.751875ms)
+✔ challenge fixture exports its public browser contract (0.386584ms)
+✔ all challenge variants and seeds complete through visible labels with a single terminal completion (20192.626417ms)
+✔ wrong choices are recoverable, observations do not leak oracle, rerenders reject stale inputs (2196.084375ms)
+✔ server validates challenge queries and rejects nonlocal origins and unbounded events (16.112167ms)
+✔ bound actions reject changed values and never classify a post-input error as safe stale (645.210041ms)
+✔ mutating a returned candidate cannot alter its private authorized action (484.665292ms)
+✔ expiry crossing during preflight rejects input and action waits use the remaining deadline (930.15775ms)
+✔ a hung preflight read settles stale by its deadline without input (551.046666ms)
+✔ observations prune only current-value no-ops and preserve visible field state and alternatives (546.327666ms)
+✔ bounded graded harness exports its runner (0.384792ms)
+✔ scripted visible-controls baseline solves all six variants and includes loading time (6507.077167ms)
+✔ low confidence and invalid candidate answers stop before physical input; reasons are redacted (1107.095792ms)
+✔ Jev routes a singleton wait through its provider and awaits audit before execution (691.70375ms)
+✔ post-input lost acknowledgement remains UNKNOWN even when scoring oracle says success (855.752709ms)
+✔ stale snapshots refresh at most twice, consume decisions, and never execute (6896.596041ms)
+✔ recoverable wrong choices remain scored and known usage is summed (614.052042ms)
+✔ twelve-step cap retains every wrong action and audit failure prevents input (1120.769333ms)
+✔ manifest plan freezes six calibration cases and sixty alternating evaluation trials (0.372542ms)
+✔ partial usage retains known spend while total remains unknown (616.121333ms)
+✔ terminal commit clears active before detail failure, preserving exactly one row (0.365458ms)
+✔ durable start event carries absolute epoch and immutable trial identity (0.079292ms)
+✔ calibration seed 102 stays separate from evaluation seeds and invalid seed overrides fail (0.137625ms)
+✔ two real MCP stdio clients share one local coordinator while keeping default identities isolated (3087.556292ms)
+✔ server ACL permits deliberate two-client BUSY and cancellation without overlapping actions (1912.482375ms)
+✔ MCP queries UNKNOWN physical-action outcome and idempotent retry never replays (1283.960917ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25777.031416

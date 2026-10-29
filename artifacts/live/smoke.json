@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-10-29T20:16:21.478Z",
+  "live_api_called": true,
+  "status": "passed",
+  "trials": [
+    {
+      "variant": "plain",
+      "status": "passed",
+      "correct": true,
+      "confidence": 0.98,
+      "model": "jev-1.14.0",
+      "elapsed_ms": 1050.138625,
+      "usage": {
+        "input_tokens": 377,
+        "output_tokens": 31
+      }
+    },
+    {
+      "variant": "compressed",
+      "status": "passed",
+      "correct": true,
+      "confidence": 1,
+      "model": "jev-1.14.0",
+      "elapsed_ms": 258.52225,
+      "usage": {
+        "input_tokens": 697,
+        "output_tokens": 31
+      }
+    }
+  ],
+  "responses": [
+    {
+      "request": 2,
+      "status": 200,
+      "compressed": false,
+      "headers_elapsed_ms": 1035.55525
+    },
+    {
+      "request": 3,
+      "status": 200,
+      "compressed": true,
+      "headers_elapsed_ms": 247.63595900000018
+    }
+  ],
+  "budget": {
+    "requests": 3,
+    "reservedUsd": 0.03,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  },
+  "accounting": {
+    "approval_id": "user-20261030-usd3",
+    "requests": 2,
+    "reserved_cost_usd": 0.00004510799999999987,
+    "known_cost_usd": 0.000045108,
+    "unknown_usage_requests": 0
+  },
+  "price_source": "https://docs.typesafe.ai/models",
+  "notes": "Reservations are conservative spend ceilings, not invoices; current-session Codex cost is unavailable."
+}

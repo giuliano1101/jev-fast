@@ -1,0 +1,114 @@
+
+> jev-p0@0.1.0 test
+> npm run build && node --test dist/tests/unit/*.test.js dist/tests/safety/core.test.js
+
+
+> jev-p0@0.1.0 build
+> tsc
+
+✔ idempotent result survives restart; different request conflicts; unauthorized observers fail (266.643916ms)
+✔ stale validation prevents physical action (102.333209ms)
+✔ two no-op actions stop loop (182.134208ms)
+✖ execution timeout is UNKNOWN and quarantines new work (117.538791ms)
+✔ kill prevents decisions and future actions (43.105917ms)
+✔ cancel an in-flight action preserves UNKNOWN and cannot overlap (83.912542ms)
+✔ low confidence, invalid choice, malformed probabilities never execute (193.309542ms)
+✔ decision budget expires and late response never executes (189.445583ms)
+✔ step cap stops a progressing but unfinished goal (78.868833ms)
+✔ empty candidates, candidate overflow and unsafe summary abort before provider (131.284917ms)
+✔ cancellation during provider selection fences its late answer (144.100958ms)
+✔ a true goal cannot override a failed action postcondition (94.31775ms)
+✔ shutdown waits for active goal terminal persistence (74.318083ms)
+✔ telemetry distinguishes every phase and counts provider requests without values (95.747125ms)
+✔ unknown execution records its attempted step and durable stage timestamps (112.742541ms)
+✔ immediate shutdown drains a goal whose initial ledger transaction is pending (34.703792ms)
+✔ closing session rejects a new goal before browser close completes (35.762708ms)
+✔ shutdown drains and cleans a pending browser open (26.298958ms)
+✔ immediate cancel works before initial goal persistence (29.648583ms)
+✔ cancelling completed goal does not borrow another active goal status (115.08075ms)
+✔ P0 only one active browser session including pending opens (21.072334ms)
+✔ public observation reserves the session against goal execution (16.411583ms)
+✔ proven pre-execution stale rejection reobserves without UNKNOWN or replay (57.467ms)
+✔ failed public observation cannot prevent session cleanup (20.968333ms)
+✔ lost action response preserves committed side effect without replay (86.621ms)
+✔ public requests reject identity forgery and arbitrary predicates (1.724667ms)
+✔ decision checks types, finite confidence, model and complete probability set (9.540875ms)
+✔ fixture step and error predicates are bounded (1.8945ms)
+✔ CLI help and generated schemas advertise only the same six tools (229.022542ms)
+✔ CLI starts one daemon, reports readiness, executes a mock demo and stops via operator auth (1935.494625ms)
+✔ private IPC credentials bind identities and prevent cross-client reads and operator escalation (192.49625ms)
+✔ oversized frames are rejected before JSON parsing and credential permissions are checked (85.673833ms)
+✔ a second coordinator cannot rotate active credentials or unlink the running socket (75.370542ms)
+✔ failed startup preserves pre-existing credential files and removes only files it created (88.069667ms)
+✔ an absolute connection deadline bounds slow incomplete frames (139.594625ms)
+✔ shutdown still releases browser/fixture resources when engine shutdown fails (72.207084ms)
+✔ facade publishes exactly six strict JSON schemas derived from core (1.54375ms)
+✔ facade refuses self-reported identity, executable inputs, malformed arguments and unknown methods (1.344417ms)
+✔ runtime cleanup attempts every resource and preserves the first failure (0.559208ms)
+✔ large synthetic requests use lossless zstd and reuse the same bytes on bounded retry (22.905583ms)
+✔ small requests stay plain JSON without content encoding (0.55375ms)
+✔ live requires explicit authorization and injected key; never reads environment (0.244334ms)
+✔ fixed endpoint, no redirects, strict typed payload and safe projection (0.361042ms)
+✔ 429/529 share exactly one retry, each attempt reserves approval budget (3.290833ms)
+✔ Retry-After outside deadline and aborted requests never retry (0.290375ms)
+✔ malformed response and unsafe payload fail closed (0.524458ms)
+✔ cost cap rejects before network and repeated overload has only two attempts (2.639583ms)
+✔ transport ignoring abort is still deadline bounded and charges unknown usage (21.067084ms)
+✔ response bodies and usage are bounded; missing usage stays unknown (0.775834ms)
+✔ a stalled response cancellation cannot extend provider deadline (20.632542ms)
+✔ S14 synthetic key in process environment never implicitly enables live (61.638958ms)
+✔ exclusive durable ledger survives reopen and quarantines uncertain actions (157.063709ms)
+✔ dead-process owner lock is reclaimed without replaying EXECUTING action (147.543334ms)
+✔ secure key reader accepts only a private synthetic key file (12.139458ms)
+✔ key reader rejects file and directory symlinks and out-of-scope paths (11.936167ms)
+✔ key contents and failures are bounded and redacted (7.575417ms)
+✔ budget persists each reservation before returning and reloads without refunds (122.82125ms)
+✔ budget separately enforces USD and request caps and rejects unsafe bounds (128.553209ms)
+✔ reopen cannot expand prior limits or extend expiry (152.201667ms)
+✔ active and crashed process locks both fail closed (135.3ms)
+✔ budget expiry is enforced on every reservation (31.161291ms)
+✔ corrupt budget ledger cannot silently reset accumulated spend (19.516958ms)
+✔ reopen cannot reset reservations through surplus option fields (84.951083ms)
+✔ failed durable writes prevent sending and retain a fail-closed lock (33.966375ms)
+✔ budget creates a private nested directory for a new ledger (51.918458ms)
+✔ all started trials remain in reliability and latency denominators (0.577458ms)
+✔ recovered success is distinct from first-pass reliability (0.081875ms)
+✔ paired speed ratio excludes failures without removing them from failure accounting (1.533417ms)
+✔ empty trials produce null ratios and no invented timing or success (0.078458ms)
+✔ partial known cost is retained when another request usage is unknown (0.078208ms)
+✔ censored interrupted timing is excluded from percentiles but retained in success denominator (0.071583ms)
+✔ durable starts without terminal rows become censored UNKNOWN and are not dropped (0.174459ms)
+✔ completed trials remain unique and duplicate terminal IDs fail loudly (0.227125ms)
+✔ overall metrics retain timeout and fallback failures in denominator and latency (1.464167ms)
+✔ all failed experiment does not divide cost by zero (0.129291ms)
+✔ exact mock zero costs and stages aggregate without invented paid usage (0.080375ms)
+✔ nearest-rank percentile handles empty and validates samples (0.588833ms)
+✔ compression uses UTF-8 bytes at the threshold and preserves exact Unicode JSON (0.952667ms)
+✔ plaintext size limit cannot be bypassed by a highly compressible body (0.291125ms)
+ℹ tests 79
+ℹ suites 0
+ℹ pass 78
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2476.736333
+
+✖ failing tests:
+
+test at dist/tests/safety/core.test.js:73:1
+✖ execution timeout is UNKNOWN and quarantines new work (117.538791ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///Users/yubinai/Documents/jev/dist/tests/safety/core.test.js:80:16)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

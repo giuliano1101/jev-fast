@@ -1,0 +1,95 @@
+{
+  "created_at": "2026-10-29T19:46:39.791073+00:00",
+  "live_api_called": false,
+  "checks": [
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.13,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.79,
+      "log": "lint.log"
+    },
+    {
+      "name": "unit",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.33,
+      "log": "unit.log"
+    },
+    {
+      "name": "integration",
+      "command": [
+        "npm",
+        "run",
+        "test:integration"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.75,
+      "log": "integration.log"
+    },
+    {
+      "name": "safety",
+      "command": [
+        "npm",
+        "run",
+        "test:safety"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 9.62,
+      "log": "safety.log"
+    },
+    {
+      "name": "cli",
+      "command": [
+        "npm",
+        "run",
+        "cli",
+        "--",
+        "--help"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.13,
+      "log": "cli.log"
+    },
+    {
+      "name": "benchmark",
+      "command": [
+        "npm",
+        "run",
+        "bench:mock"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 99.48,
+      "log": "benchmark.log"
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.7,
+      "log": "audit.log"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+
+> jev-p0@0.1.0 test
+> npm run build && node --test dist/tests/unit/*.test.js dist/tests/safety/core.test.js
+
+
+> jev-p0@0.1.0 build
+> tsc
+
+✔ idempotent result survives restart; different request conflicts; unauthorized observers fail (166.14025ms)
+✔ stale validation prevents physical action (55.488625ms)
+✔ two no-op actions stop loop (106.06425ms)
+✔ execution timeout is UNKNOWN and quarantines new work (89.364625ms)
+✔ kill prevents decisions and future actions (18.74225ms)
+✔ cancel an in-flight action preserves UNKNOWN and cannot overlap (53.773708ms)
+✔ low confidence, invalid choice, malformed probabilities never execute (175.501ms)
+✔ decision budget expires and late response never executes (182.481292ms)
+✔ step cap stops a progressing but unfinished goal (91.066708ms)
+✔ empty candidates, candidate overflow and unsafe summary abort before provider (116.945959ms)
+✔ cancellation during provider selection fences its late answer (148.311833ms)
+✔ a true goal cannot override a failed action postcondition (82.028708ms)
+✔ shutdown waits for active goal terminal persistence (78.910125ms)
+✔ telemetry distinguishes every phase and counts provider requests without values (82.846708ms)
+✔ unknown execution records its attempted step and durable stage timestamps (126.484167ms)
+✔ immediate shutdown drains a goal whose initial ledger transaction is pending (33.913833ms)
+✔ closing session rejects a new goal before browser close completes (51.00425ms)
+✔ shutdown drains and cleans a pending browser open (28.121584ms)
+✔ immediate cancel works before initial goal persistence (36.535125ms)
+✔ cancelling completed goal does not borrow another active goal status (120.461458ms)
+✔ P0 only one active browser session including pending opens (19.367917ms)
+✔ public observation reserves the session against goal execution (20.124ms)
+✔ proven pre-execution stale rejection reobserves without UNKNOWN or replay (57.856709ms)
+✔ failed public observation cannot prevent session cleanup (29.09925ms)
+✔ lost action response preserves committed side effect without replay (78.132875ms)
+✔ public requests reject identity forgery and arbitrary predicates (2.354416ms)
+✔ decision checks types, finite confidence, model and complete probability set (1.342834ms)
+✔ fixture step and error predicates are bounded (0.375166ms)
+✔ CLI help and generated schemas advertise only the same six tools (211.719042ms)
+✔ CLI starts one daemon, reports readiness, executes a mock demo and stops via operator auth (1724.654375ms)
+✔ private IPC credentials bind identities and prevent cross-client reads and operator escalation (109.994708ms)
+✔ oversized frames are rejected before JSON parsing and credential permissions are checked (51.953875ms)
+✔ a second coordinator cannot rotate active credentials or unlink the running socket (33.316458ms)
+✔ failed startup preserves pre-existing credential files and removes only files it created (40.188541ms)
+✔ an absolute connection deadline bounds slow incomplete frames (133.173959ms)
+✔ shutdown still releases browser/fixture resources when engine shutdown fails (17.06825ms)
+✔ facade publishes exactly six strict JSON schemas derived from core (1.661083ms)
+✔ facade refuses self-reported identity, executable inputs, malformed arguments and unknown methods (1.289875ms)
+✔ runtime cleanup attempts every resource and preserves the first failure (0.413834ms)
+✔ large synthetic requests use lossless zstd and reuse the same bytes on bounded retry (21.840083ms)
+✔ small requests stay plain JSON without content encoding (0.467042ms)
+✔ live requires explicit authorization and injected key; never reads environment (0.228625ms)
+✔ fixed endpoint, no redirects, strict typed payload and safe projection (0.337125ms)
+✔ 429/529 share exactly one retry, each attempt reserves approval budget (3.360833ms)
+✔ Retry-After outside deadline and aborted requests never retry (0.310375ms)
+✔ malformed response and unsafe payload fail closed (0.573375ms)
+✔ cost cap rejects before network and repeated overload has only two attempts (1.455459ms)
+✔ transport ignoring abort is still deadline bounded and charges unknown usage (20.208958ms)
+✔ response bodies and usage are bounded; missing usage stays unknown (0.796417ms)
+✔ a stalled response cancellation cannot extend provider deadline (21.746ms)
+✔ S14 synthetic key in process environment never implicitly enables live (56.863583ms)
+✔ exclusive durable ledger survives reopen and quarantines uncertain actions (90.301916ms)
+✔ dead-process owner lock is reclaimed without replaying EXECUTING action (113.969167ms)
+✔ overall metrics retain timeout and fallback failures in denominator and latency (3.923125ms)
+✔ all failed experiment does not divide cost by zero (0.140834ms)
+✔ exact mock zero costs and stages aggregate without invented paid usage (0.154875ms)
+✔ nearest-rank percentile handles empty and validates samples (2.859458ms)
+✔ compression uses UTF-8 bytes at the threshold and preserves exact Unicode JSON (2.082583ms)
+✔ plaintext size limit cannot be bypassed by a highly compressible body (0.297583ms)
+ℹ tests 59
+ℹ suites 0
+ℹ pass 59
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2158.77325

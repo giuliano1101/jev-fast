@@ -1,0 +1,466 @@
+{
+  "overall": {
+    "tasks": 40,
+    "successes": 40,
+    "success_rate": 1,
+    "p50_ms": 413.9228750000002,
+    "p95_ms": 430.5059999999994,
+    "timeouts": 0,
+    "actions": 76,
+    "action_errors": 0,
+    "action_error_rate": 0,
+    "policy_rejections": 4,
+    "fallback_tasks": 0,
+    "fallback_rate": 0,
+    "safety_violations": 0,
+    "failures": {},
+    "requests": 0,
+    "retries": 0,
+    "stage_p50_ms": {
+      "observe": 85.94700000000012,
+      "candidate": 0.08562499999970896,
+      "policy": 3.414708000000246,
+      "provider": 0.05754199999955745,
+      "execute": 44.65970799999923,
+      "verify": 58.674790999994
+    },
+    "stage_p95_ms": {
+      "observe": 94.01204200000029,
+      "candidate": 0.16958299999987503,
+      "policy": 4.213209000000006,
+      "provider": 0.11416600000029575,
+      "execute": 56.90220700000009,
+      "verify": 66.60450100000003
+    },
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    "total_cost_usd": 0,
+    "unknown_cost_tasks": 0,
+    "cost_per_started_task_usd": 0,
+    "cost_per_success_usd": 0
+  },
+  "groups": {
+    "scripted": {
+      "tasks": 20,
+      "successes": 20,
+      "success_rate": 1,
+      "p50_ms": 416.04633300000023,
+      "p95_ms": 436.8511669999998,
+      "timeouts": 0,
+      "actions": 39,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 1,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 85.94700000000012,
+        "candidate": 0.0849169999996775,
+        "policy": 3.414708000000246,
+        "provider": 0.05720799999835435,
+        "execute": 46.61537500000031,
+        "verify": 55.40358399999968
+      },
+      "stage_p95_ms": {
+        "observe": 94.01204200000029,
+        "candidate": 0.16958299999987503,
+        "policy": 4.253459000001385,
+        "provider": 0.11416600000029575,
+        "execute": 63.79925000000003,
+        "verify": 66.60450100000003
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "scripted/zh": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 410.3199590000004,
+      "p95_ms": 421.82395800000086,
+      "timeouts": 0,
+      "actions": 19,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 1,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 84.58658300000025,
+        "candidate": 0.08137499999975262,
+        "policy": 3.3088339999994787,
+        "provider": 0.052625000000261934,
+        "execute": 46.61537500000031,
+        "verify": 55.40358399999968
+      },
+      "stage_p95_ms": {
+        "observe": 89.74120700000094,
+        "candidate": 0.16958299999987503,
+        "policy": 3.752832999999555,
+        "provider": 0.08491599999979371,
+        "execute": 63.79925000000003,
+        "verify": 66.80720800000017
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "scripted/en": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 422.1310830000002,
+      "p95_ms": 1339.69075,
+      "timeouts": 0,
+      "actions": 20,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 0,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 87.13408300000083,
+        "candidate": 0.0849169999996775,
+        "policy": 3.4729580000002898,
+        "provider": 0.07016700000167475,
+        "execute": 45.76799999999821,
+        "verify": 42.57808300000033
+      },
+      "stage_p95_ms": {
+        "observe": 100.83816700000011,
+        "candidate": 1.0347909999998137,
+        "policy": 7.92450000000008,
+        "provider": 0.736667000000125,
+        "execute": 64.58783299999959,
+        "verify": 66.60450100000003
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "scripted/async": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 413.24212500000067,
+      "p95_ms": 1339.69075,
+      "timeouts": 0,
+      "actions": 19,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 1,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 85.94700000000012,
+        "candidate": 0.10133300000143208,
+        "policy": 3.478499999999258,
+        "provider": 0.05949999999938882,
+        "execute": 46.61537500000031,
+        "verify": 59.994666999999936
+      },
+      "stage_p95_ms": {
+        "observe": 100.83816700000011,
+        "candidate": 1.0347909999998137,
+        "policy": 7.92450000000008,
+        "provider": 0.736667000000125,
+        "execute": 64.58783299999959,
+        "verify": 66.80720800000017
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "scripted/wait": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 419.6805409999997,
+      "p95_ms": 430.5059999999994,
+      "timeouts": 0,
+      "actions": 20,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 0,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 85.43679200000042,
+        "candidate": 0.07662499999787542,
+        "policy": 3.3088339999994787,
+        "provider": 0.05087500000081491,
+        "execute": 45.76799999999821,
+        "verify": 39.714123999998264
+      },
+      "stage_p95_ms": {
+        "observe": 94.01204200000029,
+        "candidate": 0.09475100000054226,
+        "policy": 4.253459000001385,
+        "provider": 0.08491599999979371,
+        "execute": 56.81941700000243,
+        "verify": 66.2628330000025
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "mock": {
+      "tasks": 20,
+      "successes": 20,
+      "success_rate": 1,
+      "p50_ms": 413.61070900000004,
+      "p95_ms": 427.180709,
+      "timeouts": 0,
+      "actions": 37,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 3,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 85.2216669999998,
+        "candidate": 0.08562499999970896,
+        "policy": 3.4004170000007434,
+        "provider": 0.05754199999955745,
+        "execute": 37.68979099999888,
+        "verify": 58.674790999994
+      },
+      "stage_p95_ms": {
+        "observe": 91.18237500000032,
+        "candidate": 0.13429199999882258,
+        "policy": 4.071415999999772,
+        "provider": 0.11129100000016479,
+        "execute": 55.85437500000262,
+        "verify": 66.02983300000051
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "mock/zh": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 412.4257499999985,
+      "p95_ms": 429.47845899999993,
+      "timeouts": 0,
+      "actions": 20,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 0,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 82.9780839999994,
+        "candidate": 0.07862499999828287,
+        "policy": 3.261084000001574,
+        "provider": 0.051541000000725035,
+        "execute": 42.562167000000045,
+        "verify": 62.759249999999156
+      },
+      "stage_p95_ms": {
+        "observe": 100.36720800000148,
+        "candidate": 0.13195900000027905,
+        "policy": 4.071415999999772,
+        "provider": 0.06754199999886623,
+        "execute": 56.80754199999865,
+        "verify": 66.9340830000001
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "mock/en": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 413.61070900000004,
+      "p95_ms": 427.180709,
+      "timeouts": 0,
+      "actions": 17,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 3,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 87.00766599999952,
+        "candidate": 0.1014999999997599,
+        "policy": 3.7264580000000933,
+        "provider": 0.0677920000002814,
+        "execute": 34.21654200000012,
+        "verify": 52.219291999999996
+      },
+      "stage_p95_ms": {
+        "observe": 91.18237500000032,
+        "candidate": 0.17041699999958837,
+        "policy": 4.213209000000006,
+        "provider": 0.12745900000027177,
+        "execute": 55.04274899999973,
+        "verify": 62.07650000000103
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "mock/async": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 413.61070900000004,
+      "p95_ms": 429.47845899999993,
+      "timeouts": 0,
+      "actions": 18,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 2,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 85.2216669999998,
+        "candidate": 0.09170799999992596,
+        "policy": 3.7264580000000933,
+        "provider": 0.05754199999955745,
+        "execute": 30.675083999999515,
+        "verify": 56.485374999999294
+      },
+      "stage_p95_ms": {
+        "observe": 100.36720800000148,
+        "candidate": 0.17041699999958837,
+        "policy": 4.213209000000006,
+        "provider": 0.12745900000027177,
+        "execute": 55.04274899999973,
+        "verify": 66.9340830000001
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    },
+    "mock/wait": {
+      "tasks": 10,
+      "successes": 10,
+      "success_rate": 1,
+      "p50_ms": 412.4257499999985,
+      "p95_ms": 421.0024160000012,
+      "timeouts": 0,
+      "actions": 19,
+      "action_errors": 0,
+      "action_error_rate": 0,
+      "policy_rejections": 1,
+      "fallback_tasks": 0,
+      "fallback_rate": 0,
+      "safety_violations": 0,
+      "failures": {},
+      "requests": 0,
+      "retries": 0,
+      "stage_p50_ms": {
+        "observe": 83.92820799999936,
+        "candidate": 0.08429200000136916,
+        "policy": 3.2867499999993015,
+        "provider": 0.051541000000725035,
+        "execute": 45.724207999999635,
+        "verify": 58.674790999994
+      },
+      "stage_p95_ms": {
+        "observe": 90.99625100000048,
+        "candidate": 0.13429199999882258,
+        "policy": 3.9519170000003214,
+        "provider": 0.07474999999976717,
+        "execute": 56.80754199999865,
+        "verify": 66.02983300000051
+      },
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "total_cost_usd": 0,
+      "unknown_cost_tasks": 0,
+      "cost_per_started_task_usd": 0,
+      "cost_per_success_usd": 0
+    }
+  }
+}

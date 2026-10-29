@@ -1,0 +1,3 @@
+#!/bin/sh
+# Project-local wrapper: respects a working Node/npm installation first.
+exec node /Users/yubinai/.local/lib/npm/package/bin/npm-cli.js "$@"

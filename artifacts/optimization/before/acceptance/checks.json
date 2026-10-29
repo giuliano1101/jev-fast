@@ -1,0 +1,79 @@
+[
+  {
+    "check": "typecheck",
+    "command": "npm run typecheck",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 1.114,
+    "counts": {}
+  },
+  {
+    "check": "lint",
+    "command": "npm run lint",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 0.827,
+    "counts": {}
+  },
+  {
+    "check": "unit",
+    "command": "npm test",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 3.28,
+    "counts": {
+      "tests": 55,
+      "pass": 55,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  {
+    "check": "integration",
+    "command": "npm run test:integration",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 10.773,
+    "counts": {
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  {
+    "check": "safety",
+    "command": "npm run test:safety",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 9.181,
+    "counts": {
+      "tests": 38,
+      "pass": 38,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  {
+    "check": "cli-help",
+    "command": "npm run cli -- --help",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 0.13,
+    "counts": {}
+  },
+  {
+    "check": "benchmark",
+    "command": "npm run bench:mock",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 100.055,
+    "counts": {}
+  }
+]

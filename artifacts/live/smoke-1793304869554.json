@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-10-29T20:14:29.549Z",
+  "live_api_called": true,
+  "status": "failed",
+  "trials": [
+    {
+      "variant": "plain",
+      "status": "failed",
+      "reason": "PROVIDER_HTTP_ERROR",
+      "elapsed_ms": 981.6343750000001
+    }
+  ],
+  "responses": [
+    {
+      "request": 1,
+      "status": 401,
+      "compressed": false,
+      "headers_elapsed_ms": 971.7405409999999
+    }
+  ],
+  "budget": {
+    "requests": 1,
+    "reservedUsd": 0.01,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  },
+  "accounting": {
+    "approval_id": "user-20261030-usd3",
+    "requests": 1,
+    "reserved_cost_usd": 0.0013762560000000002,
+    "known_cost_usd": 0,
+    "unknown_usage_requests": 1
+  },
+  "price_source": "https://docs.typesafe.ai/models",
+  "notes": "Reservations are conservative spend ceilings, not invoices; current-session Codex cost is unavailable."
+}

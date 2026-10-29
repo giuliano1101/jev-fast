@@ -1,0 +1,125 @@
+{
+  "status": "passed",
+  "created_at": "2026-10-29T19:49:13.721005+00:00",
+  "live_api_called": false,
+  "checks": [
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.16,
+      "log": "typecheck.log",
+      "counts": {}
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.8,
+      "log": "lint.log",
+      "counts": {}
+    },
+    {
+      "name": "unit",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.21,
+      "log": "unit.log",
+      "counts": {
+        "tests": 59,
+        "pass": 59,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "name": "integration",
+      "command": [
+        "npm",
+        "run",
+        "test:integration"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.82,
+      "log": "integration.log",
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "name": "safety",
+      "command": [
+        "npm",
+        "run",
+        "test:safety"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.16,
+      "log": "safety.log",
+      "counts": {
+        "tests": 40,
+        "pass": 40,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "name": "cli",
+      "command": [
+        "npm",
+        "run",
+        "cli",
+        "--",
+        "--help"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.16,
+      "log": "cli.log",
+      "counts": {}
+    },
+    {
+      "name": "benchmark",
+      "command": [
+        "npm",
+        "run",
+        "bench:mock"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 99.2,
+      "log": "benchmark.log",
+      "counts": {}
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.52,
+      "log": "audit.log",
+      "counts": {}
+    }
+  ]
+}

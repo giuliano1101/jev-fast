@@ -1,0 +1,667 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 1,
+        "mode": "jev",
+        "run": "evaluation-locate-easy-1-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 1,
+        "mode": "baseline",
+        "run": "evaluation-locate-easy-1-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 2,
+        "mode": "baseline",
+        "run": "evaluation-locate-easy-2-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 2,
+        "mode": "jev",
+        "run": "evaluation-locate-easy-2-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 3,
+        "mode": "jev",
+        "run": "evaluation-locate-easy-3-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 3,
+        "mode": "baseline",
+        "run": "evaluation-locate-easy-3-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 4,
+        "mode": "baseline",
+        "run": "evaluation-locate-easy-4-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 4,
+        "mode": "jev",
+        "run": "evaluation-locate-easy-4-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 5,
+        "mode": "jev",
+        "run": "evaluation-locate-easy-5-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 5,
+        "mode": "baseline",
+        "run": "evaluation-locate-easy-5-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 1,
+        "mode": "baseline",
+        "run": "evaluation-locate-medium-1-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 1,
+        "mode": "jev",
+        "run": "evaluation-locate-medium-1-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 2,
+        "mode": "jev",
+        "run": "evaluation-locate-medium-2-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 2,
+        "mode": "baseline",
+        "run": "evaluation-locate-medium-2-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 3,
+        "mode": "baseline",
+        "run": "evaluation-locate-medium-3-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 3,
+        "mode": "jev",
+        "run": "evaluation-locate-medium-3-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 4,
+        "mode": "jev",
+        "run": "evaluation-locate-medium-4-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 4,
+        "mode": "baseline",
+        "run": "evaluation-locate-medium-4-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 5,
+        "mode": "baseline",
+        "run": "evaluation-locate-medium-5-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 5,
+        "mode": "jev",
+        "run": "evaluation-locate-medium-5-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 1,
+        "mode": "jev",
+        "run": "evaluation-locate-hard-1-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 1,
+        "mode": "baseline",
+        "run": "evaluation-locate-hard-1-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 2,
+        "mode": "baseline",
+        "run": "evaluation-locate-hard-2-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 2,
+        "mode": "jev",
+        "run": "evaluation-locate-hard-2-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 3,
+        "mode": "jev",
+        "run": "evaluation-locate-hard-3-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 3,
+        "mode": "baseline",
+        "run": "evaluation-locate-hard-3-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 4,
+        "mode": "baseline",
+        "run": "evaluation-locate-hard-4-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 4,
+        "mode": "jev",
+        "run": "evaluation-locate-hard-4-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 5,
+        "mode": "jev",
+        "run": "evaluation-locate-hard-5-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 5,
+        "mode": "baseline",
+        "run": "evaluation-locate-hard-5-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 1,
+        "mode": "baseline",
+        "run": "evaluation-form-easy-1-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 1,
+        "mode": "jev",
+        "run": "evaluation-form-easy-1-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 2,
+        "mode": "jev",
+        "run": "evaluation-form-easy-2-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 2,
+        "mode": "baseline",
+        "run": "evaluation-form-easy-2-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 3,
+        "mode": "baseline",
+        "run": "evaluation-form-easy-3-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 3,
+        "mode": "jev",
+        "run": "evaluation-form-easy-3-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 4,
+        "mode": "jev",
+        "run": "evaluation-form-easy-4-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 4,
+        "mode": "baseline",
+        "run": "evaluation-form-easy-4-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 5,
+        "mode": "baseline",
+        "run": "evaluation-form-easy-5-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 5,
+        "mode": "jev",
+        "run": "evaluation-form-easy-5-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 1,
+        "mode": "jev",
+        "run": "evaluation-form-medium-1-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 1,
+        "mode": "baseline",
+        "run": "evaluation-form-medium-1-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 2,
+        "mode": "baseline",
+        "run": "evaluation-form-medium-2-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 2,
+        "mode": "jev",
+        "run": "evaluation-form-medium-2-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 3,
+        "mode": "jev",
+        "run": "evaluation-form-medium-3-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 3,
+        "mode": "baseline",
+        "run": "evaluation-form-medium-3-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 4,
+        "mode": "baseline",
+        "run": "evaluation-form-medium-4-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 4,
+        "mode": "jev",
+        "run": "evaluation-form-medium-4-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 5,
+        "mode": "jev",
+        "run": "evaluation-form-medium-5-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 5,
+        "mode": "baseline",
+        "run": "evaluation-form-medium-5-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 1,
+        "mode": "baseline",
+        "run": "evaluation-form-hard-1-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 1,
+        "mode": "jev",
+        "run": "evaluation-form-hard-1-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 2,
+        "mode": "jev",
+        "run": "evaluation-form-hard-2-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 2,
+        "mode": "baseline",
+        "run": "evaluation-form-hard-2-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 3,
+        "mode": "baseline",
+        "run": "evaluation-form-hard-3-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 3,
+        "mode": "jev",
+        "run": "evaluation-form-hard-3-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 4,
+        "mode": "jev",
+        "run": "evaluation-form-hard-4-jev"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 4,
+        "mode": "baseline",
+        "run": "evaluation-form-hard-4-scripted"
+      }
+    },
+    {
+      "mode": "scripted",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 5,
+        "mode": "baseline",
+        "run": "evaluation-form-hard-5-scripted"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 5,
+        "mode": "jev",
+        "run": "evaluation-form-hard-5-jev"
+      }
+    }
+  ],
+  "status": "completed",
+  "phase": "evaluation",
+  "created_at": "2026-10-29T20:45:56.154Z",
+  "harness": {
+    "decisions": 12,
+    "overall_ms": 120000,
+    "provider_ms": 15000,
+    "snapshot_ttl_ms": 2000,
+    "stale_refreshes": 2,
+    "minimum_confidence": 0.9
+  },
+  "note": "Exploratory graded browser harness, not the shipped 8-step P0 engine. Scripted is an architecture baseline; no production acceleration claim.",
+  "paths": {
+    "directory": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75",
+    "manifest": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75/manifest.json",
+    "rows": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75/rows.jsonl",
+    "events": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75/events.jsonl",
+    "results": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75/results.jsonl"
+  },
+  "source_sha256": {
+    "fixtures/challenge.html": "f1f9c07d85d03769b2a5609d94d1512ccff065e0f6c55c7714bec5f99794b2d2",
+    "bench/live/run.ts": "a2831bdc7cbfb258c000ef04c4389557c038535723ff3dd2410ca20cc3477e7e",
+    "bench/live/challenge.ts": "9ec68cb1b08df7f5bac2d214569da1ccbc038537be42d9e2037730584c6241d1",
+    "bench/live/access.ts": "5b064f73ee54566f91fb829a6dadde6f1007f180fe83c1ab89f9a67005d4a34d",
+    "src/providers/jev.ts": "202410792186037289e115b987c04cceff2e33df56c56644505e5f19a7e68278",
+    "src/providers/request-body.ts": "c8c66b92280a1df5f469c3df812ce2f88d82a71b78a983a9bb22fbb6686d9bef"
+  },
+  "executed_sha256": {
+    "./run.js": "23672302acae06a6533c9ac61cb90742d428183a421d09cd2ecc3e5b527cb2b9",
+    "./challenge.js": "84c029ebe447233a91a86c63e6f05b21b43f58658a62c781f3a7d516e31c60cf",
+    "./access.js": "91994df570d2a0a8e3bafff99830cd20007ab8da1cdc33a8a77723168d041dbf",
+    "../../src/providers/jev.js": "a99e6cd14ee1c1bf1495625d18bbe66a394357d04cc4122f097d92e88da28d0f",
+    "../../src/providers/request-body.js": "568c6631a00fb3a0e390321930bef1fe8266d912af436d507733c09bff7b8123",
+    "../../src/core/contracts.js": "2bbb4040314ce6456b3bb13581103a4d96aea08bf6585a5425f99128274b2fba",
+    "../../src/core/errors.js": "94b1f248bf6b843596372da8ac6e94780d86d52bc1c5c2f641c8ea23985c48e1"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "browser": "148.0.7778.96",
+    "viewport": {
+      "width": 900,
+      "height": 600
+    }
+  },
+  "finished_at": "2026-10-29T20:46:57.886Z",
+  "rows": 60,
+  "budget": {
+    "requests": 115,
+    "reservedUsd": 1.15,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  },
+  "accounting": {
+    "approval_id": "user-20261030-usd3",
+    "requests": 84,
+    "reserved_cost_usd": 0.0022540140000000034,
+    "known_cost_usd": 0.002254014,
+    "unknown_usage_requests": 0
+  }
+}

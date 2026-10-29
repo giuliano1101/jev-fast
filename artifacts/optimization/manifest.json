@@ -1,0 +1,187 @@
+{
+  "completed_at": "2026-10-29T19:49:53.668331+00:00",
+  "timezone": "Asia/Shanghai",
+  "source_sha256": "2493b12bbf2c1c964c2c0e0d31671163a2adb98cff44acc35d72494295259a9f",
+  "source_hash_method": "sha256 over sorted relative path + NUL + content for source/test/fixture/benchmark/config files",
+  "source_files": 39,
+  "file_hashes": {
+    "bench/metrics.ts": "173449ea6635074f196ae27fb0702007a2251101a6c2576ddbea74b2a5fdb58a",
+    "bench/run.ts": "3e72deecf83a5338e03a47197aa8c8448c59d0553437f36af9e8245d9c45f25c",
+    "eslint.config.js": "92f98cbcacf4097bb0aebf120950fff0f64fda9704da20095820a0d32c3af605",
+    "fixtures/page.html": "e665c58495c6df13ab1c96b0aa942f2a0346cc8e028bdd197b4be87d09faf24f",
+    "fixtures/server.ts": "da389deb5bfa36af1925c8ab9d3084282c4e68594f80da441ef94d406d6b8173",
+    "fixtures/tasks.ts": "c9eae045ed35e02743777faa3909252437081a218d6eae2b48af2d50c6a9a2dc",
+    "package-lock.json": "8430d5f336491f1af13b7e067874d7d0450707b0b17574931486eaecfd459fb5",
+    "package.json": "cef9a3832197ddcb767c6c8ead3834686b6acc115802ee888e9a1fe183aaa9a7",
+    "src/browser/adapter.ts": "a15193bd77fd49f999be393b34c75bb10e4dca44e04834a97ac23bf3c3ee6f86",
+    "src/browser/frame.ts": "6fd9df158d93ae8a1abe13d2ef0b652533feb185b3b56cd9165f292eb6937098",
+    "src/cli/index.ts": "80c4950124ae8ca9116b0151afaa0582bda68d4e9e44d642a3e89ef63695df51",
+    "src/core/contracts.ts": "d00daf32e8fb2edd7bcc58e9996ff53c955c3bc0d821ec66a212c42a7cb98675",
+    "src/core/engine.ts": "599514bb7efdde97bb79ddac28e0be89c7be923edc45a7f6a061778d9fb01842",
+    "src/core/errors.ts": "617fc1b21d81a1556e0e60328884a077bbaebda26e2bcbee88a447b0b94fd889",
+    "src/mcp/index.ts": "a0c358808bbffa03a23af45e43ea33d44da401bdf1d13a6e2374da711efa0671",
+    "src/providers/jev.ts": "451b20e1edf2e50a68274c399eeb65a46cfa397cf8a1364df4100b96aea07a87",
+    "src/providers/mock.ts": "97479f0e6aa2a5c183454802f7292fe2a0d277300de31d8021f25466b678955f",
+    "src/providers/request-body.ts": "c8c66b92280a1df5f469c3df812ce2f88d82a71b78a983a9bb22fbb6686d9bef",
+    "src/service/cleanup.ts": "8b378c07d25151f63b6d67155f5705b940120dd255ee3c68a5a45ac2990d6453",
+    "src/service/contracts.ts": "1590bd7fb20badbcb6c6cf2865dad8d7f247c452c67553e1971e0ae1d7122122",
+    "src/service/coordinator.ts": "2d5339036cbcfb2169bee028da787ed5e8a038c66bc172b1a9c52c89514b5859",
+    "src/service/ipc.ts": "75db12db183a85b79d3f5c51c5c2708de2f5c73ccd11bdf3415eb8cab1c7d97c",
+    "src/service/main.ts": "2f5ef1af888ca148f57db84cd038888e8f8642f02454edd85f5e101b462a4deb",
+    "src/service/runtime.ts": "d90755a7efa79225e6e463f285a757559c1a2a83b9f43a0e21dfb914b36fe096",
+    "src/session/ledger.ts": "92373869edf1da0cbd72bfc6d5ffa926905372768e1ea5dc3a8460c3251e8786",
+    "tests/integration/bench.test.ts": "16a126261b09ce1c3aa13f1a615cf4aa70b0725a627f22bb17e6996155d31205",
+    "tests/integration/browser.test.ts": "2ac97b7e9c7e46a8642ba8517e91d32b79bf5976ce6fa3222a2f80226a07083b",
+    "tests/integration/mcp.test.ts": "f5118dcef3cc8cd38634fb5f16fd1457f3e0b802456d76e52a2f7e7d02c7a76c",
+    "tests/safety/browser.test.ts": "a1d408d78184b96858a66297c2fbd03be08ab0e4c43eb2073eb33c8b4d439a0b",
+    "tests/safety/core.test.ts": "83fe1b7f908e1dba2c08b50225066259b48342ba0bcd749f108d95bd252f6ff6",
+    "tests/unit/contracts.test.ts": "6453efd256cbdfad1ed7dff9841b1ba0cec3a707c9d1d226393524c2370a3844",
+    "tests/unit/facade-cli.test.ts": "c13928a2a882a63d1fecb63d4bd169f246c99aa5f923a3d0904f52ede1cefefc",
+    "tests/unit/facade-ipc.test.ts": "2b4baaa5434b71d242c8e7332f19712a3f7e083ca424724b90c561aa5caf0878",
+    "tests/unit/facade.test.ts": "a9108a4e0314c5eb834b9ca4aae8f4a253d074c3df8d9e33bea8058246520438",
+    "tests/unit/jev.test.ts": "98fb32bfe3bf909763ef7194ccc27cb360ca73de53e76dea6f01f2f6c5535132",
+    "tests/unit/ledger.test.ts": "a0418e2a06bb4f020f0ba1bf6899b2b187ded659342dc3c224873d2ebd7311e6",
+    "tests/unit/metrics.test.ts": "97d544d69f5489c2dfb414944bb59ab380500d4fdb3cb7aa402ce430d19437d1",
+    "tests/unit/request-body.test.ts": "180267e058b42d07ce891e8a582fabfb857608e9802aca99765332bf3666dc1f",
+    "tsconfig.json": "4ccd9fb4cc96a958b62dd0601ce71a6f028ec61f3d2d6bdcce0fe79acabfc16a"
+  },
+  "code_commit": null,
+  "checks": [
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.16,
+      "log": "typecheck.log",
+      "counts": {}
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.8,
+      "log": "lint.log",
+      "counts": {}
+    },
+    {
+      "name": "unit",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.21,
+      "log": "unit.log",
+      "counts": {
+        "tests": 59,
+        "pass": 59,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "name": "integration",
+      "command": [
+        "npm",
+        "run",
+        "test:integration"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.82,
+      "log": "integration.log",
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "name": "safety",
+      "command": [
+        "npm",
+        "run",
+        "test:safety"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.16,
+      "log": "safety.log",
+      "counts": {
+        "tests": 40,
+        "pass": 40,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "name": "cli",
+      "command": [
+        "npm",
+        "run",
+        "cli",
+        "--",
+        "--help"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.16,
+      "log": "cli.log",
+      "counts": {}
+    },
+    {
+      "name": "benchmark",
+      "command": [
+        "npm",
+        "run",
+        "bench:mock"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 99.2,
+      "log": "benchmark.log",
+      "counts": {}
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.52,
+      "log": "audit.log",
+      "counts": {}
+    }
+  ],
+  "benchmark": {
+    "samples": 240,
+    "successes": 240,
+    "unknown_actions": 0
+  },
+  "artifact_canary_scan": {
+    "files": 13,
+    "violations": 0
+  },
+  "dependency_known_vulnerabilities": 0,
+  "live_api": "not-run",
+  "paid_api_requests": 0,
+  "review": "passed after P2 fix; see review.md",
+  "not_run": [
+    "TypeSafe hosted API",
+    "paid main-agent baseline",
+    "native macOS AX / screenshots / real websites"
+  ]
+}

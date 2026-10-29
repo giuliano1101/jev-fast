@@ -1,0 +1,15 @@
+
+> jev-p0@0.1.0 cli
+> node dist/src/cli/index.js --help
+
+Jev local mock CLI
+
+Commands:
+  service start | health | stop [--runtime DIR]
+  schemas [--json]
+  demo [--runtime DIR] [--credential FILE] [--json]
+  open_session | observe | run_goal | cancel | status | close_session
+    --args '{"session_id":"..."}' [--credential FILE] [--json]
+
+All tools share the coordinator safety gate. Only local synthetic fixtures and mock decisions are enabled.
+service start --share-a-with-b enables an explicit a-to-b session ACL for local contention testing.

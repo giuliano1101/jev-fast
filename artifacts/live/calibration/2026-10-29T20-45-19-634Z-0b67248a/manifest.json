@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "easy",
+        "seed": 102,
+        "mode": "calibration",
+        "run": "calibration-locate-easy-102-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "medium",
+        "seed": 102,
+        "mode": "calibration",
+        "run": "calibration-locate-medium-102-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "locate",
+        "difficulty": "hard",
+        "seed": 102,
+        "mode": "calibration",
+        "run": "calibration-locate-hard-102-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "easy",
+        "seed": 102,
+        "mode": "calibration",
+        "run": "calibration-form-easy-102-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "medium",
+        "seed": 102,
+        "mode": "calibration",
+        "run": "calibration-form-medium-102-jev"
+      }
+    },
+    {
+      "mode": "jev",
+      "spec": {
+        "family": "form",
+        "difficulty": "hard",
+        "seed": 102,
+        "mode": "calibration",
+        "run": "calibration-form-hard-102-jev"
+      }
+    }
+  ],
+  "status": "completed",
+  "phase": "calibration",
+  "created_at": "2026-10-29T20:45:19.635Z",
+  "harness": {
+    "decisions": 12,
+    "overall_ms": 120000,
+    "provider_ms": 15000,
+    "snapshot_ttl_ms": 2000,
+    "stale_refreshes": 2,
+    "minimum_confidence": 0.9
+  },
+  "note": "Exploratory graded browser harness, not the shipped 8-step P0 engine. Scripted is an architecture baseline; no production acceleration claim.",
+  "paths": {
+    "directory": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a",
+    "manifest": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a/manifest.json",
+    "rows": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a/rows.jsonl",
+    "events": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a/events.jsonl",
+    "results": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a/results.jsonl"
+  },
+  "source_sha256": {
+    "fixtures/challenge.html": "f1f9c07d85d03769b2a5609d94d1512ccff065e0f6c55c7714bec5f99794b2d2",
+    "bench/live/run.ts": "a2831bdc7cbfb258c000ef04c4389557c038535723ff3dd2410ca20cc3477e7e",
+    "bench/live/challenge.ts": "9ec68cb1b08df7f5bac2d214569da1ccbc038537be42d9e2037730584c6241d1",
+    "bench/live/access.ts": "5b064f73ee54566f91fb829a6dadde6f1007f180fe83c1ab89f9a67005d4a34d",
+    "src/providers/jev.ts": "202410792186037289e115b987c04cceff2e33df56c56644505e5f19a7e68278",
+    "src/providers/request-body.ts": "c8c66b92280a1df5f469c3df812ce2f88d82a71b78a983a9bb22fbb6686d9bef"
+  },
+  "executed_sha256": {
+    "./run.js": "23672302acae06a6533c9ac61cb90742d428183a421d09cd2ecc3e5b527cb2b9",
+    "./challenge.js": "84c029ebe447233a91a86c63e6f05b21b43f58658a62c781f3a7d516e31c60cf",
+    "./access.js": "91994df570d2a0a8e3bafff99830cd20007ab8da1cdc33a8a77723168d041dbf",
+    "../../src/providers/jev.js": "a99e6cd14ee1c1bf1495625d18bbe66a394357d04cc4122f097d92e88da28d0f",
+    "../../src/providers/request-body.js": "568c6631a00fb3a0e390321930bef1fe8266d912af436d507733c09bff7b8123",
+    "../../src/core/contracts.js": "2bbb4040314ce6456b3bb13581103a4d96aea08bf6585a5425f99128274b2fba",
+    "../../src/core/errors.js": "94b1f248bf6b843596372da8ac6e94780d86d52bc1c5c2f641c8ea23985c48e1"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "browser": "148.0.7778.96",
+    "viewport": {
+      "width": 900,
+      "height": 600
+    }
+  },
+  "finished_at": "2026-10-29T20:45:29.507Z",
+  "rows": 6,
+  "budget": {
+    "requests": 31,
+    "reservedUsd": 0.31,
+    "maxUsd": 3,
+    "maxRequests": 300,
+    "expiresAt": 1793312068550
+  },
+  "accounting": {
+    "approval_id": "user-20261030-usd3",
+    "requests": 18,
+    "reserved_cost_usd": 0.0004915680000000002,
+    "known_cost_usd": 0.0004915680000000002,
+    "unknown_usage_requests": 0
+  }
+}

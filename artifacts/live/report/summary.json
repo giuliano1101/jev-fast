@@ -1,0 +1,1161 @@
+{
+  "created_at": "2026-10-29T20:47:17.447Z",
+  "timezone": "Asia/Shanghai",
+  "groups": {
+    "jev": {
+      "tasks": 30,
+      "successes": 25,
+      "clean_successes": 25,
+      "recovered_successes": 0,
+      "success_rate": 0.8333333333333334,
+      "clean_success_rate": 0.8333333333333334,
+      "success_rate_95_interval": {
+        "lower": 0.6643529481431982,
+        "upper": 0.9266356575964831
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.6643529481431982,
+        "upper": 0.9266356575964831
+      },
+      "p50_all_started_ms": 949,
+      "p95_all_started_ms": 3711,
+      "p50_clean_success_ms": 949,
+      "p95_clean_success_ms": 3711,
+      "wrong_actions": 0,
+      "actions": 96,
+      "rejections": 12,
+      "requests": 84,
+      "known_cost_usd": 0.002254014,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {
+        "LOW_CONFIDENCE": 5
+      }
+    },
+    "jev/easy": {
+      "tasks": 10,
+      "successes": 10,
+      "clean_successes": 10,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "p50_all_started_ms": 668,
+      "p95_all_started_ms": 1321,
+      "p50_clean_success_ms": 668,
+      "p95_clean_success_ms": 1321,
+      "wrong_actions": 0,
+      "actions": 20,
+      "rejections": 0,
+      "requests": 15,
+      "known_cost_usd": 0.0003520019999999998,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "jev/easy/locate": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 541,
+      "p95_all_started_ms": 1321,
+      "p50_clean_success_ms": 541,
+      "p95_clean_success_ms": 1321,
+      "wrong_actions": 0,
+      "actions": 5,
+      "rejections": 0,
+      "requests": 5,
+      "known_cost_usd": 0.00013150200000000003,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "jev/easy/form": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 862,
+      "p95_all_started_ms": 1152,
+      "p50_clean_success_ms": 862,
+      "p95_clean_success_ms": 1152,
+      "wrong_actions": 0,
+      "actions": 15,
+      "rejections": 0,
+      "requests": 10,
+      "known_cost_usd": 0.00022049999999999978,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "jev/medium": {
+      "tasks": 10,
+      "successes": 10,
+      "clean_successes": 10,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "p50_all_started_ms": 917,
+      "p95_all_started_ms": 1726,
+      "p50_clean_success_ms": 917,
+      "p95_clean_success_ms": 1726,
+      "wrong_actions": 0,
+      "actions": 35,
+      "rejections": 0,
+      "requests": 25,
+      "known_cost_usd": 0.0006799379999999998,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "jev/medium/locate": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 402,
+      "p95_all_started_ms": 917,
+      "p50_clean_success_ms": 402,
+      "p95_clean_success_ms": 917,
+      "wrong_actions": 0,
+      "actions": 5,
+      "rejections": 0,
+      "requests": 5,
+      "known_cost_usd": 0.000158844,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "jev/medium/form": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 1491,
+      "p95_all_started_ms": 1726,
+      "p50_clean_success_ms": 1491,
+      "p95_clean_success_ms": 1726,
+      "wrong_actions": 0,
+      "actions": 30,
+      "rejections": 0,
+      "requests": 20,
+      "known_cost_usd": 0.0005210939999999998,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "jev/hard": {
+      "tasks": 10,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 0.5,
+      "clean_success_rate": 0.5,
+      "success_rate_95_interval": {
+        "lower": 0.23658959361548731,
+        "upper": 0.7634104063845126
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.23658959361548731,
+        "upper": 0.7634104063845126
+      },
+      "p50_all_started_ms": 1856,
+      "p95_all_started_ms": 4007,
+      "p50_clean_success_ms": 1856,
+      "p95_clean_success_ms": 4007,
+      "wrong_actions": 0,
+      "actions": 41,
+      "rejections": 12,
+      "requests": 44,
+      "known_cost_usd": 0.0012220740000000003,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {
+        "LOW_CONFIDENCE": 5
+      }
+    },
+    "jev/hard/locate": {
+      "tasks": 5,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 0.6,
+      "clean_success_rate": 0.6,
+      "success_rate_95_interval": {
+        "lower": 0.23071993220883708,
+        "upper": 0.8823817688407467
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.23071993220883708,
+        "upper": 0.8823817688407467
+      },
+      "p50_all_started_ms": 1285,
+      "p95_all_started_ms": 1856,
+      "p50_clean_success_ms": 1331,
+      "p95_clean_success_ms": 1856,
+      "wrong_actions": 0,
+      "actions": 6,
+      "rejections": 5,
+      "requests": 11,
+      "known_cost_usd": 0.00034460999999999997,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {
+        "LOW_CONFIDENCE": 2
+      }
+    },
+    "jev/hard/form": {
+      "tasks": 5,
+      "successes": 2,
+      "clean_successes": 2,
+      "recovered_successes": 0,
+      "success_rate": 0.4,
+      "clean_success_rate": 0.4,
+      "success_rate_95_interval": {
+        "lower": 0.1176182311592533,
+        "upper": 0.769280067791163
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.1176182311592533,
+        "upper": 0.769280067791163
+      },
+      "p50_all_started_ms": 2715,
+      "p95_all_started_ms": 4007,
+      "p50_clean_success_ms": 3711,
+      "p95_clean_success_ms": 4007,
+      "wrong_actions": 0,
+      "actions": 35,
+      "rejections": 7,
+      "requests": 33,
+      "known_cost_usd": 0.0008774640000000003,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {
+        "LOW_CONFIDENCE": 3
+      }
+    },
+    "computer-use": {
+      "tasks": 18,
+      "successes": 18,
+      "clean_successes": 18,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.8241154494176252,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.8241154494176252,
+        "upper": 1
+      },
+      "p50_all_started_ms": 6351,
+      "p95_all_started_ms": 24766,
+      "p50_clean_success_ms": 6351,
+      "p95_clean_success_ms": 24766,
+      "wrong_actions": 0,
+      "actions": 69,
+      "rejections": 2,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 18,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/easy": {
+      "tasks": 6,
+      "successes": 6,
+      "clean_successes": 6,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.6096569663469354,
+        "upper": 0.9999999999999999
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.6096569663469354,
+        "upper": 0.9999999999999999
+      },
+      "p50_all_started_ms": 3059,
+      "p95_all_started_ms": 7253,
+      "p50_clean_success_ms": 3059,
+      "p95_clean_success_ms": 7253,
+      "wrong_actions": 0,
+      "actions": 12,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 6,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/easy/locate": {
+      "tasks": 3,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "p50_all_started_ms": 4344,
+      "p95_all_started_ms": 7253,
+      "p50_clean_success_ms": 4344,
+      "p95_clean_success_ms": 7253,
+      "wrong_actions": 0,
+      "actions": 3,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 3,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/easy/form": {
+      "tasks": 3,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "p50_all_started_ms": 3059,
+      "p95_all_started_ms": 4587,
+      "p50_clean_success_ms": 3059,
+      "p95_clean_success_ms": 4587,
+      "wrong_actions": 0,
+      "actions": 9,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 3,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/medium": {
+      "tasks": 6,
+      "successes": 6,
+      "clean_successes": 6,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.6096569663469354,
+        "upper": 0.9999999999999999
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.6096569663469354,
+        "upper": 0.9999999999999999
+      },
+      "p50_all_started_ms": 3935,
+      "p95_all_started_ms": 12352,
+      "p50_clean_success_ms": 3935,
+      "p95_clean_success_ms": 12352,
+      "wrong_actions": 0,
+      "actions": 21,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 6,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/medium/locate": {
+      "tasks": 3,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "p50_all_started_ms": 3322,
+      "p95_all_started_ms": 3935,
+      "p50_clean_success_ms": 3322,
+      "p95_clean_success_ms": 3935,
+      "wrong_actions": 0,
+      "actions": 3,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 3,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/medium/form": {
+      "tasks": 3,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "p50_all_started_ms": 6984,
+      "p95_all_started_ms": 12352,
+      "p50_clean_success_ms": 6984,
+      "p95_clean_success_ms": 12352,
+      "wrong_actions": 0,
+      "actions": 18,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 3,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/hard": {
+      "tasks": 6,
+      "successes": 6,
+      "clean_successes": 6,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.6096569663469354,
+        "upper": 0.9999999999999999
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.6096569663469354,
+        "upper": 0.9999999999999999
+      },
+      "p50_all_started_ms": 14772,
+      "p95_all_started_ms": 24766,
+      "p50_clean_success_ms": 14772,
+      "p95_clean_success_ms": 24766,
+      "wrong_actions": 0,
+      "actions": 36,
+      "rejections": 2,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 6,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/hard/locate": {
+      "tasks": 3,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "p50_all_started_ms": 12059,
+      "p95_all_started_ms": 14772,
+      "p50_clean_success_ms": 12059,
+      "p95_clean_success_ms": 14772,
+      "wrong_actions": 0,
+      "actions": 6,
+      "rejections": 1,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 3,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "computer-use/hard/form": {
+      "tasks": 3,
+      "successes": 3,
+      "clean_successes": 3,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.43849391955098227,
+        "upper": 1
+      },
+      "p50_all_started_ms": 19450,
+      "p95_all_started_ms": 24766,
+      "p50_clean_success_ms": 19450,
+      "p95_clean_success_ms": 24766,
+      "wrong_actions": 0,
+      "actions": 30,
+      "rejections": 1,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 3,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted": {
+      "tasks": 30,
+      "successes": 30,
+      "clean_successes": 30,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.8864829086095221,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.8864829086095221,
+        "upper": 1
+      },
+      "p50_all_started_ms": 117,
+      "p95_all_started_ms": 1274,
+      "p50_clean_success_ms": 117,
+      "p95_clean_success_ms": 1274,
+      "wrong_actions": 0,
+      "actions": 115,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/easy": {
+      "tasks": 10,
+      "successes": 10,
+      "clean_successes": 10,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "p50_all_started_ms": 103,
+      "p95_all_started_ms": 117,
+      "p50_clean_success_ms": 103,
+      "p95_clean_success_ms": 117,
+      "wrong_actions": 0,
+      "actions": 20,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/easy/locate": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 96,
+      "p95_all_started_ms": 103,
+      "p50_clean_success_ms": 96,
+      "p95_clean_success_ms": 103,
+      "wrong_actions": 0,
+      "actions": 5,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/easy/form": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 115,
+      "p95_all_started_ms": 117,
+      "p50_clean_success_ms": 115,
+      "p95_clean_success_ms": 117,
+      "wrong_actions": 0,
+      "actions": 15,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/medium": {
+      "tasks": 10,
+      "successes": 10,
+      "clean_successes": 10,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "p50_all_started_ms": 105,
+      "p95_all_started_ms": 208,
+      "p50_clean_success_ms": 105,
+      "p95_clean_success_ms": 208,
+      "wrong_actions": 0,
+      "actions": 35,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/medium/locate": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 96,
+      "p95_all_started_ms": 105,
+      "p50_clean_success_ms": 96,
+      "p95_clean_success_ms": 105,
+      "wrong_actions": 0,
+      "actions": 5,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/medium/form": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 198,
+      "p95_all_started_ms": 208,
+      "p50_clean_success_ms": 198,
+      "p95_clean_success_ms": 208,
+      "wrong_actions": 0,
+      "actions": 30,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/hard": {
+      "tasks": 10,
+      "successes": 10,
+      "clean_successes": 10,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.7224598312333834,
+        "upper": 1
+      },
+      "p50_all_started_ms": 506,
+      "p95_all_started_ms": 1277,
+      "p50_clean_success_ms": 506,
+      "p95_clean_success_ms": 1277,
+      "wrong_actions": 0,
+      "actions": 60,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/hard/locate": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 493,
+      "p95_all_started_ms": 506,
+      "p50_clean_success_ms": 493,
+      "p95_clean_success_ms": 506,
+      "wrong_actions": 0,
+      "actions": 10,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    },
+    "scripted/hard/form": {
+      "tasks": 5,
+      "successes": 5,
+      "clean_successes": 5,
+      "recovered_successes": 0,
+      "success_rate": 1,
+      "clean_success_rate": 1,
+      "success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "clean_success_rate_95_interval": {
+        "lower": 0.5655085052479191,
+        "upper": 1
+      },
+      "p50_all_started_ms": 1262,
+      "p95_all_started_ms": 1277,
+      "p50_clean_success_ms": 1262,
+      "p95_clean_success_ms": 1277,
+      "wrong_actions": 0,
+      "actions": 50,
+      "rejections": 0,
+      "requests": 0,
+      "known_cost_usd": 0,
+      "unknown_cost_trials": 0,
+      "unknown_usage_requests": 0,
+      "censored_latency_trials": 0,
+      "unknown_action_trials": 0,
+      "failures": {}
+    }
+  },
+  "paired": {
+    "matched_cases": 18,
+    "both_clean_successes": 16,
+    "median_paired_speed_ratio": 5.490537471612415,
+    "jev_failures_in_matched_cases": 2,
+    "computer_use_failures_in_matched_cases": 0,
+    "note": "Ratio is computer-use / Jev page-initialization-to-terminal latency on paired clean successes only; failures remain in separate reliability denominators. Includes initial control delays; browser startup is separate. Architecture comparison, not isolated model speed."
+  },
+  "paired_by_difficulty": {
+    "easy": {
+      "matched_cases": 6,
+      "both_clean_successes": 6,
+      "median_paired_speed_ratio": 5.239285714285714,
+      "jev_failures_in_matched_cases": 0,
+      "computer_use_failures_in_matched_cases": 0,
+      "note": "Ratio is computer-use / Jev page-initialization-to-terminal latency on paired clean successes only; failures remain in separate reliability denominators. Includes initial control delays; browser startup is separate. Architecture comparison, not isolated model speed."
+    },
+    "medium": {
+      "matched_cases": 6,
+      "both_clean_successes": 6,
+      "median_paired_speed_ratio": 4.294117647058823,
+      "jev_failures_in_matched_cases": 0,
+      "computer_use_failures_in_matched_cases": 0,
+      "note": "Ratio is computer-use / Jev page-initialization-to-terminal latency on paired clean successes only; failures remain in separate reliability denominators. Includes initial control delays; browser startup is separate. Architecture comparison, not isolated model speed."
+    },
+    "hard": {
+      "matched_cases": 6,
+      "both_clean_successes": 4,
+      "median_paired_speed_ratio": 6.180683803344148,
+      "jev_failures_in_matched_cases": 2,
+      "computer_use_failures_in_matched_cases": 0,
+      "note": "Ratio is computer-use / Jev page-initialization-to-terminal latency on paired clean successes only; failures remain in separate reliability denominators. Includes initial control delays; browser startup is separate. Architecture comparison, not isolated model speed."
+    }
+  },
+  "calibration": {
+    "tasks": 6,
+    "successes": 5,
+    "clean_successes": 5,
+    "recovered_successes": 0,
+    "success_rate": 0.8333333333333334,
+    "clean_success_rate": 0.8333333333333334,
+    "success_rate_95_interval": {
+      "lower": 0.43649056343635395,
+      "upper": 0.9699474141282697
+    },
+    "clean_success_rate_95_interval": {
+      "lower": 0.43649056343635395,
+      "upper": 0.9699474141282697
+    },
+    "p50_all_started_ms": 844,
+    "p95_all_started_ms": 3183,
+    "p50_clean_success_ms": 943,
+    "p95_clean_success_ms": 3183,
+    "wrong_actions": 0,
+    "actions": 21,
+    "rejections": 3,
+    "requests": 18,
+    "known_cost_usd": 0.0004915680000000002,
+    "unknown_cost_trials": 0,
+    "unknown_usage_requests": 0,
+    "censored_latency_trials": 0,
+    "unknown_action_trials": 0,
+    "failures": {
+      "LOW_CONFIDENCE": 1
+    }
+  },
+  "run_history": [
+    {
+      "directory": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-39-08-965Z-fdeef7d3",
+      "phase": "calibration",
+      "status": "completed",
+      "seeds": [
+        101
+      ],
+      "summary": {
+        "tasks": 6,
+        "successes": 3,
+        "clean_successes": 3,
+        "recovered_successes": 0,
+        "success_rate": 0.5,
+        "clean_success_rate": 0.5,
+        "success_rate_95_interval": {
+          "lower": 0.18761280689940868,
+          "upper": 0.8123871931005913
+        },
+        "clean_success_rate_95_interval": {
+          "lower": 0.18761280689940868,
+          "upper": 0.8123871931005913
+        },
+        "p50_all_started_ms": 1052,
+        "p95_all_started_ms": 1888,
+        "p50_clean_success_ms": 1348,
+        "p95_clean_success_ms": 1888,
+        "wrong_actions": 0,
+        "actions": 5,
+        "rejections": 4,
+        "requests": 10,
+        "known_cost_usd": 0.000259644,
+        "unknown_cost_trials": 0,
+        "unknown_usage_requests": 0,
+        "censored_latency_trials": 0,
+        "unknown_action_trials": 0,
+        "failures": {
+          "LOW_CONFIDENCE": 3
+        }
+      },
+      "accounting": {
+        "approval_id": "user-20261030-usd3",
+        "requests": 10,
+        "reserved_cost_usd": 0.00025964400000000006,
+        "known_cost_usd": 0.000259644,
+        "unknown_usage_requests": 0
+      }
+    },
+    {
+      "directory": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a",
+      "phase": "calibration",
+      "status": "completed",
+      "seeds": [
+        102
+      ],
+      "summary": {
+        "tasks": 6,
+        "successes": 5,
+        "clean_successes": 5,
+        "recovered_successes": 0,
+        "success_rate": 0.8333333333333334,
+        "clean_success_rate": 0.8333333333333334,
+        "success_rate_95_interval": {
+          "lower": 0.43649056343635395,
+          "upper": 0.9699474141282697
+        },
+        "clean_success_rate_95_interval": {
+          "lower": 0.43649056343635395,
+          "upper": 0.9699474141282697
+        },
+        "p50_all_started_ms": 844,
+        "p95_all_started_ms": 3183,
+        "p50_clean_success_ms": 943,
+        "p95_clean_success_ms": 3183,
+        "wrong_actions": 0,
+        "actions": 21,
+        "rejections": 3,
+        "requests": 18,
+        "known_cost_usd": 0.0004915680000000002,
+        "unknown_cost_trials": 0,
+        "unknown_usage_requests": 0,
+        "censored_latency_trials": 0,
+        "unknown_action_trials": 0,
+        "failures": {
+          "LOW_CONFIDENCE": 1
+        }
+      },
+      "accounting": {
+        "approval_id": "user-20261030-usd3",
+        "requests": 18,
+        "reserved_cost_usd": 0.0004915680000000002,
+        "known_cost_usd": 0.0004915680000000002,
+        "unknown_usage_requests": 0
+      }
+    },
+    {
+      "directory": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75",
+      "phase": "evaluation",
+      "status": "completed",
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "summary": {
+        "tasks": 60,
+        "successes": 55,
+        "clean_successes": 55,
+        "recovered_successes": 0,
+        "success_rate": 0.9166666666666666,
+        "clean_success_rate": 0.9166666666666666,
+        "success_rate_95_interval": {
+          "lower": 0.8193083153188752,
+          "upper": 0.9638800759495141
+        },
+        "clean_success_rate_95_interval": {
+          "lower": 0.8193083153188752,
+          "upper": 0.9638800759495141
+        },
+        "p50_all_started_ms": 506,
+        "p95_all_started_ms": 2606,
+        "p50_clean_success_ms": 496,
+        "p95_clean_success_ms": 1856,
+        "wrong_actions": 0,
+        "actions": 211,
+        "rejections": 12,
+        "requests": 84,
+        "known_cost_usd": 0.002254014,
+        "unknown_cost_trials": 0,
+        "unknown_usage_requests": 0,
+        "censored_latency_trials": 0,
+        "unknown_action_trials": 0,
+        "failures": {
+          "LOW_CONFIDENCE": 5
+        }
+      },
+      "accounting": {
+        "approval_id": "user-20261030-usd3",
+        "requests": 84,
+        "reserved_cost_usd": 0.0022540140000000034,
+        "known_cost_usd": 0.002254014,
+        "unknown_usage_requests": 0
+      }
+    }
+  ],
+  "cost": {
+    "known_jev_usd": 0.003050334,
+    "unknown_usage_requests": 1,
+    "reserved_requests": 115,
+    "conservative_reserved_usd": 1.15,
+    "maximum_usd": 3,
+    "control_session_cost_usd": null,
+    "price_source": "https://docs.typesafe.ai/models"
+  },
+  "source_directories": {
+    "calibration": "/Users/yubinai/Documents/jev/artifacts/live/calibration/2026-10-29T20-45-19-634Z-0b67248a",
+    "evaluation": "/Users/yubinai/Documents/jev/artifacts/live/evaluation/2026-10-29T20-45-56-153Z-e300ae75",
+    "computer_use": "/Users/yubinai/Documents/jev/artifacts/live/computer-use"
+  },
+  "evidence": {
+    "evaluation_planned_cases": 60,
+    "reconciled_evaluation_rows": 60,
+    "partial_tail": false,
+    "operator_tool_errors": 2,
+    "operator_setup_notes": [
+      "Parent IAB tab 1 not accessible in subagent browser 2; no trial started in this failed bind.",
+      "Creating a visible IAB tab was rejected because subagent threads do not support IAB visibility; no trial started.",
+      "Background create navigated successfully but assignment failed because prior failed binding left tab undefined. Rebound existing tab 1 without navigation/reset; first trial timing includes this binding recovery."
+    ]
+  },
+  "limitations": [
+    "Controlled synthetic webpages; real browser operations and real hosted Jev decisions; no native macOS applications or real user accounts.",
+    "Jev Playwright Chromium vs ordinary Codex IAB AX/DOM tools, narrower candidate space and deterministic fill extraction; operational architecture comparison, not isolated model speed.",
+    "12-step exploratory graded harness, not the shipped 8-step P0 engine; confidence threshold fixed at 0.9.",
+    "Primary latency starts at page script initialization and includes control delay, model/tool roundtrips and recovery; browser startup/navigation before initialization and post-completion observation excluded.",
+    "Percentiles include only uncensored observed timings; interrupted trials remain in success denominators. p95 is nearest rank and small strata have wide uncertainty.",
+    "Wrong actions count rejected progression/decoy clicks, not every temporary field edit. Clean success means no recorded page mistake; tool/guard recovery is reported separately.",
+    "Comparison cost for current Codex session is unavailable, not zero; API costs are reported token-based estimates, not invoices."
+  ]
+}

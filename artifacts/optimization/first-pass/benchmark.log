@@ -1,0 +1,9 @@
+
+> jev-p0@0.1.0 bench:mock
+> npm run build && node dist/bench/run.js
+
+
+> jev-p0@0.1.0 build
+> tsc
+
+{"mode":"mock","tasks":240,"status":"passed","report":"artifacts/mock/summary.md"}

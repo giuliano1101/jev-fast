@@ -1,0 +1,32 @@
+[
+  {
+    "name": "typecheck",
+    "exit_code": 0,
+    "elapsed_seconds": 1.11
+  },
+  {
+    "name": "lint",
+    "exit_code": 0,
+    "elapsed_seconds": 0.94
+  },
+  {
+    "name": "build",
+    "exit_code": 0,
+    "elapsed_seconds": 1.09
+  },
+  {
+    "name": "unit",
+    "exit_code": 0,
+    "elapsed_seconds": 3.62
+  },
+  {
+    "name": "integration",
+    "exit_code": 0,
+    "elapsed_seconds": 25.05
+  },
+  {
+    "name": "safety",
+    "exit_code": 0,
+    "elapsed_seconds": 9.24
+  }
+]

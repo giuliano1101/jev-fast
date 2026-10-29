@@ -1,0 +1,104 @@
+{
+  "completed_at": "2026-10-30T03:37:20.417740+08:00",
+  "timezone": "Asia/Shanghai",
+  "source_sha256": "00370a92e9671eaa8f3173dd9123734317d71d325823a99d44e2df348f07183e",
+  "source_files": 38,
+  "code_commit": null,
+  "checks": [
+    {
+      "check": "typecheck",
+      "command": "npm run typecheck",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.114,
+      "counts": {}
+    },
+    {
+      "check": "lint",
+      "command": "npm run lint",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.827,
+      "counts": {}
+    },
+    {
+      "check": "unit",
+      "command": "npm test",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 3.28,
+      "counts": {
+        "tests": 55,
+        "pass": 55,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "check": "integration",
+      "command": "npm run test:integration",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 10.773,
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "check": "safety",
+      "command": "npm run test:safety",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 9.181,
+      "counts": {
+        "tests": 38,
+        "pass": 38,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "check": "cli-help",
+      "command": "npm run cli -- --help",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.13,
+      "counts": {}
+    },
+    {
+      "check": "benchmark",
+      "command": "npm run bench:mock",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 100.055,
+      "counts": {}
+    }
+  ],
+  "benchmark": {
+    "samples": 240,
+    "successes": 240,
+    "unknown_actions": 0
+  },
+  "artifact_canary_scan": {
+    "files": 31,
+    "violations": 0
+  },
+  "dependency_known_vulnerabilities": 0,
+  "live_api": "not-run",
+  "paid_api_requests": 0,
+  "blocked": [],
+  "not_run": [
+    "TypeSafe hosted API",
+    "paid main-agent baseline",
+    "native macOS AX / screenshots / real websites"
+  ]
+}

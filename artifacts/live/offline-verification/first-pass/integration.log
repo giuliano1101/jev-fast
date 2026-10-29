@@ -1,0 +1,63 @@
+
+> jev-p0@0.1.0 test:integration
+> npm run build && node --test dist/tests/integration/*.test.js
+
+
+> jev-p0@0.1.0 build
+> tsc
+
+✔ mock benchmark exports both modes, all rows, actual manifest and no secrets (4272.528459ms)
+✔ benchmark exceptions replace stale success artifacts and retain started task failures (1288.289125ms)
+✔ F01–F03 real browser all twelve tasks en (8458.190167ms)
+✔ F01–F03 real browser all twelve tasks zh (4584.6615ms)
+✔ challenge fixture exports its public browser contract (0.347125ms)
+✔ all challenge variants and seeds complete through visible labels with a single terminal completion (20332.038791ms)
+✔ wrong choices are recoverable, observations do not leak oracle, rerenders reject stale inputs (2070.611125ms)
+✔ server validates challenge queries and rejects nonlocal origins and unbounded events (13.444584ms)
+✔ bound actions reject changed values and never classify a post-input error as safe stale (586.857667ms)
+✔ mutating a returned candidate cannot alter its private authorized action (483.497875ms)
+✔ expiry crossing during preflight rejects input and action waits use the remaining deadline (1011.870125ms)
+✔ bounded graded harness exports its runner (0.839917ms)
+✖ scripted visible-controls baseline solves all six variants and includes loading time (4007.245167ms)
+✔ low confidence and invalid candidate answers stop before physical input; reasons are redacted (1922.422042ms)
+✔ Jev routes a singleton wait through its provider and awaits audit before execution (813.636125ms)
+✔ post-input lost acknowledgement remains UNKNOWN even when scoring oracle says success (790.287416ms)
+✔ stale snapshots refresh at most twice, consume decisions, and never execute (6854.076292ms)
+✔ recoverable wrong choices remain scored and known usage is summed (629.613958ms)
+✔ twelve-step cap retains every wrong action and audit failure prevents input (1166.408292ms)
+✔ manifest plan freezes six calibration cases and sixty alternating evaluation trials (0.318833ms)
+✔ partial usage retains known spend while total remains unknown (890.040708ms)
+✔ terminal commit clears active before detail failure, preserving exactly one row (0.454ms)
+✔ durable start event carries absolute epoch and immutable trial identity (0.175125ms)
+✔ two real MCP stdio clients share one local coordinator while keeping default identities isolated (4080.29875ms)
+✔ server ACL permits deliberate two-client BUSY and cancellation without overlapping actions (1763.02ms)
+✔ MCP queries UNKNOWN physical-action outcome and idempotent retry never replays (1375.173208ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 25
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 24715.854916
+
+✖ failing tests:
+
+test at dist/tests/integration/live-run.test.js:9:1
+✖ scripted visible-controls baseline solves all six variants and includes loading time (4007.245167ms)
+  AssertionError [ERR_ASSERTION]: {"id":"locate-hard","mode":"scripted","family":"locate","difficulty":"hard","seed":1,"phase":"evaluation","status":"UNKNOWN","elapsed_ms":298,"setup_ms":103.56333300000006,"actions":0,"wrong_actions":0,"rejections":0,"decisions":1,"requests":0,"cost_usd":0,"reason":"EXECUTION_UNKNOWN","actions_known":true,"latency_censored":false,"known_cost_usd":0,"unknown_usage_requests":0}
+  + actual - expected
+  
+  + 'UNKNOWN'
+  - 'SUCCEEDED'
+  
+      at TestContext.<anonymous> (file:///Users/yubinai/Documents/jev/dist/tests/integration/live-run.test.js:17:24)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'UNKNOWN',
+    expected: 'SUCCEEDED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

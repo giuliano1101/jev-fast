@@ -1,0 +1,23 @@
+
+> jev-p0@0.1.0 test:integration
+> npm run build && node --test dist/tests/integration/*.test.js
+
+
+> jev-p0@0.1.0 build
+> tsc
+
+✔ mock benchmark exports both modes, all rows, actual manifest and no secrets (2189.392958ms)
+✔ benchmark exceptions replace stale success artifacts and retain started task failures (843.257958ms)
+✔ F01–F03 real browser all twelve tasks en (5321.575208ms)
+✔ F01–F03 real browser all twelve tasks zh (4151.44475ms)
+✔ two real MCP stdio clients share one local coordinator while keeping default identities isolated (1752.889834ms)
+✔ server ACL permits deliberate two-client BUSY and cancellation without overlapping actions (1107.673083ms)
+✔ MCP queries UNKNOWN physical-action outcome and idempotent retry never replays (911.623834ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9661.459

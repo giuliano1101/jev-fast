@@ -1,0 +1,48 @@
+✔ snapshot state and revision are captured in the same browser turn (592.945916ms)
+✔ invalid frame at final validation is known not started and performs no input (556.164708ms)
+✔ S01/S02 untrusted content, hidden passwords, URL secrets never enter candidates or snapshots (631.386875ms)
+✔ S04 node replacement and mutation reject previously selected actions (571.926334ms)
+✔ S11 external navigation, redirect, popup and resources cannot reach outside origin (697.459625ms)
+✔ S12 visible credential page and unapproved values stop observation (541.378333ms)
+✔ S11 observed second-origin sink stays empty across redirect, popup, fetch, image and navigation (584.20575ms)
+✔ F02 visible duplicate target is rejected, hidden and disabled duplicates never selected (586.870958ms)
+✔ S04 changing input property invalidates snapshot even without DOM mutation (540.888042ms)
+✔ S02 poisoned fixture state is rejected before serialization (533.054ms)
+✔ S04 expired and navigated snapshots cannot execute (621.583375ms)
+✔ S12 payment inputs stop observation and arbitrary risk buttons are never candidates (550.97075ms)
+✔ S02 provider input, durable ledger and telemetry contain no canary secrets (903.865042ms)
+✔ S04 programmatic input value without event invalidates bound node (552.512542ms)
+✔ snapshot TTL uses one clock sample even when the clock ticks between field assignments (553.521625ms)
+✔ idempotent result survives restart; different request conflicts; unauthorized observers fail (85.579ms)
+✔ stale validation prevents physical action (36.487625ms)
+✔ two no-op actions stop loop (100.046833ms)
+✔ execution timeout is UNKNOWN and quarantines new work (1030.198875ms)
+✔ kill prevents decisions and future actions (19.890709ms)
+✔ cancel an in-flight action preserves UNKNOWN and cannot overlap (51.861458ms)
+✔ low confidence, invalid choice, malformed probabilities never execute (203.852292ms)
+✔ decision budget expires and late response never executes (178.291667ms)
+✔ step cap stops a progressing but unfinished goal (67.700209ms)
+✔ empty candidates, candidate overflow and unsafe summary abort before provider (120.380666ms)
+✔ cancellation during provider selection fences its late answer (134.636834ms)
+✔ a true goal cannot override a failed action postcondition (101.392417ms)
+✔ shutdown waits for active goal terminal persistence (56.074958ms)
+✔ telemetry distinguishes every phase and counts provider requests without values (79.93325ms)
+✔ unknown execution records its attempted step and durable stage timestamps (108.271875ms)
+✔ immediate shutdown drains a goal whose initial ledger transaction is pending (32.510167ms)
+✔ closing session rejects a new goal before browser close completes (32.22325ms)
+✔ shutdown drains and cleans a pending browser open (25.792708ms)
+✔ immediate cancel works before initial goal persistence (37.698125ms)
+✔ cancelling completed goal does not borrow another active goal status (112.132875ms)
+✔ P0 only one active browser session including pending opens (23.147375ms)
+✔ public observation reserves the session against goal execution (29.414291ms)
+✔ proven pre-execution stale rejection reobserves without UNKNOWN or replay (75.263959ms)
+✔ failed public observation cannot prevent session cleanup (32.037916ms)
+✔ lost action response preserves committed side effect without replay (78.894667ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9209.087584

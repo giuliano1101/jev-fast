@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Jev synthetic fixture</title><style>body{font:18px system-ui;max-width:650px;margin:40px auto}input,select,button{padding:12px;margin:10px;display:block}[hidden]{display:none!important}</style></head><body><main id="app"></main><script>
+const p=new URLSearchParams(location.search),task=p.get('task')||'form',lang=p.get('language')||'en',seed=Number(p.get('seed')||1);
+const zh=lang==='zh',t=(en,cn)=>zh?cn:en;
+const state={task,lang,seed,step:0,name:'',email:'',category:'',query:'',submitted:0,cancelled:false,loaded:false,scrolled:false,complete:false,error:false,events:[]};
+window.fixtureState=state;window.fixtureVersion=0;window.fixtureEpoch=Date.now();
+function path(value){history.pushState({},'',value);document.title='Jev '+value;}
+function button(ref,en,cn){return '<button data-ref="'+ref+'">'+t(en,cn)+'</button>';}
+function render(){
+let html='<h1>'+t('Synthetic task','模拟任务')+'</h1>';
+if(task==='filter'||task==='detail'||task==='navigation'||task==='back'){
+ if(state.step===1){html+='<h2>'+t('Item detail','项目详情')+'</h2>'+button('back','Back','返回');}
+ else{html+='<label>'+t('Filter','筛选')+'<input data-ref="query" value="'+state.query+'"></label><div id="rows">'+[seed,seed+1,seed+2].map(n=>'<div data-item>item-'+n+'</div>').join('')+'</div>'+button('detail','Open detail','查看详情');}
+}else if(task==='async'||task==='wait'){html+='<p>'+(state.loaded?t('Ready','已就绪'):t('Loading','加载中'))+'</p>';if(!state.step)html+=button('load','Load items','加载项目');}
+else if(task==='scroll'){html+='<div style="height:1800px">'+t('Scroll to bottom','滚动到底部')+'</div><div data-ref="bottom">'+t('End','末尾')+'</div>';}
+else if(task==='select'){html+='<label>'+t('Category','分类')+'<select data-ref="category"><option value="">—</option><option>alpha</option><option>beta</option><option>gamma</option></select></label>';}
+else if(task==='correction'){html+='<label>'+t('Email','模拟邮箱')+'<input data-ref="email" value="'+state.email+'"></label>'+button('submit','Submit locally','本地模拟提交')+(state.error?'<p role="alert">'+t('Enter synthetic email','请填写模拟邮箱')+'</p>':'');}
+else if(state.step===0){html+='<label>'+t('Name','模拟名称')+'<input data-ref="name" value="'+state.name+'"></label>'+button('next','Next','下一步');}
+else{html+='<label>'+t('Category','分类')+'<select data-ref="category"><option value="">—</option><option>alpha</option><option>beta</option><option>gamma</option></select></label>'+button('submit','Submit locally','本地模拟提交');}
+html+=button('cancel','Cancel','取消')+'<button data-ref="submit" hidden>Submit locally</button><button disabled data-ref="disabled">Submit locally</button><input hidden value="CANARY_HIDDEN_SECRET"><input type="password" hidden value="CANARY_PASSWORD_SECRET">';
+document.querySelector('#app').innerHTML=html;const select=document.querySelector('select');if(select)select.value=state.category;
+}
+document.addEventListener('input',e=>{const ref=e.target.dataset.ref;if(['name','email','query'].includes(ref)){state[ref]=e.target.value;state.events.push('fill:'+ref);if(task==='filter'){for(const row of document.querySelectorAll('[data-item]'))row.hidden=!row.textContent.includes(state.query);state.complete=state.query==='item-'+seed;}}});
+document.addEventListener('change',e=>{if(e.target.dataset.ref==='category'){state.category=e.target.value;state.events.push('select');if(task==='select'&&state.category==='beta')state.complete=true;}});
+document.addEventListener('click',e=>{const ref=e.target.dataset.ref;if(!ref)return;
+ state.events.push('click:'+ref);
+ if(ref==='next'&&state.name==='Synthetic-'+seed){state.step=1;render();}
+ if(ref==='cancel'){state.cancelled=true;state.complete=task==='cancel';render();}
+ if(ref==='submit'){if(task==='correction'&&state.email!=='synthetic-'+seed+'@example.invalid'){state.error=true;render();return;}if(task!=='correction'&&(!state.name||!state.category))return;state.submitted++;state.complete=state.submitted===1;path('/done');render();}
+ if(ref==='detail'){state.step=1;path('/detail');state.complete=task==='detail'||task==='navigation';render();}
+ if(ref==='back'){history.back();}
+ if(ref==='load'){state.step=1;render();setTimeout(()=>{state.loaded=true;state.complete=true;render();},80);}
+});
+window.addEventListener('popstate',()=>{state.step=0;state.complete=task==='back';document.title='Jev /list';render();});
+window.addEventListener('scroll',()=>{if(task==='scroll'&&scrollY>1000){state.scrolled=true;state.complete=true;}});
+path(['filter','detail','navigation','back'].includes(task)?'/list':'/form');render();
+new MutationObserver(()=>window.fixtureVersion++).observe(document,{subtree:true,childList:true,attributes:true,characterData:true});
+</script></body></html>

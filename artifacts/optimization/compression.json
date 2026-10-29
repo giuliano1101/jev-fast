@@ -1,0 +1,20 @@
+{
+  "live_api_called": false,
+  "method": "Injected transport, exact JevProvider payload, synthetic test inputs only; byte savings are not token or latency savings.",
+  "results": [
+    {
+      "name": "small",
+      "original_bytes": 301,
+      "wire_bytes": 301,
+      "encoding": null,
+      "reduction_percent": 0
+    },
+    {
+      "name": "large",
+      "original_bytes": 3287,
+      "wire_bytes": 216,
+      "encoding": "zstd",
+      "reduction_percent": 93.42865835108
+    }
+  ]
+}

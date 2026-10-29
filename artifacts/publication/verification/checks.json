@@ -1,0 +1,27 @@
+[
+  {
+    "name": "typecheck",
+    "exit_code": 0,
+    "elapsed_seconds": 1.4
+  },
+  {
+    "name": "lint",
+    "exit_code": 0,
+    "elapsed_seconds": 0.99
+  },
+  {
+    "name": "unit",
+    "exit_code": 0,
+    "elapsed_seconds": 4.67
+  },
+  {
+    "name": "integration",
+    "exit_code": 0,
+    "elapsed_seconds": 26.98
+  },
+  {
+    "name": "safety",
+    "exit_code": 0,
+    "elapsed_seconds": 10.98
+  }
+]
