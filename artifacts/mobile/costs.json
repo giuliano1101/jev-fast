@@ -1,0 +1,14 @@
+{
+  "new_authorization_maximum_usd": 3,
+  "expires_at_utc": "2026-10-31T02:29:32Z",
+  "prior_budget_unchanged": true,
+  "formal_v1_requests": 26,
+  "formal_v2_requests": 30,
+  "diagnostic_requests": 16,
+  "all_recorded_requests": 72,
+  "budget_ledger_requests": 72,
+  "conservatively_reserved_usd": 0.72,
+  "estimated_known_cost_usd": 0.0016546319999999998,
+  "unknown_usage_requests": 0,
+  "price_assumption": "USD 0.042 per million input tokens, as configured in provider; output tokens reported but not priced here. Estimate is not billing reconciliation."
+}

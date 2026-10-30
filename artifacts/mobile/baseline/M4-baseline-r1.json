@@ -1,0 +1,79 @@
+{
+  "id": "M4-baseline-r1",
+  "task": "M4",
+  "started_at": 1793314788054,
+  "reset": "settings-home-verified",
+  "mode": "assistant-mobile-mcp",
+  "finished_at": 1793314838596,
+  "status": "SUCCEEDED",
+  "goal_verified": true,
+  "elapsed_ms": 50542,
+  "mobile_tool_ms": 6062,
+  "physical_actions": 4,
+  "observations": 5,
+  "public_observed_pages": [
+    "home",
+    "search-empty",
+    "search-notification",
+    "special-permissions",
+    "notifications"
+  ],
+  "tools": [
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 53,
+      "elapsed_ms": 622,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 9040,
+      "elapsed_ms": 688,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 9835,
+      "elapsed_ms": 776,
+      "error": false
+    },
+    {
+      "name": "mobile_type_keys",
+      "start_offset_ms": 20403,
+      "elapsed_ms": 79,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 20587,
+      "elapsed_ms": 652,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 34915,
+      "elapsed_ms": 621,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 35643,
+      "elapsed_ms": 1320,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 49052,
+      "elapsed_ms": 569,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 49727,
+      "elapsed_ms": 735,
+      "error": false
+    }
+  ],
+  "paid_api_requests": 0,
+  "measurement": "Complete assistant workflow including reasoning/tool dispatch and final recording; resets excluded. Tool time separately measured by the local MCP host. No model-only latency inference."
+}

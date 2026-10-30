@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-10-29T22:38:37.309812+00:00",
+  "phase": "capability-inspection-not-benchmark",
+  "device": {
+    "name": "OPPO Find X3 Pro",
+    "platform": "Android",
+    "os_version": "12",
+    "kind": "physical USB device"
+  },
+  "tool": {
+    "package": "@mobilenext/mobile-mcp",
+    "version": "1.0.8",
+    "entry_sha256": "86f93573969fa119c4ac224a5e9714a7c23b0d350ceb5a25f16265110157d063",
+    "tool_count": 33,
+    "transport": "local MCP stdio"
+  },
+  "observations": [
+    {
+      "app": "Calculator",
+      "status": "blocked",
+      "reason": "First-launch notification permission cannot be dismissed with Back. No allow/deny selection made; permission approval pending."
+    },
+    {
+      "app": "Clock",
+      "status": "blocked",
+      "reason": "First-launch usage statement requires consent. No agreement accepted."
+    },
+    {
+      "app": "Settings",
+      "status": "available",
+      "reason": "Read-only navigation possible; no settings changed."
+    },
+    {
+      "app": "Browser",
+      "status": "inspection",
+      "reason": "Onboarding overlays present; API open_url acknowledgement alone does not verify destination."
+    }
+  ],
+  "privacy": "Device identifier, installed-app inventory, notification text, network identifiers and raw UI snapshots remain only in ignored local runtime files.",
+  "paid_api_requests": 0,
+  "later_updates": [
+    {
+      "date": "2026-10-30",
+      "scope": "permission",
+      "note": "User subsequently allowed rejecting first notification request in test apps only. Frozen six-task benchmark did not need this action; Clock terms remain unaccepted."
+    },
+    {
+      "date": "2026-10-30",
+      "scope": "browser",
+      "note": "Example Domain native toolbar title verified in M5. Web page body not exposed by this browser accessibility surface."
+    }
+  ]
+}

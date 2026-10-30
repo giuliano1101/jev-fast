@@ -1,0 +1,12 @@
+{
+  "page": "bluetooth",
+  "proof": {
+    "eventId": "afaa89a4-8d5e-4cd4-a991-a9002e457584",
+    "leaseKey": "mobile-surface",
+    "actionId": "mobile_launch_app",
+    "observationId": "host_read_bluetooth_after_connection_failure",
+    "evidenceId": "setup_launch_effect_verified",
+    "verdict": "executed"
+  },
+  "explanation": "Launch acknowledgement was unavailable in restricted connection. Fresh independent read verifies intended Settings foreground effect; whether launch actually dispatched is unknown. Original client exited. No click is replayed."
+}

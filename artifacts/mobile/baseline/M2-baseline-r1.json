@@ -1,0 +1,40 @@
+{
+  "id": "M2-baseline-r1",
+  "task": "M2",
+  "started_at": 1793314533369,
+  "reset": "settings-home-verified",
+  "mode": "assistant-mobile-mcp",
+  "finished_at": 1793314557716,
+  "status": "SUCCEEDED",
+  "goal_verified": true,
+  "elapsed_ms": 24347,
+  "mobile_tool_ms": 1949,
+  "physical_actions": 1,
+  "observations": 2,
+  "public_observed_pages": [
+    "home",
+    "sharing"
+  ],
+  "tools": [
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 46,
+      "elapsed_ms": 561,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 22745,
+      "elapsed_ms": 585,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 23437,
+      "elapsed_ms": 803,
+      "error": false
+    }
+  ],
+  "paid_api_requests": 0,
+  "measurement": "Complete assistant workflow including reasoning/tool dispatch and final recording; resets excluded. Tool time separately measured by the local MCP host. No model-only latency inference."
+}

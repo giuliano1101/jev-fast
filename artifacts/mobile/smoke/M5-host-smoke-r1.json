@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "taskId": "M5",
+  "trialId": "M5-host-smoke-r1",
+  "mode": "teacher-plan",
+  "label": "host-plan-smoke-not-jev",
+  "result": {
+    "status": "FAILED",
+    "reason": "POSTCONDITION_UNKNOWN",
+    "actions": 4,
+    "decisions": 1,
+    "teacherHandoffs": 1,
+    "executors": {
+      "direct": 0,
+      "jev": 0,
+      "teacher": 4
+    },
+    "events": [
+      {
+        "type": "journal-read",
+        "atMs": 1,
+        "durationMs": 0
+      },
+      {
+        "type": "observe",
+        "atMs": 1260,
+        "durationMs": 1259
+      },
+      {
+        "type": "route",
+        "atMs": 1261,
+        "route": "TEACHER",
+        "reason": "PROCEDURE_NOT_ACTIVE"
+      },
+      {
+        "type": "teacher",
+        "atMs": 1261,
+        "durationMs": 0
+      },
+      {
+        "type": "observe",
+        "atMs": 2521,
+        "durationMs": 1259
+      },
+      {
+        "type": "bind",
+        "atMs": 2522,
+        "durationMs": 1
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 2531,
+        "durationMs": 9
+      },
+      {
+        "type": "execute",
+        "atMs": 2531,
+        "actionId": "open_search",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 3251,
+        "durationMs": 720
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 3265,
+        "durationMs": 14
+      },
+      {
+        "type": "observe",
+        "atMs": 4801,
+        "durationMs": 1536
+      },
+      {
+        "type": "observe",
+        "atMs": 5996,
+        "durationMs": 1195
+      },
+      {
+        "type": "bind",
+        "atMs": 5997,
+        "durationMs": 1
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 6004,
+        "durationMs": 7
+      },
+      {
+        "type": "execute",
+        "atMs": 6004,
+        "actionId": "type_font",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 6115,
+        "durationMs": 111
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 6125,
+        "durationMs": 10
+      },
+      {
+        "type": "observe",
+        "atMs": 7376,
+        "durationMs": 1251
+      },
+      {
+        "type": "observe",
+        "atMs": 8544,
+        "durationMs": 1168
+      },
+      {
+        "type": "bind",
+        "atMs": 8544,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 8553,
+        "durationMs": 9
+      },
+      {
+        "type": "execute",
+        "atMs": 8553,
+        "actionId": "select_font",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 9082,
+        "durationMs": 529
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 9089,
+        "durationMs": 7
+      },
+      {
+        "type": "observe",
+        "atMs": 10547,
+        "durationMs": 1458
+      },
+      {
+        "type": "observe",
+        "atMs": 11744,
+        "durationMs": 1197
+      },
+      {
+        "type": "bind",
+        "atMs": 11745,
+        "durationMs": 1
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 11757,
+        "durationMs": 12
+      },
+      {
+        "type": "execute",
+        "atMs": 11757,
+        "actionId": "open_example",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 11889,
+        "durationMs": 132
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 11898,
+        "durationMs": 9
+      },
+      {
+        "type": "observe",
+        "atMs": 13774,
+        "durationMs": 1876
+      },
+      {
+        "type": "settle",
+        "atMs": 13774
+      },
+      {
+        "type": "settle-wait",
+        "atMs": 13827,
+        "durationMs": 53
+      },
+      {
+        "type": "observe",
+        "atMs": 15308,
+        "durationMs": 1481
+      },
+      {
+        "type": "settle-wait",
+        "atMs": 15410,
+        "durationMs": 102
+      },
+      {
+        "type": "observe",
+        "atMs": 15774,
+        "durationMs": 364
+      }
+    ],
+    "elapsedMs": 15774
+  },
+  "accounting": {
+    "request_count": 0,
+    "known_cost_usd": 0,
+    "unknown_usage_requests": 0
+  },
+  "providerEvents": [],
+  "toolTimings": [
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 6220.448875,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 642.5383329999995,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 630.2946249999995,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 625.4053329999997,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 617.9570409999997,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 638.1895420000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 719.2294170000005,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 966.0376660000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 564.938415999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 594.9516669999994,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 599.171875,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_type_keys",
+      "durationMs": 111.47087500000089,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 722.789499999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 525.9752079999998,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 601.6959580000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 565.1688749999994,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 528.9246669999993,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 982.4008329999997,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 470.7465409999968,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 626.624917000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 568.1600840000028,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_open_url",
+      "durationMs": 131.97420800000327,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 1476.152750000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 399.20541700000103,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 466.0475409999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 1013.7011659999989,
+      "status": "succeeded"
+    }
+  ],
+  "elapsed_ms": 22642.386625
+}

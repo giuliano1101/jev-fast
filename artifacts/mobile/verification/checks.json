@@ -1,0 +1,52 @@
+[
+  {
+    "check": "typecheck",
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "duration_seconds": 1.314,
+    "summary": []
+  },
+  {
+    "check": "lint",
+    "command": "npm run lint",
+    "exit_code": 0,
+    "duration_seconds": 1.137,
+    "summary": []
+  },
+  {
+    "check": "unit",
+    "command": "npm test",
+    "exit_code": 0,
+    "duration_seconds": 6.46,
+    "summary": [
+      "\u2139 tests 290",
+      "\u2139 pass 290",
+      "\u2139 fail 0",
+      "\u2139 skipped 0"
+    ]
+  },
+  {
+    "check": "integration",
+    "command": "npm run test:integration",
+    "exit_code": 0,
+    "duration_seconds": 26.161,
+    "summary": [
+      "\u2139 tests 30",
+      "\u2139 pass 30",
+      "\u2139 fail 0",
+      "\u2139 skipped 0"
+    ]
+  },
+  {
+    "check": "safety",
+    "command": "npm run test:safety",
+    "exit_code": 0,
+    "duration_seconds": 10.811,
+    "summary": [
+      "\u2139 tests 40",
+      "\u2139 pass 40",
+      "\u2139 fail 0",
+      "\u2139 skipped 0"
+    ]
+  }
+]

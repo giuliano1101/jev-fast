@@ -1,0 +1,34 @@
+[
+  {
+    "trial": "M3-baseline-r1",
+    "original_public_pages": [
+      "home",
+      "other",
+      "other",
+      "font"
+    ],
+    "corrected_public_pages": [
+      "home",
+      "search-empty",
+      "search-font",
+      "font"
+    ],
+    "reason": "Recorder v1 labeled intermediate search pages other. Recomputed using original timestamp-matched host observations; original outcome/timing/action counts unchanged."
+  },
+  {
+    "trial": "M3-baseline-r2",
+    "original_public_pages": [
+      "home",
+      "other",
+      "other",
+      "font"
+    ],
+    "corrected_public_pages": [
+      "home",
+      "search-empty",
+      "search-font",
+      "font"
+    ],
+    "reason": "Recorder v1 labeled intermediate search pages other. Recomputed using original timestamp-matched host observations; original outcome/timing/action counts unchanged."
+  }
+]

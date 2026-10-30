@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "taskId": "M2",
+  "trialId": "M2-jev-r2",
+  "mode": "jev",
+  "label": "jev-mobile-catalog-research",
+  "result": {
+    "status": "SUCCEEDED",
+    "reason": "GOAL_VERIFIED",
+    "actions": 1,
+    "decisions": 1,
+    "teacherHandoffs": 0,
+    "executors": {
+      "direct": 0,
+      "jev": 1,
+      "teacher": 0
+    },
+    "events": [
+      {
+        "type": "journal-read",
+        "atMs": 2,
+        "durationMs": 0
+      },
+      {
+        "type": "observe",
+        "atMs": 1434,
+        "durationMs": 1432
+      },
+      {
+        "type": "route",
+        "atMs": 1435,
+        "route": "JEV"
+      },
+      {
+        "type": "jev",
+        "atMs": 2334,
+        "durationMs": 899
+      },
+      {
+        "type": "observe",
+        "atMs": 3529,
+        "durationMs": 1194
+      },
+      {
+        "type": "bind",
+        "atMs": 3530,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 3541,
+        "durationMs": 11
+      },
+      {
+        "type": "execute",
+        "atMs": 3541,
+        "actionId": "open_sharing",
+        "route": "JEV"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 3608,
+        "durationMs": 67
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 3617,
+        "durationMs": 9
+      },
+      {
+        "type": "observe",
+        "atMs": 5205,
+        "durationMs": 1588
+      },
+      {
+        "type": "route",
+        "atMs": 5205,
+        "route": "DONE",
+        "reason": "GOAL_VERIFIED"
+      }
+    ],
+    "elapsedMs": 5205
+  },
+  "accounting": {
+    "request_count": 1,
+    "known_cost_usd": 0.000021882,
+    "unknown_usage_requests": 0
+  },
+  "providerEvents": [
+    {
+      "usage": {
+        "input_tokens": 521,
+        "output_tokens": 39
+      },
+      "status": "decided",
+      "elapsed_ms": 898.0013330000002,
+      "request_count": 1,
+      "known_cost_usd": 0.000021882,
+      "unknown_usage_requests": 0
+    }
+  ],
+  "toolTimings": [
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 829.34125,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 927.7121669999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 542.5107089999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 885.7246660000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 585.7650000000003,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 605.4465,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 66.83629199999996,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 961.559209,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 623.5508749999999,
+      "status": "succeeded"
+    }
+  ],
+  "elapsed_ms": 6972.841084,
+  "preflight_ms": 1767.8410839999997,
+  "measurement_note": "Use result.elapsedMs for the matched controlled-workflow comparison: it excludes reset preflight and SDK connection time. elapsed_ms includes reset preflight but excludes SDK connection time; accounting retains every provider request and all known cost."
+}

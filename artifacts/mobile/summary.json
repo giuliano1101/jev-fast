@@ -1,0 +1,478 @@
+{
+  "stage": "S9 real Android comparison",
+  "baseline": {
+    "attempts": 12,
+    "successes": 12,
+    "groups": [
+      {
+        "task": "M1",
+        "n": 2,
+        "successes": 2,
+        "workflow_seconds": [
+          8.51,
+          13.788
+        ],
+        "workflow_median_seconds": 11.149000000000001,
+        "mobile_tool_median_seconds": 1.976
+      },
+      {
+        "task": "M2",
+        "n": 2,
+        "successes": 2,
+        "workflow_seconds": [
+          24.347,
+          12.342
+        ],
+        "workflow_median_seconds": 18.3445,
+        "mobile_tool_median_seconds": 1.967
+      },
+      {
+        "task": "M3",
+        "n": 2,
+        "successes": 2,
+        "workflow_seconds": [
+          30.073,
+          50.629
+        ],
+        "workflow_median_seconds": 40.351,
+        "mobile_tool_median_seconds": 4.2485
+      },
+      {
+        "task": "M4",
+        "n": 2,
+        "successes": 2,
+        "workflow_seconds": [
+          50.542,
+          40.727
+        ],
+        "workflow_median_seconds": 45.6345,
+        "mobile_tool_median_seconds": 6.099
+      },
+      {
+        "task": "M5",
+        "n": 2,
+        "successes": 2,
+        "workflow_seconds": [
+          77.034,
+          59.001
+        ],
+        "workflow_median_seconds": 68.0175,
+        "mobile_tool_median_seconds": 9.0205
+      },
+      {
+        "task": "M6",
+        "n": 2,
+        "successes": 2,
+        "workflow_seconds": [
+          154.564,
+          101.401
+        ],
+        "workflow_median_seconds": 127.98249999999999,
+        "mobile_tool_median_seconds": 10.805
+      }
+    ]
+  },
+  "variants": {
+    "jev-v1": {
+      "attempts": 12,
+      "successes": 10,
+      "paired_success_count": 10,
+      "paired_success_speed_ratio_median": 2.4179306570388706,
+      "request_count": 26,
+      "known_cost_usd": 0.0005970720000000001,
+      "unknown_usage_requests": 0,
+      "groups": [
+        {
+          "task": "M1",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 5.868,
+          "success_with_preflight_median_seconds": 7.247272896,
+          "attempts_detail": [
+            {
+              "trial": "M1-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 6.032,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M1-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 5.704,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M2",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 5.6295,
+          "success_with_preflight_median_seconds": 7.045772082999999,
+          "attempts_detail": [
+            {
+              "trial": "M2-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 5.564,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M2-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 5.695,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M3",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 12.7345,
+          "success_with_preflight_median_seconds": 14.104688104000001,
+          "attempts_detail": [
+            {
+              "trial": "M3-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 12.434,
+              "executors": {
+                "direct": 1,
+                "jev": 2,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M3-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 13.035,
+              "executors": {
+                "direct": 1,
+                "jev": 2,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M4",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 17.1205,
+          "success_with_preflight_median_seconds": 18.527198978999998,
+          "attempts_detail": [
+            {
+              "trial": "M4-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 17.1,
+              "executors": {
+                "direct": 1,
+                "jev": 3,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M4-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 17.141,
+              "executors": {
+                "direct": 1,
+                "jev": 3,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M5",
+          "attempts": 2,
+          "successes": 1,
+          "success_workflow_median_seconds": 25.292,
+          "success_with_preflight_median_seconds": 26.679769416,
+          "attempts_detail": [
+            {
+              "trial": "M5-jev-r1",
+              "status": "FAILED",
+              "reason": "TEACHER_UNAVAILABLE",
+              "workflow_seconds": 12.263,
+              "executors": {
+                "direct": 1,
+                "jev": 2,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M5-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 25.292,
+              "executors": {
+                "direct": 2,
+                "jev": 4,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M6",
+          "attempts": 2,
+          "successes": 1,
+          "success_workflow_median_seconds": 30.574,
+          "success_with_preflight_median_seconds": 31.897661084,
+          "attempts_detail": [
+            {
+              "trial": "M6-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 30.574,
+              "executors": {
+                "direct": 4,
+                "jev": 4,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M6-jev-r2",
+              "status": "FAILED",
+              "reason": "TEACHER_UNAVAILABLE",
+              "workflow_seconds": 12.207,
+              "executors": {
+                "direct": 1,
+                "jev": 2,
+                "teacher": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "jev-v2": {
+      "attempts": 12,
+      "successes": 12,
+      "paired_success_count": 12,
+      "paired_success_speed_ratio_median": 2.969028036844132,
+      "request_count": 30,
+      "known_cost_usd": 0.0006893040000000002,
+      "unknown_usage_requests": 0,
+      "groups": [
+        {
+          "task": "M1",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 5.112,
+          "success_with_preflight_median_seconds": 6.4570507914999995,
+          "attempts_detail": [
+            {
+              "trial": "M1-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 4.355,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M1-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 5.869,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M2",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 5.0120000000000005,
+          "success_with_preflight_median_seconds": 6.607428667,
+          "attempts_detail": [
+            {
+              "trial": "M2-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 4.819,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M2-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 5.205,
+              "executors": {
+                "direct": 0,
+                "jev": 1,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M3",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 11.4345,
+          "success_with_preflight_median_seconds": 12.793411583000001,
+          "attempts_detail": [
+            {
+              "trial": "M3-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 10.986,
+              "executors": {
+                "direct": 1,
+                "jev": 2,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M3-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 11.883,
+              "executors": {
+                "direct": 1,
+                "jev": 2,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M4",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 14.913,
+          "success_with_preflight_median_seconds": 16.2699044995,
+          "attempts_detail": [
+            {
+              "trial": "M4-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 15.071,
+              "executors": {
+                "direct": 1,
+                "jev": 3,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M4-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 14.755,
+              "executors": {
+                "direct": 1,
+                "jev": 3,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M5",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 23.1635,
+          "success_with_preflight_median_seconds": 24.546855271,
+          "attempts_detail": [
+            {
+              "trial": "M5-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 24.241,
+              "executors": {
+                "direct": 2,
+                "jev": 4,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M5-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 22.086,
+              "executors": {
+                "direct": 2,
+                "jev": 4,
+                "teacher": 0
+              }
+            }
+          ]
+        },
+        {
+          "task": "M6",
+          "attempts": 2,
+          "successes": 2,
+          "success_workflow_median_seconds": 26.8385,
+          "success_with_preflight_median_seconds": 28.2225902915,
+          "attempts_detail": [
+            {
+              "trial": "M6-jev-r1",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 27.326,
+              "executors": {
+                "direct": 4,
+                "jev": 4,
+                "teacher": 0
+              }
+            },
+            {
+              "trial": "M6-jev-r2",
+              "status": "SUCCEEDED",
+              "reason": "GOAL_VERIFIED",
+              "workflow_seconds": 26.351,
+              "executors": {
+                "direct": 4,
+                "jev": 4,
+                "teacher": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Two planned repetitions per task and variant; one phone; fixed known tasks.",
+    "Baseline and variants are not interleaved. Learning, cache, time of day and host dispatch differ.",
+    "Paired speed ratio uses only pairs where both succeed; all failures remain in success denominators.",
+    "Workflow includes assistant/tool dispatch for baseline and controller/verification for Jev; not pure model latency.",
+    "Setup, diagnostics and host-plan smoke are separate from formal comparison."
+  ]
+}

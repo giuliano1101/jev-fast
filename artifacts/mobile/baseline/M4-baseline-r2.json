@@ -1,0 +1,79 @@
+{
+  "id": "M4-baseline-r2",
+  "task": "M4",
+  "started_at": 1793314954116,
+  "reset": "settings-home-verified",
+  "mode": "assistant-mobile-mcp",
+  "finished_at": 1793314994843,
+  "status": "SUCCEEDED",
+  "goal_verified": true,
+  "elapsed_ms": 40727,
+  "mobile_tool_ms": 6136,
+  "physical_actions": 4,
+  "observations": 5,
+  "public_observed_pages": [
+    "home",
+    "search-empty",
+    "search-notification",
+    "special-permissions",
+    "notifications"
+  ],
+  "tools": [
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 83,
+      "elapsed_ms": 582,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 11344,
+      "elapsed_ms": 609,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 12059,
+      "elapsed_ms": 814,
+      "error": false
+    },
+    {
+      "name": "mobile_type_keys",
+      "start_offset_ms": 21470,
+      "elapsed_ms": 71,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 21593,
+      "elapsed_ms": 713,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 29642,
+      "elapsed_ms": 684,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 30432,
+      "elapsed_ms": 1306,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 39159,
+      "elapsed_ms": 582,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 39850,
+      "elapsed_ms": 775,
+      "error": false
+    }
+  ],
+  "paid_api_requests": 0,
+  "measurement": "Complete assistant workflow including reasoning/tool dispatch and final recording; resets excluded. Tool time separately measured by the local MCP host. No model-only latency inference."
+}

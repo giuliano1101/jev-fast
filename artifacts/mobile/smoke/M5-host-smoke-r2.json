@@ -1,0 +1,490 @@
+{
+  "schemaVersion": 1,
+  "taskId": "M5",
+  "trialId": "M5-host-smoke-r2",
+  "mode": "teacher-plan",
+  "label": "host-plan-smoke-not-jev",
+  "result": {
+    "status": "SUCCEEDED",
+    "reason": "GOAL_VERIFIED",
+    "actions": 6,
+    "decisions": 1,
+    "teacherHandoffs": 1,
+    "executors": {
+      "direct": 0,
+      "jev": 0,
+      "teacher": 6
+    },
+    "events": [
+      {
+        "type": "journal-read",
+        "atMs": 3,
+        "durationMs": 1
+      },
+      {
+        "type": "observe",
+        "atMs": 1413,
+        "durationMs": 1410
+      },
+      {
+        "type": "route",
+        "atMs": 1415,
+        "route": "TEACHER",
+        "reason": "PROCEDURE_NOT_ACTIVE"
+      },
+      {
+        "type": "teacher",
+        "atMs": 1415,
+        "durationMs": 0
+      },
+      {
+        "type": "observe",
+        "atMs": 2756,
+        "durationMs": 1340
+      },
+      {
+        "type": "bind",
+        "atMs": 2756,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 2763,
+        "durationMs": 7
+      },
+      {
+        "type": "execute",
+        "atMs": 2763,
+        "actionId": "open_search",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 3526,
+        "durationMs": 763
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 3536,
+        "durationMs": 10
+      },
+      {
+        "type": "observe",
+        "atMs": 4970,
+        "durationMs": 1434
+      },
+      {
+        "type": "observe",
+        "atMs": 6131,
+        "durationMs": 1161
+      },
+      {
+        "type": "bind",
+        "atMs": 6131,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 6142,
+        "durationMs": 11
+      },
+      {
+        "type": "execute",
+        "atMs": 6142,
+        "actionId": "type_font",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 6218,
+        "durationMs": 76
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 6228,
+        "durationMs": 10
+      },
+      {
+        "type": "observe",
+        "atMs": 7460,
+        "durationMs": 1232
+      },
+      {
+        "type": "observe",
+        "atMs": 8588,
+        "durationMs": 1128
+      },
+      {
+        "type": "bind",
+        "atMs": 8588,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 8598,
+        "durationMs": 9
+      },
+      {
+        "type": "execute",
+        "atMs": 8598,
+        "actionId": "select_font",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 9186,
+        "durationMs": 588
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 9196,
+        "durationMs": 10
+      },
+      {
+        "type": "observe",
+        "atMs": 10632,
+        "durationMs": 1436
+      },
+      {
+        "type": "observe",
+        "atMs": 11914,
+        "durationMs": 1282
+      },
+      {
+        "type": "bind",
+        "atMs": 11914,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 11923,
+        "durationMs": 9
+      },
+      {
+        "type": "execute",
+        "atMs": 11923,
+        "actionId": "open_example",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 12038,
+        "durationMs": 115
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 12046,
+        "durationMs": 8
+      },
+      {
+        "type": "observe",
+        "atMs": 14156,
+        "durationMs": 2110
+      },
+      {
+        "type": "settle",
+        "atMs": 14157
+      },
+      {
+        "type": "settle-wait",
+        "atMs": 14209,
+        "durationMs": 52
+      },
+      {
+        "type": "observe",
+        "atMs": 16167,
+        "durationMs": 1958
+      },
+      {
+        "type": "settle-wait",
+        "atMs": 16270,
+        "durationMs": 102
+      },
+      {
+        "type": "observe",
+        "atMs": 17956,
+        "durationMs": 1686
+      },
+      {
+        "type": "observe",
+        "atMs": 19156,
+        "durationMs": 1200
+      },
+      {
+        "type": "bind",
+        "atMs": 19156,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 19176,
+        "durationMs": 20
+      },
+      {
+        "type": "execute",
+        "atMs": 19176,
+        "actionId": "resume_settings",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 19340,
+        "durationMs": 164
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 19348,
+        "durationMs": 8
+      },
+      {
+        "type": "observe",
+        "atMs": 20752,
+        "durationMs": 1404
+      },
+      {
+        "type": "observe",
+        "atMs": 21879,
+        "durationMs": 1127
+      },
+      {
+        "type": "bind",
+        "atMs": 21879,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 21888,
+        "durationMs": 9
+      },
+      {
+        "type": "execute",
+        "atMs": 21888,
+        "actionId": "restore_font",
+        "route": "TEACHER"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 22430,
+        "durationMs": 542
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 22437,
+        "durationMs": 7
+      },
+      {
+        "type": "observe",
+        "atMs": 23854,
+        "durationMs": 1417
+      },
+      {
+        "type": "route",
+        "atMs": 23854,
+        "route": "DONE",
+        "reason": "GOAL_VERIFIED"
+      }
+    ],
+    "elapsedMs": 23854
+  },
+  "accounting": {
+    "request_count": 0,
+    "known_cost_usd": 0,
+    "unknown_usage_requests": 0
+  },
+  "providerEvents": [],
+  "toolTimings": [
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 1288.4777920000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 722.6532499999998,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 760.6108749999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 644.817333,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 628.8948749999995,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 709.1624169999996,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 763.0238749999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 864.1282080000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 566.3573329999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 600.7090829999997,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 558.5213329999997,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_type_keys",
+      "durationMs": 76.14045799999985,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 693.7541659999988,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 537.4345840000005,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 568.9469999999983,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 557.4570000000003,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 588.2921669999996,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 830.9575420000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 598.9114590000008,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 625.8552920000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 654.0984169999992,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_open_url",
+      "durationMs": 114.90541600000142,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 1238.1919589999998,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 870.7128329999996,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 963.6234580000018,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 992.2675830000007,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 1157.7717080000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 526.1452920000011,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 559.7616669999989,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 638.2075000000004,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_launch_app",
+      "durationMs": 164.37616700000217,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 608.5332499999968,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 792.5367920000026,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 544.9719580000019,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 579.5995409999996,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 541.6791669999984,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 856.5234999999993,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 557.9391249999971,
+      "status": "succeeded"
+    }
+  ],
+  "elapsed_ms": 25873.310458,
+  "preflight_ms": 2019.310458,
+  "measurement_note": "Use result.elapsedMs for the matched controlled-workflow comparison: it excludes reset preflight and SDK connection time. elapsed_ms includes reset preflight but excludes SDK connection time; accounting retains every provider request and all known cost."
+}

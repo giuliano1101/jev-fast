@@ -1,0 +1,10 @@
+{
+  "host_plan_M3_attempts": 6,
+  "host_plan_M3_successes": 6,
+  "paid_M5_attempts": 4,
+  "paid_M5_successes": 4,
+  "font_taps": 8,
+  "font_taps_matching_observed_center": 8,
+  "historical_failure_root_cause_confirmed": false,
+  "note": "Diagnostic instrumentation and helper cleanup differ from formal runner; not included in formal speed comparison. Helper client.close ended with unsettled top-level await after reports saved; journal/budget were closed in paid run. Host-only run stale owner lock recovered only after PID absent and no pending actions."
+}

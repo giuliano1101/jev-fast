@@ -17,7 +17,7 @@ export interface HybridAdapter {
 }
 export interface HybridDecisionRequest {sessionId:string;goalPredicates:string[];observation:HybridObservation;actionIds:string[];candidates:string[];remainingActions:number;reason:string}
 export type HybridPlanner=(request:HybridDecisionRequest,context:HybridContext)=>Promise<unknown>;
-export interface HybridSessionOptions {sessionId:string;leaseKey:string;scope:ProcedureScope;goalPredicates:string[];catalog:HybridCatalog;adapter:HybridAdapter;journal?:ExecutionJournal;jev?:HybridPlanner;teacher?:HybridPlanner;signal?:AbortSignal;budget?:{maxActions?:number;maxDurationMs?:number;maxDecisions?:number};authorizeDecision?:(request:{executor:'jev'|'teacher';decisions:number;actions:number;remainingMs:number},context:HybridContext)=>Promise<boolean>;procedure?:{store:ProcedureStore;id:string};now?:()=>number}
+export interface HybridSessionOptions {policy?:'learned'|'catalog';sessionId:string;leaseKey:string;scope:ProcedureScope;goalPredicates:string[];catalog:HybridCatalog;adapter:HybridAdapter;journal?:ExecutionJournal;jev?:HybridPlanner;teacher?:HybridPlanner;signal?:AbortSignal;settle?:{maxDurationMs?:number;maxObservations?:number};budget?:{maxActions?:number;maxDurationMs?:number;maxDecisions?:number};authorizeDecision?:(request:{executor:'jev'|'teacher';decisions:number;actions:number;remainingMs:number},context:HybridContext)=>Promise<boolean>;procedure?:{store:ProcedureStore;id:string};now?:()=>number}
 export interface HybridEvent {type:string;atMs:number;route?:string;reason?:string;actionId?:string;durationMs?:number}
 export interface HybridResult {status:'SUCCEEDED'|'FAILED'|'UNKNOWN';reason:string;actions:number;decisions:number;teacherHandoffs:number;executors:{direct:number;jev:number;teacher:number};events:HybridEvent[];elapsedMs:number;evidencePersisted?:boolean}
 const leases=new Map<string,symbol>();
@@ -25,13 +25,23 @@ const unresolved=new Map<string,PendingExecution>();
 class Stop extends Error {}
 const truth=z.union([z.boolean(),z.literal('unknown')]);
 const observationSchema=z.strictObject({observationId:workflowIdSchema,stateKey:workflowIdSchema,readiness:z.enum(['pending','settled','unobservable']),predicates:z.record(workflowIdSchema,truth),visibleActionIds:z.array(workflowIdSchema).max(64)});
+const settlingSchema=z.strictObject({maxDurationMs:z.number().int().min(1).max(10000).default(2000),maxObservations:z.number().int().min(1).max(6).default(3)});
 const jevSchema=z.strictObject({actionId:workflowIdSchema,confidence:z.number().min(0).max(1)});
 /** Trusted host adapters own observation, binding and physical input. Planners receive only data.
+ * policy='catalog' is explicit trusted-host approval of the static catalog, not learned evidence.
+ * It is never accepted from a planner response or a public MCP request. Default policy is learned.
+ * Trusted hosts may extend each read-only settle barrier to 10 seconds / 6 observations;
+ * defaults remain 2 seconds / 3 observations and the shared session deadline always wins.
  * One process-local lease spans every mode. Hosts must also serialize this surface across processes.
  */
 export async function runHybridSession(options:HybridSessionOptions):Promise<HybridResult> {
  const now=options.now??Date.now;const started=now();
  const result:HybridResult={status:'FAILED',reason:'INVALID_INPUT',actions:0,decisions:0,teacherHandoffs:0,executors:{direct:0,jev:0,teacher:0},events:[],elapsedMs:0};
+ const policy=options.policy===undefined?'learned':options.policy;
+ if(!z.enum(['learned','catalog']).safeParse(policy).success||(policy==='catalog'&&options.procedure!==undefined))return result;
+ const settling=settlingSchema.safeParse(options.settle===undefined?{}:options.settle);
+ if(!settling.success)return result;
+ const settleBudget=settling.data;
  const event=(type:string,detail:Omit<HybridEvent,'type'|'atMs'>={})=>{result.events.push({type,atMs:Math.max(0,now()-started),...detail});};
  const budget={maxActions:options.budget?.maxActions??12,maxDurationMs:options.budget?.maxDurationMs??300000,maxDecisions:options.budget?.maxDecisions??13};
  if(!z.strictObject({maxActions:z.number().int().min(1).max(12),maxDurationMs:z.number().int().min(1).max(300000),maxDecisions:z.number().int().min(1).max(13)}).safeParse(budget).success ||
@@ -67,13 +77,13 @@ export async function runHybridSession(options:HybridSessionOptions):Promise<Hyb
  const settled=(o:HybridObservation,ids:readonly string[])=>o.readiness==='settled'&&ids.every(id=>typeof o.predicates[id]==='boolean');
  async function settle(o:HybridObservation,ids:readonly string[]):Promise<HybridObservation> {
    if(settled(o,ids))return o;
-   const until=Math.min(deadline,now()+2000);event('settle');
-   for(let i=0;i<3&&!settled(o,ids);i++) {try{
+   const until=Math.min(deadline,now()+settleBudget.maxDurationMs);event('settle');
+   for(let i=0;i<settleBudget.maxObservations&&!settled(o,ids);i++) {try{
      await invoke(()=>new Promise<void>(resolve=>setTimeout(resolve,50*(i+1))),'settle-wait',until);
      o=await observe(until);}catch(error){if(error instanceof Stop&&error.message==='SETTLE_TIMEOUT')break;throw error;}}
    return o;
  }
- const candidates=(o:HybridObservation,activeOnly:boolean)=>catalog.actions.filter(a=>o.visibleActionIds.includes(a.actionId)&&all(o,a.preconditions)&&settled(o,a.postconditions)&&!all(o,a.postconditions)&&(!activeOnly||match?.procedure?.definition.steps.some(s=>isDeepStrictEqual(s,strip(a)))));
+ const candidates=(o:HybridObservation,activeOnly:boolean)=>catalog.actions.filter(a=>o.visibleActionIds.includes(a.actionId)&&all(o,a.preconditions)&&settled(o,a.postconditions)&&!all(o,a.postconditions)&&(!activeOnly||policy==='catalog'||match?.procedure?.definition.steps.some(s=>isDeepStrictEqual(s,strip(a)))));
  function strip(a:HybridAction):ProcedureStep {const {deterministic:_deterministic,...step}=a;return step;}
  function followsDefinition(steps:ProcedureStep[]):boolean {
    let index=0;
@@ -91,7 +101,7 @@ export async function runHybridSession(options:HybridSessionOptions):Promise<Hyb
    return invoke(()=>callback({sessionId:options.sessionId,goalPredicates:[...goals],observation:structuredClone(observation!),actionIds:[...publicCatalog.actionIds],candidates:candidates(observation!,executor==='jev').map(a=>a.actionId),remainingActions:budget.maxActions-result.actions,reason},context),executor);
  }
  async function handoff(reason:string):Promise<void> {
-   if(regression&&!quarantined&&options.procedure&&observation) {
+   if(policy==='learned'&&regression&&!quarantined&&options.procedure&&observation) {
      const {store,id}=options.procedure;const prior=store.get(id);
      if(prior)await invoke(()=>store.recordTrial(id,prior.revision,{trialId:`${options.sessionId.slice(0,64)}.regression`,startStateKey,executor:lastExecutor,completedAt:now(),independentlyVerified:false,terminal:false,actionUnknown:false,regression:true,predicates:{...observation!.predicates}},now()),'quarantine');
      quarantined=true;
@@ -104,7 +114,7 @@ export async function runHybridSession(options:HybridSessionOptions):Promise<Hyb
  }
  const state=(o:HybridObservation)=>JSON.stringify([o.stateKey,o.predicates]);
  async function record():Promise<boolean> {
-   if(!options.procedure||!observation||startStateKey==='unobserved')return false;
+   if(policy!=='learned'||!options.procedure||!observation||startStateKey==='unobserved')return false;
    const {store,id}=options.procedure;const completedAt=now();const verified=result.status==='SUCCEEDED'&&executed.length>0&&observation.readiness==='settled'&&all(observation,goals)&&!uncertain;
    const evidence:TrialEvidence={trialId:options.sessionId,startStateKey,executor:result.executors.teacher>0?'teacher':lastExecutor,completedAt,independentlyVerified:verified,terminal:verified?true:observation.readiness==='settled'?false:'unknown',actionUnknown:uncertain,regression,predicates:{...observation.predicates}};
    const prior=store.get(id);
@@ -129,13 +139,15 @@ export async function runHybridSession(options:HybridSessionOptions):Promise<Hyb
      if(settled(observation,goals)&&all(observation,goals)){result.status='SUCCEEDED';result.reason='GOAL_VERIFIED';event('route',{route:'DONE',reason:result.reason});break;}
      if(result.actions>=budget.maxActions)throw new Stop('ACTION_BUDGET');
      if(!settled(observation,goals)) {if(plan)throw new Stop('STATE_UNOBSERVABLE');await handoff('STATE_UNOBSERVABLE');observation=await observe();continue;}
-     if(!plan&&(match?.status!=='ACTIVE'||regression||noProgress>=2)){await handoff(regression?'INVARIANT_LOST':noProgress>=2?'NO_PROGRESS':'PROCEDURE_NOT_ACTIVE');}
+     if(!plan&&((policy==='learned'&&match?.status!=='ACTIVE')||regression||noProgress>=2)){await handoff(regression?'INVARIANT_LOST':noProgress>=2?'NO_PROGRESS':'PROCEDURE_NOT_ACTIVE');}
      let selected:string|undefined;let executor:'direct'|'jev'|'teacher';
      if(plan) {executor='teacher';selected=plan.shift();if(!selected)throw new Stop('PLAN_EXHAUSTED');}
      else {
        const allowed=candidates(observation,true);const direct=allowed.filter(a=>a.deterministic);
        if(allowed.length===1&&direct.length===1){executor='direct';selected=direct[0]!.actionId;event('route',{route:'DIRECT'});}
-       else {executor='jev';event('route',{route:'JEV'});let raw:unknown;
+       else {executor='jev';event('route',{route:'JEV'});
+         if(policy==='catalog'&&!options.jev){await handoff('JEV_UNAVAILABLE');continue;}
+         let raw:unknown;
          try{raw=await decide('jev','BOUNDED_CHOICE');}catch(error){if(error instanceof Stop)throw error;await handoff('DECISION_FAILED');continue;}
          const decision=jevSchema.safeParse(raw);
          if(!decision.success||decision.data.confidence<.9||!allowed.some(a=>a.actionId===decision.data.actionId)){await handoff('DECISION_REJECTED');continue;}
@@ -192,7 +204,7 @@ export async function runHybridSession(options:HybridSessionOptions):Promise<Hyb
    if(inFlightExecution)void inFlightExecution.then(release,release);else release();
    local.abort();options.signal?.removeEventListener('abort',abort);result.elapsedMs=Math.max(0,now()-started);
  }
- if(options.procedure) {
+ if(policy==='learned'&&options.procedure) {
    result.evidencePersisted=false;let timer:ReturnType<typeof setTimeout>|undefined;
    try {
      if(now()>=deadline)throw new Stop('EVIDENCE_DEADLINE');

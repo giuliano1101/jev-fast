@@ -1,0 +1,66 @@
+{
+  "id": "M3-baseline-r2",
+  "task": "M3",
+  "started_at": 1793314681097,
+  "reset": "settings-home-verified",
+  "mode": "assistant-mobile-mcp",
+  "finished_at": 1793314731726,
+  "status": "SUCCEEDED",
+  "goal_verified": true,
+  "elapsed_ms": 50629,
+  "mobile_tool_ms": 4355,
+  "physical_actions": 3,
+  "observations": 4,
+  "public_observed_pages": [
+    "home",
+    "other",
+    "other",
+    "font"
+  ],
+  "tools": [
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 59,
+      "elapsed_ms": 669,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 17714,
+      "elapsed_ms": 569,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 18399,
+      "elapsed_ms": 773,
+      "error": false
+    },
+    {
+      "name": "mobile_type_keys",
+      "start_offset_ms": 35012,
+      "elapsed_ms": 90,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 35206,
+      "elapsed_ms": 728,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 48884,
+      "elapsed_ms": 741,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 49732,
+      "elapsed_ms": 785,
+      "error": false
+    }
+  ],
+  "paid_api_requests": 0,
+  "measurement": "Complete assistant workflow including reasoning/tool dispatch and final recording; resets excluded. Tool time separately measured by the local MCP host. No model-only latency inference."
+}

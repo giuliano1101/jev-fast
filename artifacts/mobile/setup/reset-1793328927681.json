@@ -1,0 +1,22 @@
+{
+  "status": "SUCCEEDED",
+  "reason": "HOME_VERIFIED",
+  "tools": [
+    {
+      "name": "mobile_launch_app",
+      "durationMs": 365.366667
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "durationMs": 1447.61575
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 583.253917
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "durationMs": 916.4937500000001
+    }
+  ]
+}

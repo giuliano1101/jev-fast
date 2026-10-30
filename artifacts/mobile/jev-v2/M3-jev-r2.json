@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "taskId": "M3",
+  "trialId": "M3-jev-r2",
+  "mode": "jev",
+  "label": "jev-mobile-catalog-research",
+  "result": {
+    "status": "SUCCEEDED",
+    "reason": "GOAL_VERIFIED",
+    "actions": 3,
+    "decisions": 2,
+    "teacherHandoffs": 0,
+    "executors": {
+      "direct": 1,
+      "jev": 2,
+      "teacher": 0
+    },
+    "events": [
+      {
+        "type": "journal-read",
+        "atMs": 2,
+        "durationMs": 0
+      },
+      {
+        "type": "observe",
+        "atMs": 1138,
+        "durationMs": 1135
+      },
+      {
+        "type": "route",
+        "atMs": 1139,
+        "route": "JEV"
+      },
+      {
+        "type": "jev",
+        "atMs": 2012,
+        "durationMs": 873
+      },
+      {
+        "type": "observe",
+        "atMs": 3261,
+        "durationMs": 1248
+      },
+      {
+        "type": "bind",
+        "atMs": 3263,
+        "durationMs": 1
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 3274,
+        "durationMs": 11
+      },
+      {
+        "type": "execute",
+        "atMs": 3274,
+        "actionId": "open_search",
+        "route": "JEV"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 3332,
+        "durationMs": 58
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 3344,
+        "durationMs": 12
+      },
+      {
+        "type": "observe",
+        "atMs": 4700,
+        "durationMs": 1356
+      },
+      {
+        "type": "route",
+        "atMs": 4700,
+        "route": "DIRECT"
+      },
+      {
+        "type": "observe",
+        "atMs": 5984,
+        "durationMs": 1284
+      },
+      {
+        "type": "bind",
+        "atMs": 5984,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 5997,
+        "durationMs": 13
+      },
+      {
+        "type": "execute",
+        "atMs": 5997,
+        "actionId": "type_font",
+        "route": "DIRECT"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 6082,
+        "durationMs": 85
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 6092,
+        "durationMs": 10
+      },
+      {
+        "type": "observe",
+        "atMs": 7290,
+        "durationMs": 1198
+      },
+      {
+        "type": "route",
+        "atMs": 7290,
+        "route": "JEV"
+      },
+      {
+        "type": "jev",
+        "atMs": 9259,
+        "durationMs": 1969
+      },
+      {
+        "type": "observe",
+        "atMs": 10352,
+        "durationMs": 1093
+      },
+      {
+        "type": "bind",
+        "atMs": 10352,
+        "durationMs": 0
+      },
+      {
+        "type": "journal-begin",
+        "atMs": 10362,
+        "durationMs": 10
+      },
+      {
+        "type": "execute",
+        "atMs": 10362,
+        "actionId": "select_font",
+        "route": "JEV"
+      },
+      {
+        "type": "execute-result",
+        "atMs": 10408,
+        "durationMs": 46
+      },
+      {
+        "type": "journal-acknowledge",
+        "atMs": 10417,
+        "durationMs": 9
+      },
+      {
+        "type": "observe",
+        "atMs": 11882,
+        "durationMs": 1465
+      },
+      {
+        "type": "route",
+        "atMs": 11883,
+        "route": "DONE",
+        "reason": "GOAL_VERIFIED"
+      }
+    ],
+    "elapsedMs": 11883
+  },
+  "accounting": {
+    "request_count": 2,
+    "known_cost_usd": 0.00004502400000000001,
+    "unknown_usage_requests": 0
+  },
+  "providerEvents": [
+    {
+      "usage": {
+        "input_tokens": 554,
+        "output_tokens": 46
+      },
+      "status": "decided",
+      "elapsed_ms": 871.5386250000001,
+      "request_count": 1,
+      "known_cost_usd": 0.000023268,
+      "unknown_usage_requests": 0
+    },
+    {
+      "usage": {
+        "input_tokens": 518,
+        "output_tokens": 26
+      },
+      "status": "decided",
+      "elapsed_ms": 1968.025916999999,
+      "request_count": 1,
+      "known_cost_usd": 0.000021756000000000003,
+      "unknown_usage_requests": 0
+    }
+  ],
+  "toolTimings": [
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 805.305333,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 570.470666,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 607.1086670000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 526.096,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 643.4370830000003,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 602.0195410000006,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 57.7020420000008,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 873.2582499999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 480.4814159999996,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 722.405917,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 559.2051670000001,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_type_keys",
+      "durationMs": 84.99074999999993,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 680.4502499999999,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 515.2829999999994,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 563.2612090000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 528.3021250000002,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_click_on_screen_at_coordinates",
+      "durationMs": 45.537750000001324,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 864.7387500000004,
+      "status": "succeeded"
+    },
+    {
+      "tool": "mobile_list_elements_on_screen",
+      "durationMs": 597.1877499999991,
+      "status": "succeeded"
+    }
+  ],
+  "elapsed_ms": 13265.069208,
+  "preflight_ms": 1382.0692080000008,
+  "measurement_note": "Use result.elapsedMs for the matched controlled-workflow comparison: it excludes reset preflight and SDK connection time. elapsed_ms includes reset preflight but excludes SDK connection time; accounting retains every provider request and all known cost."
+}

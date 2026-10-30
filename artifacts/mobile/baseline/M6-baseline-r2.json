@@ -1,0 +1,131 @@
+{
+  "id": "M6-baseline-r2",
+  "task": "M6",
+  "started_at": 1793315570657,
+  "reset": "settings-home-verified",
+  "mode": "assistant-mobile-mcp",
+  "finished_at": 1793315672058,
+  "status": "SUCCEEDED",
+  "goal_verified": true,
+  "elapsed_ms": 101401,
+  "mobile_tool_ms": 10329,
+  "physical_actions": 8,
+  "observations": 9,
+  "public_observed_pages": [
+    "home",
+    "search-empty",
+    "search-font",
+    "font",
+    "search-font",
+    "search-empty",
+    "search-notification",
+    "special-permissions",
+    "notifications"
+  ],
+  "tools": [
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 65,
+      "elapsed_ms": 588,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 13956,
+      "elapsed_ms": 631,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 14749,
+      "elapsed_ms": 642,
+      "error": false
+    },
+    {
+      "name": "mobile_type_keys",
+      "start_offset_ms": 24192,
+      "elapsed_ms": 56,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 24353,
+      "elapsed_ms": 598,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 36348,
+      "elapsed_ms": 689,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 37142,
+      "elapsed_ms": 726,
+      "error": false
+    },
+    {
+      "name": "mobile_press_button",
+      "start_offset_ms": 49653,
+      "elapsed_ms": 55,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 49813,
+      "elapsed_ms": 1240,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 60073,
+      "elapsed_ms": 555,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 60733,
+      "elapsed_ms": 622,
+      "error": false
+    },
+    {
+      "name": "mobile_type_keys",
+      "start_offset_ms": 73868,
+      "elapsed_ms": 100,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 74071,
+      "elapsed_ms": 648,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 84752,
+      "elapsed_ms": 579,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 85438,
+      "elapsed_ms": 1337,
+      "error": false
+    },
+    {
+      "name": "mobile_click_on_screen_at_coordinates",
+      "start_offset_ms": 99898,
+      "elapsed_ms": 588,
+      "error": false
+    },
+    {
+      "name": "mobile_list_elements_on_screen",
+      "start_offset_ms": 100645,
+      "elapsed_ms": 675,
+      "error": false
+    }
+  ],
+  "paid_api_requests": 0,
+  "measurement": "Complete assistant workflow including reasoning/tool dispatch and final recording; resets excluded. Tool time separately measured by the local MCP host. No model-only latency inference."
+}

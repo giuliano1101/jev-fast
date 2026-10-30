@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-30",
+  "base_commit": "8f011951a4e86821dd75f3d2cde96a5446e9b82a",
+  "node": "24.19.0",
+  "mobile_mcp": "1.0.8",
+  "device_model": "OPPO Find X3 Pro",
+  "device_os": "Android 12",
+  "new_budget": {
+    "approval_id": "user-20261030-mobile-usd3",
+    "maximum_usd": 3,
+    "maximum_reserved_requests": 300,
+    "expires_at_utc": "2026-10-31T02:29:32Z",
+    "separate_from_prior_budget": true
+  },
+  "source_sha256": {
+    "bench/mobile/decision.ts": "d9cc64f52e1ac2ee53ecc9b02a48ea654797fa998f39671c6e578ca27c1a243c",
+    "bench/mobile/reset.ts": "319819c466c3cca48fe64291a1f54d28efc8bece990b593e7e6a0e4da30c0b43",
+    "bench/mobile/adapter.ts": "c93da5eaf356064719b5983c9689582f743f4e77316aa97ab6cb80718a7e9ef8",
+    "bench/mobile/transport.ts": "95772ece1fa3fec95d9e71026401b51c33791fbb88a5b96d2ad584fc360854e0",
+    "bench/mobile/run.ts": "f2c94e5de549fa0fdee2d4521a577add18f299becc84430154de6d02285b8690",
+    "bench/mobile/catalog.ts": "8a32b118b96616ad191bcdea69b2ab2bbad01787a0bae85922fe41358e0c7a34",
+    "bench/hybrid/teacher-port.ts": "e3663ff30411555544f415959793d525b512ed59ef7514c7c2e933ef0e58278c",
+    "bench/hybrid/router.ts": "a670c66087c501a7cc9489d589be0aa91c2ebfdc69cc17c7419b31578598de34",
+    "bench/hybrid/procedure-store.ts": "e8dc1bfd211f804c6524795040566b8e481cb50147f51dcabfbf797425e2a5f1",
+    "bench/hybrid/controller.ts": "b0f2fccd6501f6f88fb76d87569bc42f67d76c8387d41e3b6c11f1f1ed1984fe",
+    "bench/hybrid/workflow-contracts.ts": "54f086739bc767fdf41e5a961787a28985fe0a201e0ebf70d8334dbfe87f43b4",
+    "bench/hybrid/execution-journal.ts": "ba09ca080715e4f0662c05fb857a973b532f5b1f670b796121a1a2b6f831a66d",
+    "bench/live/access.ts": "def2f9f238c51370310fd55f9b7953396ae156ca229ddc56acfa2f4c845f4c8c",
+    "package-lock.json": "a36ed2a027ea830b38ab9d7cdfd299d475a2bfab0ea5e39f2e95a65b90730778",
+    "scripts/mobile-baseline.mjs": "a7d5ae00737e4760edb5e97c1855abee0906a1f05b1616ee04e9bd2c8f34418c"
+  },
+  "raw_ui_policy": "host-local ignored runtime only",
+  "baseline_bridge": "Local MCP SDK operator bridge; assistant selected each live ref. Bridge raw outputs private, sanitized timings and page evidence published.",
+  "frozen_variant": "jev-v1",
+  "settle_policy": {
+    "maxDurationMs": 10000,
+    "maxObservations": 6
+  }
+}

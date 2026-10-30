@@ -85,6 +85,15 @@ export class RequestBudget {
     }
 
     static open(directory: string, options: BudgetOptions): RequestBudget {
+        return RequestBudget.openInternal(directory, options, false);
+    }
+
+    /** Resume only an already existing host ledger; never initialize or renew it. */
+    static openExisting(directory: string, options: BudgetOptions): RequestBudget {
+        return RequestBudget.openInternal(directory, options, true);
+    }
+
+    private static openInternal(directory: string, options: BudgetOptions, requireExisting: boolean): RequestBudget {
         options = { maxUsd: options.maxUsd, maxRequests: options.maxRequests, expiresAt: options.expiresAt };
         if (!validOptions(options) || Date.now() >= options.expiresAt) throw new Error('BUDGET_OPTIONS_REJECTED');
         let directoryFd: number | undefined;
@@ -93,7 +102,7 @@ export class RequestBudget {
         const root = resolve(directory);
         const lockPath = join(root, '.budget.lock');
         try {
-            const firstCreated = mkdirSync(root, { mode: 0o700, recursive: true });
+            const firstCreated = requireExisting ? undefined : mkdirSync(root, { mode: 0o700, recursive: true });
             // Persist each new directory's parent entry as well as the ledger itself.
             if (firstCreated !== undefined) {
                 const lastParent = dirname(firstCreated);
@@ -117,7 +126,7 @@ export class RequestBudget {
             let state: BudgetState;
             let exists = true;
             try { lstatSync(ledgerPath); } catch (error) {
-                if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+                if (requireExisting || (error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
                 exists = false;
             }
             if (exists) {
