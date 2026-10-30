@@ -1,0 +1,1754 @@
+{
+  "fault-low_confidence-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 77.03308300000003,
+      "session_id": "0ec713b7-6896-47df-80b5-df749461d227",
+      "goal_id": "fault-low_confidence-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.5746249999999691,
+      "session_id": "0ec713b7-6896-47df-80b5-df749461d227",
+      "goal_id": "fault-low_confidence-811-direct"
+    }
+  ],
+  "fault-low_confidence-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 80.03837500000009,
+      "session_id": "6bf2b33f-682d-40d1-9ce7-5a66e8e26dfc",
+      "goal_id": "fault-low_confidence-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.05441599999994651,
+      "session_id": "6bf2b33f-682d-40d1-9ce7-5a66e8e26dfc",
+      "goal_id": "fault-low_confidence-811-cli"
+    }
+  ],
+  "fault-low_confidence-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 72.16287499999999,
+      "session_id": "29a131b8-bf10-45a7-a89d-b2e0600e481c",
+      "goal_id": "fault-low_confidence-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.07362499999999272,
+      "session_id": "29a131b8-bf10-45a7-a89d-b2e0600e481c",
+      "goal_id": "fault-low_confidence-811-mcp"
+    }
+  ],
+  "fault-low_confidence-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 71.6808329999999,
+      "session_id": "520100b4-30ad-45f4-adaf-8533c3967ff0",
+      "goal_id": "fault-low_confidence-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.047334000000319065,
+      "session_id": "520100b4-30ad-45f4-adaf-8533c3967ff0",
+      "goal_id": "fault-low_confidence-812-cli"
+    }
+  ],
+  "fault-low_confidence-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 81.02429099999972,
+      "session_id": "802d1d80-9e3d-4f83-9231-0bcbe8b77755",
+      "goal_id": "fault-low_confidence-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.0644999999999527,
+      "session_id": "802d1d80-9e3d-4f83-9231-0bcbe8b77755",
+      "goal_id": "fault-low_confidence-812-mcp"
+    }
+  ],
+  "fault-low_confidence-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 83.60395800000015,
+      "session_id": "777ad94f-26a1-429a-8fab-d9a270314cf5",
+      "goal_id": "fault-low_confidence-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04637499999989814,
+      "session_id": "777ad94f-26a1-429a-8fab-d9a270314cf5",
+      "goal_id": "fault-low_confidence-812-direct"
+    }
+  ],
+  "fault-model_delay-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 73.18025000000034,
+      "session_id": "330b7059-3c4e-442c-a439-cc4d3f029b0c",
+      "goal_id": "fault-model_delay-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.049292000000605185,
+      "session_id": "330b7059-3c4e-442c-a439-cc4d3f029b0c",
+      "goal_id": "fault-model_delay-811-cli"
+    }
+  ],
+  "fault-model_delay-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.99925000000076,
+      "session_id": "b48ef7e8-9388-4f67-a6b2-055d8a13c7e5",
+      "goal_id": "fault-model_delay-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03679199999987759,
+      "session_id": "b48ef7e8-9388-4f67-a6b2-055d8a13c7e5",
+      "goal_id": "fault-model_delay-811-mcp"
+    }
+  ],
+  "fault-model_delay-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 70.22483300000022,
+      "session_id": "917fce12-8c3c-4007-b64a-cd6ef6197e78",
+      "goal_id": "fault-model_delay-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03724999999940337,
+      "session_id": "917fce12-8c3c-4007-b64a-cd6ef6197e78",
+      "goal_id": "fault-model_delay-811-direct"
+    }
+  ],
+  "fault-model_delay-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 73.42391599999974,
+      "session_id": "ebd5345b-869f-4435-9462-5d193e71ca70",
+      "goal_id": "fault-model_delay-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03870900000038091,
+      "session_id": "ebd5345b-869f-4435-9462-5d193e71ca70",
+      "goal_id": "fault-model_delay-812-mcp"
+    }
+  ],
+  "fault-model_delay-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 71.4741670000003,
+      "session_id": "94c06618-d964-4689-b427-6eff453a2498",
+      "goal_id": "fault-model_delay-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03604100000120525,
+      "session_id": "94c06618-d964-4689-b427-6eff453a2498",
+      "goal_id": "fault-model_delay-812-direct"
+    }
+  ],
+  "fault-model_delay-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 72.26316699999916,
+      "session_id": "5e739d6f-39ec-4ca3-94e0-a281a86fb0f6",
+      "goal_id": "fault-model_delay-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02729199999885168,
+      "session_id": "5e739d6f-39ec-4ca3-94e0-a281a86fb0f6",
+      "goal_id": "fault-model_delay-812-cli"
+    }
+  ],
+  "fault-dom_replace-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 82.99995800000033,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.030416999998124084,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 5.481958000000304,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 4.703832999999577,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02583299999969313,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.257958999998664,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.8201670000016748,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.570332999999664,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp",
+      "action_id": "04373513-1140-4f51-b07b-3fcc72234368"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.177083000002312,
+      "session_id": "de878b7f-33e3-4648-8cc5-e38bafc54167",
+      "goal_id": "fault-dom_replace-811-mcp",
+      "action_id": "04373513-1140-4f51-b07b-3fcc72234368"
+    }
+  ],
+  "fault-dom_replace-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 81.44387500000084,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.029959000003145775,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.369415999997727,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 3.734207999998034,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02449999999953434,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.9839580000007118,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.4206670000021404,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.0506249999998545,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct",
+      "action_id": "ef28a597-e467-4bb4-8694-2a3607e307eb"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 24.703083000000333,
+      "session_id": "2a0d6466-f41a-4b24-ae73-03f7a0e66a42",
+      "goal_id": "fault-dom_replace-811-direct",
+      "action_id": "ef28a597-e467-4bb4-8694-2a3607e307eb"
+    }
+  ],
+  "fault-dom_replace-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.10741699999926,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.031582999999955064,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.091000000000349,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 3.9492090000021562,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.022500000002764864,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.543292000002111,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.8800830000000133,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.225333000002138,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli",
+      "action_id": "f0619c41-5bcc-49b7-b8a9-52f0460dda86"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.62962499999776,
+      "session_id": "f7da2f1b-f60c-4946-9329-f0501e76cad2",
+      "goal_id": "fault-dom_replace-811-cli",
+      "action_id": "f0619c41-5bcc-49b7-b8a9-52f0460dda86"
+    }
+  ],
+  "fault-dom_replace-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 73.4432080000006,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03395799999998417,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.474416999997629,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 4.030249999999796,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02616699999998673,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.8281669999996666,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.5606250000018917,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.601125000001048,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct",
+      "action_id": "07fd8d13-0cef-4a9e-95d7-53b8036d22a3"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.362333000000945,
+      "session_id": "7efbb81c-8002-49b5-b3fc-391c7eeb19b6",
+      "goal_id": "fault-dom_replace-812-direct",
+      "action_id": "07fd8d13-0cef-4a9e-95d7-53b8036d22a3"
+    }
+  ],
+  "fault-dom_replace-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.68954100000337,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04275000000052387,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.457209000000148,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 3.8331250000010186,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.0305000000007567,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.9943750000020373,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.8458339999997406,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 3.614958000001934,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli",
+      "action_id": "216ba54f-6911-4c11-8d92-718f0cb3fe8a"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.353791999998066,
+      "session_id": "40733318-840b-466b-8819-5b32404a2a4c",
+      "goal_id": "fault-dom_replace-812-cli",
+      "action_id": "216ba54f-6911-4c11-8d92-718f0cb3fe8a"
+    }
+  ],
+  "fault-dom_replace-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.95408399999724,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03070799999841256,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.011167000000569,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 4.513875000000553,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.023583000001963228,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.8950000000004366,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.197250000001077,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.436125000000175,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp",
+      "action_id": "54c91d09-6816-4e19-8cb0-dd235dee10a5"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 18.58324999999968,
+      "session_id": "d2ebc3a2-5ac0-4aa1-ac83-1938dffc1909",
+      "goal_id": "fault-dom_replace-812-mcp",
+      "action_id": "54c91d09-6816-4e19-8cb0-dd235dee10a5"
+    }
+  ],
+  "fault-stale_validation-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 75.53262499999983,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03133399999933317,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 5.307583000001614,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 8.926917000000685,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03524999999717693,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.881042000000889,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.6710410000014235,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.723584000003029,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct",
+      "action_id": "2fb77115-f5fb-4b4f-9be0-452f601cccbf"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.332792000001064,
+      "session_id": "2e32ea6a-6d11-48ba-9a5d-222eb5ce8b07",
+      "goal_id": "fault-stale_validation-811-direct",
+      "action_id": "2fb77115-f5fb-4b4f-9be0-452f601cccbf"
+    }
+  ],
+  "fault-stale_validation-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 86.49145800000042,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03912499999933061,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.451457999999548,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 4.5616249999984575,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02149999999892316,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.678583000000799,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.2630840000019816,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.125167000001966,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli",
+      "action_id": "a6e59855-72f3-44cd-8382-50e04021423a"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 16.884791000000405,
+      "session_id": "9198f88b-3954-4d73-a51a-4b1764f444c1",
+      "goal_id": "fault-stale_validation-811-cli",
+      "action_id": "a6e59855-72f3-44cd-8382-50e04021423a"
+    }
+  ],
+  "fault-stale_validation-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.37920800000211,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03125,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.289042000000336,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 4.265040999998746,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02449999999953434,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.583209000000352,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.2850409999991825,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.042916999998852,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp",
+      "action_id": "1926e621-2875-465f-8353-ad2d7e790e91"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 15.846041000000696,
+      "session_id": "ee30a344-0d37-4086-9652-c2f36e96f245",
+      "goal_id": "fault-stale_validation-811-mcp",
+      "action_id": "1926e621-2875-465f-8353-ad2d7e790e91"
+    }
+  ],
+  "fault-stale_validation-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 73.05104199999914,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.033167000001412816,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.85791700000118,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 3.8132499999992433,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03066699999908451,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.7232089999997697,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.6182499999995343,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 3.567750000001979,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli",
+      "action_id": "d55da4d6-9ee8-4402-b83d-e7ae9c0c3c9d"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 16.630750000000262,
+      "session_id": "cdcee162-03cc-49ab-a4b6-d9faf34793ee",
+      "goal_id": "fault-stale_validation-812-cli",
+      "action_id": "d55da4d6-9ee8-4402-b83d-e7ae9c0c3c9d"
+    }
+  ],
+  "fault-stale_validation-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 81.13466699999844,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04483399999662652,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.048165999996854,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 4.052208999997674,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.025207999999111053,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.581332999998267,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.4687080000003334,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 3.7371249999996508,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp",
+      "action_id": "0c320b94-3a3f-4092-8637-4529b94f5772"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.05412499999875,
+      "session_id": "945fadf8-db33-49a1-a5b2-89f152def97c",
+      "goal_id": "fault-stale_validation-812-mcp",
+      "action_id": "0c320b94-3a3f-4092-8637-4529b94f5772"
+    }
+  ],
+  "fault-stale_validation-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 70.26566699999967,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03129099999932805,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.098332999998092,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "observe",
+      "elapsed_ms": 3.9656660000000556,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.02108299999963492,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 3.3664170000010927,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.1362499999995634,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 3.868125000000873,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct",
+      "action_id": "35bedba4-3c90-4550-8bb7-eec2cc0190ab"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 16.645375000000058,
+      "session_id": "4f69757e-2bf5-44cf-9599-3ff883276762",
+      "goal_id": "fault-stale_validation-812-direct",
+      "action_id": "35bedba4-3c90-4550-8bb7-eec2cc0190ab"
+    }
+  ],
+  "fault-cancel_pending-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 71.85674999999901,
+      "session_id": "0e80dbad-84de-4f1f-bfc3-2c11b4d0dde5",
+      "goal_id": "fault-cancel_pending-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03283299999748124,
+      "session_id": "0e80dbad-84de-4f1f-bfc3-2c11b4d0dde5",
+      "goal_id": "fault-cancel_pending-811-cli"
+    }
+  ],
+  "fault-cancel_pending-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 78.62250000000131,
+      "session_id": "fffce466-4de8-4dc5-830e-5ca1e18a1f47",
+      "goal_id": "fault-cancel_pending-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03687499999796273,
+      "session_id": "fffce466-4de8-4dc5-830e-5ca1e18a1f47",
+      "goal_id": "fault-cancel_pending-811-mcp"
+    }
+  ],
+  "fault-cancel_pending-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 70.24708399999872,
+      "session_id": "fcd5c213-c4d1-41cf-b7b8-ade2b7bab7ab",
+      "goal_id": "fault-cancel_pending-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.033458000001701294,
+      "session_id": "fcd5c213-c4d1-41cf-b7b8-ade2b7bab7ab",
+      "goal_id": "fault-cancel_pending-811-direct"
+    }
+  ],
+  "fault-cancel_pending-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 76.6843340000014,
+      "session_id": "87822796-74cc-4d8b-bf06-3ffe25b52ec1",
+      "goal_id": "fault-cancel_pending-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04395899999872199,
+      "session_id": "87822796-74cc-4d8b-bf06-3ffe25b52ec1",
+      "goal_id": "fault-cancel_pending-812-mcp"
+    }
+  ],
+  "fault-cancel_pending-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 89.17566699999952,
+      "session_id": "593e3532-a3b5-4ccc-b75f-7ca62528a0d8",
+      "goal_id": "fault-cancel_pending-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.038124999999126885,
+      "session_id": "593e3532-a3b5-4ccc-b75f-7ca62528a0d8",
+      "goal_id": "fault-cancel_pending-812-direct"
+    }
+  ],
+  "fault-cancel_pending-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 85.68625000000247,
+      "session_id": "7510f620-1e2b-4249-8791-f6f37ca136d4",
+      "goal_id": "fault-cancel_pending-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.036416999999346444,
+      "session_id": "7510f620-1e2b-4249-8791-f6f37ca136d4",
+      "goal_id": "fault-cancel_pending-812-cli"
+    }
+  ],
+  "fault-duplicate-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 82.3350840000021,
+      "session_id": "529cbffc-49bc-46ee-a5ea-7f1d68157abb",
+      "goal_id": "fault-duplicate-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.0404579999994894,
+      "session_id": "529cbffc-49bc-46ee-a5ea-7f1d68157abb",
+      "goal_id": "fault-duplicate-811-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 5.723458000000392,
+      "session_id": "529cbffc-49bc-46ee-a5ea-7f1d68157abb",
+      "goal_id": "fault-duplicate-811-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.581665999998222,
+      "session_id": "529cbffc-49bc-46ee-a5ea-7f1d68157abb",
+      "goal_id": "fault-duplicate-811-mcp"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 5.272750000000087,
+      "session_id": "529cbffc-49bc-46ee-a5ea-7f1d68157abb",
+      "goal_id": "fault-duplicate-811-mcp",
+      "action_id": "66d05511-0200-4f5c-b285-51fba5c7fc84"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 18.742041999998037,
+      "session_id": "529cbffc-49bc-46ee-a5ea-7f1d68157abb",
+      "goal_id": "fault-duplicate-811-mcp",
+      "action_id": "66d05511-0200-4f5c-b285-51fba5c7fc84"
+    }
+  ],
+  "fault-duplicate-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 77.0744999999988,
+      "session_id": "4d55f3c6-09f7-41e0-b64f-4fda6c27c6d3",
+      "goal_id": "fault-duplicate-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03641599999900791,
+      "session_id": "4d55f3c6-09f7-41e0-b64f-4fda6c27c6d3",
+      "goal_id": "fault-duplicate-811-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.057500000002619,
+      "session_id": "4d55f3c6-09f7-41e0-b64f-4fda6c27c6d3",
+      "goal_id": "fault-duplicate-811-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.914082999999664,
+      "session_id": "4d55f3c6-09f7-41e0-b64f-4fda6c27c6d3",
+      "goal_id": "fault-duplicate-811-direct"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 5.452792000000045,
+      "session_id": "4d55f3c6-09f7-41e0-b64f-4fda6c27c6d3",
+      "goal_id": "fault-duplicate-811-direct",
+      "action_id": "822910f3-1a5c-48e7-9eae-e4857fc5f063"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 17.25812500000029,
+      "session_id": "4d55f3c6-09f7-41e0-b64f-4fda6c27c6d3",
+      "goal_id": "fault-duplicate-811-direct",
+      "action_id": "822910f3-1a5c-48e7-9eae-e4857fc5f063"
+    }
+  ],
+  "fault-duplicate-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 87.28737499999988,
+      "session_id": "e74d15e1-c0c2-4dee-b807-24a5be331898",
+      "goal_id": "fault-duplicate-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.042832999999518506,
+      "session_id": "e74d15e1-c0c2-4dee-b807-24a5be331898",
+      "goal_id": "fault-duplicate-811-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.92987500000163,
+      "session_id": "e74d15e1-c0c2-4dee-b807-24a5be331898",
+      "goal_id": "fault-duplicate-811-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 4.551917000000685,
+      "session_id": "e74d15e1-c0c2-4dee-b807-24a5be331898",
+      "goal_id": "fault-duplicate-811-cli"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 5.3510000000023865,
+      "session_id": "e74d15e1-c0c2-4dee-b807-24a5be331898",
+      "goal_id": "fault-duplicate-811-cli",
+      "action_id": "bd9c277e-1206-429b-9d7b-efb844033690"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 16.59508300000016,
+      "session_id": "e74d15e1-c0c2-4dee-b807-24a5be331898",
+      "goal_id": "fault-duplicate-811-cli",
+      "action_id": "bd9c277e-1206-429b-9d7b-efb844033690"
+    }
+  ],
+  "fault-duplicate-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 72.28441700000258,
+      "session_id": "82f7a834-91c0-4014-a0a7-b879cc5a0309",
+      "goal_id": "fault-duplicate-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04945899999438552,
+      "session_id": "82f7a834-91c0-4014-a0a7-b879cc5a0309",
+      "goal_id": "fault-duplicate-812-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 5.175708000002487,
+      "session_id": "82f7a834-91c0-4014-a0a7-b879cc5a0309",
+      "goal_id": "fault-duplicate-812-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.191040999998222,
+      "session_id": "82f7a834-91c0-4014-a0a7-b879cc5a0309",
+      "goal_id": "fault-duplicate-812-direct"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.4453340000036405,
+      "session_id": "82f7a834-91c0-4014-a0a7-b879cc5a0309",
+      "goal_id": "fault-duplicate-812-direct",
+      "action_id": "56676c27-3f16-4032-8056-ba31df2f8f8e"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 15.438958999999159,
+      "session_id": "82f7a834-91c0-4014-a0a7-b879cc5a0309",
+      "goal_id": "fault-duplicate-812-direct",
+      "action_id": "56676c27-3f16-4032-8056-ba31df2f8f8e"
+    }
+  ],
+  "fault-duplicate-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.64008299999841,
+      "session_id": "2fe54443-4f00-48ee-a4da-e7903d383b54",
+      "goal_id": "fault-duplicate-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03533400000014808,
+      "session_id": "2fe54443-4f00-48ee-a4da-e7903d383b54",
+      "goal_id": "fault-duplicate-812-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.541875000002619,
+      "session_id": "2fe54443-4f00-48ee-a4da-e7903d383b54",
+      "goal_id": "fault-duplicate-812-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.7394579999963753,
+      "session_id": "2fe54443-4f00-48ee-a4da-e7903d383b54",
+      "goal_id": "fault-duplicate-812-cli"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.173750000001746,
+      "session_id": "2fe54443-4f00-48ee-a4da-e7903d383b54",
+      "goal_id": "fault-duplicate-812-cli",
+      "action_id": "18e13e4a-6d25-4c0e-8bc0-50e086de493a"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 18.668875000003027,
+      "session_id": "2fe54443-4f00-48ee-a4da-e7903d383b54",
+      "goal_id": "fault-duplicate-812-cli",
+      "action_id": "18e13e4a-6d25-4c0e-8bc0-50e086de493a"
+    }
+  ],
+  "fault-duplicate-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 80.45087500000227,
+      "session_id": "c20468f2-f499-463b-8f85-609acc065418",
+      "goal_id": "fault-duplicate-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03266599999915343,
+      "session_id": "c20468f2-f499-463b-8f85-609acc065418",
+      "goal_id": "fault-duplicate-812-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.175290999999561,
+      "session_id": "c20468f2-f499-463b-8f85-609acc065418",
+      "goal_id": "fault-duplicate-812-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.1757920000018203,
+      "session_id": "c20468f2-f499-463b-8f85-609acc065418",
+      "goal_id": "fault-duplicate-812-mcp"
+    },
+    {
+      "phase": "execute",
+      "elapsed_ms": 4.443208000004233,
+      "session_id": "c20468f2-f499-463b-8f85-609acc065418",
+      "goal_id": "fault-duplicate-812-mcp",
+      "action_id": "5643ef16-64fb-42ea-afba-c6b3575ba9c2"
+    },
+    {
+      "phase": "verify",
+      "elapsed_ms": 19.711875000000873,
+      "session_id": "c20468f2-f499-463b-8f85-609acc065418",
+      "goal_id": "fault-duplicate-812-mcp",
+      "action_id": "5643ef16-64fb-42ea-afba-c6b3575ba9c2"
+    }
+  ],
+  "fault-lost_response-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 78.73929099999805,
+      "session_id": "ac8302f7-1156-4476-91ba-9cf9ba00d52b",
+      "goal_id": "fault-lost_response-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03466699999989942,
+      "session_id": "ac8302f7-1156-4476-91ba-9cf9ba00d52b",
+      "goal_id": "fault-lost_response-811-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.120374999998603,
+      "session_id": "ac8302f7-1156-4476-91ba-9cf9ba00d52b",
+      "goal_id": "fault-lost_response-811-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 5.499250000000757,
+      "session_id": "ac8302f7-1156-4476-91ba-9cf9ba00d52b",
+      "goal_id": "fault-lost_response-811-direct"
+    }
+  ],
+  "fault-lost_response-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 71.5570829999997,
+      "session_id": "23f1a32d-045e-4bfb-af90-f1bee68b5d97",
+      "goal_id": "fault-lost_response-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03745799999887822,
+      "session_id": "23f1a32d-045e-4bfb-af90-f1bee68b5d97",
+      "goal_id": "fault-lost_response-811-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.289749999996275,
+      "session_id": "23f1a32d-045e-4bfb-af90-f1bee68b5d97",
+      "goal_id": "fault-lost_response-811-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.496916999996756,
+      "session_id": "23f1a32d-045e-4bfb-af90-f1bee68b5d97",
+      "goal_id": "fault-lost_response-811-cli"
+    }
+  ],
+  "fault-lost_response-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.466416999996,
+      "session_id": "59a63d4a-7ea3-4841-9802-718e9706f98c",
+      "goal_id": "fault-lost_response-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.040166999999200925,
+      "session_id": "59a63d4a-7ea3-4841-9802-718e9706f98c",
+      "goal_id": "fault-lost_response-811-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.541459000000032,
+      "session_id": "59a63d4a-7ea3-4841-9802-718e9706f98c",
+      "goal_id": "fault-lost_response-811-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.159458000001905,
+      "session_id": "59a63d4a-7ea3-4841-9802-718e9706f98c",
+      "goal_id": "fault-lost_response-811-mcp"
+    }
+  ],
+  "fault-lost_response-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 70.67150000001129,
+      "session_id": "901ec62f-da7a-449c-9600-216cca43b520",
+      "goal_id": "fault-lost_response-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04479100000753533,
+      "session_id": "901ec62f-da7a-449c-9600-216cca43b520",
+      "goal_id": "fault-lost_response-812-cli"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.451834000006784,
+      "session_id": "901ec62f-da7a-449c-9600-216cca43b520",
+      "goal_id": "fault-lost_response-812-cli",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 3.013667000006535,
+      "session_id": "901ec62f-da7a-449c-9600-216cca43b520",
+      "goal_id": "fault-lost_response-812-cli"
+    }
+  ],
+  "fault-lost_response-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 82.86458299998776,
+      "session_id": "963c88ff-d427-4823-ad40-42beeb47a22d",
+      "goal_id": "fault-lost_response-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.031667000002926216,
+      "session_id": "963c88ff-d427-4823-ad40-42beeb47a22d",
+      "goal_id": "fault-lost_response-812-mcp"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.288249999997788,
+      "session_id": "963c88ff-d427-4823-ad40-42beeb47a22d",
+      "goal_id": "fault-lost_response-812-mcp",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.827832999988459,
+      "session_id": "963c88ff-d427-4823-ad40-42beeb47a22d",
+      "goal_id": "fault-lost_response-812-mcp"
+    }
+  ],
+  "fault-lost_response-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 72.61904199999117,
+      "session_id": "0cfc550e-9a66-4be4-9d39-4c4982daca32",
+      "goal_id": "fault-lost_response-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.0332090000010794,
+      "session_id": "0cfc550e-9a66-4be4-9d39-4c4982daca32",
+      "goal_id": "fault-lost_response-812-direct"
+    },
+    {
+      "phase": "provider",
+      "elapsed_ms": 4.074292000004789,
+      "session_id": "0cfc550e-9a66-4be4-9d39-4c4982daca32",
+      "goal_id": "fault-lost_response-812-direct",
+      "provider": "mock",
+      "model": "mock-v1",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "requests": 0,
+      "retries": 0,
+      "unknown_usage_requests": 0
+    },
+    {
+      "phase": "policy",
+      "elapsed_ms": 2.5995419999962905,
+      "session_id": "0cfc550e-9a66-4be4-9d39-4c4982daca32",
+      "goal_id": "fault-lost_response-812-direct"
+    }
+  ],
+  "fault-gateway_unreachable-811-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 69.63000000000466,
+      "session_id": "56e76688-5c24-4b09-adac-88cc975a1bd1",
+      "goal_id": "fault-gateway_unreachable-811-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.028500000000349246,
+      "session_id": "56e76688-5c24-4b09-adac-88cc975a1bd1",
+      "goal_id": "fault-gateway_unreachable-811-cli"
+    }
+  ],
+  "fault-gateway_unreachable-811-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 72.08629200000723,
+      "session_id": "ebd3541c-3c51-4394-accb-db28b33c29ed",
+      "goal_id": "fault-gateway_unreachable-811-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03204099999857135,
+      "session_id": "ebd3541c-3c51-4394-accb-db28b33c29ed",
+      "goal_id": "fault-gateway_unreachable-811-mcp"
+    }
+  ],
+  "fault-gateway_unreachable-811-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 74.93695800000569,
+      "session_id": "dec2160e-6c15-4fdd-be25-20f8598cf19e",
+      "goal_id": "fault-gateway_unreachable-811-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03650000000197906,
+      "session_id": "dec2160e-6c15-4fdd-be25-20f8598cf19e",
+      "goal_id": "fault-gateway_unreachable-811-direct"
+    }
+  ],
+  "fault-gateway_unreachable-812-mcp": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 79.299125000005,
+      "session_id": "5002c3c9-20f5-40a6-a63c-7b838ee09156",
+      "goal_id": "fault-gateway_unreachable-812-mcp"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03641600000264589,
+      "session_id": "5002c3c9-20f5-40a6-a63c-7b838ee09156",
+      "goal_id": "fault-gateway_unreachable-812-mcp"
+    }
+  ],
+  "fault-gateway_unreachable-812-direct": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 75.21116600000823,
+      "session_id": "4d565070-8722-44da-8a5b-63b1231af125",
+      "goal_id": "fault-gateway_unreachable-812-direct"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.03287499998987187,
+      "session_id": "4d565070-8722-44da-8a5b-63b1231af125",
+      "goal_id": "fault-gateway_unreachable-812-direct"
+    }
+  ],
+  "fault-gateway_unreachable-812-cli": [
+    {
+      "phase": "observe",
+      "elapsed_ms": 71.41033300000709,
+      "session_id": "f05001cf-f3e6-477e-ae3a-9d45920afae5",
+      "goal_id": "fault-gateway_unreachable-812-cli"
+    },
+    {
+      "phase": "candidate",
+      "elapsed_ms": 0.04420800000661984,
+      "session_id": "f05001cf-f3e6-477e-ae3a-9d45920afae5",
+      "goal_id": "fault-gateway_unreachable-812-cli"
+    }
+  ]
+}

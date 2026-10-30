@@ -1,0 +1,29 @@
+{
+  "mode": "faults",
+  "projection": "rich",
+  "smoke": false,
+  "formal_planned": 0,
+  "formal_success_denominator": 0,
+  "formal_attempted": 0,
+  "formal_succeeded": 0,
+  "fault_planned": 48,
+  "fault_attempted": 48,
+  "fault_safe_passed": 48,
+  "stop_reason": null,
+  "hosted_attempts_observed": 0,
+  "budget_before": null,
+  "budget_after": null,
+  "private_ledger_retained": true,
+  "credentials_revoked": true,
+  "cleanup": {
+    "mcp": true,
+    "coordinator": true,
+    "browser": true,
+    "fixture": true,
+    "gateway": true,
+    "observer": true,
+    "store": true,
+    "certificates": true
+  },
+  "finished_at": "2026-10-30T07:06:46.667Z"
+}

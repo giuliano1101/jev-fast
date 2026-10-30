@@ -1,0 +1,2378 @@
+{
+  "fault-low_confidence-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-low_confidence-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-low_confidence-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-low_confidence-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-low_confidence-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-low_confidence-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-model_delay-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-model_delay-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-model_delay-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-model_delay-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-model_delay-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-model_delay-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-dom_replace-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-dom_replace-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-dom_replace-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-dom_replace-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-dom_replace-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-dom_replace-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-stale_validation-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-stale_validation-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-stale_validation-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-stale_validation-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-stale_validation-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-stale_validation-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    },
+    {
+      "sequence": 2,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-cancel_pending-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-cancel_pending-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-cancel_pending-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-cancel_pending-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-cancel_pending-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-cancel_pending-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-duplicate-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-duplicate-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-duplicate-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-duplicate-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-duplicate-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-duplicate-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-lost_response-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-lost_response-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-lost_response-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-lost_response-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-lost_response-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-lost_response-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-gateway_unreachable-811-cli": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-gateway_unreachable-811-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-gateway_unreachable-811-direct": [
+    {
+      "sequence": 1,
+      "sha256": "832205d11fdbaacea27732158d3639a9eac3032a5022bf6336107f99a26c9285",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "en"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-gateway_unreachable-812-mcp": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-gateway_unreachable-812-direct": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ],
+  "fault-gateway_unreachable-812-cli": [
+    {
+      "sequence": 1,
+      "sha256": "1ddd929dd3f1becd960a154a91fddc68536712f772b46d615a551fb369cb40f3",
+      "input": {
+        "goal": {
+          "task": "select",
+          "language": "zh"
+        },
+        "summary": {
+          "task": "select",
+          "step": 0,
+          "submitted": 0,
+          "cancelled": false,
+          "loaded": false,
+          "scrolled": false,
+          "error": false,
+          "projection": {
+            "version": "fixture-v2",
+            "instruction": "Select the target category.",
+            "next_step": "select_category",
+            "name_matches_goal": false,
+            "email_matches_goal": false,
+            "category_matches_goal": false,
+            "query_matches_goal": false
+          }
+        },
+        "candidates": [
+          {
+            "index": 0,
+            "description": "Select the target category; the current selection does not match the task."
+          },
+          {
+            "index": 1,
+            "description": "Click Cancel to abandon the current task without completing its requested steps."
+          }
+        ]
+      }
+    }
+  ]
+}

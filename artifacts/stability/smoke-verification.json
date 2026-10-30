@@ -1,0 +1,32 @@
+{
+  "mode": "mock",
+  "projection": "rich",
+  "smoke": true,
+  "formal_planned": 108,
+  "formal_success_denominator": 0,
+  "reported_full_sample": false,
+  "formal_attempted": 3,
+  "formal_succeeded": 3,
+  "fault_planned": 0,
+  "fault_attempted": 0,
+  "fault_safe_passed": 0,
+  "stop_reason": null,
+  "hosted_attempts_observed": 0,
+  "budget_before": null,
+  "budget_after": null,
+  "private_ledger_retained": true,
+  "credentials_revoked": true,
+  "cleanup": {
+    "mcp": true,
+    "coordinator": true,
+    "browser": true,
+    "port_probe": true,
+    "fixture": true,
+    "gateway": true,
+    "observer": true,
+    "store": true,
+    "certificates": true
+  },
+  "total_wall_ms": 3121.271167,
+  "finished_at": "2026-10-30T07:09:52.727Z"
+}

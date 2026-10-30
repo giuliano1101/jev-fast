@@ -1,0 +1,3314 @@
+[
+  {
+    "trial_id": "form-801-direct",
+    "attempt": 1,
+    "started_at": "2026-10-30T07:10:33.320Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:34.694Z",
+    "headers_ms": 1374.119875,
+    "usage": {
+      "input_tokens": 589,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:34.697Z",
+    "observed_ms": 1377.0189589999998
+  },
+  {
+    "trial_id": "form-801-direct",
+    "attempt": 2,
+    "started_at": "2026-10-30T07:10:34.784Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:35.108Z",
+    "headers_ms": 324.50824999999986,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:35.392Z",
+    "observed_ms": 608.7677920000001
+  },
+  {
+    "trial_id": "form-801-direct",
+    "attempt": 3,
+    "started_at": "2026-10-30T07:10:35.485Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:35.818Z",
+    "headers_ms": 333.5282080000002,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:35.819Z",
+    "observed_ms": 334.25462500000003
+  },
+  {
+    "trial_id": "form-801-direct",
+    "attempt": 4,
+    "started_at": "2026-10-30T07:10:35.877Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:36.195Z",
+    "headers_ms": 317.3122080000003,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:36.197Z",
+    "observed_ms": 319.19325000000026
+  },
+  {
+    "trial_id": "form-801-cli",
+    "attempt": 5,
+    "started_at": "2026-10-30T07:10:37.002Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:37.323Z",
+    "headers_ms": 321.5724170000003,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 116
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:37.325Z",
+    "observed_ms": 323.3240829999995
+  },
+  {
+    "trial_id": "form-801-cli",
+    "attempt": 6,
+    "started_at": "2026-10-30T07:10:37.396Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:37.727Z",
+    "headers_ms": 330.12012500000037,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:37.729Z",
+    "observed_ms": 332.7572909999999
+  },
+  {
+    "trial_id": "form-801-cli",
+    "attempt": 7,
+    "started_at": "2026-10-30T07:10:37.874Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:38.221Z",
+    "headers_ms": 346.7245839999996,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 117
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:38.222Z",
+    "observed_ms": 347.65391699999964
+  },
+  {
+    "trial_id": "form-801-cli",
+    "attempt": 8,
+    "started_at": "2026-10-30T07:10:38.291Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:38.623Z",
+    "headers_ms": 331.9823329999999,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 123
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:38.625Z",
+    "observed_ms": 334.0355410000002
+  },
+  {
+    "trial_id": "form-801-mcp",
+    "attempt": 9,
+    "started_at": "2026-10-30T07:10:39.383Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:39.698Z",
+    "headers_ms": 315.1326250000002,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:39.700Z",
+    "observed_ms": 317.24604200000067
+  },
+  {
+    "trial_id": "form-801-mcp",
+    "attempt": 10,
+    "started_at": "2026-10-30T07:10:39.773Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:40.094Z",
+    "headers_ms": 320.61316700000043,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:40.096Z",
+    "observed_ms": 323.085333
+  },
+  {
+    "trial_id": "form-801-mcp",
+    "attempt": 11,
+    "started_at": "2026-10-30T07:10:40.246Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:40.652Z",
+    "headers_ms": 405.96745799999917,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:40.653Z",
+    "observed_ms": 407.5124169999999
+  },
+  {
+    "trial_id": "form-801-mcp",
+    "attempt": 12,
+    "started_at": "2026-10-30T07:10:40.728Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:41.153Z",
+    "headers_ms": 425.2290000000012,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 116
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:41.387Z",
+    "observed_ms": 659.1732080000002
+  },
+  {
+    "trial_id": "form-802-cli",
+    "attempt": 13,
+    "started_at": "2026-10-30T07:10:42.157Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:42.469Z",
+    "headers_ms": 311.9877090000009,
+    "usage": {
+      "input_tokens": 592,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:42.470Z",
+    "observed_ms": 313.3134170000012
+  },
+  {
+    "trial_id": "form-802-cli",
+    "attempt": 14,
+    "started_at": "2026-10-30T07:10:42.543Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:42.936Z",
+    "headers_ms": 393.0026660000003,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:43.067Z",
+    "observed_ms": 524.105125
+  },
+  {
+    "trial_id": "form-802-cli",
+    "attempt": 15,
+    "started_at": "2026-10-30T07:10:43.192Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:43.483Z",
+    "headers_ms": 291.33833400000003,
+    "usage": {
+      "input_tokens": 589,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:43.486Z",
+    "observed_ms": 294.2072499999995
+  },
+  {
+    "trial_id": "form-802-cli",
+    "attempt": 16,
+    "started_at": "2026-10-30T07:10:43.565Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:43.838Z",
+    "headers_ms": 273.1113750000004,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 125
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:43.839Z",
+    "observed_ms": 274.05883299999914
+  },
+  {
+    "trial_id": "form-802-mcp",
+    "attempt": 17,
+    "started_at": "2026-10-30T07:10:44.656Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:45.030Z",
+    "headers_ms": 373.9150410000002,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 115
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:45.031Z",
+    "observed_ms": 374.4897499999988
+  },
+  {
+    "trial_id": "form-802-mcp",
+    "attempt": 18,
+    "started_at": "2026-10-30T07:10:45.084Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:45.629Z",
+    "headers_ms": 544.0725829999992,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:45.630Z",
+    "observed_ms": 545.5527919999986
+  },
+  {
+    "trial_id": "form-802-mcp",
+    "attempt": 19,
+    "started_at": "2026-10-30T07:10:45.741Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:46.079Z",
+    "headers_ms": 338.29762499999924,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:46.080Z",
+    "observed_ms": 339.49412499999926
+  },
+  {
+    "trial_id": "form-802-mcp",
+    "attempt": 20,
+    "started_at": "2026-10-30T07:10:46.144Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:46.473Z",
+    "headers_ms": 329.7442919999994,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:46.474Z",
+    "observed_ms": 330.38879199999974
+  },
+  {
+    "trial_id": "form-802-direct",
+    "attempt": 21,
+    "started_at": "2026-10-30T07:10:46.868Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:47.189Z",
+    "headers_ms": 321.54841599999963,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:47.190Z",
+    "observed_ms": 322.25958300000093
+  },
+  {
+    "trial_id": "form-802-direct",
+    "attempt": 22,
+    "started_at": "2026-10-30T07:10:47.249Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:47.653Z",
+    "headers_ms": 404.1149999999998,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:47.655Z",
+    "observed_ms": 406.42291599999953
+  },
+  {
+    "trial_id": "form-802-direct",
+    "attempt": 23,
+    "started_at": "2026-10-30T07:10:47.793Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:48.179Z",
+    "headers_ms": 385.8999160000003,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:48.179Z",
+    "observed_ms": 386.7243749999998
+  },
+  {
+    "trial_id": "form-802-direct",
+    "attempt": 24,
+    "started_at": "2026-10-30T07:10:48.238Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:48.580Z",
+    "headers_ms": 342.1742919999997,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 127
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:48.580Z",
+    "observed_ms": 342.8056250000009
+  },
+  {
+    "trial_id": "form-803-mcp",
+    "attempt": 25,
+    "started_at": "2026-10-30T07:10:48.978Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:49.306Z",
+    "headers_ms": 328.11041599999953,
+    "usage": {
+      "input_tokens": 592,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:49.307Z",
+    "observed_ms": 329.10912499999904
+  },
+  {
+    "trial_id": "form-803-mcp",
+    "attempt": 26,
+    "started_at": "2026-10-30T07:10:49.378Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:49.750Z",
+    "headers_ms": 372.12733399999706,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:49.750Z",
+    "observed_ms": 372.74304199999824
+  },
+  {
+    "trial_id": "form-803-mcp",
+    "attempt": 27,
+    "started_at": "2026-10-30T07:10:49.849Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:50.274Z",
+    "headers_ms": 425.26124999999956,
+    "usage": {
+      "input_tokens": 589,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:50.433Z",
+    "observed_ms": 583.8815409999988
+  },
+  {
+    "trial_id": "form-803-mcp",
+    "attempt": 28,
+    "started_at": "2026-10-30T07:10:50.517Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:50.834Z",
+    "headers_ms": 316.81554099999994,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 124
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:50.837Z",
+    "observed_ms": 319.2169160000012
+  },
+  {
+    "trial_id": "form-803-direct",
+    "attempt": 29,
+    "started_at": "2026-10-30T07:10:51.256Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:51.646Z",
+    "headers_ms": 390.27962500000285,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:51.648Z",
+    "observed_ms": 392.0767920000035
+  },
+  {
+    "trial_id": "form-803-direct",
+    "attempt": 30,
+    "started_at": "2026-10-30T07:10:51.725Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:52.042Z",
+    "headers_ms": 316.59208299999955,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:52.044Z",
+    "observed_ms": 318.4549999999981
+  },
+  {
+    "trial_id": "form-803-direct",
+    "attempt": 31,
+    "started_at": "2026-10-30T07:10:52.179Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:52.496Z",
+    "headers_ms": 316.6064170000027,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:52.731Z",
+    "observed_ms": 551.9561670000003
+  },
+  {
+    "trial_id": "form-803-direct",
+    "attempt": 32,
+    "started_at": "2026-10-30T07:10:52.813Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:53.202Z",
+    "headers_ms": 388.80791699999827,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 120
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:53.205Z",
+    "observed_ms": 391.96208299999853
+  },
+  {
+    "trial_id": "form-803-cli",
+    "attempt": 33,
+    "started_at": "2026-10-30T07:10:53.986Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:54.294Z",
+    "headers_ms": 308.09737499999756,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 119
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:54.527Z",
+    "observed_ms": 541.0958329999994
+  },
+  {
+    "trial_id": "form-803-cli",
+    "attempt": 34,
+    "started_at": "2026-10-30T07:10:54.616Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:54.994Z",
+    "headers_ms": 378.00737500000105,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:54.997Z",
+    "observed_ms": 381.04149999999936
+  },
+  {
+    "trial_id": "form-803-cli",
+    "attempt": 35,
+    "started_at": "2026-10-30T07:10:55.147Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:55.697Z",
+    "headers_ms": 550.2414580000004,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:55.700Z",
+    "observed_ms": 552.8597499999996
+  },
+  {
+    "trial_id": "form-803-cli",
+    "attempt": 36,
+    "started_at": "2026-10-30T07:10:55.774Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:56.094Z",
+    "headers_ms": 319.7460830000018,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:56.096Z",
+    "observed_ms": 322.00845800000025
+  },
+  {
+    "trial_id": "filter-801-cli",
+    "attempt": 37,
+    "started_at": "2026-10-30T07:10:57.225Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:57.616Z",
+    "headers_ms": 391.66258299999754,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:57.619Z",
+    "observed_ms": 394.02787499999977
+  },
+  {
+    "trial_id": "filter-801-mcp",
+    "attempt": 38,
+    "started_at": "2026-10-30T07:10:58.332Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:58.679Z",
+    "headers_ms": 347.09370800000033,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:58.680Z",
+    "observed_ms": 348.6335419999996
+  },
+  {
+    "trial_id": "filter-801-direct",
+    "attempt": 39,
+    "started_at": "2026-10-30T07:10:59.047Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:10:59.383Z",
+    "headers_ms": 335.9850829999996,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 112
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:10:59.384Z",
+    "observed_ms": 336.6589160000003
+  },
+  {
+    "trial_id": "filter-802-mcp",
+    "attempt": 40,
+    "started_at": "2026-10-30T07:10:59.683Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:00.024Z",
+    "headers_ms": 341.22670899999866,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:00.026Z",
+    "observed_ms": 342.637999999999
+  },
+  {
+    "trial_id": "filter-802-direct",
+    "attempt": 41,
+    "started_at": "2026-10-30T07:11:00.386Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:00.760Z",
+    "headers_ms": 374.2551249999997,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 119
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:00.761Z",
+    "observed_ms": 375.0537919999988
+  },
+  {
+    "trial_id": "filter-802-cli",
+    "attempt": 42,
+    "started_at": "2026-10-30T07:11:01.442Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:01.810Z",
+    "headers_ms": 367.98004199999923,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:01.811Z",
+    "observed_ms": 369.38379200000054
+  },
+  {
+    "trial_id": "filter-803-direct",
+    "attempt": 43,
+    "started_at": "2026-10-30T07:11:02.516Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:02.858Z",
+    "headers_ms": 342.31854199999725,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:02.859Z",
+    "observed_ms": 343.7071249999972
+  },
+  {
+    "trial_id": "filter-803-cli",
+    "attempt": 44,
+    "started_at": "2026-10-30T07:11:03.553Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:04.267Z",
+    "headers_ms": 714.5478340000009,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 119
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:04.270Z",
+    "observed_ms": 716.9798340000016
+  },
+  {
+    "trial_id": "filter-803-mcp",
+    "attempt": 45,
+    "started_at": "2026-10-30T07:11:04.979Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:05.300Z",
+    "headers_ms": 321.04633399999875,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 132
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:05.302Z",
+    "observed_ms": 323.242167000004
+  },
+  {
+    "trial_id": "detail-801-mcp",
+    "attempt": 46,
+    "started_at": "2026-10-30T07:11:33.622Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:34.607Z",
+    "headers_ms": 984.6237919999985,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:34.611Z",
+    "observed_ms": 988.5985000000001
+  },
+  {
+    "trial_id": "detail-801-direct",
+    "attempt": 47,
+    "started_at": "2026-10-30T07:11:35.046Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:35.363Z",
+    "headers_ms": 317.2122919999965,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:35.573Z",
+    "observed_ms": 527.2905839999949
+  },
+  {
+    "trial_id": "detail-801-cli",
+    "attempt": 48,
+    "started_at": "2026-10-30T07:11:36.386Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:36.709Z",
+    "headers_ms": 323.58366699999897,
+    "usage": {
+      "input_tokens": 569,
+      "output_tokens": 116
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:36.710Z",
+    "observed_ms": 324.68483299999934
+  },
+  {
+    "trial_id": "detail-802-direct",
+    "attempt": 49,
+    "started_at": "2026-10-30T07:11:37.472Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:37.762Z",
+    "headers_ms": 289.36362499999814,
+    "usage": {
+      "input_tokens": 567,
+      "output_tokens": 114
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:37.762Z",
+    "observed_ms": 289.95183399999223
+  },
+  {
+    "trial_id": "detail-802-cli",
+    "attempt": 50,
+    "started_at": "2026-10-30T07:11:38.463Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:38.791Z",
+    "headers_ms": 328.15279200000805,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 130
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:38.793Z",
+    "observed_ms": 330.1885830000101
+  },
+  {
+    "trial_id": "detail-802-mcp",
+    "attempt": 51,
+    "started_at": "2026-10-30T07:11:39.545Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:39.833Z",
+    "headers_ms": 287.7554999999993,
+    "usage": {
+      "input_tokens": 572,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:39.834Z",
+    "observed_ms": 288.6042920000036
+  },
+  {
+    "trial_id": "detail-803-cli",
+    "attempt": 52,
+    "started_at": "2026-10-30T07:11:40.574Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:40.889Z",
+    "headers_ms": 315.78420899999037,
+    "usage": {
+      "input_tokens": 570,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:40.891Z",
+    "observed_ms": 317.15200000000186
+  },
+  {
+    "trial_id": "detail-803-mcp",
+    "attempt": 53,
+    "started_at": "2026-10-30T07:11:41.638Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:42.502Z",
+    "headers_ms": 863.9763340000063,
+    "usage": {
+      "input_tokens": 572,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:42.505Z",
+    "observed_ms": 866.8739170000044
+  },
+  {
+    "trial_id": "detail-803-direct",
+    "attempt": 54,
+    "started_at": "2026-10-30T07:11:42.921Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:43.633Z",
+    "headers_ms": 712.0422919999983,
+    "usage": {
+      "input_tokens": 575,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:43.635Z",
+    "observed_ms": 714.8266250000015
+  },
+  {
+    "trial_id": "back-801-direct",
+    "attempt": 55,
+    "started_at": "2026-10-30T07:11:44.044Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:44.349Z",
+    "headers_ms": 304.960625000007,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:44.554Z",
+    "observed_ms": 509.7998329999973
+  },
+  {
+    "trial_id": "back-801-direct",
+    "attempt": 56,
+    "started_at": "2026-10-30T07:11:44.679Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:44.943Z",
+    "headers_ms": 264.75049999999464,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 122
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:44.945Z",
+    "observed_ms": 265.99499999999534
+  },
+  {
+    "trial_id": "back-801-cli",
+    "attempt": 57,
+    "started_at": "2026-10-30T07:11:45.737Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:46.018Z",
+    "headers_ms": 281.52704200000153,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:46.202Z",
+    "observed_ms": 465.14129200000025
+  },
+  {
+    "trial_id": "back-801-cli",
+    "attempt": 58,
+    "started_at": "2026-10-30T07:11:46.347Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:46.656Z",
+    "headers_ms": 309.1262080000015,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 128
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:46.658Z",
+    "observed_ms": 310.33637499999895
+  },
+  {
+    "trial_id": "back-801-mcp",
+    "attempt": 59,
+    "started_at": "2026-10-30T07:11:47.386Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:47.709Z",
+    "headers_ms": 322.62133399999584,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:47.946Z",
+    "observed_ms": 560.0333339999925
+  },
+  {
+    "trial_id": "back-801-mcp",
+    "attempt": 60,
+    "started_at": "2026-10-30T07:11:48.101Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:48.471Z",
+    "headers_ms": 369.5217910000065,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:48.472Z",
+    "observed_ms": 370.45191600000544
+  },
+  {
+    "trial_id": "back-802-cli",
+    "attempt": 61,
+    "started_at": "2026-10-30T07:11:49.173Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:49.525Z",
+    "headers_ms": 352.37287500000093,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:49.542Z",
+    "observed_ms": 369.27074999999604
+  },
+  {
+    "trial_id": "back-802-cli",
+    "attempt": 62,
+    "started_at": "2026-10-30T07:11:49.792Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:50.108Z",
+    "headers_ms": 316.18166600000404,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 122
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:50.315Z",
+    "observed_ms": 522.8396250000078
+  },
+  {
+    "trial_id": "back-802-mcp",
+    "attempt": 63,
+    "started_at": "2026-10-30T07:11:51.091Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:51.390Z",
+    "headers_ms": 298.76179199999024,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:51.391Z",
+    "observed_ms": 300.31012499998906
+  },
+  {
+    "trial_id": "back-802-mcp",
+    "attempt": 64,
+    "started_at": "2026-10-30T07:11:51.520Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:51.880Z",
+    "headers_ms": 359.90641699999105,
+    "usage": {
+      "input_tokens": 573,
+      "output_tokens": 115
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:51.882Z",
+    "observed_ms": 362.03866699998616
+  },
+  {
+    "trial_id": "back-802-direct",
+    "attempt": 65,
+    "started_at": "2026-10-30T07:11:52.275Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:52.569Z",
+    "headers_ms": 293.7217500000115,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:52.570Z",
+    "observed_ms": 295.293875000003
+  },
+  {
+    "trial_id": "back-802-direct",
+    "attempt": 66,
+    "started_at": "2026-10-30T07:11:52.691Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:52.964Z",
+    "headers_ms": 273.259750000012,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 130
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:52.966Z",
+    "observed_ms": 274.98908400000073
+  },
+  {
+    "trial_id": "back-803-mcp",
+    "attempt": 67,
+    "started_at": "2026-10-30T07:11:53.343Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:53.763Z",
+    "headers_ms": 420.25483299999905,
+    "usage": {
+      "input_tokens": 571,
+      "output_tokens": 110
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:53.764Z",
+    "observed_ms": 420.97987500000454
+  },
+  {
+    "trial_id": "back-803-mcp",
+    "attempt": 68,
+    "started_at": "2026-10-30T07:11:53.886Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:54.241Z",
+    "headers_ms": 355.39279199999874,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 120
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:54.242Z",
+    "observed_ms": 356.49199999999837
+  },
+  {
+    "trial_id": "back-803-direct",
+    "attempt": 69,
+    "started_at": "2026-10-30T07:11:54.600Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:54.887Z",
+    "headers_ms": 286.5480419999949,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 119
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:54.888Z",
+    "observed_ms": 287.40725000000384
+  },
+  {
+    "trial_id": "back-803-direct",
+    "attempt": 70,
+    "started_at": "2026-10-30T07:11:55.006Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:55.288Z",
+    "headers_ms": 282.16866599999776,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 118
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:55.289Z",
+    "observed_ms": 282.90470800000185
+  },
+  {
+    "trial_id": "back-803-cli",
+    "attempt": 71,
+    "started_at": "2026-10-30T07:11:55.973Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:56.335Z",
+    "headers_ms": 362.18591699999524,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:56.470Z",
+    "observed_ms": 497.18012499999895
+  },
+  {
+    "trial_id": "back-803-cli",
+    "attempt": 72,
+    "started_at": "2026-10-30T07:11:56.593Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:57.489Z",
+    "headers_ms": 896.3029580000002,
+    "usage": {
+      "input_tokens": 572,
+      "output_tokens": 115
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:57.491Z",
+    "observed_ms": 898.6387499999983
+  },
+  {
+    "trial_id": "cancel-801-cli",
+    "attempt": 73,
+    "started_at": "2026-10-30T07:11:58.657Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:11:58.957Z",
+    "headers_ms": 300.32275000000664,
+    "usage": {
+      "input_tokens": 518,
+      "output_tokens": 84
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:11:58.959Z",
+    "observed_ms": 301.8394169999956
+  },
+  {
+    "trial_id": "cancel-801-mcp",
+    "attempt": 74,
+    "started_at": "2026-10-30T07:11:59.704Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:00.005Z",
+    "headers_ms": 301.01033299999835,
+    "usage": {
+      "input_tokens": 520,
+      "output_tokens": 88
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:00.006Z",
+    "observed_ms": 301.9937499999942
+  },
+  {
+    "trial_id": "cancel-801-direct",
+    "attempt": 75,
+    "started_at": "2026-10-30T07:12:00.338Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:00.625Z",
+    "headers_ms": 287.17966599999636,
+    "usage": {
+      "input_tokens": 519,
+      "output_tokens": 86
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:00.627Z",
+    "observed_ms": 288.8049580000079
+  },
+  {
+    "trial_id": "cancel-802-mcp",
+    "attempt": 76,
+    "started_at": "2026-10-30T07:12:01.041Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:01.352Z",
+    "headers_ms": 311.013082999998,
+    "usage": {
+      "input_tokens": 519,
+      "output_tokens": 86
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:01.353Z",
+    "observed_ms": 312.53558299998986
+  },
+  {
+    "trial_id": "cancel-802-direct",
+    "attempt": 77,
+    "started_at": "2026-10-30T07:12:01.746Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:02.104Z",
+    "headers_ms": 358.28129199999967,
+    "usage": {
+      "input_tokens": 517,
+      "output_tokens": 82
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:02.105Z",
+    "observed_ms": 359.87208400000236
+  },
+  {
+    "trial_id": "cancel-802-cli",
+    "attempt": 78,
+    "started_at": "2026-10-30T07:12:02.842Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:03.152Z",
+    "headers_ms": 310.7354999999952,
+    "usage": {
+      "input_tokens": 520,
+      "output_tokens": 88
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:03.154Z",
+    "observed_ms": 311.945458999995
+  },
+  {
+    "trial_id": "cancel-803-direct",
+    "attempt": 79,
+    "started_at": "2026-10-30T07:12:03.941Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:04.233Z",
+    "headers_ms": 291.33158399999957,
+    "usage": {
+      "input_tokens": 515,
+      "output_tokens": 78
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:04.235Z",
+    "observed_ms": 293.2435419999965
+  },
+  {
+    "trial_id": "cancel-803-cli",
+    "attempt": 80,
+    "started_at": "2026-10-30T07:12:04.944Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:05.250Z",
+    "headers_ms": 305.91854199999943,
+    "usage": {
+      "input_tokens": 519,
+      "output_tokens": 86
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:05.432Z",
+    "observed_ms": 487.73241700000654
+  },
+  {
+    "trial_id": "cancel-803-mcp",
+    "attempt": 81,
+    "started_at": "2026-10-30T07:12:06.183Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:06.453Z",
+    "headers_ms": 269.9847080000036,
+    "usage": {
+      "input_tokens": 517,
+      "output_tokens": 82
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:06.455Z",
+    "observed_ms": 271.40962500000023
+  },
+  {
+    "trial_id": "correction-801-mcp",
+    "attempt": 82,
+    "started_at": "2026-10-30T07:12:06.835Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:07.127Z",
+    "headers_ms": 291.3173749999987,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:07.128Z",
+    "observed_ms": 292.2931249999965
+  },
+  {
+    "trial_id": "correction-801-mcp",
+    "attempt": 83,
+    "started_at": "2026-10-30T07:12:07.252Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:07.616Z",
+    "headers_ms": 363.435083999997,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:07.619Z",
+    "observed_ms": 366.39974999999686
+  },
+  {
+    "trial_id": "correction-801-mcp",
+    "attempt": 84,
+    "started_at": "2026-10-30T07:12:07.705Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:07.985Z",
+    "headers_ms": 280.2875000000058,
+    "usage": {
+      "input_tokens": 596,
+      "output_tokens": 126
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:07.987Z",
+    "observed_ms": 282.19891700000153
+  },
+  {
+    "trial_id": "correction-801-direct",
+    "attempt": 85,
+    "started_at": "2026-10-30T07:12:08.418Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:08.719Z",
+    "headers_ms": 300.27691700001014,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:08.720Z",
+    "observed_ms": 301.74262499999895
+  },
+  {
+    "trial_id": "correction-801-direct",
+    "attempt": 86,
+    "started_at": "2026-10-30T07:12:08.834Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:09.189Z",
+    "headers_ms": 354.3721249999944,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:09.191Z",
+    "observed_ms": 356.9569999999949
+  },
+  {
+    "trial_id": "correction-801-direct",
+    "attempt": 87,
+    "started_at": "2026-10-30T07:12:09.285Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:09.982Z",
+    "headers_ms": 696.3221659999981,
+    "usage": {
+      "input_tokens": 594,
+      "output_tokens": 125
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:09.984Z",
+    "observed_ms": 698.8809580000088
+  },
+  {
+    "trial_id": "correction-801-cli",
+    "attempt": 88,
+    "started_at": "2026-10-30T07:12:10.780Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:11.079Z",
+    "headers_ms": 299.3437910000066,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:11.081Z",
+    "observed_ms": 301.2350000000006
+  },
+  {
+    "trial_id": "correction-801-cli",
+    "attempt": 89,
+    "started_at": "2026-10-30T07:12:11.222Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:11.541Z",
+    "headers_ms": 318.6311249999999,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:11.544Z",
+    "observed_ms": 321.82729099999415
+  },
+  {
+    "trial_id": "correction-801-cli",
+    "attempt": 90,
+    "started_at": "2026-10-30T07:12:11.631Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:12.316Z",
+    "headers_ms": 684.905958000003,
+    "usage": {
+      "input_tokens": 596,
+      "output_tokens": 128
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:12.319Z",
+    "observed_ms": 687.984083000003
+  },
+  {
+    "trial_id": "correction-802-direct",
+    "attempt": 91,
+    "started_at": "2026-10-30T07:12:33.913Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:34.901Z",
+    "headers_ms": 987.5568750000093,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 116
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:34.903Z",
+    "observed_ms": 990.1182499999995
+  },
+  {
+    "trial_id": "correction-802-direct",
+    "attempt": 92,
+    "started_at": "2026-10-30T07:12:35.073Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:35.430Z",
+    "headers_ms": 357.2632079999894,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:35.666Z",
+    "observed_ms": 592.8035830000008
+  },
+  {
+    "trial_id": "correction-802-direct",
+    "attempt": 93,
+    "started_at": "2026-10-30T07:12:35.758Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:36.034Z",
+    "headers_ms": 275.7984999999899,
+    "usage": {
+      "input_tokens": 593,
+      "output_tokens": 125
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:36.035Z",
+    "observed_ms": 276.9764579999901
+  },
+  {
+    "trial_id": "correction-802-cli",
+    "attempt": 94,
+    "started_at": "2026-10-30T07:12:38.111Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:38.384Z",
+    "headers_ms": 272.69529099999636,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:38.385Z",
+    "observed_ms": 274.00795800000196
+  },
+  {
+    "trial_id": "correction-802-cli",
+    "attempt": 95,
+    "started_at": "2026-10-30T07:12:38.503Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:38.804Z",
+    "headers_ms": 300.80354200000875,
+    "usage": {
+      "input_tokens": 594,
+      "output_tokens": 130
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:38.805Z",
+    "observed_ms": 302.192292000007
+  },
+  {
+    "trial_id": "correction-802-cli",
+    "attempt": 96,
+    "started_at": "2026-10-30T07:12:38.886Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:39.327Z",
+    "headers_ms": 441.13679199999024,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 114
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:39.859Z",
+    "observed_ms": 973.2694169999886
+  },
+  {
+    "trial_id": "correction-802-mcp",
+    "attempt": 97,
+    "started_at": "2026-10-30T07:12:40.826Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:41.179Z",
+    "headers_ms": 353.3835409999883,
+    "usage": {
+      "input_tokens": 595,
+      "output_tokens": 133
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:41.425Z",
+    "observed_ms": 599.2937499999971
+  },
+  {
+    "trial_id": "correction-802-mcp",
+    "attempt": 98,
+    "started_at": "2026-10-30T07:12:41.562Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:41.953Z",
+    "headers_ms": 391.35454200000095,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:41.955Z",
+    "observed_ms": 393.7076669999951
+  },
+  {
+    "trial_id": "correction-802-mcp",
+    "attempt": 99,
+    "started_at": "2026-10-30T07:12:42.034Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:42.333Z",
+    "headers_ms": 298.38175000000047,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 117
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:42.336Z",
+    "observed_ms": 301.6606250000041
+  },
+  {
+    "trial_id": "correction-803-cli",
+    "attempt": 100,
+    "started_at": "2026-10-30T07:12:44.718Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:45.095Z",
+    "headers_ms": 376.92987500000163,
+    "usage": {
+      "input_tokens": 589,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:45.230Z",
+    "observed_ms": 511.94116600000416
+  },
+  {
+    "trial_id": "correction-803-cli",
+    "attempt": 101,
+    "started_at": "2026-10-30T07:12:45.369Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:45.660Z",
+    "headers_ms": 290.7051249999786,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:45.870Z",
+    "observed_ms": 500.84929199999897
+  },
+  {
+    "trial_id": "correction-803-cli",
+    "attempt": 102,
+    "started_at": "2026-10-30T07:12:45.963Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:46.279Z",
+    "headers_ms": 316.9350409999897,
+    "usage": {
+      "input_tokens": 589,
+      "output_tokens": 120
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:46.281Z",
+    "observed_ms": 318.1074999999837
+  },
+  {
+    "trial_id": "correction-803-mcp",
+    "attempt": 103,
+    "started_at": "2026-10-30T07:12:47.057Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:47.349Z",
+    "headers_ms": 292.1022499999963,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:47.350Z",
+    "observed_ms": 293.2961249999935
+  },
+  {
+    "trial_id": "correction-803-mcp",
+    "attempt": 104,
+    "started_at": "2026-10-30T07:12:47.460Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:47.804Z",
+    "headers_ms": 344.0939590000198,
+    "usage": {
+      "input_tokens": 584,
+      "output_tokens": 114
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:47.938Z",
+    "observed_ms": 477.87437500001397
+  },
+  {
+    "trial_id": "correction-803-mcp",
+    "attempt": 105,
+    "started_at": "2026-10-30T07:12:48.000Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:48.287Z",
+    "headers_ms": 286.82695899999817,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 114
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:48.491Z",
+    "observed_ms": 491.1661669999885
+  },
+  {
+    "trial_id": "correction-803-direct",
+    "attempt": 106,
+    "started_at": "2026-10-30T07:12:49.459Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:49.815Z",
+    "headers_ms": 355.8692499999888,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:49.815Z",
+    "observed_ms": 356.80870899997535
+  },
+  {
+    "trial_id": "correction-803-direct",
+    "attempt": 107,
+    "started_at": "2026-10-30T07:12:49.937Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:50.221Z",
+    "headers_ms": 283.9230840000091,
+    "usage": {
+      "input_tokens": 589,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:50.413Z",
+    "observed_ms": 476.2622090000077
+  },
+  {
+    "trial_id": "correction-803-direct",
+    "attempt": 108,
+    "started_at": "2026-10-30T07:12:50.491Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:51.386Z",
+    "headers_ms": 895.0047499999928,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 122
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:51.389Z",
+    "observed_ms": 897.4261669999978
+  },
+  {
+    "trial_id": "duplicate-801-direct",
+    "attempt": 109,
+    "started_at": "2026-10-30T07:12:51.810Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:52.109Z",
+    "headers_ms": 299.3940409999923,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:52.326Z",
+    "observed_ms": 516.7667080000101
+  },
+  {
+    "trial_id": "duplicate-801-direct",
+    "attempt": 110,
+    "started_at": "2026-10-30T07:12:52.399Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:52.717Z",
+    "headers_ms": 317.3221659999981,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:52.719Z",
+    "observed_ms": 319.117499999993
+  },
+  {
+    "trial_id": "duplicate-801-direct",
+    "attempt": 111,
+    "started_at": "2026-10-30T07:12:52.863Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:53.260Z",
+    "headers_ms": 396.88475000002654,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:53.263Z",
+    "observed_ms": 399.11462500001653
+  },
+  {
+    "trial_id": "duplicate-801-direct",
+    "attempt": 112,
+    "started_at": "2026-10-30T07:12:53.348Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:53.615Z",
+    "headers_ms": 267.480750000017,
+    "usage": {
+      "input_tokens": 581,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:53.617Z",
+    "observed_ms": 269.19954200001666
+  },
+  {
+    "trial_id": "duplicate-801-cli",
+    "attempt": 113,
+    "started_at": "2026-10-30T07:12:54.505Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:54.798Z",
+    "headers_ms": 292.5634579999896,
+    "usage": {
+      "input_tokens": 594,
+      "output_tokens": 131
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:54.799Z",
+    "observed_ms": 294.0492080000113
+  },
+  {
+    "trial_id": "duplicate-801-cli",
+    "attempt": 114,
+    "started_at": "2026-10-30T07:12:54.867Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:55.666Z",
+    "headers_ms": 798.6227500000095,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:55.668Z",
+    "observed_ms": 800.4537080000155
+  },
+  {
+    "trial_id": "duplicate-801-cli",
+    "attempt": 115,
+    "started_at": "2026-10-30T07:12:55.803Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:56.106Z",
+    "headers_ms": 303.26249999998254,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:56.107Z",
+    "observed_ms": 304.0367499999993
+  },
+  {
+    "trial_id": "duplicate-801-cli",
+    "attempt": 116,
+    "started_at": "2026-10-30T07:12:56.167Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:56.460Z",
+    "headers_ms": 293.52095799997915,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 125
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:56.461Z",
+    "observed_ms": 294.73629099997925
+  },
+  {
+    "trial_id": "duplicate-801-mcp",
+    "attempt": 117,
+    "started_at": "2026-10-30T07:12:57.244Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:57.545Z",
+    "headers_ms": 300.4739999999874,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 119
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:57.855Z",
+    "observed_ms": 610.7849999999744
+  },
+  {
+    "trial_id": "duplicate-801-mcp",
+    "attempt": 118,
+    "started_at": "2026-10-30T07:12:57.954Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:58.244Z",
+    "headers_ms": 289.7607910000079,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:58.442Z",
+    "observed_ms": 487.4405830000178
+  },
+  {
+    "trial_id": "duplicate-801-mcp",
+    "attempt": 119,
+    "started_at": "2026-10-30T07:12:58.542Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:58.944Z",
+    "headers_ms": 402.1625420000055,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:58.946Z",
+    "observed_ms": 403.9737090000126
+  },
+  {
+    "trial_id": "duplicate-801-mcp",
+    "attempt": 120,
+    "started_at": "2026-10-30T07:12:59.016Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:12:59.297Z",
+    "headers_ms": 280.44625000000815,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 127
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:12:59.499Z",
+    "observed_ms": 482.5309159999888
+  },
+  {
+    "trial_id": "duplicate-802-cli",
+    "attempt": 121,
+    "started_at": "2026-10-30T07:13:01.687Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:01.952Z",
+    "headers_ms": 264.4555839999812,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:01.953Z",
+    "observed_ms": 266.08874999999534
+  },
+  {
+    "trial_id": "duplicate-802-cli",
+    "attempt": 122,
+    "started_at": "2026-10-30T07:13:02.032Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:02.950Z",
+    "headers_ms": 917.8754580000241,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:02.951Z",
+    "observed_ms": 918.7374160000181
+  },
+  {
+    "trial_id": "duplicate-802-cli",
+    "attempt": 123,
+    "started_at": "2026-10-30T07:13:03.075Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:03.592Z",
+    "headers_ms": 516.485416999989,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:03.979Z",
+    "observed_ms": 903.6156250000058
+  },
+  {
+    "trial_id": "duplicate-802-cli",
+    "attempt": 124,
+    "started_at": "2026-10-30T07:13:04.067Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:04.342Z",
+    "headers_ms": 274.3665420000034,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 117
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:04.343Z",
+    "observed_ms": 275.9641249999986
+  },
+  {
+    "trial_id": "duplicate-802-mcp",
+    "attempt": 125,
+    "started_at": "2026-10-30T07:13:05.190Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:05.542Z",
+    "headers_ms": 351.9527909999888,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:05.544Z",
+    "observed_ms": 353.62625000000116
+  },
+  {
+    "trial_id": "duplicate-802-mcp",
+    "attempt": 126,
+    "started_at": "2026-10-30T07:13:05.622Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:05.918Z",
+    "headers_ms": 295.21133300001384,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:06.122Z",
+    "observed_ms": 499.70187499999884
+  },
+  {
+    "trial_id": "duplicate-802-mcp",
+    "attempt": 127,
+    "started_at": "2026-10-30T07:13:06.246Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:06.591Z",
+    "headers_ms": 344.25570899999,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:06.777Z",
+    "observed_ms": 530.9254169999913
+  },
+  {
+    "trial_id": "duplicate-802-mcp",
+    "attempt": 128,
+    "started_at": "2026-10-30T07:13:06.872Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:07.169Z",
+    "headers_ms": 297.20350000000326,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 122
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:07.172Z",
+    "observed_ms": 300.14125000001513
+  },
+  {
+    "trial_id": "duplicate-802-direct",
+    "attempt": 129,
+    "started_at": "2026-10-30T07:13:08.021Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:08.743Z",
+    "headers_ms": 722.4037919999973,
+    "usage": {
+      "input_tokens": 587,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:08.927Z",
+    "observed_ms": 906.1470419999969
+  },
+  {
+    "trial_id": "duplicate-802-direct",
+    "attempt": 130,
+    "started_at": "2026-10-30T07:13:09.018Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:09.337Z",
+    "headers_ms": 318.58708299999125,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:09.339Z",
+    "observed_ms": 321.0092500000028
+  },
+  {
+    "trial_id": "duplicate-802-direct",
+    "attempt": 131,
+    "started_at": "2026-10-30T07:13:09.483Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:09.831Z",
+    "headers_ms": 347.9684160000179,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:09.832Z",
+    "observed_ms": 349.1121250000142
+  },
+  {
+    "trial_id": "duplicate-802-direct",
+    "attempt": 132,
+    "started_at": "2026-10-30T07:13:09.903Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:10.264Z",
+    "headers_ms": 360.76808300000266,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 114
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:10.267Z",
+    "observed_ms": 363.94291599999997
+  },
+  {
+    "trial_id": "duplicate-803-mcp",
+    "attempt": 133,
+    "started_at": "2026-10-30T07:13:11.047Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:11.330Z",
+    "headers_ms": 282.9950840000238,
+    "usage": {
+      "input_tokens": 588,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:11.332Z",
+    "observed_ms": 284.52033400000073
+  },
+  {
+    "trial_id": "duplicate-803-mcp",
+    "attempt": 134,
+    "started_at": "2026-10-30T07:13:11.415Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:11.710Z",
+    "headers_ms": 295.2240419999871,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:11.711Z",
+    "observed_ms": 296.69658399999025
+  },
+  {
+    "trial_id": "duplicate-803-mcp",
+    "attempt": 135,
+    "started_at": "2026-10-30T07:13:11.853Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:12.152Z",
+    "headers_ms": 299.16104200002155,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 116
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:12.361Z",
+    "observed_ms": 508.44404200001736
+  },
+  {
+    "trial_id": "duplicate-803-mcp",
+    "attempt": 136,
+    "started_at": "2026-10-30T07:13:12.460Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:12.742Z",
+    "headers_ms": 282.5817920000118,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:12.950Z",
+    "observed_ms": 490.4155000000028
+  },
+  {
+    "trial_id": "duplicate-803-direct",
+    "attempt": 137,
+    "started_at": "2026-10-30T07:13:35.384Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:36.493Z",
+    "headers_ms": 1109.5379580000008,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:36.494Z",
+    "observed_ms": 1110.5199159999902
+  },
+  {
+    "trial_id": "duplicate-803-direct",
+    "attempt": 138,
+    "started_at": "2026-10-30T07:13:36.562Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:36.882Z",
+    "headers_ms": 319.95183299999917,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:37.157Z",
+    "observed_ms": 594.7030000000086
+  },
+  {
+    "trial_id": "duplicate-803-direct",
+    "attempt": 139,
+    "started_at": "2026-10-30T07:13:37.284Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:37.604Z",
+    "headers_ms": 320.2347920000029,
+    "usage": {
+      "input_tokens": 581,
+      "output_tokens": 117
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:37.605Z",
+    "observed_ms": 321.7100830000127
+  },
+  {
+    "trial_id": "duplicate-803-direct",
+    "attempt": 140,
+    "started_at": "2026-10-30T07:13:37.672Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:38.048Z",
+    "headers_ms": 375.828582999995,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:38.247Z",
+    "observed_ms": 574.5558749999909
+  },
+  {
+    "trial_id": "duplicate-803-cli",
+    "attempt": 141,
+    "started_at": "2026-10-30T07:13:39.539Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:40.424Z",
+    "headers_ms": 884.3937499999884,
+    "usage": {
+      "input_tokens": 590,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:40.425Z",
+    "observed_ms": 885.4131249999919
+  },
+  {
+    "trial_id": "duplicate-803-cli",
+    "attempt": 142,
+    "started_at": "2026-10-30T07:13:40.494Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:40.836Z",
+    "headers_ms": 342.6973339999968,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:40.837Z",
+    "observed_ms": 343.5140839999949
+  },
+  {
+    "trial_id": "duplicate-803-cli",
+    "attempt": 143,
+    "started_at": "2026-10-30T07:13:40.950Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:41.265Z",
+    "headers_ms": 314.96691699998337,
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:41.267Z",
+    "observed_ms": 316.37858299998334
+  },
+  {
+    "trial_id": "duplicate-803-cli",
+    "attempt": 144,
+    "started_at": "2026-10-30T07:13:41.337Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:41.717Z",
+    "headers_ms": 380.1704160000081,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 115
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:41.719Z",
+    "observed_ms": 381.78820799998357
+  },
+  {
+    "trial_id": "async-801-cli",
+    "attempt": 145,
+    "started_at": "2026-10-30T07:13:45.362Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:45.719Z",
+    "headers_ms": 357.6989169999724,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:45.953Z",
+    "observed_ms": 591.779458999983
+  },
+  {
+    "trial_id": "async-801-cli",
+    "attempt": 146,
+    "started_at": "2026-10-30T07:13:46.077Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:46.438Z",
+    "headers_ms": 361.491417000012,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 122
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:46.441Z",
+    "observed_ms": 364.3548750000191
+  },
+  {
+    "trial_id": "async-801-mcp",
+    "attempt": 147,
+    "started_at": "2026-10-30T07:13:47.116Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:47.486Z",
+    "headers_ms": 369.7544169999892,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:47.697Z",
+    "observed_ms": 581.3829169999808
+  },
+  {
+    "trial_id": "async-801-mcp",
+    "attempt": 148,
+    "started_at": "2026-10-30T07:13:47.851Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:48.170Z",
+    "headers_ms": 318.8690420000057,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 125
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:48.171Z",
+    "observed_ms": 319.7799170000071
+  },
+  {
+    "trial_id": "async-801-direct",
+    "attempt": 149,
+    "started_at": "2026-10-30T07:13:48.456Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:48.905Z",
+    "headers_ms": 449.5411250000179,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:48.907Z",
+    "observed_ms": 451.386542000022
+  },
+  {
+    "trial_id": "async-801-direct",
+    "attempt": 150,
+    "started_at": "2026-10-30T07:13:49.040Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:49.381Z",
+    "headers_ms": 341.0716250000114,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 119
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:49.614Z",
+    "observed_ms": 574.4855830000015
+  },
+  {
+    "trial_id": "async-802-mcp",
+    "attempt": 151,
+    "started_at": "2026-10-30T07:13:49.911Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:50.234Z",
+    "headers_ms": 322.539832999988,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:50.234Z",
+    "observed_ms": 323.3055829999794
+  },
+  {
+    "trial_id": "async-802-mcp",
+    "attempt": 152,
+    "started_at": "2026-10-30T07:13:50.333Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:50.648Z",
+    "headers_ms": 314.5587919999962,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 118
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:50.654Z",
+    "observed_ms": 321.1109170000127
+  },
+  {
+    "trial_id": "async-802-direct",
+    "attempt": 153,
+    "started_at": "2026-10-30T07:13:50.949Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:51.303Z",
+    "headers_ms": 354.5284999999858,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:51.305Z",
+    "observed_ms": 356.3522909999883
+  },
+  {
+    "trial_id": "async-802-direct",
+    "attempt": 154,
+    "started_at": "2026-10-30T07:13:51.404Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:51.743Z",
+    "headers_ms": 339.20766599997296,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:51.744Z",
+    "observed_ms": 340.1753749999916
+  },
+  {
+    "trial_id": "async-802-cli",
+    "attempt": 155,
+    "started_at": "2026-10-30T07:13:53.101Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:53.427Z",
+    "headers_ms": 326.67733299999963,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:53.428Z",
+    "observed_ms": 327.637458000012
+  },
+  {
+    "trial_id": "async-802-cli",
+    "attempt": 156,
+    "started_at": "2026-10-30T07:13:53.542Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:53.855Z",
+    "headers_ms": 313.3532910000067,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 114
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:54.088Z",
+    "observed_ms": 545.5255830000096
+  },
+  {
+    "trial_id": "async-803-direct",
+    "attempt": 157,
+    "started_at": "2026-10-30T07:13:54.775Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:55.127Z",
+    "headers_ms": 352.7064170000085,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:55.128Z",
+    "observed_ms": 353.84062500001164
+  },
+  {
+    "trial_id": "async-803-direct",
+    "attempt": 158,
+    "started_at": "2026-10-30T07:13:55.240Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:55.556Z",
+    "headers_ms": 315.97279200001503,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:55.879Z",
+    "observed_ms": 639.2948749999923
+  },
+  {
+    "trial_id": "async-803-cli",
+    "attempt": 159,
+    "started_at": "2026-10-30T07:13:56.560Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:56.925Z",
+    "headers_ms": 365.04349999999977,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:56.927Z",
+    "observed_ms": 367.7667500000098
+  },
+  {
+    "trial_id": "async-803-cli",
+    "attempt": 160,
+    "started_at": "2026-10-30T07:13:57.069Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:57.448Z",
+    "headers_ms": 379.40354199998546,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 125
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:57.449Z",
+    "observed_ms": 380.2000419999822
+  },
+  {
+    "trial_id": "async-803-mcp",
+    "attempt": 161,
+    "started_at": "2026-10-30T07:13:58.076Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:58.367Z",
+    "headers_ms": 290.3447499999893,
+    "usage": {
+      "input_tokens": 571,
+      "output_tokens": 115
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:58.368Z",
+    "observed_ms": 291.9097499999916
+  },
+  {
+    "trial_id": "async-803-mcp",
+    "attempt": 162,
+    "started_at": "2026-10-30T07:13:58.487Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:59.195Z",
+    "headers_ms": 707.7569999999832,
+    "usage": {
+      "input_tokens": 585,
+      "output_tokens": 130
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:13:59.195Z",
+    "observed_ms": 708.5219579999975
+  },
+  {
+    "trial_id": "scroll-801-mcp",
+    "attempt": 163,
+    "started_at": "2026-10-30T07:13:59.461Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:13:59.833Z",
+    "headers_ms": 372.17458300001454,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:00.069Z",
+    "observed_ms": 608.0924579999992
+  },
+  {
+    "trial_id": "scroll-801-direct",
+    "attempt": 164,
+    "started_at": "2026-10-30T07:14:00.500Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:00.874Z",
+    "headers_ms": 373.393665999989,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:00.876Z",
+    "observed_ms": 375.11370799998986
+  },
+  {
+    "trial_id": "scroll-801-cli",
+    "attempt": 165,
+    "started_at": "2026-10-30T07:14:01.671Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:01.971Z",
+    "headers_ms": 300.2190000000119,
+    "usage": {
+      "input_tokens": 583,
+      "output_tokens": 130
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:01.973Z",
+    "observed_ms": 301.8338750000112
+  },
+  {
+    "trial_id": "scroll-802-direct",
+    "attempt": 166,
+    "started_at": "2026-10-30T07:14:02.737Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:03.040Z",
+    "headers_ms": 303.34283399998094,
+    "usage": {
+      "input_tokens": 575,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:03.041Z",
+    "observed_ms": 304.13612499999
+  },
+  {
+    "trial_id": "scroll-802-cli",
+    "attempt": 167,
+    "started_at": "2026-10-30T07:14:03.776Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:04.060Z",
+    "headers_ms": 283.4959169999929,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:04.061Z",
+    "observed_ms": 284.7739580000052
+  },
+  {
+    "trial_id": "scroll-802-mcp",
+    "attempt": 168,
+    "started_at": "2026-10-30T07:14:04.783Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:05.057Z",
+    "headers_ms": 274.2257080000127,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:05.058Z",
+    "observed_ms": 275.0498329999973
+  },
+  {
+    "trial_id": "scroll-803-cli",
+    "attempt": 169,
+    "started_at": "2026-10-30T07:14:05.749Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:06.159Z",
+    "headers_ms": 409.759040999983,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:06.391Z",
+    "observed_ms": 641.8029579999857
+  },
+  {
+    "trial_id": "scroll-803-mcp",
+    "attempt": 170,
+    "started_at": "2026-10-30T07:14:07.188Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:07.469Z",
+    "headers_ms": 280.9047079999873,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:07.470Z",
+    "observed_ms": 282.0777909999888
+  },
+  {
+    "trial_id": "scroll-803-direct",
+    "attempt": 171,
+    "started_at": "2026-10-30T07:14:07.862Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:08.215Z",
+    "headers_ms": 353.07312499999534,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:08.216Z",
+    "observed_ms": 353.8845839999849
+  },
+  {
+    "trial_id": "select-801-direct",
+    "attempt": 172,
+    "started_at": "2026-10-30T07:14:08.598Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:08.981Z",
+    "headers_ms": 383.694542000012,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 130
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:09.539Z",
+    "observed_ms": 941.3992499999877
+  },
+  {
+    "trial_id": "select-801-cli",
+    "attempt": 173,
+    "started_at": "2026-10-30T07:14:10.218Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:10.554Z",
+    "headers_ms": 335.57191699999385,
+    "usage": {
+      "input_tokens": 579,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:10.554Z",
+    "observed_ms": 336.42741699999897
+  },
+  {
+    "trial_id": "select-801-mcp",
+    "attempt": 174,
+    "started_at": "2026-10-30T07:14:11.246Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:11.602Z",
+    "headers_ms": 355.7748750000028,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:11.742Z",
+    "observed_ms": 495.8571670000092
+  },
+  {
+    "trial_id": "select-802-cli",
+    "attempt": 175,
+    "started_at": "2026-10-30T07:14:12.419Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:12.707Z",
+    "headers_ms": 288.67104200000176,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:12.709Z",
+    "observed_ms": 290.2911669999885
+  },
+  {
+    "trial_id": "select-802-mcp",
+    "attempt": 176,
+    "started_at": "2026-10-30T07:14:13.425Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:13.731Z",
+    "headers_ms": 306.4352910000016,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 127
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:13.734Z",
+    "observed_ms": 308.8013749999809
+  },
+  {
+    "trial_id": "select-802-direct",
+    "attempt": 177,
+    "started_at": "2026-10-30T07:14:14.090Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:14.360Z",
+    "headers_ms": 269.6367500000051,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 126
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:14.565Z",
+    "observed_ms": 474.9599580000213
+  },
+  {
+    "trial_id": "select-803-mcp",
+    "attempt": 178,
+    "started_at": "2026-10-30T07:14:14.934Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:15.271Z",
+    "headers_ms": 336.3295830000134,
+    "usage": {
+      "input_tokens": 575,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:15.272Z",
+    "observed_ms": 338.0945420000062
+  },
+  {
+    "trial_id": "select-803-direct",
+    "attempt": 179,
+    "started_at": "2026-10-30T07:14:15.629Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:15.921Z",
+    "headers_ms": 292.06245900000795,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:16.124Z",
+    "observed_ms": 494.9363750000193
+  },
+  {
+    "trial_id": "select-803-cli",
+    "attempt": 180,
+    "started_at": "2026-10-30T07:14:16.806Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:17.144Z",
+    "headers_ms": 337.86195800002315,
+    "usage": {
+      "input_tokens": 573,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:17.145Z",
+    "observed_ms": 338.934333000012
+  },
+  {
+    "trial_id": "wait-801-cli",
+    "attempt": 181,
+    "started_at": "2026-10-30T07:14:18.208Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:18.496Z",
+    "headers_ms": 288.35754199998337,
+    "usage": {
+      "input_tokens": 573,
+      "output_tokens": 118
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:18.498Z",
+    "observed_ms": 289.9916669999948
+  },
+  {
+    "trial_id": "wait-801-cli",
+    "attempt": 182,
+    "started_at": "2026-10-30T07:14:18.639Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:18.947Z",
+    "headers_ms": 307.4698750000098,
+    "usage": {
+      "input_tokens": 581,
+      "output_tokens": 123
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:18.948Z",
+    "observed_ms": 308.6528330000001
+  },
+  {
+    "trial_id": "wait-801-mcp",
+    "attempt": 183,
+    "started_at": "2026-10-30T07:14:36.888Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:37.854Z",
+    "headers_ms": 966.6240830000024,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:37.857Z",
+    "observed_ms": 969.6174170000013
+  },
+  {
+    "trial_id": "wait-801-mcp",
+    "attempt": 184,
+    "started_at": "2026-10-30T07:14:38.001Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:38.339Z",
+    "headers_ms": 338.25333300000057,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 119
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:38.546Z",
+    "observed_ms": 545.5975829999952
+  },
+  {
+    "trial_id": "wait-801-direct",
+    "attempt": 185,
+    "started_at": "2026-10-30T07:14:38.885Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:39.181Z",
+    "headers_ms": 296.9547500000044,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:39.182Z",
+    "observed_ms": 297.7927910000144
+  },
+  {
+    "trial_id": "wait-801-direct",
+    "attempt": 186,
+    "started_at": "2026-10-30T07:14:39.283Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:39.570Z",
+    "headers_ms": 286.38649999999325,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 122
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:39.571Z",
+    "observed_ms": 287.9854589999886
+  },
+  {
+    "trial_id": "wait-802-mcp",
+    "attempt": 187,
+    "started_at": "2026-10-30T07:14:40.775Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:41.056Z",
+    "headers_ms": 280.3015000000014,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 123
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:41.056Z",
+    "observed_ms": 281.0773749999935
+  },
+  {
+    "trial_id": "wait-802-mcp",
+    "attempt": 188,
+    "started_at": "2026-10-30T07:14:41.161Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:41.485Z",
+    "headers_ms": 323.86624999999185,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 115
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:41.490Z",
+    "observed_ms": 328.4276660000032
+  },
+  {
+    "trial_id": "wait-802-direct",
+    "attempt": 189,
+    "started_at": "2026-10-30T07:14:41.815Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:42.123Z",
+    "headers_ms": 308.0443749999977,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:42.124Z",
+    "observed_ms": 308.963791999995
+  },
+  {
+    "trial_id": "wait-802-direct",
+    "attempt": 190,
+    "started_at": "2026-10-30T07:14:42.246Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:42.535Z",
+    "headers_ms": 288.47033300000476,
+    "usage": {
+      "input_tokens": 580,
+      "output_tokens": 123
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:42.536Z",
+    "observed_ms": 289.5086669999873
+  },
+  {
+    "trial_id": "wait-802-cli",
+    "attempt": 191,
+    "started_at": "2026-10-30T07:14:46.751Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:47.934Z",
+    "headers_ms": 1182.83924999999,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:48.131Z",
+    "observed_ms": 1380.6573749999807
+  },
+  {
+    "trial_id": "wait-802-cli",
+    "attempt": 192,
+    "started_at": "2026-10-30T07:14:48.273Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:48.572Z",
+    "headers_ms": 299.16050000002724,
+    "usage": {
+      "input_tokens": 578,
+      "output_tokens": 122
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:48.575Z",
+    "observed_ms": 301.68404100000043
+  },
+  {
+    "trial_id": "wait-803-direct",
+    "attempt": 193,
+    "started_at": "2026-10-30T07:14:49.255Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:49.618Z",
+    "headers_ms": 362.7799170000071,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:49.874Z",
+    "observed_ms": 618.6454169999924
+  },
+  {
+    "trial_id": "wait-803-direct",
+    "attempt": 194,
+    "started_at": "2026-10-30T07:14:50.006Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:50.719Z",
+    "headers_ms": 712.5647499999905,
+    "usage": {
+      "input_tokens": 582,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:50.721Z",
+    "observed_ms": 715.1701249999751
+  },
+  {
+    "trial_id": "wait-803-cli",
+    "attempt": 195,
+    "started_at": "2026-10-30T07:14:51.409Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:51.714Z",
+    "headers_ms": 305.4187910000037,
+    "usage": {
+      "input_tokens": 575,
+      "output_tokens": 122
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:51.715Z",
+    "observed_ms": 306.3241660000058
+  },
+  {
+    "trial_id": "wait-803-cli",
+    "attempt": 196,
+    "started_at": "2026-10-30T07:14:51.839Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:52.114Z",
+    "headers_ms": 274.6414999999979,
+    "usage": {
+      "input_tokens": 581,
+      "output_tokens": 124
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:52.116Z",
+    "observed_ms": 276.64400000000023
+  },
+  {
+    "trial_id": "wait-803-mcp",
+    "attempt": 197,
+    "started_at": "2026-10-30T07:14:52.799Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:53.077Z",
+    "headers_ms": 277.5618339999928,
+    "usage": {
+      "input_tokens": 577,
+      "output_tokens": 125
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:53.079Z",
+    "observed_ms": 280.2178750000021
+  },
+  {
+    "trial_id": "wait-803-mcp",
+    "attempt": 198,
+    "started_at": "2026-10-30T07:14:53.183Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:53.546Z",
+    "headers_ms": 363.47554200000013,
+    "usage": {
+      "input_tokens": 581,
+      "output_tokens": 121
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:53.547Z",
+    "observed_ms": 364.35295900001074
+  },
+  {
+    "trial_id": "navigation-801-mcp",
+    "attempt": 199,
+    "started_at": "2026-10-30T07:14:53.819Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:54.101Z",
+    "headers_ms": 281.79999999998836,
+    "usage": {
+      "input_tokens": 576,
+      "output_tokens": 129
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:54.103Z",
+    "observed_ms": 283.6524999999965
+  },
+  {
+    "trial_id": "navigation-801-direct",
+    "attempt": 200,
+    "started_at": "2026-10-30T07:14:54.468Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:54.766Z",
+    "headers_ms": 298.13070899999,
+    "usage": {
+      "input_tokens": 571,
+      "output_tokens": 121
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:54.956Z",
+    "observed_ms": 488.09862499998417
+  },
+  {
+    "trial_id": "navigation-801-cli",
+    "attempt": 201,
+    "started_at": "2026-10-30T07:14:55.754Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:56.060Z",
+    "headers_ms": 305.88012500002515,
+    "usage": {
+      "input_tokens": 572,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:56.061Z",
+    "observed_ms": 306.83533299999544
+  },
+  {
+    "trial_id": "navigation-802-direct",
+    "attempt": 202,
+    "started_at": "2026-10-30T07:14:56.809Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:57.507Z",
+    "headers_ms": 698.3021249999874,
+    "usage": {
+      "input_tokens": 574,
+      "output_tokens": 128
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:57.510Z",
+    "observed_ms": 701.1409580000327
+  },
+  {
+    "trial_id": "navigation-802-cli",
+    "attempt": 203,
+    "started_at": "2026-10-30T07:14:58.281Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:58.592Z",
+    "headers_ms": 311.2233750000014,
+    "usage": {
+      "input_tokens": 570,
+      "output_tokens": 120
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:58.595Z",
+    "observed_ms": 314.0091670000111
+  },
+  {
+    "trial_id": "navigation-802-mcp",
+    "attempt": 204,
+    "started_at": "2026-10-30T07:14:59.375Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:14:59.690Z",
+    "headers_ms": 315.1155410000356,
+    "usage": {
+      "input_tokens": 568,
+      "output_tokens": 114
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:14:59.923Z",
+    "observed_ms": 547.3987080000225
+  },
+  {
+    "trial_id": "navigation-803-cli",
+    "attempt": 205,
+    "started_at": "2026-10-30T07:15:00.699Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:15:01.033Z",
+    "headers_ms": 334.2550420000334,
+    "usage": {
+      "input_tokens": 572,
+      "output_tokens": 124
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:15:01.036Z",
+    "observed_ms": 337.218542000046
+  },
+  {
+    "trial_id": "navigation-803-mcp",
+    "attempt": 206,
+    "started_at": "2026-10-30T07:15:01.781Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:15:02.108Z",
+    "headers_ms": 326.50058300001547,
+    "usage": {
+      "input_tokens": 568,
+      "output_tokens": 115
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:15:02.346Z",
+    "observed_ms": 565.1224999999977
+  },
+  {
+    "trial_id": "navigation-803-direct",
+    "attempt": 207,
+    "started_at": "2026-10-30T07:15:02.739Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T07:15:03.049Z",
+    "headers_ms": 310.06366600003093,
+    "usage": {
+      "input_tokens": 570,
+      "output_tokens": 119
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T07:15:03.283Z",
+    "observed_ms": 544.0161659999867
+  }
+]

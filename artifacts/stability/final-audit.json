@@ -1,0 +1,13 @@
+{
+  "requests": 207,
+  "reserved_usd": 0.621,
+  "active_principals": 0,
+  "actions": 189,
+  "all_actions_succeeded": true,
+  "all_actions_have_jev_receipts": true,
+  "unique_receipts": 189,
+  "all_sessions_closed": true,
+  "unknown_goals": 0,
+  "service_lock_remaining": false,
+  "runner_lock_remaining": false
+}

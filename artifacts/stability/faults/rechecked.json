@@ -1,0 +1,246 @@
+{
+  "passed": 48,
+  "total": 48,
+  "checks": [
+    {
+      "id": "fault-low_confidence-811-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-low_confidence-811-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-low_confidence-811-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-low_confidence-812-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-low_confidence-812-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-low_confidence-812-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-model_delay-811-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-model_delay-811-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-model_delay-811-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-model_delay-812-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-model_delay-812-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-model_delay-812-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-dom_replace-811-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-dom_replace-811-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-dom_replace-811-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-dom_replace-812-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-dom_replace-812-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-dom_replace-812-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-stale_validation-811-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-stale_validation-811-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-stale_validation-811-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-stale_validation-812-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-stale_validation-812-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-stale_validation-812-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-cancel_pending-811-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-cancel_pending-811-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-cancel_pending-811-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-cancel_pending-812-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-cancel_pending-812-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-cancel_pending-812-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-duplicate-811-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-duplicate-811-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-duplicate-811-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-duplicate-812-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-duplicate-812-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-duplicate-812-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-lost_response-811-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-lost_response-811-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-lost_response-811-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-lost_response-812-cli",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-lost_response-812-mcp",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-lost_response-812-direct",
+      "pass": true,
+      "physical_actions": 1
+    },
+    {
+      "id": "fault-gateway_unreachable-811-cli",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-gateway_unreachable-811-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-gateway_unreachable-811-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-gateway_unreachable-812-mcp",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-gateway_unreachable-812-direct",
+      "pass": true,
+      "physical_actions": 0
+    },
+    {
+      "id": "fault-gateway_unreachable-812-cli",
+      "pass": true,
+      "physical_actions": 0
+    }
+  ]
+}

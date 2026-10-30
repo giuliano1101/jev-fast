@@ -1,0 +1,9 @@
+{
+  "base_commit": "15df699d524b26e59c13657f1396127710a923f8",
+  "files_sha256": {
+    "bench/remote/stability.ts": "d20d73a668a90e5791d0019963662b29782fd9c2cb611228851dd600adbc0f5e",
+    "src/core/engine.ts": "87a57ba51090aef54aec79014a019e055dd93e2b0f1988e0f0d5a04d0a8a54e9",
+    "src/browser/projection.ts": "e67060605de15f9d52c0e05aa50828565e39e37a3c2fa1b7fc7de2bee502cf03",
+    "artifacts/stability/protocol.md": "1333bcbcc22d4a568b8619004254030b70aaa7e6bc1cce6fc9a9c7c0eda07d77"
+  }
+}

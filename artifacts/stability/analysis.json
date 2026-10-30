@@ -1,0 +1,705 @@
+{
+  "normal_planned": 108,
+  "normal_succeeded": 108,
+  "normal_not_run": 0,
+  "by_entry": {
+    "cli": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1768.002833000006,
+        "p95_ms": 3343.916082999989,
+        "min_ms": 1347.5723749999888,
+        "max_ms": 3811.7092079999857
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1768.002833000006,
+        "p95_ms": 3343.916082999989,
+        "min_ms": 1347.5723749999888,
+        "max_ms": 3811.7092079999857
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 1034.5352909999783,
+        "p95_ms": 2576.5773340000014,
+        "min_ms": 623.5502500000002,
+        "max_ms": 3053.1145829999878
+      }
+    },
+    "direct": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1037.8877080000093,
+        "p95_ms": 3332.4304589999956,
+        "min_ms": 634.9597499999945,
+        "max_ms": 3782.586459
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1037.8877080000093,
+        "p95_ms": 3332.4304589999956,
+        "min_ms": 634.9597499999945,
+        "max_ms": 3782.586459
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 854.3348750000005,
+        "p95_ms": 3102.360041000007,
+        "min_ms": 473.013041000002,
+        "max_ms": 3125.1572079999996
+      }
+    },
+    "mcp": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1040.9894159999967,
+        "p95_ms": 2407.2384580000007,
+        "min_ms": 622.2027080000262,
+        "max_ms": 2648.535957999993
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1040.9894159999967,
+        "p95_ms": 2407.2384580000007,
+        "min_ms": 622.2027080000262,
+        "max_ms": 2648.535957999993
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 853.4601249999832,
+        "p95_ms": 2236.2438329999995,
+        "min_ms": 451.5061249999999,
+        "max_ms": 2473.364124999993
+      }
+    }
+  },
+  "by_task": {
+    "async": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 1411.7572079999954,
+        "p95_ms": 2143.655083999998,
+        "min_ms": 1040.9894159999967,
+        "max_ms": 2143.655083999998
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 1411.7572079999954,
+        "p95_ms": 2143.655083999998,
+        "min_ms": 1040.9894159999967,
+        "max_ms": 2143.655083999998
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 1217.3908750000119,
+        "p95_ms": 1383.8823749999865,
+        "min_ms": 860.6160839999793,
+        "max_ms": 1383.8823749999865
+      }
+    },
+    "back": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 1262.9939589999994,
+        "p95_ms": 2667.848499999993,
+        "min_ms": 1037.8877080000093,
+        "max_ms": 2667.848499999993
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 1262.9939589999994,
+        "p95_ms": 2667.848499999993,
+        "min_ms": 1037.8877080000093,
+        "max_ms": 2667.848499999993
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 1096.4773339999956,
+        "p95_ms": 1962.2344169999997,
+        "min_ms": 854.3348750000005,
+        "max_ms": 1962.2344169999997
+      }
+    },
+    "cancel": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 715.4317500000034,
+        "p95_ms": 1585.1273329999967,
+        "min_ms": 623.7356250000012,
+        "max_ms": 1585.1273329999967
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 715.4317500000034,
+        "p95_ms": 1585.1273329999967,
+        "min_ms": 623.7356250000012,
+        "max_ms": 1585.1273329999967
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 516.9167920000036,
+        "p95_ms": 879.7805419999931,
+        "min_ms": 451.5061249999999,
+        "max_ms": 879.7805419999931
+      }
+    },
+    "correction": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 2360.054916000023,
+        "p95_ms": 2882.051250000004,
+        "min_ms": 1570.512625000003,
+        "max_ms": 2882.051250000004
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 2360.054916000023,
+        "p95_ms": 2882.051250000004,
+        "min_ms": 1570.512625000003,
+        "max_ms": 2882.051250000004
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 1933.8675829999993,
+        "p95_ms": 2328.0210839999927,
+        "min_ms": 1378.209084000002,
+        "max_ms": 2328.0210839999927
+      }
+    },
+    "detail": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 1262.100375000009,
+        "p95_ms": 1486.6856249999983,
+        "min_ms": 634.9597499999945,
+        "max_ms": 1486.6856249999983
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 1262.100375000009,
+        "p95_ms": 1486.6856249999983,
+        "min_ms": 634.9597499999945,
+        "max_ms": 1486.6856249999983
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 743.427499999998,
+        "p95_ms": 1222.5841660000006,
+        "min_ms": 473.1065419999941,
+        "max_ms": 1222.5841660000006
+      }
+    },
+    "duplicate": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 2709.6323750000156,
+        "p95_ms": 3811.7092079999857,
+        "min_ms": 2221.198875000002,
+        "max_ms": 3811.7092079999857
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 2709.6323750000156,
+        "p95_ms": 3811.7092079999857,
+        "min_ms": 2221.198875000002,
+        "max_ms": 3811.7092079999857
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 2473.364124999993,
+        "p95_ms": 3102.360041000007,
+        "min_ms": 2033.1499170000025,
+        "max_ms": 3102.360041000007
+      }
+    },
+    "filter": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 685.5252079999991,
+        "p95_ms": 1814.858500000002,
+        "min_ms": 639.2375829999983,
+        "max_ms": 1814.858500000002
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 685.5252079999991,
+        "p95_ms": 1814.858500000002,
+        "min_ms": 639.2375829999983,
+        "max_ms": 1814.858500000002
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 500.70387499999924,
+        "p95_ms": 1095.7547919999997,
+        "min_ms": 473.013041000002,
+        "max_ms": 1095.7547919999997
+      }
+    },
+    "form": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 2407.2384580000007,
+        "p95_ms": 3782.586459,
+        "min_ms": 2094.6667910000015,
+        "max_ms": 3782.586459
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 2407.2384580000007,
+        "p95_ms": 3782.586459,
+        "min_ms": 2094.6667910000015,
+        "max_ms": 3782.586459
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 2092.025708000001,
+        "p95_ms": 3125.1572079999996,
+        "min_ms": 1915.8401670000003,
+        "max_ms": 3125.1572079999996
+      }
+    },
+    "navigation": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 950.9970000000321,
+        "p95_ms": 1462.5763750000042,
+        "min_ms": 653.458666999999,
+        "max_ms": 1462.5763750000042
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 950.9970000000321,
+        "p95_ms": 1462.5763750000042,
+        "min_ms": 653.458666999999,
+        "max_ms": 1462.5763750000042
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 743.7884169999743,
+        "p95_ms": 944.0785410000244,
+        "min_ms": 486.72641700002714,
+        "max_ms": 944.0785410000244
+      }
+    },
+    "scroll": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 790.747000000003,
+        "p95_ms": 1768.002833000006,
+        "min_ms": 622.2027080000262,
+        "max_ms": 1768.002833000006
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 790.747000000003,
+        "p95_ms": 1768.002833000006,
+        "min_ms": 622.2027080000262,
+        "max_ms": 1768.002833000006
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 602.1257919999771,
+        "p95_ms": 1059.7886249999865,
+        "min_ms": 451.99324999999953,
+        "max_ms": 1059.7886249999865
+      }
+    },
+    "select": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 829.8473750000121,
+        "p95_ms": 1395.909290999989,
+        "min_ms": 649.931958000001,
+        "max_ms": 1395.909290999989
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 829.8473750000121,
+        "p95_ms": 1395.909290999989,
+        "min_ms": 649.931958000001,
+        "max_ms": 1395.909290999989
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 652.1686250000203,
+        "p95_ms": 1091.2400830000115,
+        "min_ms": 476.5259579999838,
+        "max_ms": 1091.2400830000115
+      }
+    },
+    "wait": {
+      "planned": 9,
+      "attempted": 9,
+      "succeeded": 9,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 9,
+        "p50_ms": 1754.6891250000044,
+        "p95_ms": 2912.2916250000126,
+        "min_ms": 996.9945000000007,
+        "max_ms": 2912.2916250000126
+      },
+      "successful": {
+        "n": 9,
+        "p50_ms": 1754.6891250000044,
+        "p95_ms": 2912.2916250000126,
+        "min_ms": 996.9945000000007,
+        "max_ms": 2912.2916250000126
+      },
+      "run_goal_successful": {
+        "n": 9,
+        "p50_ms": 1012.7077080000017,
+        "p95_ms": 2131.9860000000044,
+        "min_ms": 797.5504580000124,
+        "max_ms": 2131.9860000000044
+      }
+    }
+  },
+  "by_seed": {
+    "801": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1438.2312920000113,
+        "p95_ms": 3098.1164999999746,
+        "min_ms": 637.0483340000064,
+        "max_ms": 3782.586459
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1438.2312920000113,
+        "p95_ms": 3098.1164999999746,
+        "min_ms": 637.0483340000064,
+        "max_ms": 3782.586459
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 1034.5352909999783,
+        "p95_ms": 2473.364124999993,
+        "min_ms": 471.5998749999999,
+        "max_ms": 3125.1572079999996
+      }
+    },
+    "802": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1170.3709999999992,
+        "p95_ms": 2912.2916250000126,
+        "min_ms": 622.2027080000262,
+        "max_ms": 3811.7092079999857
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1170.3709999999992,
+        "p95_ms": 2912.2916250000126,
+        "min_ms": 622.2027080000262,
+        "max_ms": 3811.7092079999857
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 823.8210839999956,
+        "p95_ms": 2486.777375000005,
+        "min_ms": 451.99324999999953,
+        "max_ms": 3053.1145829999878
+      }
+    },
+    "803": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1411.7572079999954,
+        "p95_ms": 3332.4304589999956,
+        "min_ms": 623.7356250000012,
+        "max_ms": 3343.916082999989
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1411.7572079999954,
+        "p95_ms": 3332.4304589999956,
+        "min_ms": 623.7356250000012,
+        "max_ms": 3343.916082999989
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 1012.7077080000017,
+        "p95_ms": 2576.5773340000014,
+        "min_ms": 451.5061249999999,
+        "max_ms": 3102.360041000007
+      }
+    }
+  },
+  "by_language": {
+    "en": {
+      "planned": 72,
+      "attempted": 72,
+      "succeeded": 72,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 72,
+        "p50_ms": 1436.1589999999997,
+        "p95_ms": 3283.9635000000017,
+        "min_ms": 623.7356250000012,
+        "max_ms": 3782.586459
+      },
+      "successful": {
+        "n": 72,
+        "p50_ms": 1436.1589999999997,
+        "p95_ms": 3283.9635000000017,
+        "min_ms": 623.7356250000012,
+        "max_ms": 3782.586459
+      },
+      "run_goal_successful": {
+        "n": 72,
+        "p50_ms": 1034.5352909999783,
+        "p95_ms": 2540.6810000000005,
+        "min_ms": 451.5061249999999,
+        "max_ms": 3125.1572079999996
+      }
+    },
+    "zh": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1170.3709999999992,
+        "p95_ms": 2912.2916250000126,
+        "min_ms": 622.2027080000262,
+        "max_ms": 3811.7092079999857
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1170.3709999999992,
+        "p95_ms": 2912.2916250000126,
+        "min_ms": 622.2027080000262,
+        "max_ms": 3811.7092079999857
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 823.8210839999956,
+        "p95_ms": 2486.777375000005,
+        "min_ms": 451.99324999999953,
+        "max_ms": 3053.1145829999878
+      }
+    }
+  },
+  "by_difficulty": {
+    "complex": {
+      "planned": 18,
+      "attempted": 18,
+      "succeeded": 18,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 18,
+        "p50_ms": 2648.535957999993,
+        "p95_ms": 3811.7092079999857,
+        "min_ms": 2094.6667910000015,
+        "max_ms": 3811.7092079999857
+      },
+      "successful": {
+        "n": 18,
+        "p50_ms": 2648.535957999993,
+        "p95_ms": 3811.7092079999857,
+        "min_ms": 2094.6667910000015,
+        "max_ms": 3811.7092079999857
+      },
+      "run_goal_successful": {
+        "n": 18,
+        "p50_ms": 2218.489540999988,
+        "p95_ms": 3125.1572079999996,
+        "min_ms": 1915.8401670000003,
+        "max_ms": 3125.1572079999996
+      }
+    },
+    "medium": {
+      "planned": 36,
+      "attempted": 36,
+      "succeeded": 36,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 36,
+        "p50_ms": 1754.6891250000044,
+        "p95_ms": 2882.051250000004,
+        "min_ms": 996.9945000000007,
+        "max_ms": 2912.2916250000126
+      },
+      "successful": {
+        "n": 36,
+        "p50_ms": 1754.6891250000044,
+        "p95_ms": 2882.051250000004,
+        "min_ms": 996.9945000000007,
+        "max_ms": 2912.2916250000126
+      },
+      "run_goal_successful": {
+        "n": 36,
+        "p50_ms": 1262.1510830000043,
+        "p95_ms": 2159.787666999997,
+        "min_ms": 797.5504580000124,
+        "max_ms": 2328.0210839999927
+      }
+    },
+    "simple": {
+      "planned": 54,
+      "attempted": 54,
+      "succeeded": 54,
+      "success_fraction": 1.0,
+      "all_attempted": {
+        "n": 54,
+        "p50_ms": 935.076374999946,
+        "p95_ms": 1585.1273329999967,
+        "min_ms": 622.2027080000262,
+        "max_ms": 1814.858500000002
+      },
+      "successful": {
+        "n": 54,
+        "p50_ms": 935.076374999946,
+        "p95_ms": 1585.1273329999967,
+        "min_ms": 622.2027080000262,
+        "max_ms": 1814.858500000002
+      },
+      "run_goal_successful": {
+        "n": 54,
+        "p50_ms": 676.0047080000222,
+        "p95_ms": 1095.7547919999997,
+        "min_ms": 451.5061249999999,
+        "max_ms": 1222.5841660000006
+      }
+    }
+  },
+  "matched_pairs": {
+    "cli_over_direct": {
+      "successful_pairs": 36,
+      "median_workflow_time_ratio": 1.6341327960075986,
+      "meaning": "facade/direct matched completed workflow; not computer-use speedup"
+    },
+    "mcp_over_direct": {
+      "successful_pairs": 36,
+      "median_workflow_time_ratio": 0.9639127821574922,
+      "meaning": "facade/direct matched completed workflow; not computer-use speedup"
+    }
+  },
+  "faults": {
+    "cancel_pending": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "dom_replace": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "duplicate": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "gateway_unreachable": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "lost_response": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "low_confidence": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "model_delay": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    },
+    "stale_validation": {
+      "planned": 6,
+      "attempted": 6,
+      "safe_passed": 6
+    }
+  },
+  "fault_safe_passed": 48,
+  "model_attempts": 207,
+  "known_usage_attempts": 207,
+  "unknown_usage_attempts": 0,
+  "known_input_tokens": 119889,
+  "estimated_known_cost_usd": 0.005035338,
+  "hosted_response_observed": {
+    "n": 207,
+    "p50_ms": 353.8845839999849,
+    "p95_ms": 903.6156250000058,
+    "min_ms": 265.99499999999534,
+    "max_ms": 1380.6573749999807
+  },
+  "pacing_wait_ms": 101899.13891899993,
+  "quantile": "nearest rank; descriptive fixed tasks, not random independent population"
+}

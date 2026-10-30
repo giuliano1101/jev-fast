@@ -1,0 +1,52 @@
+{
+  "mode": "live",
+  "projection": "rich",
+  "smoke": false,
+  "formal_planned": 108,
+  "formal_success_denominator": 108,
+  "reported_full_sample": true,
+  "formal_attempted": 108,
+  "formal_succeeded": 108,
+  "fault_planned": 0,
+  "fault_attempted": 0,
+  "fault_safe_passed": 0,
+  "stop_reason": null,
+  "hosted_attempts_observed": 207,
+  "budget_before": {
+    "approval": {
+      "approval_id": "stability-20261030",
+      "expires_at": 1793430049024,
+      "max_requests": 300,
+      "max_cost_usd": 1,
+      "reservation_usd": 0.003
+    },
+    "requests": 0,
+    "reserved_usd": 0
+  },
+  "budget_after": {
+    "approval": {
+      "approval_id": "stability-20261030",
+      "expires_at": 1793430049024,
+      "max_requests": 300,
+      "max_cost_usd": 1,
+      "reservation_usd": 0.003
+    },
+    "requests": 207,
+    "reserved_usd": 0.621
+  },
+  "private_ledger_retained": true,
+  "credentials_revoked": true,
+  "cleanup": {
+    "mcp": true,
+    "coordinator": true,
+    "browser": true,
+    "port_probe": true,
+    "fixture": true,
+    "gateway": true,
+    "observer": true,
+    "store": true,
+    "certificates": true
+  },
+  "total_wall_ms": 271273.686166,
+  "finished_at": "2026-10-30T07:15:03.511Z"
+}
