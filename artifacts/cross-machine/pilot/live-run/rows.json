@@ -1,0 +1,74 @@
+[
+  {
+    "id": "trial-01",
+    "task": "form",
+    "frontend": "cli",
+    "max_steps": 4,
+    "seed": 101,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-02",
+    "task": "cancel",
+    "frontend": "mcp",
+    "max_steps": 1,
+    "seed": 102,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-03",
+    "task": "correction",
+    "frontend": "cli",
+    "max_steps": 3,
+    "seed": 103,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-04",
+    "task": "correction",
+    "frontend": "mcp",
+    "max_steps": 3,
+    "seed": 104,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-05",
+    "task": "form",
+    "frontend": "mcp",
+    "max_steps": 4,
+    "seed": 105,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-06",
+    "task": "cancel",
+    "frontend": "cli",
+    "max_steps": 1,
+    "seed": 106,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-07",
+    "task": "cancel",
+    "frontend": "mcp",
+    "max_steps": 1,
+    "seed": 107,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-08",
+    "task": "correction",
+    "frontend": "cli",
+    "max_steps": 3,
+    "seed": 108,
+    "status": "NOT_RUN"
+  },
+  {
+    "id": "trial-09",
+    "task": "form",
+    "frontend": "cli",
+    "max_steps": 4,
+    "seed": 109,
+    "status": "NOT_RUN"
+  }
+]

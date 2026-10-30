@@ -1,0 +1,97 @@
+{
+  "quantile_method": "nearest rank: sorted[ceil(p*n)-1]; n=9 p95 is sample maximum",
+  "formal_planned": 9,
+  "formal_executed": 9,
+  "formal_succeeded": 3,
+  "formal_not_run": 0,
+  "success_fraction_of_planned": 0.3333333333333333,
+  "status_counts": {
+    "FALLBACK": 6,
+    "SUCCEEDED": 3
+  },
+  "by_task": {
+    "cancel": {
+      "planned": 3,
+      "executed": 3,
+      "succeeded": 3
+    },
+    "correction": {
+      "planned": 3,
+      "executed": 3,
+      "succeeded": 0
+    },
+    "form": {
+      "planned": 3,
+      "executed": 3,
+      "succeeded": 0
+    }
+  },
+  "latency": {
+    "all_executed": {
+      "e2e_ms": {
+        "n": 9,
+        "p50_ms": 1921.9330840000011,
+        "p95_ms": 3509.119375
+      },
+      "e2e_excluding_duplicate_ms": {
+        "n": 9,
+        "p50_ms": 1895.0708749999994,
+        "p95_ms": 3503.9589160000005
+      },
+      "run_goal_ms": {
+        "n": 9,
+        "p50_ms": 1348.3591250000009,
+        "p95_ms": 2306.031833000001
+      }
+    },
+    "successful": {
+      "e2e_ms": {
+        "n": 3,
+        "p50_ms": 1124.0329170000005,
+        "p95_ms": 1523.201332999999
+      },
+      "e2e_excluding_duplicate_ms": {
+        "n": 3,
+        "p50_ms": 938.0369170000004,
+        "p95_ms": 1522.430374999998
+      },
+      "run_goal_ms": {
+        "n": 3,
+        "p50_ms": 656.1530000000002,
+        "p95_ms": 759.7527500000006
+      }
+    }
+  },
+  "hosted_observed_latency": {
+    "n": 18,
+    "p50_ms": 389.33920899999976,
+    "p95_ms": 1757.3408330000002
+  },
+  "hosted_attempts": 18,
+  "http_status_counts": {
+    "200": 18
+  },
+  "reservation_delta": 18,
+  "reserved_usd": 0.06,
+  "usage_known_requests": 18,
+  "usage_unknown_attempts": 0,
+  "reservations_without_observed_transport": 0,
+  "known_input_tokens": 9188,
+  "known_output_tokens": 2101,
+  "estimated_known_cost_usd": 0.000385896,
+  "price_source": "https://docs.typesafe.ai/models",
+  "actions_entered_execution": 12,
+  "actions_with_jev_route": 12,
+  "idempotency_checks": 9,
+  "idempotency_passed": 9,
+  "offline_stop": {
+    "remoteReachable": false,
+    "local_ready": true,
+    "stopped": true,
+    "passed": true
+  },
+  "credentials_revoked": true,
+  "temporary_credentials_removed": true,
+  "local_service_stopped": true,
+  "stop_reason": null
+}

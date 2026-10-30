@@ -1,0 +1,213 @@
+/** S10-C laboratory pilot. Local synthetic fixtures only; never creates approval. */
+import {spawn} from 'node:child_process';
+import {generateKeyPairSync,createHash} from 'node:crypto';
+import {once} from 'node:events';
+import {mkdirSync,lstatSync,writeFileSync,renameSync,openSync,closeSync,unlinkSync,readFileSync,mkdtempSync,rmSync,realpathSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {basename,dirname,join,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {parseArgs} from 'node:util';
+import {performance} from 'node:perf_hooks';
+import {z} from 'zod';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';
+import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
+import {GatewayStore} from '../../src/remote/store.js';
+import {createDecisionGateway} from '../../src/remote/gateway.js';
+import {certificateSha256,mintAgentToken} from '../../src/remote/credentials.js';
+import {readPrivateFile,readPrivateJson} from '../../src/service/config.js';
+import {idSchema,usageSchema,type LedgerState} from '../../src/core/contracts.js';
+import {makeRemoteCertificates} from '../../tests/helpers/remote-fixture.js';
+import {validateLedgerState} from '../../src/session/schema.js';
+import {canonicalJson} from '../../src/remote/protocol.js';
+
+const common={approval_id:idSchema,expires_at:z.number().int().positive(),max_requests:z.literal(30),max_cost_usd:z.literal(.1)};
+const approvalSchema=z.strictObject({authorization:z.strictObject({...common,synthetic_only:z.literal(true)}),approval:z.strictObject({...common,reservation_usd:z.literal(.003)}),authorized_at:z.string(),scope:z.literal('local Mac loopback TLS synthetic pilot only; no physical second device or production app')});
+export function validatePilotApproval(value:unknown,now=Date.now()){
+ const parsed=approvalSchema.parse(value),a=parsed.authorization,b=parsed.approval,start=Date.parse(parsed.authorized_at);
+ if(!Number.isFinite(start)||start>now||now-start>86400000||a.expires_at<=now||a.expires_at>start+86400000||a.approval_id!==b.approval_id||a.expires_at!==b.expires_at)throw new Error('INVALID_PILOT_APPROVAL');
+ return parsed;
+}
+interface Attempt {trial_id:string;attempt:number;started_at:string;headers_at?:string;finished_at?:string;http_status?:number;headers_ms?:number;observed_ms?:number;usage?:z.infer<typeof usageSchema>;confidence?:number;observation?:string;transport_error?:boolean}
+/** Only allowlisted metadata escapes the cloned response; never inspect request headers/body. */
+export function createAttemptObserver(base:typeof fetch,onUpdate:()=>void,trial:()=>string,onFatal:(code:string)=>void){
+ const attempts:Attempt[]=[];const pending=new Set<Promise<void>>();
+ async function inspect(response:Response,row:Attempt,start:number){
+  const reader=response.body?.getReader();let timer:ReturnType<typeof setTimeout>|undefined;
+  try{
+   if(!reader){row.observation='NO_BODY';return;}
+   const chunks:Uint8Array[]=[];let bytes=0;
+   const deadline=new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(new Error('OBSERVATION_TIMEOUT')),2200);});
+   for(;;){const chunk=await Promise.race([reader.read(),deadline]);if(chunk.done)break;bytes+=chunk.value.byteLength;if(bytes>65536)throw new Error('OBSERVATION_LIMIT');chunks.push(chunk.value);}
+   const value=JSON.parse(Buffer.concat(chunks).toString()) as {usage?:unknown;answers?:{action?:{confidence?:unknown}}};
+   const usage=usageSchema.safeParse(value.usage);if(usage.success)row.usage=usage.data;
+   const confidence=value.answers?.action?.confidence;if(typeof confidence==='number'&&Number.isFinite(confidence)&&confidence>=0&&confidence<=1)row.confidence=confidence;
+   row.observation='BOUNDED_JSON';
+  }catch{row.observation='UNAVAILABLE_OR_LIMITED';}
+  finally{if(timer)clearTimeout(timer);void reader?.cancel().catch(()=>{});row.finished_at=new Date().toISOString();row.observed_ms=performance.now()-start;onUpdate();}
+ }
+ const transport:typeof fetch=async(url,options)=>{
+  const start=performance.now(),row:Attempt={trial_id:trial(),attempt:attempts.length+1,started_at:new Date().toISOString()};attempts.push(row);onUpdate();
+  try{
+   const response=await base(url,options);row.http_status=response.status;row.headers_at=new Date().toISOString();row.headers_ms=performance.now()-start;
+   if(response.status===401||response.status===403)onFatal('UPSTREAM_HTTP_'+response.status);
+   onUpdate();
+   const observation=inspect(response.clone(),row,start);pending.add(observation);void observation.then(()=>pending.delete(observation),()=>{pending.delete(observation);onFatal('OBSERVATION_PERSISTENCE_FAILED');});
+   return response; // Do not await clone reads, change the response, or interfere with provider timing.
+  }catch{row.transport_error=true;row.finished_at=new Date().toISOString();row.observed_ms=performance.now()-start;onFatal('UPSTREAM_TRANSPORT_UNKNOWN');onUpdate();throw new Error('PROVIDER_TRANSPORT_ERROR');}
+ };
+ return {attempts,transport,settle:async()=>{while(pending.size)await Promise.allSettled([...pending]);}};
+}
+function privateDirectory(path:string){mkdirSync(path,{recursive:true,mode:0o700});const st=lstatSync(path);if(!st.isDirectory()||st.isSymbolicLink()||st.uid!==process.getuid?.()||(st.mode&0o077)!==0)throw new Error('PRIVATE_DIRECTORY_REQUIRED');}
+function save(path:string,value:unknown){const temp=path+'.tmp';writeFileSync(temp,JSON.stringify(value,null,2)+'\n',{mode:0o600});renameSync(temp,path);}
+function safeError(error:unknown){const message=error instanceof Error?error.message:'';return /^[A-Z][A-Z0-9_]{1,80}$/.test(message)?message:'PILOT_ERROR';}
+function cli(args:string[]):Promise<Record<string,unknown>>{
+ return new Promise((resolveResult,reject)=>{
+  const child=spawn(process.execPath,[fileURLToPath(new URL('../../src/cli/index.js',import.meta.url)),...args,'--json'],{stdio:['ignore','pipe','pipe']});
+  let stdout='';const timer=setTimeout(()=>{child.kill('SIGTERM');reject(new Error('CLI_TIMEOUT'));},30000);
+  child.stdout.on('data',chunk=>{stdout+=chunk;if(stdout.length>262144){child.kill('SIGTERM');reject(new Error('CLI_OUTPUT_LIMIT'));}});
+  child.stderr.resume(); // Service diagnostics remain in its private runtime log; never export arbitrary stderr.
+  child.once('error',()=>{clearTimeout(timer);reject(new Error('CLI_START_FAILED'));});
+  child.once('close',code=>{clearTimeout(timer);try{const result=JSON.parse(stdout) as Record<string,unknown>;if(result.error)throw new Error(String((result.error as {code?:unknown}).code));if(code!==0)throw new Error('CLI_EXIT_FAILED');resolveResult(result);}catch(error){reject(new Error(safeError(error)));}});
+ });
+}
+type Task='cancel'|'correction'|'form'|'select';
+type Frontend='cli'|'mcp';
+const plan:Array<{id:string;task:Task;frontend:Frontend;max_steps:number;seed:number}>=[
+ {id:'trial-01',task:'form',frontend:'cli',max_steps:4,seed:101},
+ {id:'trial-02',task:'cancel',frontend:'mcp',max_steps:1,seed:102},
+ {id:'trial-03',task:'correction',frontend:'cli',max_steps:3,seed:103},
+ {id:'trial-04',task:'correction',frontend:'mcp',max_steps:3,seed:104},
+ {id:'trial-05',task:'form',frontend:'mcp',max_steps:4,seed:105},
+ {id:'trial-06',task:'cancel',frontend:'cli',max_steps:1,seed:106},
+ {id:'trial-07',task:'cancel',frontend:'mcp',max_steps:1,seed:107},
+ {id:'trial-08',task:'correction',frontend:'cli',max_steps:3,seed:108},
+ {id:'trial-09',task:'form',frontend:'cli',max_steps:4,seed:109}
+];
+/** Fail closed on any previously started formal work, action ambiguity or changed approval. */
+export function validateUnstartedContinuation(input:unknown):string {
+ const budgetSchema=z.strictObject({approval:approvalSchema.shape.approval,requests:z.number().int().min(0).max(30),reserved_usd:z.number().min(0).max(.1)});
+ const parsed=z.strictObject({approval:approvalSchema,mode:z.enum(['mock','live']),marker:z.strictObject({started_at:z.string(),approval_id:idSchema,approval_sha256:z.string(),mode:z.enum(['mock','live']),output:z.string().min(1)}),summary:z.object({mode:z.enum(['mock','live']),approval_id:idSchema,formal_planned:z.literal(9),formal_attempted:z.literal(0),formal_succeeded:z.literal(0),formal_success_denominator:z.literal(9),warmup_status:z.literal('FALLBACK'),budget_before:budgetSchema,budget_after:budgetSchema}).passthrough(),rows:z.unknown(),warmup:z.object({status:z.literal('FALLBACK'),result:z.object({session_id:idSchema,goal_id:z.literal('warmup'),status:z.literal('FALLBACK'),steps:z.literal(0),action_ids:z.array(z.unknown()).length(0)}).passthrough(),actions:z.array(z.unknown()).length(0)}).passthrough(),ledger:z.unknown(),budget:budgetSchema}).parse(input);
+ const {approval,marker,summary,warmup,budget}=parsed;
+ const fail=()=>{throw new Error('CONTINUATION_NOT_ALLOWED');};
+ if(marker.approval_id!==approval.approval.approval_id||marker.approval_sha256!==createHash('sha256').update(JSON.stringify(approval)).digest('hex')||marker.mode!==parsed.mode||summary.mode!==parsed.mode||summary.approval_id!==marker.approval_id)fail();
+ if(canonicalJson(parsed.rows)!==canonicalJson(plan.map(item=>({...item,status:'NOT_RUN'}))))fail();
+ for(const value of [budget,summary.budget_before,summary.budget_after])if(canonicalJson(value.approval)!==canonicalJson(approval.approval)||Math.abs(value.reserved_usd-value.requests*.003)>1e-10)fail();
+ if(budget.requests<summary.budget_after.requests||summary.budget_after.requests<summary.budget_before.requests)fail();
+ const ledger=parsed.ledger;validateLedgerState(ledger);
+ if(Object.keys(ledger.actions).length!==0||Object.keys(ledger.goals).length!==1||Object.values(ledger.sessions).some(session=>session.quarantined||!session.closed)||Object.values(ledger.goals).some(goal=>goal.status==='UNKNOWN'||goal.status==='RUNNING'||goal.steps!==0||goal.action_ids.length!==0))fail();
+ if(canonicalJson(ledger.goals[`${warmup.result.session_id}:warmup`])!==canonicalJson(warmup.result))fail();
+ return basename(marker.output)+'/summary.json';
+}
+export async function runPilot(argv:string[]){
+ const {values}=parseArgs({args:argv,options:{approval:{type:'string'},'key-file':{type:'string'},state:{type:'string'},out:{type:'string'},mock:{type:'boolean'},'continue-unstarted':{type:'boolean'}},strict:true});
+ if(!values.approval||!values.state||!values.out||(!values.mock&&!values['key-file']))throw new Error('PILOT_ARGUMENTS_REQUIRED');
+ const approvalPath=resolve(values.approval),state=resolve(values.state),out=resolve(values.out),mock=values.mock===true;
+ const approval=validatePilotApproval(await readPrivateJson(approvalPath));privateDirectory(state);
+ if(realpathSync(state)!==realpathSync(dirname(approvalPath)))throw new Error('APPROVAL_STATE_MISMATCH');
+ const lockPath=join(state,'pilot.lock'),lock=openSync(lockPath,'wx',0o600);
+ let store:GatewayStore|undefined,server:ReturnType<typeof createDecisionGateway>|undefined,certs:ReturnType<typeof makeRemoteCertificates>|undefined,privateMaterials:string|undefined,mcp:Client|undefined;
+ const identity={owner_id:'s10-pilot-owner',device_id:'local-mac',agent_id:'synthetic-pilot'},runtime=join(state,'runtime');
+ const rows:Array<Record<string,unknown>>=plan.map(item=>({...item,status:'NOT_RUN'}));let warmup:Record<string,unknown>|undefined,activeTrial='setup',stopReason:string|undefined,serviceStartAttempted=false,serviceStopped=false,outputCreated=false,gatewayClosed=false;
+ let continuationOf:string|undefined;
+ let offline:Record<string,unknown>|undefined,budgetBefore:ReturnType<GatewayStore['budget']>|undefined;
+ const observer=createAttemptObserver(fetch,()=>{if(outputCreated)save(join(out,'attempts.json'),observer.attempts);},()=>activeTrial,code=>{stopReason??=code;});
+ const budget=()=>store!.budget(approval.approval.approval_id);
+ const persist=()=>{save(join(out,'rows.json'),rows);if(warmup)save(join(out,'warmup.json'),warmup);};
+ try{
+  writeFileSync(lock,JSON.stringify({pid:process.pid,approval_id:approval.approval.approval_id}));
+  // Never erase this marker or the database. A new output path does not authorize a rerun.
+  const marker=join(state,'pilot-started.json'),continuationMarker=join(state,'continuation-started.json');
+  if(values['continue-unstarted']){
+   if(!lstatExists(marker)||lstatExists(continuationMarker)||!lstatExists(join(state,'gateway.sqlite')))throw new Error('CONTINUATION_NOT_ALLOWED');
+   const previous=await readPrivateJson(marker) as {output:string};
+   if(typeof previous.output!=='string')throw new Error('CONTINUATION_NOT_ALLOWED');
+   // Reopen the original budget; never configure/create another budget during continuation.
+   store=new GatewayStore(state);budgetBefore=budget();
+   const [summary,previousRows,previousWarmup,ledger]=await Promise.all([join(previous.output,'summary.json'),join(previous.output,'rows.json'),join(previous.output,'warmup.json'),join(runtime,'ledger','ledger.json')].map(path=>readPrivateJson(path)));
+   continuationOf=validateUnstartedContinuation({approval,mode:mock?'mock':'live',marker:previous,summary,rows:previousRows,warmup:previousWarmup,ledger,budget:budgetBefore});
+  }else if(lstatExists(marker))throw new Error('PILOT_ALREADY_STARTED');
+  mkdirSync(out,{mode:0o700});outputCreated=true;
+  writeFileSync(values['continue-unstarted']?continuationMarker:marker,JSON.stringify({started_at:new Date().toISOString(),approval_id:approval.approval.approval_id,approval_sha256:createHash('sha256').update(JSON.stringify(approval)).digest('hex'),mode:mock?'mock':'live',output:out}),{mode:0o600,flag:'wx'});
+  persist();save(join(out,'attempts.json'),[]);
+  if(!store){store=new GatewayStore(state);store.configureBudget(approval.approval);budgetBefore=budget();}
+  if(budgetBefore!.requests>=30||budgetBefore!.reserved_usd+.003>.1)throw new Error('BUDGET_EXHAUSTED');
+  const key=mock?undefined:(await readPrivateFile(resolve(values['key-file']!),8192)).toString().trim();if(!mock&&!key)throw new Error('EMPTY_KEY');
+  certs=makeRemoteCertificates(); // Disposable self-signed lab PKI, not production provisioning.
+  const keys=generateKeyPairSync('ed25519'),expiresAt=Math.min(approval.authorization.expires_at,Date.now()+15*60000);
+  store.enroll({...identity,certificate_sha256:certificateSha256(certs.a.cert),expires_at:expiresAt});
+  server=createDecisionGateway({tls:{...certs.server,ca:certs.ca},store,receiptPrivateKey:keys.privateKey,tokenPublicKey:keys.publicKey,issuer:'s10-lab',audience:'local-executor',...(mock?{}:{live:{key:key!,authorization:approval.authorization,approval:approval.approval,transport:observer.transport}})});
+  server.listen(0,'127.0.0.1');await once(server,'listening');const address=server.address();if(!address||typeof address==='string')throw new Error('GATEWAY_ADDRESS');
+  privateMaterials=mkdtempSync(join(tmpdir(),'jev-pilot-profile-'));
+  const token=mintAgentToken({issuer:'s10-lab',audience:'local-executor',identity,certificate_sha256:certificateSha256(certs.a.cert),scope:'decide:synthetic',issued_at_ms:Date.now()-10,expires_at_ms:expiresAt},keys.privateKey);
+  for(const [name,data] of Object.entries({'ca.pem':certs.ca,'agent.pem':certs.a.cert,'agent.key':certs.a.key,token,'receipt.pem':keys.publicKey.export({format:'pem',type:'spki'})}))writeFileSync(join(privateMaterials,name),data,{mode:0o600});
+  const config=join(privateMaterials,'profile.json');save(config,{mode:'remote',endpoint:`https://127.0.0.1:${address.port}`,caFile:'ca.pem',certFile:'agent.pem',keyFile:'agent.key',tokenFile:'token',receiptPublicKeyFile:'receipt.pem',issuer:'s10-lab',audience:'local-executor',identity,enforcementMode:mock?'test_mock':'required_jev'});
+  serviceStartAttempted=true;const health=await cli(['service','start','--runtime',runtime,'--config',config]);
+  save(join(out,'health.json'),health);if(health.remoteReachable!==true||health.routeCompatible!==true)throw new Error('REMOTE_STARTUP_FAILED');
+  mcp=new Client({name:'s10-pilot',version:'1.0.0'});await mcp.connect(new StdioClientTransport({command:process.execPath,args:[fileURLToPath(new URL('../../src/mcp/index.js',import.meta.url)),'--credential',join(runtime,'client-a.json')],stderr:'ignore'}));
+  async function call(frontend:Frontend,name:string,args:Record<string,unknown>){
+   if(frontend==='cli')return cli([name,'--runtime',runtime,'--args',JSON.stringify(args)]);
+   const result=await mcp!.callTool({name:'jev.'+name,arguments:args});const content=result.content as Array<{type:string;text?:string}>;
+   const data=JSON.parse(content[0]?.text??'{}') as Record<string,unknown>;if(result.isError)throw new Error(String(data.code??'MCP_TOOL_FAILED'));return data;
+  }
+  async function trial(item:typeof plan[number]):Promise<Record<string,unknown>>{
+   activeTrial=item.id;const start=performance.now(),row:Record<string,unknown>={...item,started_at:new Date().toISOString(),status:'FAILED',budget_before:budget(),attempts_before:observer.attempts.length};let session:string|undefined;
+   try{
+    session=String((await call(item.frontend,'open_session',{fixture_id:'standard'})).session_id);
+    await call(item.frontend,'observe',{session_id:session});
+    const request={session_id:session,goal_id:item.id,idempotency_key:'idem-'+item.id,goal:{task:item.task,language:'en',seed:item.seed},success:{kind:'task_complete'},max_steps:item.max_steps,time_budget_ms:15000};
+    const goalStart=performance.now();const result=await call(item.frontend,'run_goal',request);row.run_goal_ms=performance.now()-goalStart;row.result=result;row.status=result.status;
+    const status=await call(item.frontend,'status',{session_id:session,goal_id:item.id});row.durable_status=status;
+    if(typeof result.status==='string'&&result.status!=='RUNNING'){
+     const duplicateStart=performance.now();const before=budget(),stats=store!.stats(),repeat=await call(item.frontend==='cli'?'mcp':'cli','run_goal',request),after=budget();
+     row.duplicate_ms=performance.now()-duplicateStart;row.idempotency={same_result:JSON.stringify(result)===JSON.stringify(repeat),before_requests:before.requests,after_requests:after.requests,before_decisions:stats.decisions,after_decisions:store!.stats().decisions};
+     if(JSON.stringify(result)!==JSON.stringify(repeat)||before.requests!==after.requests||stats.decisions!==store!.stats().decisions)stopReason??='IDEMPOTENCY_PROOF_FAILED';
+    }
+    const ledger=JSON.parse(readFileSync(join(runtime,'ledger','ledger.json'),'utf8')) as LedgerState;
+    row.actions=Object.values(ledger.actions).filter(action=>action.session_id===session&&action.goal_id===item.id).map(action=>({status:action.status,route:action.receipt?.route??null}));
+    if((row.actions as Array<{status:string;route:string|null}>).some(a=>(a.route!==null||['EXECUTING','VERIFYING','SUCCEEDED','FAILED','UNKNOWN'].includes(a.status))&&a.route!==(mock?'mock':'jev')))stopReason??='UNEXPECTED_RECEIPT_ROUTE';
+    const reason=String(result.reason??'');if(result.status==='UNKNOWN'||/UNKNOWN|PROVIDER_UNAVAILABLE|PROVIDER_DEADLINE|BUDGET_EXHAUSTED|UNAUTHENTICATED|FORBIDDEN/.test(reason))stopReason??=reason||'UNKNOWN_RESULT';
+   }catch(error){row.error=safeError(error);stopReason??=safeError(error);}
+   finally{
+    if(session)try{row.close=await call(item.frontend,'close_session',{session_id:session});}catch{row.close={error:'SESSION_CLOSE_FAILED'};stopReason??='SESSION_CLOSE_FAILED';}
+    await observer.settle();row.e2e_ms=performance.now()-start;row.e2e_excluding_duplicate_ms=Number(row.e2e_ms)-Number(row.duplicate_ms??0);row.finished_at=new Date().toISOString();row.budget_after=budget();row.attempts_after=observer.attempts.length;
+   }
+   return row;
+  }
+  warmup=continuationOf?{id:'warmup',status:'NOT_RUN',reason:'PREVIOUS_WARMUP_NOT_REPEATED'}:await trial({id:'warmup',task:'select',frontend:'cli',max_steps:1,seed:100});persist();
+  for(const [index,item] of plan.entries()){
+   if(stopReason)break;
+   if(Date.now()>=approval.authorization.expires_at){stopReason='AUTHORIZATION_EXPIRED';break;}
+   if(budget().requests>=30||budget().reserved_usd+.003>.1){stopReason='BUDGET_EXHAUSTED';break;}
+   rows[index]=await trial(item);persist();
+  }
+  await new Promise<void>(resolveClose=>{server!.closeAllConnections();server!.close(()=>resolveClose());});gatewayClosed=true;
+  const doctor=await cli(['doctor','--runtime',runtime]);const stopped=await cli(['service','stop','--runtime',runtime]);serviceStopped=true;
+  offline={remoteReachable:doctor.remoteReachable,local_ready:doctor.ready,stopped:stopped.stopped,passed:doctor.remoteReachable===false&&stopped.stopped===true};
+ }catch(error){stopReason??=safeError(error);}
+ finally{
+  // Every cleanup is independent: reporting or partial setup failures must not skip later releases.
+  if(mcp)try{await mcp.close();}catch{stopReason??='MCP_CLEANUP_FAILED';}
+  if(serviceStartAttempted&&!serviceStopped)try{await cli(['service','stop','--runtime',runtime]);serviceStopped=true;}catch{stopReason??='SERVICE_CLEANUP_FAILED';}
+  if(server&&!gatewayClosed)try{server.closeAllConnections();await new Promise<void>(done=>server!.close(()=>done()));gatewayClosed=true;}catch{stopReason??='GATEWAY_CLEANUP_FAILED';}
+  await observer.settle();
+  let revoked=false,after:ReturnType<GatewayStore['budget']>|undefined;
+  if(store){
+   try{store.revoke(identity);try{store.authorize(identity,certificateSha256(certs!.a.cert));}catch(error){revoked=safeError(error)==='FORBIDDEN';}}catch{/* Partial setup may have no enrollment to revoke. */}
+   try{after=budget();}catch{stopReason??='BUDGET_UNAVAILABLE';}
+   try{store.close();}catch{stopReason??='STORE_CLEANUP_FAILED';}
+  }
+  let materialsRemoved=true;
+  try{certs?.close();}catch{materialsRemoved=false;stopReason??='CERTIFICATE_CLEANUP_FAILED';}
+  try{if(privateMaterials)rmSync(privateMaterials,{recursive:true,force:true});}catch{materialsRemoved=false;stopReason??='PROFILE_CLEANUP_FAILED';}
+  try{
+   if(outputCreated){
+    persist();const usage=observer.attempts.filter(attempt=>attempt.usage);
+    save(join(out,'summary.json'),{mode:mock?'mock':'live',enforcement_mode:mock?'test_mock':'required_jev',approval_id:approval.approval.approval_id,...(continuationOf?{continuation_of:continuationOf}:{}),finished_at:new Date().toISOString(),stop_reason:stopReason??null,formal_planned:9,formal_attempted:rows.filter(row=>row.status!=='NOT_RUN').length,formal_succeeded:rows.filter(row=>row.status==='SUCCEEDED').length,formal_success_denominator:9,warmup_status:warmup?.status??'NOT_RUN',budget_before:budgetBefore,budget_after:after,hosted_attempts_observed:observer.attempts.length,requests_with_usage:usage.length,unknown_usage_requests:observer.attempts.length-usage.length,known_input_tokens:usage.reduce((sum,item)=>sum+item.usage!.input_tokens,0),known_output_tokens:usage.reduce((sum,item)=>sum+item.usage!.output_tokens,0),known_input_cost_usd:usage.reduce((sum,item)=>sum+item.usage!.input_tokens*.042/1e6,0),offline_stop:offline??null,private_ledger_retained:lstatExists(join(runtime,'ledger','ledger.json')),credentials_revoked:revoked,temporary_credentials_removed:materialsRemoved,local_service_stopped:serviceStopped});
+   }
+  }finally{closeSync(lock);unlinkSync(lockPath);}
+ }
+ if(stopReason)throw new Error(stopReason);
+ return {output:out,mode:mock?'mock':'live'};
+}
+function lstatExists(path:string){try{lstatSync(path);return true;}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return false;throw error;}}
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url))void runPilot(process.argv.slice(2)).then(result=>process.stdout.write(JSON.stringify(result)+'\n')).catch(error=>{process.stderr.write(safeError(error)+'\n');process.exitCode=1;});

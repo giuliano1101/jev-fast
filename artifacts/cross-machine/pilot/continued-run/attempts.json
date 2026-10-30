@@ -1,0 +1,290 @@
+[
+  {
+    "trial_id": "trial-01",
+    "attempt": 1,
+    "started_at": "2026-10-30T06:04:30.923Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:32.674Z",
+    "headers_ms": 1750.5798329999998,
+    "usage": {
+      "input_tokens": 514,
+      "output_tokens": 119
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:32.681Z",
+    "observed_ms": 1757.3408330000002
+  },
+  {
+    "trial_id": "trial-02",
+    "attempt": 2,
+    "started_at": "2026-10-30T06:04:33.383Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:33.720Z",
+    "headers_ms": 336.4599169999992,
+    "usage": {
+      "input_tokens": 468,
+      "output_tokens": 84
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:33.967Z",
+    "observed_ms": 583.7116669999996
+  },
+  {
+    "trial_id": "trial-03",
+    "attempt": 3,
+    "started_at": "2026-10-30T06:04:35.073Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:35.359Z",
+    "headers_ms": 286.09700000000066,
+    "usage": {
+      "input_tokens": 521,
+      "output_tokens": 125
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:35.360Z",
+    "observed_ms": 287.5767500000002
+  },
+  {
+    "trial_id": "trial-03",
+    "attempt": 4,
+    "started_at": "2026-10-30T06:04:35.476Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:35.783Z",
+    "headers_ms": 307.5251669999998,
+    "usage": {
+      "input_tokens": 523,
+      "output_tokens": 127
+    },
+    "confidence": 0.7,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:35.784Z",
+    "observed_ms": 308.19479200000023
+  },
+  {
+    "trial_id": "trial-04",
+    "attempt": 5,
+    "started_at": "2026-10-30T06:04:36.419Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:36.718Z",
+    "headers_ms": 299.9131670000006,
+    "usage": {
+      "input_tokens": 521,
+      "output_tokens": 121
+    },
+    "confidence": 0.92,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:36.903Z",
+    "observed_ms": 484.71433400000024
+  },
+  {
+    "trial_id": "trial-04",
+    "attempt": 6,
+    "started_at": "2026-10-30T06:04:37.042Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:37.841Z",
+    "headers_ms": 798.9443329999995,
+    "usage": {
+      "input_tokens": 523,
+      "output_tokens": 125
+    },
+    "confidence": 0.58,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:37.844Z",
+    "observed_ms": 802.0435829999988
+  },
+  {
+    "trial_id": "trial-05",
+    "attempt": 7,
+    "started_at": "2026-10-30T06:04:38.341Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:38.679Z",
+    "headers_ms": 337.9410420000004,
+    "usage": {
+      "input_tokens": 516,
+      "output_tokens": 123
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:38.905Z",
+    "observed_ms": 563.3412919999992
+  },
+  {
+    "trial_id": "trial-05",
+    "attempt": 8,
+    "started_at": "2026-10-30T06:04:38.965Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:39.251Z",
+    "headers_ms": 286.3981249999997,
+    "usage": {
+      "input_tokens": 513,
+      "output_tokens": 115
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:39.436Z",
+    "observed_ms": 471.011833999999
+  },
+  {
+    "trial_id": "trial-05",
+    "attempt": 9,
+    "started_at": "2026-10-30T06:04:39.569Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:39.869Z",
+    "headers_ms": 300.20358300000044,
+    "usage": {
+      "input_tokens": 514,
+      "output_tokens": 119
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:40.092Z",
+    "observed_ms": 523.1593749999993
+  },
+  {
+    "trial_id": "trial-05",
+    "attempt": 10,
+    "started_at": "2026-10-30T06:04:40.160Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:40.547Z",
+    "headers_ms": 386.8400419999998,
+    "usage": {
+      "input_tokens": 523,
+      "output_tokens": 131
+    },
+    "confidence": 0.74,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:40.549Z",
+    "observed_ms": 389.33920899999976
+  },
+  {
+    "trial_id": "trial-06",
+    "attempt": 11,
+    "started_at": "2026-10-30T06:04:41.559Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:41.877Z",
+    "headers_ms": 317.65999999999985,
+    "usage": {
+      "input_tokens": 468,
+      "output_tokens": 84
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:41.878Z",
+    "observed_ms": 318.338749999999
+  },
+  {
+    "trial_id": "trial-07",
+    "attempt": 12,
+    "started_at": "2026-10-30T06:04:42.591Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:42.924Z",
+    "headers_ms": 333.03870800000004,
+    "usage": {
+      "input_tokens": 469,
+      "output_tokens": 86
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:42.925Z",
+    "observed_ms": 334.0158329999995
+  },
+  {
+    "trial_id": "trial-08",
+    "attempt": 13,
+    "started_at": "2026-10-30T06:04:44.083Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:44.441Z",
+    "headers_ms": 358.7036250000001,
+    "usage": {
+      "input_tokens": 521,
+      "output_tokens": 124
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:44.636Z",
+    "observed_ms": 553.3458329999994
+  },
+  {
+    "trial_id": "trial-08",
+    "attempt": 14,
+    "started_at": "2026-10-30T06:04:44.781Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:45.095Z",
+    "headers_ms": 314.79995899999994,
+    "usage": {
+      "input_tokens": 525,
+      "output_tokens": 127
+    },
+    "confidence": 0.64,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:45.098Z",
+    "observed_ms": 317.2690840000014
+  },
+  {
+    "trial_id": "trial-09",
+    "attempt": 15,
+    "started_at": "2026-10-30T06:04:46.305Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:46.651Z",
+    "headers_ms": 345.67412500000137,
+    "usage": {
+      "input_tokens": 516,
+      "output_tokens": 122
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:46.886Z",
+    "observed_ms": 580.6124170000003
+  },
+  {
+    "trial_id": "trial-09",
+    "attempt": 16,
+    "started_at": "2026-10-30T06:04:46.947Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:47.274Z",
+    "headers_ms": 327.4672500000015,
+    "usage": {
+      "input_tokens": 518,
+      "output_tokens": 123
+    },
+    "confidence": 0.92,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:47.275Z",
+    "observed_ms": 328.60520800000086
+  },
+  {
+    "trial_id": "trial-09",
+    "attempt": 17,
+    "started_at": "2026-10-30T06:04:47.403Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:47.735Z",
+    "headers_ms": 331.9500829999997,
+    "usage": {
+      "input_tokens": 519,
+      "output_tokens": 126
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:47.737Z",
+    "observed_ms": 334.36058299999786
+  },
+  {
+    "trial_id": "trial-09",
+    "attempt": 18,
+    "started_at": "2026-10-30T06:04:47.803Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:04:48.124Z",
+    "headers_ms": 321.18225000000166,
+    "usage": {
+      "input_tokens": 516,
+      "output_tokens": 120
+    },
+    "confidence": 0.8,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:04:48.126Z",
+    "observed_ms": 323.7257500000014
+  }
+]

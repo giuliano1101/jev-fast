@@ -1,0 +1,51 @@
+{
+  "mode": "mock",
+  "enforcement_mode": "test_mock",
+  "approval_id": "mock-continuation-only",
+  "continuation_of": "original/summary.json",
+  "finished_at": "2026-10-30T06:02:44.633Z",
+  "stop_reason": null,
+  "formal_planned": 9,
+  "formal_attempted": 9,
+  "formal_succeeded": 9,
+  "formal_success_denominator": 9,
+  "warmup_status": "NOT_RUN",
+  "budget_before": {
+    "approval": {
+      "approval_id": "mock-continuation-only",
+      "expires_at": 1793343752923,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 2,
+    "reserved_usd": 0.006
+  },
+  "budget_after": {
+    "approval": {
+      "approval_id": "mock-continuation-only",
+      "expires_at": 1793343752923,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 2,
+    "reserved_usd": 0.006
+  },
+  "hosted_attempts_observed": 0,
+  "requests_with_usage": 0,
+  "unknown_usage_requests": 0,
+  "known_input_tokens": 0,
+  "known_output_tokens": 0,
+  "known_input_cost_usd": 0,
+  "offline_stop": {
+    "remoteReachable": false,
+    "local_ready": true,
+    "stopped": true,
+    "passed": true
+  },
+  "private_ledger_retained": true,
+  "credentials_revoked": true,
+  "temporary_credentials_removed": true,
+  "local_service_stopped": true
+}

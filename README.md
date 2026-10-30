@@ -1,6 +1,8 @@
 # jev-fast · Jev 电脑操控加速层
 
-当前阶段：**S10 跨机器 CLI/MCP 的 A/B 工程接线与离线验收**。在 S9 安卓实测版本上新增远程决策网关、本机执行回执、持久预算与运维命令。已验证同机双逻辑设备，尚未部署两台实体电脑，也不是通用电脑或手机自动操作产品。
+当前阶段：**S10 跨机器 CLI/MCP 接线及 C 本机 hosted 合成实测**。A/B 离线验收已完成；C 正式题 3/9 成功，仍未达到稳定日常使用要求。已修复实测发现的许可重复扣时问题并完成离线回归，未重新付费替换原成绩。真实应用和实体双机阶段留待以后。
+
+[C 实测报告：题目、失败、耗时和费用](artifacts/cross-machine/pilot/report.md)
 
 [S10 完成报告](artifacts/cross-machine/report.md) · [中文 CLI/MCP 使用手册](docs/cross-machine-cli-mcp.md) · [架构、发布与后续验收](docs/cross-machine-operations.md) · [agent 接入指南](docs/agent-integration-guide.md)
 

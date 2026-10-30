@@ -1,0 +1,74 @@
+{
+  "id": "warmup",
+  "task": "select",
+  "frontend": "cli",
+  "max_steps": 1,
+  "seed": 100,
+  "started_at": "2026-10-30T05:54:19.532Z",
+  "status": "FALLBACK",
+  "budget_before": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 0,
+    "reserved_usd": 0
+  },
+  "attempts_before": 0,
+  "run_goal_ms": 2228.295625,
+  "result": {
+    "session_id": "1a1446b7-49b8-4506-bc42-7fd5850c2fd4",
+    "goal_id": "warmup",
+    "idempotency_key": "idem-warmup",
+    "request_hash": "8ed921ebd32cdbfc3584ff78ad4953622fe267aaca2d9a170886f2a072506618",
+    "status": "FALLBACK",
+    "steps": 0,
+    "elapsed_ms": 2011.3921670000002,
+    "reason": "PROVIDER_DEADLINE",
+    "evidence": [],
+    "action_ids": []
+  },
+  "durable_status": {
+    "session_id": "1a1446b7-49b8-4506-bc42-7fd5850c2fd4",
+    "goal_id": "warmup",
+    "idempotency_key": "idem-warmup",
+    "request_hash": "8ed921ebd32cdbfc3584ff78ad4953622fe267aaca2d9a170886f2a072506618",
+    "status": "FALLBACK",
+    "steps": 0,
+    "elapsed_ms": 2011.3921670000002,
+    "reason": "PROVIDER_DEADLINE",
+    "evidence": [],
+    "action_ids": []
+  },
+  "duplicate_ms": 5.164291000000048,
+  "idempotency": {
+    "same_result": true,
+    "before_requests": 1,
+    "after_requests": 1,
+    "before_decisions": 1,
+    "after_decisions": 1
+  },
+  "actions": [],
+  "close": {
+    "closed": true,
+    "quarantined": false
+  },
+  "e2e_ms": 3860.112709,
+  "e2e_excluding_duplicate_ms": 3854.948418,
+  "finished_at": "2026-10-30T05:54:23.392Z",
+  "budget_after": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 1,
+    "reserved_usd": 0.003
+  },
+  "attempts_after": 1
+}

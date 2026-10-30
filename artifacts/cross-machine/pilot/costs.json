@@ -1,0 +1,19 @@
+{
+  "total_attempts": 20,
+  "original_warmup_attempts": 1,
+  "nonexecuting_diagnostic_attempts": 1,
+  "formal_attempts": 18,
+  "known_usage_attempts": 19,
+  "unknown_usage_attempts": 1,
+  "input_tokens_known": 9644,
+  "output_tokens_known": 2132,
+  "estimated_known_cost_usd": 0.000405048,
+  "conservative_reserved_usd": 0.06,
+  "max_requests": 30,
+  "max_cost_usd": 0.1,
+  "expires_at_utc": "2026-10-31T05:43:18Z",
+  "price_source": "https://docs.typesafe.ai/models",
+  "price_checked_date": "2026-10-30",
+  "not_invoice_reconciled": true,
+  "android_budget_unchanged": true
+}

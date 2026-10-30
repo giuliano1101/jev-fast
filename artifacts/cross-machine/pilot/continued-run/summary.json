@@ -1,0 +1,51 @@
+{
+  "mode": "live",
+  "enforcement_mode": "required_jev",
+  "approval_id": "s10-c-20261030",
+  "continuation_of": "live-run/summary.json",
+  "finished_at": "2026-10-30T06:04:48.955Z",
+  "stop_reason": null,
+  "formal_planned": 9,
+  "formal_attempted": 9,
+  "formal_succeeded": 3,
+  "formal_success_denominator": 9,
+  "warmup_status": "NOT_RUN",
+  "budget_before": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 2,
+    "reserved_usd": 0.006
+  },
+  "budget_after": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 20,
+    "reserved_usd": 0.06
+  },
+  "hosted_attempts_observed": 18,
+  "requests_with_usage": 18,
+  "unknown_usage_requests": 0,
+  "known_input_tokens": 9188,
+  "known_output_tokens": 2101,
+  "known_input_cost_usd": 0.000385896,
+  "offline_stop": {
+    "remoteReachable": false,
+    "local_ready": true,
+    "stopped": true,
+    "passed": true
+  },
+  "private_ledger_retained": true,
+  "credentials_revoked": true,
+  "temporary_credentials_removed": true,
+  "local_service_stopped": true
+}

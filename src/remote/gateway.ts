@@ -60,7 +60,7 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
   if(entry.count>=60)throw new Fault('RATE_LIMITED');entry.count++;
  }
  async function handle(req:HttpRequest,res:HttpResponse){
-  const started=performance.now(),controller=new AbortController();let timer=setTimeout(()=>controller.abort(),2000);
+  const started=performance.now(),windowStartedWall=Date.now(),controller=new AbortController();let timer=setTimeout(()=>controller.abort(),2000);
   const onClose=()=>{if(!res.writableEnded)controller.abort();};res.once('close',onClose);req.once('aborted',()=>controller.abort());
   let request:DecisionRequest|undefined,identity:AuthenticatedIdentity|undefined,principal:string|undefined,startedRecord=false,dispatched=false,admitted=false,principalHeld=false;
   try{
@@ -92,9 +92,13 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
    const provider=options.live?new JevProvider({...options.live,beforeAttempt:()=>{if(controller.signal.aborted||performance.now()-started>=ttl)throw new Fault('STALE_SNAPSHOT');authenticate();options.store.reserve(identity!,request!.idempotency_key,options.live!.approval.approval_id);authenticate();if(controller.signal.aborted||performance.now()-started>=ttl)throw new Fault('STALE_SNAPSHOT');}}):mock;
    dispatched=true;
    const decision=await within(provider.decide(request.input,{signal:controller.signal,deadline:Date.now()+dispatchRemaining}),controller.signal);
-   const validForMs=Math.floor(ttl-(performance.now()-started));if(controller.signal.aborted||validForMs<=0)throw new Fault('STALE_SNAPSHOT');
+   const remainingAtIssue=ttl-(performance.now()-started);if(controller.signal.aborted||remainingAtIssue<=0)throw new Fault('STALE_SNAPSHOT');
    authenticate();
-   const response=signDecisionResponse(request,decision,{privateKey:options.receiptPrivateKey,issuer:options.issuer,audience:options.audience,identity,decisionId:randomUUID(),issuedAtMs:Date.now(),validForMs,route});
+   // The verifier anchors valid_for_ms at the local request start. Sign the same
+   // original window, not its remaining duration (which would subtract inference
+   // time twice). issued_at_ms is this window's start, not the signing instant.
+   // Both the server deadline and the original local snapshot still bound use.
+   const response=signDecisionResponse(request,decision,{privateKey:options.receiptPrivateKey,issuer:options.issuer,audience:options.audience,identity,decisionId:randomUUID(),issuedAtMs:windowStartedWall,validForMs:ttl,route});
    options.store.complete(identity,request.idempotency_key,response,provider instanceof JevProvider?provider.accounting().known_cost_usd:0);startedRecord=false;authenticate();if(controller.signal.aborted||performance.now()-started>=ttl)throw new Fault('STALE_SNAPSHOT');send(res,response);
   }catch(error){
    let code=safeCode(error);

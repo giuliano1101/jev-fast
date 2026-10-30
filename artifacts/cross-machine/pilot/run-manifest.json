@@ -1,0 +1,13 @@
+{
+  "base_commit": "ed2adfecd27f108f0754ab2d1f260b6eb7d9bb0e",
+  "files_sha256": {
+    "bench/remote/pilot.ts": "969a52e5c29f58f228db230ca0c63380e65b28ffbc5bf8fd53f4623deb6b33e5",
+    "scripts/report-remote-pilot.py": "53d6d7ff836f0eedaff37c3aa2c90a0552b03dc05290d0f5c1be7c90db68ad88",
+    "artifacts/cross-machine/pilot/protocol.md": "f2caad54b499d5d6ea419d9423b0a2e973fc506526340505675823a99656424c"
+  },
+  "node": "v24.19.0",
+  "mode": "live",
+  "device_topology": "one Mac; loopback gateway; hosted Jev API",
+  "request_limit": 30,
+  "cost_limit_usd": 0.1
+}

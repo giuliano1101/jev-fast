@@ -132,3 +132,17 @@ test('synchronous durable-store delay cannot permit dispatch after the snapshot 
 test('revocation during store begin prevents cached receipt delivery',async t=>{const f=await remoteFixture(certs);try{const req=remoteRequest();assert.equal((await f.raw(req)).status,200);const begin=f.store.begin.bind(f.store);t.mock.method(f.store,'begin',(...args:Parameters<typeof begin>)=>{const result=begin(...args);f.store.revoke(f.identities.a);return result;});assert.equal((await f.raw(req)).body.code,'FORBIDDEN');}finally{await f.close();}});
 test('revocation during reservation prevents hosted dispatch',async t=>{let calls=0;const approval={approval_id:'approved',expires_at:Date.now()+60000,max_requests:2,max_cost_usd:.01,reservation_usd:.0014};const f=await remoteFixture(certs,{live:{key:'synthetic-test-key',approval,authorization:{approval_id:approval.approval_id,expires_at:approval.expires_at,max_requests:approval.max_requests,max_cost_usd:approval.max_cost_usd,synthetic_only:true},transport:async()=>{calls++;return new Response(JSON.stringify({model:'jev-1.14.0',answers:{action:{type:'choice',choice:'c',confidence:.99}}}));}}});try{const reserve=f.store.reserve.bind(f.store);t.mock.method(f.store,'reserve',(...args:Parameters<typeof reserve>)=>{const result=reserve(...args);f.store.revoke(f.identities.a);return result;});await f.raw(remoteRequest());assert.equal(calls,0);}finally{await f.close();}});
 test('revocation during receipt persistence prevents delivery',async t=>{const f=await remoteFixture(certs);try{const complete=f.store.complete.bind(f.store);t.mock.method(f.store,'complete',(...args:Parameters<typeof complete>)=>{complete(...args);f.store.revoke(f.identities.a);});assert.equal((await f.raw(remoteRequest())).body.code,'FORBIDDEN');}finally{await f.close();}});
+
+test('slow decisions consume the original lifetime once, never extend the snapshot or refresh a cached receipt',async()=>{
+ const f=await remoteFixture(certs,{mockProvider:{decide:async(input,ctx)=>{await delay(850,undefined,{signal:ctx.signal});return new MockProvider().decide(input,ctx);}}});
+ try{
+  const req=remoteRequest('slow-valid'),start=performance.now();req.deadline_ms=1500;req.snapshot.valid_for_ms=1500;
+  const response=await f.client().decide(req.input,context(req));
+  const options={request:req,publicKey:f.keys.publicKey,issuer:'gateway',audience:'executor',identity:f.identities.a,enforcementMode:'test_mock' as const,requestStartedMonotonicMs:start,snapshotDeadlineMonotonicMs:start+1500,goalDeadlineMonotonicMs:start+5000,nowMonotonicMs:performance.now(),nowWallMs:Date.now()};
+  assert.ok(options.nowMonotonicMs-start>=850);
+  const receipt=verifyDecisionResponse(response,options);assert.equal(receipt.expires_at_monotonic_ms,start+1500);
+  assert.throws(()=>verifyDecisionResponse(response,{...options,nowMonotonicMs:start+1501}),/STALE_RECEIPT/);
+  assert.throws(()=>verifyDecisionResponse(response,{...options,snapshotDeadlineMonotonicMs:start+100,nowMonotonicMs:start+101}),/STALE_RECEIPT/);
+  assert.deepEqual(await f.client().decide(req.input,context(req)),response);
+ }finally{await f.close();}
+});

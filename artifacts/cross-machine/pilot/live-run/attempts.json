@@ -1,0 +1,10 @@
+[
+  {
+    "trial_id": "warmup",
+    "attempt": 1,
+    "started_at": "2026-10-30T05:54:21.060Z",
+    "transport_error": true,
+    "finished_at": "2026-10-30T05:54:22.992Z",
+    "observed_ms": 1932.196375
+  }
+]

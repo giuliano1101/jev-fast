@@ -1,0 +1,6 @@
+{
+  "files_scanned": 529,
+  "known_sensitive_values_checked": 2,
+  "matches": [],
+  "note": "Exact-value scan only, not a general secret detector."
+}

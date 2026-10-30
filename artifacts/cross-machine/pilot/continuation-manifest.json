@@ -1,0 +1,10 @@
+{
+  "files_sha256": {
+    "bench/remote/pilot.ts": "67142b837b6007702f1053127f460ecccc1c450e7683c3abd53be5dcb53a3f96",
+    "bench/remote/diagnose.ts": "9246891ce50e99a690a60d05a9d39aa6fd0768336cd81a78edebb6b29e207094",
+    "artifacts/cross-machine/pilot/continuation-plan.md": "78217477f72b9dc97c705001bbaaacdd9de8a29cb21faba75e68b853e4d3901f"
+  },
+  "original_run_retained": "live-run",
+  "budget_before_requests": 2,
+  "formal_work": "only 9 never-started tasks; no warmup repeat"
+}

@@ -1,0 +1,29 @@
+{
+  "budget_requests": 20,
+  "budget_reserved_usd": 0.06,
+  "decision_status_counts": [
+    {
+      "status": "complete",
+      "count": 13
+    },
+    {
+      "status": "rejected",
+      "count": 6
+    },
+    {
+      "status": "unknown",
+      "count": 1
+    }
+  ],
+  "active_principals": 0,
+  "actions": 12,
+  "all_actions_succeeded": true,
+  "all_actions_jev_receipt": true,
+  "unique_receipt_nonces": 12,
+  "all_sessions_closed": true,
+  "unresolved_goals": 0,
+  "service_lock_remaining": false,
+  "pilot_lock_remaining": false,
+  "old_marker_retained": true,
+  "continuation_marker_retained": true
+}

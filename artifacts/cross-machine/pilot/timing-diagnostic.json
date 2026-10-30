@@ -1,0 +1,71 @@
+{
+  "mode": "live",
+  "scope": "provider timing only; no Engine, browser or execution receipt",
+  "provider_timeout_ms": 10000,
+  "budget_before": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 1,
+    "reserved_usd": 0.003
+  },
+  "decision": {
+    "confidence": 0.92,
+    "usage": {
+      "input_tokens": 456,
+      "output_tokens": 31
+    },
+    "elapsed_ms": 1024.910709,
+    "request_count": 1,
+    "retry_count": 0
+  },
+  "elapsed_ms": 1030.545666,
+  "phases": [
+    {
+      "name": "undici:client:beforeConnect",
+      "elapsed_ms": 16.053041000000007
+    },
+    {
+      "name": "undici:client:connected",
+      "elapsed_ms": 741.752833
+    },
+    {
+      "name": "undici:request:headers",
+      "elapsed_ms": 1020.6464579999999,
+      "status": 200
+    }
+  ],
+  "attempts": [
+    {
+      "trial_id": "connect-diagnostic",
+      "attempt": 1,
+      "started_at": "2026-10-30T05:58:12.838Z",
+      "http_status": 200,
+      "headers_at": "2026-10-30T05:58:13.858Z",
+      "headers_ms": 1019.788958,
+      "usage": {
+        "input_tokens": 456,
+        "output_tokens": 31
+      },
+      "confidence": 0.92,
+      "observation": "BOUNDED_JSON",
+      "finished_at": "2026-10-30T05:58:13.861Z",
+      "observed_ms": 1023.2495
+    }
+  ],
+  "budget_after": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 2,
+    "reserved_usd": 0.006
+  }
+}

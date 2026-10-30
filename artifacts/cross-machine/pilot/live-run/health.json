@@ -1,0 +1,32 @@
+{
+  "protocol": "decision-v1",
+  "policy": "p0-v1",
+  "enforcement": "advisory-only",
+  "build": {
+    "revision": "ed2adfecd27f108f0754ab2d1f260b6eb7d9bb0e",
+    "provenance": "git-checkout",
+    "dirty": true,
+    "sourceDigest": "sha256:efdc5bf7e68125836a7d69d45914fa394d1269840c39946410834b91b13c889d"
+  },
+  "provider": "jev",
+  "model": "jev-1.14.0",
+  "enforcementMode": "required_jev",
+  "identity": {
+    "owner_id": "s10-pilot-owner",
+    "device_id": "local-mac",
+    "agent_id": "synthetic-pilot"
+  },
+  "localClient": "a",
+  "profileFingerprint": "sha256:825f9bf1d0f4c1f035e30edf62b889bd429571c247267fc4217e78cef214672d",
+  "transport": "remote",
+  "authenticatedIdentity": {
+    "owner_id": "s10-pilot-owner",
+    "device_id": "local-mac",
+    "agent_id": "synthetic-pilot"
+  },
+  "identityMatches": true,
+  "remoteReachable": true,
+  "routeCompatible": true,
+  "ready": true,
+  "active_session_limit": 1
+}

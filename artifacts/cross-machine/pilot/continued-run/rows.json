@@ -1,0 +1,804 @@
+[
+  {
+    "id": "trial-01",
+    "task": "form",
+    "frontend": "cli",
+    "max_steps": 4,
+    "seed": 101,
+    "started_at": "2026-10-30T06:04:29.633Z",
+    "status": "FALLBACK",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 2,
+      "reserved_usd": 0.006
+    },
+    "attempts_before": 0,
+    "run_goal_ms": 2053.814083,
+    "result": {
+      "session_id": "088c7ba4-dc09-4c9c-b4bb-5f3b6af76990",
+      "goal_id": "trial-01",
+      "idempotency_key": "idem-trial-01",
+      "request_hash": "32c29b1885fc1616af71bcee7992d8c974586a581e34820f25536b5e1ae4c027",
+      "status": "FALLBACK",
+      "steps": 0,
+      "elapsed_ms": 1863.5258749999998,
+      "reason": "STALE_RECEIPT",
+      "evidence": [],
+      "action_ids": []
+    },
+    "durable_status": {
+      "session_id": "088c7ba4-dc09-4c9c-b4bb-5f3b6af76990",
+      "goal_id": "trial-01",
+      "idempotency_key": "idem-trial-01",
+      "request_hash": "32c29b1885fc1616af71bcee7992d8c974586a581e34820f25536b5e1ae4c027",
+      "status": "FALLBACK",
+      "steps": 0,
+      "elapsed_ms": 1863.5258749999998,
+      "reason": "STALE_RECEIPT",
+      "evidence": [],
+      "action_ids": []
+    },
+    "duplicate_ms": 5.160458999999719,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 3,
+      "after_requests": 3,
+      "before_decisions": 3,
+      "after_decisions": 3
+    },
+    "actions": [],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 3509.119375,
+    "e2e_excluding_duplicate_ms": 3503.9589160000005,
+    "finished_at": "2026-10-30T06:04:33.142Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 3,
+      "reserved_usd": 0.009
+    },
+    "attempts_after": 1
+  },
+  {
+    "id": "trial-02",
+    "task": "cancel",
+    "frontend": "mcp",
+    "max_steps": 1,
+    "seed": 102,
+    "started_at": "2026-10-30T06:04:33.143Z",
+    "status": "SUCCEEDED",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 3,
+      "reserved_usd": 0.009
+    },
+    "attempts_before": 1,
+    "run_goal_ms": 759.7527500000006,
+    "result": {
+      "session_id": "d6dfc165-bd1c-4bfc-834a-57afb4cc1a20",
+      "goal_id": "trial-02",
+      "idempotency_key": "idem-trial-02",
+      "request_hash": "5f1ed2fdc6b756de6f6eb696eda4f7c911a2df5ea8b32ff5d8c9493b16e5ae97",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 750.5760829999995,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "d9a9c222-d8f2-49c9-8f37-545c470a667c"
+      ]
+    },
+    "durable_status": {
+      "session_id": "d6dfc165-bd1c-4bfc-834a-57afb4cc1a20",
+      "goal_id": "trial-02",
+      "idempotency_key": "idem-trial-02",
+      "request_hash": "5f1ed2fdc6b756de6f6eb696eda4f7c911a2df5ea8b32ff5d8c9493b16e5ae97",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 750.5760829999995,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "d9a9c222-d8f2-49c9-8f37-545c470a667c"
+      ]
+    },
+    "duplicate_ms": 185.9960000000001,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 4,
+      "after_requests": 4,
+      "before_decisions": 4,
+      "after_decisions": 4
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 1124.0329170000005,
+    "e2e_excluding_duplicate_ms": 938.0369170000004,
+    "finished_at": "2026-10-30T06:04:34.267Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 4,
+      "reserved_usd": 0.012
+    },
+    "attempts_after": 2
+  },
+  {
+    "id": "trial-03",
+    "task": "correction",
+    "frontend": "cli",
+    "max_steps": 3,
+    "seed": 103,
+    "started_at": "2026-10-30T06:04:34.268Z",
+    "status": "FALLBACK",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 4,
+      "reserved_usd": 0.012
+    },
+    "attempts_before": 2,
+    "run_goal_ms": 986.6655000000001,
+    "result": {
+      "session_id": "34a0a1cb-ac64-4184-b94b-fe8796bf02a3",
+      "goal_id": "trial-03",
+      "idempotency_key": "idem-trial-03",
+      "request_hash": "2ff961ed89c4e2c300d057c25ce376facba0e0d9815254e22f776c0dc28c267f",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 789.9704170000005,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "95d0dbff-8a13-4876-8578-d6968ca1ad7f"
+      ]
+    },
+    "durable_status": {
+      "session_id": "34a0a1cb-ac64-4184-b94b-fe8796bf02a3",
+      "goal_id": "trial-03",
+      "idempotency_key": "idem-trial-03",
+      "request_hash": "2ff961ed89c4e2c300d057c25ce376facba0e0d9815254e22f776c0dc28c267f",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 789.9704170000005,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "95d0dbff-8a13-4876-8578-d6968ca1ad7f"
+      ]
+    },
+    "duplicate_ms": 0.9785830000000715,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 6,
+      "after_requests": 6,
+      "before_decisions": 6,
+      "after_decisions": 6
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 1896.0494579999995,
+    "e2e_excluding_duplicate_ms": 1895.0708749999994,
+    "finished_at": "2026-10-30T06:04:36.164Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 6,
+      "reserved_usd": 0.018
+    },
+    "attempts_after": 4
+  },
+  {
+    "id": "trial-04",
+    "task": "correction",
+    "frontend": "mcp",
+    "max_steps": 3,
+    "seed": 104,
+    "started_at": "2026-10-30T06:04:36.165Z",
+    "status": "FALLBACK",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 6,
+      "reserved_usd": 0.018
+    },
+    "attempts_before": 4,
+    "run_goal_ms": 1523.4881249999999,
+    "result": {
+      "session_id": "8fa7257e-42dc-43c7-a1ac-40d33a306ba9",
+      "goal_id": "trial-04",
+      "idempotency_key": "idem-trial-04",
+      "request_hash": "8136c1180dcbdf8e54115e4bed88ef2a775bcee3e2651e702bebd9df7f21c8b4",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1510.3685420000002,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "5a3502f9-484b-46b8-98c9-a4cfb8cfdc3e"
+      ]
+    },
+    "durable_status": {
+      "session_id": "8fa7257e-42dc-43c7-a1ac-40d33a306ba9",
+      "goal_id": "trial-04",
+      "idempotency_key": "idem-trial-04",
+      "request_hash": "8136c1180dcbdf8e54115e4bed88ef2a775bcee3e2651e702bebd9df7f21c8b4",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1510.3685420000002,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "5a3502f9-484b-46b8-98c9-a4cfb8cfdc3e"
+      ]
+    },
+    "duplicate_ms": 211.0020829999994,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 8,
+      "after_requests": 8,
+      "before_decisions": 8,
+      "after_decisions": 8
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 1921.9330840000011,
+    "e2e_excluding_duplicate_ms": 1710.9310010000017,
+    "finished_at": "2026-10-30T06:04:38.087Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 8,
+      "reserved_usd": 0.024
+    },
+    "attempts_after": 6
+  },
+  {
+    "id": "trial-05",
+    "task": "form",
+    "frontend": "mcp",
+    "max_steps": 4,
+    "seed": 105,
+    "started_at": "2026-10-30T06:04:38.088Z",
+    "status": "FALLBACK",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 8,
+      "reserved_usd": 0.024
+    },
+    "attempts_before": 6,
+    "run_goal_ms": 2306.031833000001,
+    "result": {
+      "session_id": "92fc379c-9610-4aec-83f9-51bd9154d98d",
+      "goal_id": "trial-05",
+      "idempotency_key": "idem-trial-05",
+      "request_hash": "4494ee516efc5722788268fa441f912b1fe2593c14df4312ec942d3e9fcc784a",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 2292.7413340000003,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "360e0244-ea82-4934-8470-bddb362e39e2",
+        "f8b697b1-c0ea-4a68-829a-f32a7d27eddd",
+        "fd3752fb-7456-4f02-913b-e1323b85373f"
+      ]
+    },
+    "durable_status": {
+      "session_id": "92fc379c-9610-4aec-83f9-51bd9154d98d",
+      "goal_id": "trial-05",
+      "idempotency_key": "idem-trial-05",
+      "request_hash": "4494ee516efc5722788268fa441f912b1fe2593c14df4312ec942d3e9fcc784a",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 2292.7413340000003,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "360e0244-ea82-4934-8470-bddb362e39e2",
+        "f8b697b1-c0ea-4a68-829a-f32a7d27eddd",
+        "fd3752fb-7456-4f02-913b-e1323b85373f"
+      ]
+    },
+    "duplicate_ms": 218.8728749999991,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 12,
+      "after_requests": 12,
+      "before_decisions": 12,
+      "after_decisions": 12
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 2709.265958,
+    "e2e_excluding_duplicate_ms": 2490.393083000001,
+    "finished_at": "2026-10-30T06:04:40.797Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 12,
+      "reserved_usd": 0.036
+    },
+    "attempts_after": 10
+  },
+  {
+    "id": "trial-06",
+    "task": "cancel",
+    "frontend": "cli",
+    "max_steps": 1,
+    "seed": 106,
+    "started_at": "2026-10-30T06:04:40.798Z",
+    "status": "SUCCEEDED",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 12,
+      "reserved_usd": 0.036
+    },
+    "attempts_before": 10,
+    "run_goal_ms": 656.1530000000002,
+    "result": {
+      "session_id": "b398051d-9176-45fe-ae85-fc89dee825a5",
+      "goal_id": "trial-06",
+      "idempotency_key": "idem-trial-06",
+      "request_hash": "b52f250df25ad882b99a62dd2a87ffb240750a62149e8e31209cac9dd1e1c642",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 470.3439579999995,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "662448b7-8bdb-4790-8a73-f126c1b379c1"
+      ]
+    },
+    "durable_status": {
+      "session_id": "b398051d-9176-45fe-ae85-fc89dee825a5",
+      "goal_id": "trial-06",
+      "idempotency_key": "idem-trial-06",
+      "request_hash": "b52f250df25ad882b99a62dd2a87ffb240750a62149e8e31209cac9dd1e1c642",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 470.3439579999995,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "662448b7-8bdb-4790-8a73-f126c1b379c1"
+      ]
+    },
+    "duplicate_ms": 0.7709580000009737,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 13,
+      "after_requests": 13,
+      "before_decisions": 13,
+      "after_decisions": 13
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 1523.201332999999,
+    "e2e_excluding_duplicate_ms": 1522.430374999998,
+    "finished_at": "2026-10-30T06:04:42.321Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 13,
+      "reserved_usd": 0.039
+    },
+    "attempts_after": 11
+  },
+  {
+    "id": "trial-07",
+    "task": "cancel",
+    "frontend": "mcp",
+    "max_steps": 1,
+    "seed": 107,
+    "started_at": "2026-10-30T06:04:42.322Z",
+    "status": "SUCCEEDED",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 13,
+      "reserved_usd": 0.039
+    },
+    "attempts_before": 11,
+    "run_goal_ms": 517.5448329999999,
+    "result": {
+      "session_id": "69dcf45a-7f39-4447-b799-83ff25c5442b",
+      "goal_id": "trial-07",
+      "idempotency_key": "idem-trial-07",
+      "request_hash": "ea2638641a4b9d27054d36a9d6b73abba10b167c178ce0f87a94734ab3fd1e21",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 508.4744579999988,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "c2248f9f-a90c-4613-83a4-9b4d717fe693"
+      ]
+    },
+    "durable_status": {
+      "session_id": "69dcf45a-7f39-4447-b799-83ff25c5442b",
+      "goal_id": "trial-07",
+      "idempotency_key": "idem-trial-07",
+      "request_hash": "ea2638641a4b9d27054d36a9d6b73abba10b167c178ce0f87a94734ab3fd1e21",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 508.4744579999988,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "c2248f9f-a90c-4613-83a4-9b4d717fe693"
+      ]
+    },
+    "duplicate_ms": 201.62379200000032,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 14,
+      "after_requests": 14,
+      "before_decisions": 14,
+      "after_decisions": 14
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 922.3356249999997,
+    "e2e_excluding_duplicate_ms": 720.7118329999994,
+    "finished_at": "2026-10-30T06:04:43.244Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 14,
+      "reserved_usd": 0.042
+    },
+    "attempts_after": 12
+  },
+  {
+    "id": "trial-08",
+    "task": "correction",
+    "frontend": "cli",
+    "max_steps": 3,
+    "seed": 108,
+    "started_at": "2026-10-30T06:04:43.245Z",
+    "status": "FALLBACK",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 14,
+      "reserved_usd": 0.042
+    },
+    "attempts_before": 12,
+    "run_goal_ms": 1348.3591250000009,
+    "result": {
+      "session_id": "bbad678c-e69a-4d5a-b247-7dd76c43c1f3",
+      "goal_id": "trial-08",
+      "idempotency_key": "idem-trial-08",
+      "request_hash": "646abe603f7119efe262c538a7028bef9a937869eea7f753ab1caa1733ad5730",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1151.7079169999997,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "b343022c-e57d-44df-b714-6ac22317e1c0"
+      ]
+    },
+    "durable_status": {
+      "session_id": "bbad678c-e69a-4d5a-b247-7dd76c43c1f3",
+      "goal_id": "trial-08",
+      "idempotency_key": "idem-trial-08",
+      "request_hash": "646abe603f7119efe262c538a7028bef9a937869eea7f753ab1caa1733ad5730",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1151.7079169999997,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "b343022c-e57d-44df-b714-6ac22317e1c0"
+      ]
+    },
+    "duplicate_ms": 1.0657909999972617,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 16,
+      "after_requests": 16,
+      "before_decisions": 16,
+      "after_decisions": 16
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 2264.2637499999983,
+    "e2e_excluding_duplicate_ms": 2263.197959000001,
+    "finished_at": "2026-10-30T06:04:45.509Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 16,
+      "reserved_usd": 0.048
+    },
+    "attempts_after": 14
+  },
+  {
+    "id": "trial-09",
+    "task": "form",
+    "frontend": "cli",
+    "max_steps": 4,
+    "seed": 109,
+    "started_at": "2026-10-30T06:04:45.510Z",
+    "status": "FALLBACK",
+    "budget_before": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 16,
+      "reserved_usd": 0.048
+    },
+    "attempts_before": 14,
+    "run_goal_ms": 2122.2417910000004,
+    "result": {
+      "session_id": "9ae55b0e-da30-408f-8496-51a2d6306296",
+      "goal_id": "trial-09",
+      "idempotency_key": "idem-trial-09",
+      "request_hash": "8fe9ec265ab15cf796a89e52627c0e4d53395a678254f936f08ac97f99e88a42",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 1923.4542499999989,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "b08a9e1e-f2dc-4f8c-9a49-189b2ac72930",
+        "2117a1c3-4b33-49bb-893a-9809b3da68d1",
+        "fbc8456c-7106-4740-a6f1-302a3faf6713"
+      ]
+    },
+    "durable_status": {
+      "session_id": "9ae55b0e-da30-408f-8496-51a2d6306296",
+      "goal_id": "trial-09",
+      "idempotency_key": "idem-trial-09",
+      "request_hash": "8fe9ec265ab15cf796a89e52627c0e4d53395a678254f936f08ac97f99e88a42",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 1923.4542499999989,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "b08a9e1e-f2dc-4f8c-9a49-189b2ac72930",
+        "2117a1c3-4b33-49bb-893a-9809b3da68d1",
+        "fbc8456c-7106-4740-a6f1-302a3faf6713"
+      ]
+    },
+    "duplicate_ms": 1.1057079999991402,
+    "idempotency": {
+      "same_result": true,
+      "before_requests": 20,
+      "after_requests": 20,
+      "before_decisions": 20,
+      "after_decisions": 20
+    },
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "close": {
+      "closed": true,
+      "quarantined": false
+    },
+    "e2e_ms": 3034.470125,
+    "e2e_excluding_duplicate_ms": 3033.3644170000007,
+    "finished_at": "2026-10-30T06:04:48.544Z",
+    "budget_after": {
+      "approval": {
+        "approval_id": "s10-c-20261030",
+        "expires_at": 1793425398000,
+        "max_requests": 30,
+        "max_cost_usd": 0.1,
+        "reservation_usd": 0.003
+      },
+      "requests": 20,
+      "reserved_usd": 0.06
+    },
+    "attempts_after": 18
+  }
+]

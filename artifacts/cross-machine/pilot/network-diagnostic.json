@@ -1,0 +1,10 @@
+{
+  "scope": "no HTTP request, no key, no model inference",
+  "dns_ms": 21.222,
+  "families": [
+    4
+  ],
+  "tls_handshake_ms": 778.920833,
+  "tls_authorized": true,
+  "interpretation": "One separate connection sample; cannot establish the cause of the earlier timeout."
+}
