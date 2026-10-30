@@ -1,0 +1,22 @@
+[
+  {
+    "name": "typecheck",
+    "exit_code": 0
+  },
+  {
+    "name": "lint",
+    "exit_code": 0
+  },
+  {
+    "name": "unit",
+    "exit_code": 0
+  },
+  {
+    "name": "integration",
+    "exit_code": 0
+  },
+  {
+    "name": "safety",
+    "exit_code": 0
+  }
+]

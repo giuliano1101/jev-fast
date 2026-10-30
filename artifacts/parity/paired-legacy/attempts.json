@@ -1,0 +1,10 @@
+[
+  {
+    "trial_id": "cancel-direct",
+    "attempt": 1,
+    "started_at": "2026-10-30T06:43:25.282Z",
+    "transport_error": true,
+    "finished_at": "2026-10-30T06:43:27.205Z",
+    "observed_ms": 1922.8056249999997
+  }
+]

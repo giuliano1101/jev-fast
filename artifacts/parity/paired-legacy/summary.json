@@ -1,0 +1,22 @@
+{
+  "planned": 9,
+  "live": true,
+  "projection": "legacy",
+  "stop_reason": "UPSTREAM_TRANSPORT_UNKNOWN",
+  "cleanup_errors": [],
+  "confidence_trace": false,
+  "success": 0,
+  "total": 1,
+  "budget": {
+    "approval": {
+      "approval_id": "entry-parity-20261030",
+      "expires_at": 1793428866659,
+      "max_requests": 60,
+      "max_cost_usd": 0.2,
+      "reservation_usd": 0.003
+    },
+    "requests": 1,
+    "reserved_usd": 0.003
+  },
+  "attempts": 1
+}

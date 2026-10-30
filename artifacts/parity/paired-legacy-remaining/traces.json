@@ -1,0 +1,396 @@
+{
+  "cancel-cli": [
+    {
+      "goal": {
+        "task": "cancel",
+        "language": "en"
+      },
+      "summary": {
+        "task": "cancel",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "cancel-mcp": [
+    {
+      "goal": {
+        "task": "cancel",
+        "language": "en"
+      },
+      "summary": {
+        "task": "cancel",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "correction-cli": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click submit (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true
+      },
+      "candidates": [
+        "fill email (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "correction-mcp": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click submit (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true
+      },
+      "candidates": [
+        "fill email (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "correction-direct": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click submit (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true
+      },
+      "candidates": [
+        "fill email (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "form-mcp": [
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "fill name (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click next (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "select category (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click submit (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "form-direct": [
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "fill name (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click next (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "select category (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click submit (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    }
+  ],
+  "form-cli": [
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "fill name (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click next (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "select category (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click submit (synthetic action)",
+        "click cancel (synthetic action)"
+      ]
+    }
+  ]
+}

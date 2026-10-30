@@ -1,0 +1,689 @@
+{
+  "cancel-direct": [
+    {
+      "goal": {
+        "task": "cancel",
+        "language": "en"
+      },
+      "summary": {
+        "task": "cancel",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Cancel the synthetic task without submitting.",
+          "next_step": "cancel",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Cancel to carry out the requested cancellation without submitting."
+      ]
+    }
+  ],
+  "cancel-cli": [
+    {
+      "goal": {
+        "task": "cancel",
+        "language": "en"
+      },
+      "summary": {
+        "task": "cancel",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Cancel the synthetic task without submitting.",
+          "next_step": "cancel",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Cancel to carry out the requested cancellation without submitting."
+      ]
+    }
+  ],
+  "cancel-mcp": [
+    {
+      "goal": {
+        "task": "cancel",
+        "language": "en"
+      },
+      "summary": {
+        "task": "cancel",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Cancel the synthetic task without submitting.",
+          "next_step": "cancel",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Cancel to carry out the requested cancellation without submitting."
+      ]
+    }
+  ],
+  "correction-direct": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "fill_email",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill the required synthetic email to correct the visible email validation error.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": false,
+          "email_matches_goal": true,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the email is corrected and ready to submit despite the previous error message.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "correction-cli": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "fill_email",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill the required synthetic email to correct the visible email validation error.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": false,
+          "email_matches_goal": true,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the email is corrected and ready to submit despite the previous error message.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "correction-mcp": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "fill_email",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill the required synthetic email to correct the visible email validation error.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": false,
+          "email_matches_goal": true,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the email is corrected and ready to submit despite the previous error message.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "form-direct": [
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "fill_name",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill name with the required synthetic value; current name does not match the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "next",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Next to continue; the name already matches the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "select_category",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Select the target category; the current selection does not match the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": true,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the name and category are ready to submit.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "form-cli": [
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "fill_name",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill name with the required synthetic value; current name does not match the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "next",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Next to continue; the name already matches the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "select_category",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Select the target category; the current selection does not match the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": true,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the name and category are ready to submit.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "form-mcp": [
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "fill_name",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill name with the required synthetic value; current name does not match the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "next",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Next to continue; the name already matches the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "select_category",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Select the target category; the current selection does not match the task.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "form",
+        "language": "en"
+      },
+      "summary": {
+        "task": "form",
+        "step": 1,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Fill the name, click Next, select the target category, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": true,
+          "email_matches_goal": false,
+          "category_matches_goal": true,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the name and category are ready to submit.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ]
+}

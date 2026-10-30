@@ -1,0 +1,28 @@
+[
+  {
+    "scope": "entry-parity-20261030",
+    "requests": 45,
+    "reserved_usd": 0.135,
+    "active_principals": 0
+  },
+  {
+    "scope": "s10-c-20261030",
+    "requests": 29,
+    "reserved_usd": 0.087,
+    "active_principals": 0
+  },
+  {
+    "runtime": "r-legacy",
+    "sessions_closed": true,
+    "actions": 14,
+    "all_actions_jev": true,
+    "service_lock_remaining": false
+  },
+  {
+    "runtime": "r-rich",
+    "sessions_closed": true,
+    "actions": 24,
+    "all_actions_jev": true,
+    "service_lock_remaining": false
+  }
+]

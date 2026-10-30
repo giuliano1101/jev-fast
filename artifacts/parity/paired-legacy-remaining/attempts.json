@@ -1,0 +1,322 @@
+[
+  {
+    "trial_id": "cancel-cli",
+    "attempt": 1,
+    "started_at": "2026-10-30T06:46:18.519Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:19.589Z",
+    "headers_ms": 1069.6822919999997,
+    "usage": {
+      "input_tokens": 471,
+      "output_tokens": 90
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:19.598Z",
+    "observed_ms": 1079.2662090000001
+  },
+  {
+    "trial_id": "cancel-mcp",
+    "attempt": 2,
+    "started_at": "2026-10-30T06:46:20.202Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:20.567Z",
+    "headers_ms": 364.87625000000025,
+    "usage": {
+      "input_tokens": 469,
+      "output_tokens": 86
+    },
+    "confidence": 1,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:20.569Z",
+    "observed_ms": 366.6749170000003
+  },
+  {
+    "trial_id": "correction-cli",
+    "attempt": 3,
+    "started_at": "2026-10-30T06:46:21.313Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:21.615Z",
+    "headers_ms": 302.1591670000007,
+    "usage": {
+      "input_tokens": 518,
+      "output_tokens": 118
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:21.816Z",
+    "observed_ms": 503.19158400000015
+  },
+  {
+    "trial_id": "correction-cli",
+    "attempt": 4,
+    "started_at": "2026-10-30T06:46:21.948Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:22.218Z",
+    "headers_ms": 270.46349999999984,
+    "usage": {
+      "input_tokens": 525,
+      "output_tokens": 129
+    },
+    "confidence": 0.66,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:22.220Z",
+    "observed_ms": 271.90500000000065
+  },
+  {
+    "trial_id": "correction-mcp",
+    "attempt": 5,
+    "started_at": "2026-10-30T06:46:22.691Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:22.987Z",
+    "headers_ms": 296.22662499999933,
+    "usage": {
+      "input_tokens": 522,
+      "output_tokens": 125
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:23.190Z",
+    "observed_ms": 498.9314169999998
+  },
+  {
+    "trial_id": "correction-mcp",
+    "attempt": 6,
+    "started_at": "2026-10-30T06:46:23.310Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:23.712Z",
+    "headers_ms": 402.5536659999998,
+    "usage": {
+      "input_tokens": 522,
+      "output_tokens": 124
+    },
+    "confidence": 0.7,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:23.715Z",
+    "observed_ms": 404.82537500000035
+  },
+  {
+    "trial_id": "correction-direct",
+    "attempt": 7,
+    "started_at": "2026-10-30T06:46:24.038Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:24.327Z",
+    "headers_ms": 288.6872919999996,
+    "usage": {
+      "input_tokens": 522,
+      "output_tokens": 124
+    },
+    "confidence": 0.92,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:24.518Z",
+    "observed_ms": 479.93245899999965
+  },
+  {
+    "trial_id": "correction-direct",
+    "attempt": 8,
+    "started_at": "2026-10-30T06:46:24.662Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:24.956Z",
+    "headers_ms": 294.19395799999984,
+    "usage": {
+      "input_tokens": 524,
+      "output_tokens": 126
+    },
+    "confidence": 0.7,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:24.957Z",
+    "observed_ms": 295.01887499999975
+  },
+  {
+    "trial_id": "form-mcp",
+    "attempt": 9,
+    "started_at": "2026-10-30T06:46:25.277Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:25.570Z",
+    "headers_ms": 293.41412499999933,
+    "usage": {
+      "input_tokens": 519,
+      "output_tokens": 124
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:25.571Z",
+    "observed_ms": 294.70366599999943
+  },
+  {
+    "trial_id": "form-mcp",
+    "attempt": 10,
+    "started_at": "2026-10-30T06:46:25.658Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:25.999Z",
+    "headers_ms": 341.2834160000002,
+    "usage": {
+      "input_tokens": 517,
+      "output_tokens": 123
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:26.136Z",
+    "observed_ms": 478.27850000000035
+  },
+  {
+    "trial_id": "form-mcp",
+    "attempt": 11,
+    "started_at": "2026-10-30T06:46:26.263Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:26.627Z",
+    "headers_ms": 364.7686670000003,
+    "usage": {
+      "input_tokens": 515,
+      "output_tokens": 119
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:26.630Z",
+    "observed_ms": 367.21558300000106
+  },
+  {
+    "trial_id": "form-mcp",
+    "attempt": 12,
+    "started_at": "2026-10-30T06:46:26.720Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:27.061Z",
+    "headers_ms": 341.68575000000055,
+    "usage": {
+      "input_tokens": 518,
+      "output_tokens": 125
+    },
+    "confidence": 0.8,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:27.178Z",
+    "observed_ms": 457.9677499999998
+  },
+  {
+    "trial_id": "form-direct",
+    "attempt": 13,
+    "started_at": "2026-10-30T06:46:27.533Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:27.905Z",
+    "headers_ms": 371.8149590000012,
+    "usage": {
+      "input_tokens": 520,
+      "output_tokens": 127
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:28.097Z",
+    "observed_ms": 563.9431670000013
+  },
+  {
+    "trial_id": "form-direct",
+    "attempt": 14,
+    "started_at": "2026-10-30T06:46:28.187Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:28.457Z",
+    "headers_ms": 270.41620799999873,
+    "usage": {
+      "input_tokens": 518,
+      "output_tokens": 126
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:28.458Z",
+    "observed_ms": 270.90625
+  },
+  {
+    "trial_id": "form-direct",
+    "attempt": 15,
+    "started_at": "2026-10-30T06:46:28.573Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:29.297Z",
+    "headers_ms": 724.539041,
+    "usage": {
+      "input_tokens": 519,
+      "output_tokens": 125
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:29.298Z",
+    "observed_ms": 725.4896250000002
+  },
+  {
+    "trial_id": "form-direct",
+    "attempt": 16,
+    "started_at": "2026-10-30T06:46:29.371Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:29.672Z",
+    "headers_ms": 301.02958299999955,
+    "usage": {
+      "input_tokens": 517,
+      "output_tokens": 121
+    },
+    "confidence": 0.76,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:29.849Z",
+    "observed_ms": 477.94124999999985
+  },
+  {
+    "trial_id": "form-cli",
+    "attempt": 17,
+    "started_at": "2026-10-30T06:46:30.487Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:30.801Z",
+    "headers_ms": 314.00874999999905,
+    "usage": {
+      "input_tokens": 514,
+      "output_tokens": 118
+    },
+    "confidence": 0.96,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:30.802Z",
+    "observed_ms": 315.3630409999987
+  },
+  {
+    "trial_id": "form-cli",
+    "attempt": 18,
+    "started_at": "2026-10-30T06:46:30.891Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:31.242Z",
+    "headers_ms": 351.6025419999987,
+    "usage": {
+      "input_tokens": 520,
+      "output_tokens": 128
+    },
+    "confidence": 0.94,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:31.244Z",
+    "observed_ms": 353.06933299999946
+  },
+  {
+    "trial_id": "form-cli",
+    "attempt": 19,
+    "started_at": "2026-10-30T06:46:31.385Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:31.661Z",
+    "headers_ms": 275.68179099999907,
+    "usage": {
+      "input_tokens": 512,
+      "output_tokens": 111
+    },
+    "confidence": 0.98,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:31.662Z",
+    "observed_ms": 276.90862500000003
+  },
+  {
+    "trial_id": "form-cli",
+    "attempt": 20,
+    "started_at": "2026-10-30T06:46:31.730Z",
+    "http_status": 200,
+    "headers_at": "2026-10-30T06:46:32.102Z",
+    "headers_ms": 372.02587499999936,
+    "usage": {
+      "input_tokens": 514,
+      "output_tokens": 116
+    },
+    "confidence": 0.74,
+    "observation": "BOUNDED_JSON",
+    "finished_at": "2026-10-30T06:46:32.104Z",
+    "observed_ms": 373.81383300000016
+  }
+]

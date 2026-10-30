@@ -2,6 +2,7 @@ import { createHash, sign, verify, type KeyObject } from 'node:crypto';
 import { z } from 'zod';
 import { candidateSchema, decisionSchema, idSchema, taskSchema, validateDecision, type Candidate, type Decision } from '../core/contracts.js';
 import { Fault } from '../core/errors.js';
+import {fixtureProjectionSchema,richCandidateDescriptions,taskInstructions} from '../browser/projection.js';
 
 export const digestSchema = z.string().regex(/^sha256:[a-f0-9]{64}$/);
 const ttlSchema = z.number().int().positive().max(2000);
@@ -9,13 +10,14 @@ const nonceSchema = z.string().regex(/^[a-f0-9]{32,64}$/);
 export const identitySchema = z.strictObject({ owner_id:idSchema, device_id:idSchema, agent_id:idSchema });
 export type AuthenticatedIdentity = z.infer<typeof identitySchema>;
 export const executionContextSchema = z.strictObject({ session_id:idSchema, goal_id:idSchema, lease_epoch:z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER), policy_version:z.literal('p0-v1'), adapter_version:z.literal('fixture-v1') });
-const summarySchema = z.strictObject({task:taskSchema,step:z.number().int().min(0).max(1),submitted:z.number().int().min(0).max(100),cancelled:z.boolean(),loaded:z.boolean(),scrolled:z.boolean(),error:z.boolean()});
-const descriptions = new Set(['wait loaded','back back']);
+const legacySummarySchema = z.strictObject({task:taskSchema,step:z.number().int().min(0).max(1),submitted:z.number().int().min(0).max(100),cancelled:z.boolean(),loaded:z.boolean(),scrolled:z.boolean(),error:z.boolean()});
+const summarySchema=z.union([legacySummarySchema,legacySummarySchema.extend({projection:fixtureProjectionSchema})]).refine(value=>!('projection' in value)||value.projection.instruction===taskInstructions[value.task]);
+const descriptions = new Set(['wait loaded','back back',...richCandidateDescriptions]);
 for (const action of ['fill name','fill email','fill query','select category','click cancel','click detail','click load','click submit','click next','scroll bottom']) {
     for (const label of ['synthetic action','模拟操作']) descriptions.add(`${action} (${label})`);
 }
 const inputSchema = z.strictObject({ synthetic:z.literal(true), snapshot_id:idSchema,
-    summary:z.string().max(512).refine(value => {
+    summary:z.string().max(1024).refine(value => {
         try { const parsed=summarySchema.parse(JSON.parse(value)); return JSON.stringify(parsed)===value; } catch { return false; }
     }),
     goal:z.strictObject({task:taskSchema,language:z.enum(['en','zh'])}),

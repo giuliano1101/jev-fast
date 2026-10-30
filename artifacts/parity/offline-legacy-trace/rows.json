@@ -1,0 +1,317 @@
+[
+  {
+    "id": "cancel-direct",
+    "task": "cancel",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "d59bacee-53bc-46a7-b668-b16e8da2193d",
+      "goal_id": "cancel-direct",
+      "idempotency_key": "cancel-direct",
+      "request_hash": "837b80327eb481ce0563bb7a7910ce38d0e7e2e528e5634bee6f76f2dc265c41",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 193.24041699999998,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "9375cd05-e02f-4d91-b030-1f43d702c965"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 677.6451669999999
+  },
+  {
+    "id": "cancel-cli",
+    "task": "cancel",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "aecdedfa-4ee8-4cc3-9677-bdfe971819f8",
+      "goal_id": "cancel-cli",
+      "idempotency_key": "cancel-cli",
+      "request_hash": "0dd3e83aafa592f53145fd9a5ab130152c1ba2ec4bdd538aa1604b4803d28973",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 182.5748749999998,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "8b779a06-6a88-4ce0-a22b-d955ca8000c5"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 890.8131669999998
+  },
+  {
+    "id": "cancel-mcp",
+    "task": "cancel",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "3e2c613d-f749-40ef-bf42-a8b3a2a8e6e8",
+      "goal_id": "cancel-mcp",
+      "idempotency_key": "cancel-mcp",
+      "request_hash": "194389e318c97cd1e1a1dc5d7ec8e7301b09f5fc955a5efeb70c980dc7c1fc34",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 173.21737499999972,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "44806c28-cd2b-4cff-b96b-d6c63f2d465c"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 362.57991600000014
+  },
+  {
+    "id": "correction-direct",
+    "task": "correction",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "1f336218-48e4-47ec-a348-391fde18956d",
+      "goal_id": "correction-direct",
+      "idempotency_key": "correction-direct",
+      "request_hash": "43af2720470d0b617dbf05a6dcbe4516b04e11960912430c1968fe0b271c2785",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 174.61908300000005,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "3804f3b7-5cd2-4b9c-bd57-2659e4b18df2"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 354.87533299999996
+  },
+  {
+    "id": "correction-cli",
+    "task": "correction",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "e604f4a0-9cc3-40d8-8502-6b7aa32ee9b6",
+      "goal_id": "correction-cli",
+      "idempotency_key": "correction-cli",
+      "request_hash": "a3bc4b312aa74c39ed0c6f35cabea98cee43ded245de7efdfaae3e0b8250a30c",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 186.82383299999992,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "afe89090-9065-4fa5-9a52-eabc60b5ff6c"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 902.4195
+  },
+  {
+    "id": "correction-mcp",
+    "task": "correction",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "6480f1a3-af68-4cef-b4af-86d773289842",
+      "goal_id": "correction-mcp",
+      "idempotency_key": "correction-mcp",
+      "request_hash": "055a44f5799979bed06e4ea9acd3fef3cf184b238654e28fc0c0a395d231a015",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 223.813666,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "ef2e1593-f7aa-4ba1-b388-824910383143"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 430.7414170000002
+  },
+  {
+    "id": "form-direct",
+    "task": "form",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "3aeb4c2c-78e1-48e7-94df-b96e6a78777f",
+      "goal_id": "form-direct",
+      "idempotency_key": "form-direct",
+      "request_hash": "335b99484543d939b1cf31dcf295ce5c34c75c9ade16b4a674edffc5f8d2efef",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 318.8402499999993,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "b50b2583-2b28-45aa-ab1f-9a4a27727fc6",
+        "5241fbf9-7a7a-49a9-a8a9-35234b8487a7",
+        "edbf967c-7fd7-498c-9e82-5c1f00a2edaa"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 494.78408299999955
+  },
+  {
+    "id": "form-cli",
+    "task": "form",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "424e3eb3-5d74-4e45-a992-5f7e7decefa1",
+      "goal_id": "form-cli",
+      "idempotency_key": "form-cli",
+      "request_hash": "23994f9ac46443c4018219ede16868ab7f49bc0fe2712db8027aaa404aea1e0c",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 317.5281249999998,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "676c086f-4a97-4f69-a3bc-7616807db0a1",
+        "583c425a-c534-4694-acc1-315787d806c9",
+        "40604b62-ff36-4abe-8178-162d7c3ade49"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 1069.3938749999998
+  },
+  {
+    "id": "form-mcp",
+    "task": "form",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "a3e45931-c957-42be-8c42-81da8da77262",
+      "goal_id": "form-mcp",
+      "idempotency_key": "form-mcp",
+      "request_hash": "5e4379267b4634514f4558708bb69bd49f4331f9ef4073c9aff82826c8ff15f3",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 303.7129590000004,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "390c62e2-ec57-437c-b3bf-3fdd43940a3c",
+        "299ac518-baba-479f-9b6c-fc64962eebb6",
+        "f3eb3a4b-2ee4-4462-ad76-b3a1bfbc0f84"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 485.28179199999977
+  }
+]

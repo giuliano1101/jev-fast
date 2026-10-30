@@ -6,9 +6,10 @@ import {performance} from 'node:perf_hooks';
 import {readFrame,sensitiveSelector} from './frame.js';
 import {Fault,ExecutionNotStarted} from '../core/errors.js';
 import {canonicalDigest} from '../remote/protocol.js';
+import {projectFixture,describeFixtureCandidate} from './projection.js';
 interface Bound {candidate:Candidate;node:ElementHandle<HTMLElement|SVGElement>|null;value?:string;signature:string;}
 interface Session {context:BrowserContext;page:Page;goalKey?:string;goal?:Goal;snapshot?:Snapshot;bound:Map<string,Bound>;}
-export interface BrowserOptions {executablePath?:string;onPage?:(id:string,page:Page)=>void;}
+export interface BrowserOptions {projection?:'legacy'|'rich';executablePath?:string;onPage?:(id:string,page:Page)=>void;}
 export class BrowserAdapter implements BrowserPort {
  readonly blockedRequests:string[]=[];
  private browser?:Browser;private sessions=new Map<string,Session>();
@@ -72,16 +73,18 @@ export class BrowserAdapter implements BrowserPort {
   }
   const frame=await readFrame(s.page,this.origin);const {state}=frame;const v=frame;const snapshotId=randomUUID();
   const now=Date.now();
-  const snapshot:Snapshot={session_id:id,snapshot_id:snapshotId,document_epoch:v.epoch,mutation_version:v.version,url:frame.url,origin:this.origin,created_at:now,expires_at:now+2000,fingerprint:createHash('sha256').update(JSON.stringify(state)).digest('hex'),safe_summary:JSON.stringify({task:state.task,step:state.step,submitted:state.submitted,cancelled:state.cancelled,loaded:state.loaded,scrolled:state.scrolled,error:state.error}),synthetic:true,nodes:[],candidates:[]};
+  const projection=this.options.projection!=='legacy'&&(goal??s.goal)?projectFixture(state,(goal??s.goal)!):undefined;
+  const snapshot:Snapshot={session_id:id,snapshot_id:snapshotId,document_epoch:v.epoch,mutation_version:v.version,url:frame.url,origin:this.origin,created_at:now,expires_at:now+2000,fingerprint:createHash('sha256').update(JSON.stringify(state)).digest('hex'),safe_summary:JSON.stringify({task:state.task,step:state.step,submitted:state.submitted,cancelled:state.cancelled,loaded:state.loaded,scrolled:state.scrolled,error:state.error,...(projection?{projection}:{})}),synthetic:true,nodes:[],candidates:[]};
   for(const bound of s.bound.values())await bound.node?.dispose();s.bound.clear();
   if(goal&&!state.complete&&!state.cancelled){const values=this.synthetic(goal);
    const add=async(ref:string,op:Candidate['operation'],post:Predicate,value?:string)=>{
+    if(projection&&((post.kind==='field'&&state[post.field]===post.value)||(post.kind==='flag'&&state[post.name]===post.value)||(post.kind==='count'&&state.submitted===post.value)||(post.kind==='page'&&new URL(frame.url).pathname===post.path)))return;
     const locator=s.page.locator(`[data-ref="${ref}"]:visible`);const count=await locator.count();if(count>1)throw new Fault('AMBIGUOUS_TARGET');if(count!==1||!await locator.isEnabled())return;
     const node=await locator.elementHandle();if(!node)return;
-    const candidate:Candidate={candidate_id:randomUUID(),snapshot_id:snapshotId,operation:op,target_ref:ref,params_ref:randomUUID(),risk_class:'fixture',preconditions:[],expected_postcondition:post,policy_version:'p0-v1',description:`${op} ${ref} (${goal.language==='zh'?'模拟操作':'synthetic action'})`};
+    const candidate:Candidate={candidate_id:randomUUID(),snapshot_id:snapshotId,operation:op,target_ref:ref,params_ref:randomUUID(),risk_class:'fixture',preconditions:[],expected_postcondition:post,policy_version:'p0-v1',description:projection?describeFixtureCandidate(ref,op,projection,goal.task):`${op} ${ref} (${goal.language==='zh'?'模拟操作':'synthetic action'})`};
     s.bound.set(candidate.candidate_id,{candidate,node,value,signature:await node.evaluate(el=>JSON.stringify({html:el.outerHTML,value:(el as HTMLInputElement).value}))});snapshot.candidates.push(candidate);
    };
-   const virtual=(ref:string,op:'wait'|'back',post:Predicate)=>{const candidate:Candidate={candidate_id:randomUUID(),snapshot_id:snapshotId,operation:op,target_ref:ref,params_ref:randomUUID(),risk_class:'fixture',preconditions:[],expected_postcondition:post,policy_version:'p0-v1',description:`${op} ${ref}`};s.bound.set(candidate.candidate_id,{candidate,node:null,signature:''});snapshot.candidates.push(candidate);};
+   const virtual=(ref:string,op:'wait'|'back',post:Predicate)=>{if(projection&&post.kind==='flag'&&state[post.name]===post.value)return;const candidate:Candidate={candidate_id:randomUUID(),snapshot_id:snapshotId,operation:op,target_ref:ref,params_ref:randomUUID(),risk_class:'fixture',preconditions:[],expected_postcondition:post,policy_version:'p0-v1',description:projection?describeFixtureCandidate(ref,op,projection,goal.task):`${op} ${ref}`};s.bound.set(candidate.candidate_id,{candidate,node:null,signature:''});snapshot.candidates.push(candidate);};
    const field=(field:'name'|'email'|'category'|'query'):Predicate=>({kind:'field',field,value:values[field]});
    switch(goal.task){
     case 'cancel':await add('cancel','click',{kind:'flag',name:'cancelled',value:true});break;
@@ -92,7 +95,7 @@ export class BrowserAdapter implements BrowserPort {
     case 'scroll':await add('bottom','scroll',{kind:'flag',name:'scrolled',value:true});break;
     case 'async':case 'wait':if(!state.step)await add('load','click',{kind:'step',value:1});else virtual('loaded','wait',{kind:'flag',name:'loaded',value:true});break;
     case 'correction':
-     if(!state.error)await add('submit','click',{kind:'flag',name:'error',value:true});
+     if(!state.error&&(!projection||state.email!==values.email))await add('submit','click',{kind:'flag',name:'error',value:true});
      else if(state.email!==values.email)await add('email','fill',field('email'),values.email);
      else await add('submit','click',{kind:'count',value:1});break;
     default:

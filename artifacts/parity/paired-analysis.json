@@ -1,0 +1,63 @@
+{
+  "legacy_success": 2,
+  "rich_success": 9,
+  "planned_each": 9,
+  "by_entry": {
+    "cli": {
+      "legacy": 1,
+      "rich": 3,
+      "planned": 3
+    },
+    "direct": {
+      "legacy": 0,
+      "rich": 3,
+      "planned": 3
+    },
+    "mcp": {
+      "legacy": 1,
+      "rich": 3,
+      "planned": 3
+    }
+  },
+  "by_task": {
+    "cancel": {
+      "legacy": 2,
+      "rich": 3,
+      "planned": 3
+    },
+    "correction": {
+      "legacy": 0,
+      "rich": 3,
+      "planned": 3
+    },
+    "form": {
+      "legacy": 0,
+      "rich": 3,
+      "planned": 3
+    }
+  },
+  "legacy_e2e": {
+    "p50_ms": 2226.7008749999995,
+    "p95_ms": 2672.0616659999996
+  },
+  "rich_e2e": {
+    "p50_ms": 2327.929333,
+    "p95_ms": 3060.584458000001
+  },
+  "new_budget": {
+    "attempts": 45,
+    "known_usage": 44,
+    "unknown_usage": 1,
+    "known_input_tokens": 24165,
+    "estimated_known_cost_usd": 0.00101493,
+    "reserved_usd": 0.135,
+    "cap_usd": 0.2,
+    "cap_requests": 60
+  },
+  "old_budget_cumulative": {
+    "requests": 29,
+    "reserved_usd": 0.087,
+    "cap_requests": 30,
+    "cap_usd": 0.1
+  }
+}

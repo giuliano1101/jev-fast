@@ -1,0 +1,25 @@
+{
+  "skipped_previous": [
+    "cancel-direct"
+  ],
+  "planned": 9,
+  "live": true,
+  "projection": "legacy",
+  "stop_reason": null,
+  "cleanup_errors": [],
+  "confidence_trace": false,
+  "success": 2,
+  "total": 8,
+  "budget": {
+    "approval": {
+      "approval_id": "entry-parity-20261030",
+      "expires_at": 1793428866659,
+      "max_requests": 60,
+      "max_cost_usd": 0.2,
+      "reservation_usd": 0.003
+    },
+    "requests": 45,
+    "reserved_usd": 0.135
+  },
+  "attempts": 20
+}

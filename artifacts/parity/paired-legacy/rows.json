@@ -1,0 +1,24 @@
+[
+  {
+    "id": "cancel-direct",
+    "task": "cancel",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "54a05bf7-bdbe-4b4f-8873-d32426c03a3c",
+      "goal_id": "cancel-direct",
+      "idempotency_key": "cancel-direct",
+      "request_hash": "c6e6d427117f6ce95482f19c00a5b167fbd9482e92438d1cfaa230440ff8e75c",
+      "status": "FALLBACK",
+      "steps": 0,
+      "elapsed_ms": 2025.9991659999998,
+      "reason": "PROVIDER_DEADLINE",
+      "evidence": [],
+      "action_ids": []
+    },
+    "status": "FALLBACK",
+    "actions": [],
+    "elapsed_ms": 2620.3475839999996
+  }
+]

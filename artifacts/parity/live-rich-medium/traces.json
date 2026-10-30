@@ -1,0 +1,260 @@
+{
+  "correction-direct": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "fill_email",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill the required synthetic email to correct the visible email validation error.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "correction-cli": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "fill_email",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill the required synthetic email to correct the visible email validation error.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": false,
+          "email_matches_goal": true,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the email is corrected and ready to submit despite the previous error message.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ],
+  "correction-mcp": [
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "show_validation",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit to display the required email validation error before correcting it.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "fill_email",
+          "name_matches_goal": false,
+          "email_matches_goal": false,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Fill the required synthetic email to correct the visible email validation error.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    },
+    {
+      "goal": {
+        "task": "correction",
+        "language": "en"
+      },
+      "summary": {
+        "task": "correction",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": true,
+        "projection": {
+          "version": "fixture-v2",
+          "instruction": "Submit to show validation, fill the required synthetic email, then submit once.",
+          "next_step": "submit",
+          "name_matches_goal": false,
+          "email_matches_goal": true,
+          "category_matches_goal": false,
+          "query_matches_goal": false
+        }
+      },
+      "candidates": [
+        "Click Submit once; the email is corrected and ready to submit despite the previous error message.",
+        "Click Cancel to abandon the current task without completing its requested steps."
+      ]
+    }
+  ]
+}

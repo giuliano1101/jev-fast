@@ -1,0 +1,11 @@
+{
+  "new_attempts": 9,
+  "new_known_usage_attempts": 9,
+  "new_input_tokens": 5307,
+  "new_estimated_known_cost_usd": 0.000222894,
+  "cumulative_budget_requests": 29,
+  "cumulative_conservative_reserved_usd": 0.087,
+  "original_cap_requests": 30,
+  "original_cap_usd": 0.1,
+  "new_approval_pending": true
+}

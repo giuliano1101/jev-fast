@@ -1,0 +1,286 @@
+[
+  {
+    "id": "cancel-cli",
+    "task": "cancel",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "6617ee18-61ff-4c88-8ec5-0ce8ac8a67e1",
+      "goal_id": "cancel-cli",
+      "idempotency_key": "cancel-cli",
+      "request_hash": "4bf98a44355a9aedcb1ccb27ee6b6fdb493160b29902ac602bee7185c5b5f256",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 1292.454208,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "8a9f8169-571f-4616-a3cb-de275c0af25f"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 2503.8882919999996
+  },
+  {
+    "id": "cancel-mcp",
+    "task": "cancel",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "c7682235-606a-41f5-a1d5-f149002084ae",
+      "goal_id": "cancel-mcp",
+      "idempotency_key": "cancel-mcp",
+      "request_hash": "6e5a899022a8aaf9d4ca1a8c22aab39eba91331a806237aec26abd053bcc9c8d",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 569.478333,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "1e5b6967-6fb4-43a0-b4fa-27ee30b79b32"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 761.996709
+  },
+  {
+    "id": "correction-cli",
+    "task": "correction",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "244c565f-a4e5-4b84-9289-49eb93b07f7a",
+      "goal_id": "correction-cli",
+      "idempotency_key": "correction-cli",
+      "request_hash": "0e353bc346dc3b1b10b10ebcbc575b26d1ef063658959c31dd3ad61fb103fdef",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1008.4300000000003,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "930ebd59-c240-4249-83dd-e421974f114c"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 1754.8179579999996
+  },
+  {
+    "id": "correction-mcp",
+    "task": "correction",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "0d44578a-2a2f-479e-afb9-3cd82f254caa",
+      "goal_id": "correction-mcp",
+      "idempotency_key": "correction-mcp",
+      "request_hash": "871b36ed4e4056e31c9f88441d466d4ca5fb0b712c1d72197545c1dae260339e",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1112.5636249999998,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "9875c4f5-b1ff-4d4c-9b8a-2c3da6e1e2af"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 1295.0380839999998
+  },
+  {
+    "id": "correction-direct",
+    "task": "correction",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "71ec0027-1a7c-47e8-a2f3-3aafe0401df2",
+      "goal_id": "correction-direct",
+      "idempotency_key": "correction-direct",
+      "request_hash": "9b5cae28e894807a4d3a848251da45143747e662dd2ecf7661b697d10eb354c9",
+      "status": "FALLBACK",
+      "steps": 1,
+      "elapsed_ms": 1016.0940839999994,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "21937d59-3191-40f5-84f5-6177d8514012"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 1230.672208
+  },
+  {
+    "id": "form-mcp",
+    "task": "form",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "cee355b5-90c6-40ec-b5c4-f07cc8c3a0b9",
+      "goal_id": "form-mcp",
+      "idempotency_key": "form-mcp",
+      "request_hash": "0a43e7c64a5408a8db6e711ed61b5b05e621ef6ab466a7c3c483171ed4118036",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 1996.8188329999994,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "b8f21d39-e7f6-4380-bc18-adca08316471",
+        "37d5bebd-ecf7-479e-b3ad-f339757b5513",
+        "493aee0d-28f7-4279-95bc-38a56f2e4fc2"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 2226.7008749999995
+  },
+  {
+    "id": "form-direct",
+    "task": "form",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "b7c2c84e-3499-4d84-9c64-aaa1d5aa6327",
+      "goal_id": "form-direct",
+      "idempotency_key": "form-direct",
+      "request_hash": "87956c2b4fbcef70d698474eb3c9238b626e71e01568a4cd4f0b91a4bda87c48",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 2411.7755419999994,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "cd4ad103-fd4a-4d5f-bebf-b82d4cc43a6a",
+        "076f9e55-f5a3-470f-ab14-0af24d0a32d0",
+        "6bcb74a7-5182-4c4d-b5eb-60a4bca90e21"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 2672.0616659999996
+  },
+  {
+    "id": "form-cli",
+    "task": "form",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "31909419-5f03-4206-a4d7-e5d74a5cb978",
+      "goal_id": "form-cli",
+      "idempotency_key": "form-cli",
+      "request_hash": "2d91552aa44ffee8ded51f9eb24551eead2c92880b1ea28d75ca76b06ee6594c",
+      "status": "FALLBACK",
+      "steps": 3,
+      "elapsed_ms": 1707.9243339999994,
+      "reason": "INVALID_DECISION",
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "7983caa4-3b11-4778-8bc9-96e8d3e2463c",
+        "41c5502f-ae86-4faf-89be-97354cd13e37",
+        "0e09df01-ef65-4d58-a03f-31f623764d8e"
+      ]
+    },
+    "status": "FALLBACK",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "jev"
+      }
+    ],
+    "elapsed_ms": 2457.6077920000007
+  }
+]

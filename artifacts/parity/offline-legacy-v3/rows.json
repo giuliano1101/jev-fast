@@ -1,0 +1,371 @@
+[
+  {
+    "id": "cancel-direct",
+    "task": "cancel",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "10da3ccd-fea7-4da8-9acb-baabc9a80c9d",
+      "goal_id": "cancel-direct",
+      "idempotency_key": "cancel-direct",
+      "request_hash": "f77a7ed4a687cfc2795eda07971b008a3cee9322368749d866b335fb0065db4d",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 241.33512500000006,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "85cef785-2cc7-45e1-90b2-afd3b2d729da"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 892.007375
+  },
+  {
+    "id": "cancel-cli",
+    "task": "cancel",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "bc2c7760-a818-415f-ad32-872ce470af4a",
+      "goal_id": "cancel-cli",
+      "idempotency_key": "cancel-cli",
+      "request_hash": "d4d34a6b98f3a4db2ce258957376cbab9f824b8d4f6d50594ea3da1b5f495e0d",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 279.77537500000017,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "43debb94-f0d1-4302-97f8-7bf7fdfdc818"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 1404.5045000000002
+  },
+  {
+    "id": "cancel-mcp",
+    "task": "cancel",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "2318f143-da0c-4715-83bb-78db4d0c457e",
+      "goal_id": "cancel-mcp",
+      "idempotency_key": "cancel-mcp",
+      "request_hash": "689e115a42c9aaf7408ce4795eea39b3c825bb3f7cb2d8f61cec08345b747dfc",
+      "status": "SUCCEEDED",
+      "steps": 1,
+      "elapsed_ms": 248.5370839999996,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "ea3bef21-8582-4425-8152-18ecf7cdef02"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 534.2397919999999
+  },
+  {
+    "id": "correction-direct",
+    "task": "correction",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "707f08c2-fd23-48c6-b0eb-dc7274568a99",
+      "goal_id": "correction-direct",
+      "idempotency_key": "correction-direct",
+      "request_hash": "dc9592f8ec1e3a5674a86e06dbd57bb0c5865e9da295900c0d5cca089c3dc37e",
+      "status": "SUCCEEDED",
+      "steps": 3,
+      "elapsed_ms": 507.25145799999973,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "4d2f4568-123d-466f-831c-756aa6ad9783",
+        "9cc63bcd-97fa-4ad8-a364-27186ada7047",
+        "5e600ec8-304e-4ca2-b2b8-0db30d518790"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 744.744792
+  },
+  {
+    "id": "correction-cli",
+    "task": "correction",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "6c4afdb3-6a91-4c22-9f0d-dae1e01a240d",
+      "goal_id": "correction-cli",
+      "idempotency_key": "correction-cli",
+      "request_hash": "080a30a191ca02ef0930df3159f7dad1833fd15dc3c932697ad824bff4134123",
+      "status": "SUCCEEDED",
+      "steps": 3,
+      "elapsed_ms": 535.4028339999995,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "5e8c214b-2eae-4047-8eda-4f89b6b644e9",
+        "99abe55b-8614-4cb0-a738-31f28c34c189",
+        "186065f3-0332-4e7e-8aea-7c63326623c9"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 1660.2019169999994
+  },
+  {
+    "id": "correction-mcp",
+    "task": "correction",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "6b3beadc-5089-43f9-b001-f8508d66b905",
+      "goal_id": "correction-mcp",
+      "idempotency_key": "correction-mcp",
+      "request_hash": "7c11f5fa7a92c6399ccc364db8364956e795981d454b5b325e1771d6641e84e9",
+      "status": "SUCCEEDED",
+      "steps": 3,
+      "elapsed_ms": 545.5219580000003,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "7f8c2e14-4523-4152-a4cb-68b7af66cda3",
+        "c9479842-794c-4ec1-a2cc-bed837fac218",
+        "a8db2806-7ecd-4baf-b63b-df002e45fb6b"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 759.1719590000002
+  },
+  {
+    "id": "form-direct",
+    "task": "form",
+    "entry": "direct",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "034b58c3-a398-4075-a79e-e86fcd25342f",
+      "goal_id": "form-direct",
+      "idempotency_key": "form-direct",
+      "request_hash": "1244aa25be1cbe6829d716f75a23b2c48e8f9bc5ed7a2b4d4e796adadaf72c6f",
+      "status": "SUCCEEDED",
+      "steps": 4,
+      "elapsed_ms": 592.1084580000006,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "30bc6894-bf5e-4288-a2f2-ed224c1cccf8",
+        "4634e6f5-d267-4319-96fa-0df2bfadc815",
+        "a1571604-72d8-4405-8b7e-9012671aa648",
+        "bf06f5ac-7716-4aeb-ae9d-210ced1da4e7"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 821.8669579999996
+  },
+  {
+    "id": "form-cli",
+    "task": "form",
+    "entry": "cli",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "de32c10c-1d11-47d4-9836-6c4dbdb96d6f",
+      "goal_id": "form-cli",
+      "idempotency_key": "form-cli",
+      "request_hash": "717f10f790632f9bcb22350cb6bfe59ff2a050cd86c1832a93b1b97d0c75a120",
+      "status": "SUCCEEDED",
+      "steps": 4,
+      "elapsed_ms": 473.5445839999993,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "fd849d91-00ee-4233-bc0b-431d976a88a9",
+        "696b3455-867f-4e08-958b-ef385b176a2a",
+        "bd5f625d-e546-4824-afef-81c76fa5532a",
+        "702bdf23-082a-48c0-b358-30404ce44de0"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 1307.5975829999998
+  },
+  {
+    "id": "form-mcp",
+    "task": "form",
+    "entry": "mcp",
+    "projection": "legacy",
+    "seed": 707,
+    "result": {
+      "session_id": "6ff57ec0-4d5f-4e66-a51b-486d3ad3fe81",
+      "goal_id": "form-mcp",
+      "idempotency_key": "form-mcp",
+      "request_hash": "584ea4f4b96f4135a474fa865f837ee6813a43c88088a7a4e22f9d0efd903964",
+      "status": "SUCCEEDED",
+      "steps": 4,
+      "elapsed_ms": 386.6301250000015,
+      "reason": null,
+      "evidence": [
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED",
+        "POSTCONDITION_VERIFIED"
+      ],
+      "action_ids": [
+        "a96ab863-1c98-41ba-9e1d-12cba6f96466",
+        "e6cb827f-ebef-411d-bb5c-2806f8d50266",
+        "8903127e-5321-4e1d-afe5-831cd7389647",
+        "ede7175c-7bc9-45db-87cc-5f71f566f52e"
+      ]
+    },
+    "status": "SUCCEEDED",
+    "actions": [
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      },
+      {
+        "status": "SUCCEEDED",
+        "route": "mock"
+      }
+    ],
+    "elapsed_ms": 562.1783329999998
+  }
+]

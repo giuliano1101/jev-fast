@@ -1,0 +1,122 @@
+{
+  "offline-legacy-v3": {
+    "planned": 9,
+    "success": 9,
+    "tasks": {
+      "cancel": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      },
+      "correction": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      },
+      "form": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      }
+    }
+  },
+  "offline-rich": {
+    "planned": 9,
+    "success": 9,
+    "tasks": {
+      "cancel": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      },
+      "correction": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      },
+      "form": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      }
+    }
+  },
+  "offline-legacy-trace": {
+    "planned": 9,
+    "success": 3,
+    "tasks": {
+      "cancel": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      },
+      "correction": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "FALLBACK",
+          "FALLBACK",
+          "FALLBACK"
+        ]
+      },
+      "form": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "FALLBACK",
+          "FALLBACK",
+          "FALLBACK"
+        ]
+      }
+    }
+  },
+  "offline-rich-trace": {
+    "planned": 9,
+    "success": 3,
+    "tasks": {
+      "cancel": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "SUCCEEDED",
+          "SUCCEEDED",
+          "SUCCEEDED"
+        ]
+      },
+      "correction": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "FALLBACK",
+          "FALLBACK",
+          "FALLBACK"
+        ]
+      },
+      "form": {
+        "semantic_inputs_equal": true,
+        "results": [
+          "FALLBACK",
+          "FALLBACK",
+          "FALLBACK"
+        ]
+      }
+    }
+  }
+}

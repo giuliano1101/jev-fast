@@ -1,0 +1,22 @@
+{
+  "planned": 3,
+  "live": true,
+  "projection": "rich",
+  "stop_reason": null,
+  "cleanup_errors": [],
+  "confidence_trace": false,
+  "success": 2,
+  "total": 3,
+  "budget": {
+    "approval": {
+      "approval_id": "s10-c-20261030",
+      "expires_at": 1793425398000,
+      "max_requests": 30,
+      "max_cost_usd": 0.1,
+      "reservation_usd": 0.003
+    },
+    "requests": 29,
+    "reserved_usd": 0.087
+  },
+  "attempts": 9
+}

@@ -232,7 +232,7 @@ export class Engine {
             for (const predicate of candidate.preconditions)
                 if (!await this.bounded(this.options.browser.check(req.session_id, predicate, signal), lease))
                     throw new Fault('PRECONDITION_FAILED');
-            if (!await this.bounded(this.options.browser.validate(req.session_id, snapshot, candidate, req.goal, signal), lease)){if(staleRetries++<2)continue;throw new Fault('STALE_SNAPSHOT');}
+            if (!await this.bounded(this.options.browser.validate(req.session_id, snapshot, candidate, req.goal, signal), lease)){if(staleRetries++<2){step--;continue;}throw new Fault('STALE_SNAPSHOT');}
             this.fence(req.session_id, lease);
             if (Date.now() >= snapshot.expires_at)
                 throw new Fault('STALE_SNAPSHOT');
@@ -252,9 +252,10 @@ export class Engine {
                 await this.bounded(this.options.browser.execute(req.session_id,candidate,req.goal,signal,authorization),lease);
             } catch(error) {
                 if(!(error instanceof ExecutionNotStarted))throw error;
-                await this.ledger.transaction(state=>{const action=state.actions[action_id]!;action.status='REJECTED';action.completed_at=Date.now();action.updated_at=Date.now();state.goals[key]!.evidence.push('REJECTED_BEFORE_EXECUTION');});
+                await this.ledger.transaction(state=>{const action=state.actions[action_id]!;action.status='REJECTED';action.completed_at=Date.now();action.updated_at=Date.now();state.goals[key]!.steps--;state.goals[key]!.evidence.push('REJECTED_BEFORE_EXECUTION');});
                 lease.inFlight=false;
-                if(staleRetries++<2)continue;
+                // A proven non-dispatch consumes a stale retry, never a physical action step.
+                if(staleRetries++<2){step--;continue;}
                 throw new Fault('STALE_SNAPSHOT');
             }
             this.emit({ phase: 'execute', elapsed_ms: performance.now() - executionStart, session_id: req.session_id, goal_id: req.goal_id, action_id });

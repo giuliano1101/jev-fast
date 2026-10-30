@@ -1,0 +1,22 @@
+{
+  "cancel-direct": [
+    {
+      "goal": {
+        "task": "cancel",
+        "language": "en"
+      },
+      "summary": {
+        "task": "cancel",
+        "step": 0,
+        "submitted": 0,
+        "cancelled": false,
+        "loaded": false,
+        "scrolled": false,
+        "error": false
+      },
+      "candidates": [
+        "click cancel (synthetic action)"
+      ]
+    }
+  ]
+}
