@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=24"
+    "node": ">=24.19"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "npm run build && node --test dist/tests/unit/*.test.js dist/tests/safety/core.test.js",
@@ -16,7 +16,9 @@
     "bench:mock": "npm run build && node dist/bench/run.js",
     "start:service": "node dist/src/service/main.js",
     "start:mcp": "node dist/src/mcp/index.js",
-    "cli": "node dist/src/cli/index.js"
+    "cli": "node dist/src/cli/index.js",
+    "gateway": "node dist/src/remote/main.js",
+    "release": "node scripts/release.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",

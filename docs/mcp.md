@@ -1,3 +1,5 @@
+> S10 更新：本文保留本地基础流程；远程配置、真实模式诊断与操作员命令请使用 [中文 CLI/MCP 手册](cross-machine-cli-mcp.md)。主流程默认 mock，可由私有 profile 显式接入远程决策。
+
 # 本地共享 MCP / CLI（mock）
 
 一个长期运行的 coordinator 持有唯一 Engine、浏览器和持久账本。CLI 与每个 MCP stdio facade 都只把严格校验的请求送到同一个私有 Unix-domain socket；stdio facade 不创建自己的浏览器。P0 同一时刻最多一个已打开或正在打开的 session，同一 session 最多一个活动 goal。额外打开或有冲突的执行返回 `BUSY`，不隐式排队。

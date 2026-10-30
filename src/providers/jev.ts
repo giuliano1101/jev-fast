@@ -14,6 +14,8 @@ export interface JevOptions {
     key?: string;
     authorization?: LiveAuthorization;
     transport?: (url: string, options?: RequestInit) => Promise<Response>;
+    /** Trusted host hook: durably reserve every HTTP attempt, including overload retry. */
+    beforeAttempt?:()=>void|Promise<void>;
 }
 const projectionSchema = z.strictObject({ synthetic: z.literal(true), snapshot_id: idSchema, summary: z.string().max(4000), goal: z.strictObject({ task: taskSchema, language: z.enum(['en', 'zh']) }), candidates: z.array(z.strictObject({ candidate_id: idSchema, description: z.string().max(160) })).min(1).max(64) });
 const answerSchema = z.strictObject({ model: z.literal(MODEL), answers: z.strictObject({ action: z.strictObject({ type: z.literal('choice'), choice: idSchema, confidence: z.number().finite().min(0).max(1), probabilities: z.record(z.string(), z.number().finite().min(0).max(1)).optional() }) }), usage: usageSchema.optional() });
@@ -22,12 +24,13 @@ export class JevProvider implements DecisionProvider {
     private readonly authorization: LiveAuthorization;
     private readonly key: string;
     private readonly transport: NonNullable<JevOptions['transport']>;
+    private readonly beforeAttempt:JevOptions['beforeAttempt'];
     private requests = 0;
     private reservedCost = 0;
     private actualCost = 0;
     private unknownUsage = 0;
     constructor(options: JevOptions) { const parsed = authorizationSchema.safeParse(options.authorization); if (!parsed.success || parsed.data.expires_at <= Date.now() || !options.key || options.key.trim() !== options.key)
-        throw new Fault('LIVE_NOT_AUTHORIZED'); this.authorization = Object.freeze(parsed.data); this.key = options.key; this.transport = options.transport ?? fetch; }
+        throw new Fault('LIVE_NOT_AUTHORIZED'); this.authorization = Object.freeze(parsed.data); this.key = options.key; this.transport = options.transport ?? fetch; this.beforeAttempt=options.beforeAttempt; }
     accounting() { return { approval_id: this.authorization.approval_id, requests: this.requests, reserved_cost_usd: this.reservedCost, known_cost_usd: this.actualCost, unknown_usage_requests: this.unknownUsage }; }
     private reserve(context: DecisionContext) { if (context.signal.aborted)
         throw new Fault('CANCELLED'); if (Date.now() >= context.deadline)
@@ -48,6 +51,14 @@ export class JevProvider implements DecisionProvider {
         const encoded=encodeRequestBody(body);
         const start = performance.now();
         for (let attempt = 0; attempt < 2; attempt++) {
+            if(this.beforeAttempt){
+                if(context.signal.aborted)throw new Fault('CANCELLED');
+                if(Date.now()>=context.deadline)throw new Fault('PROVIDER_DEADLINE');
+                const controller=new AbortController();
+                const timer=setTimeout(()=>controller.abort(),Math.max(1,context.deadline-Date.now()));
+                const reservationSignal=AbortSignal.any([context.signal,controller.signal]);
+                try{await this.within(Promise.resolve().then(()=>{if(reservationSignal.aborted)throw new Fault('PROVIDER_DEADLINE');return this.beforeAttempt!();}),reservationSignal);}finally{clearTimeout(timer);}
+            }
             this.reserve(context);
             const controller = new AbortController();
             const signal = AbortSignal.any([context.signal, controller.signal]);
@@ -104,7 +115,7 @@ export class JevProvider implements DecisionProvider {
                 if (!result.success)
                     throw new Fault('INVALID_RESPONSE');
                 const answer = result.data.answers.action;
-                const decision = validateDecision({ provider: 'jev', model: result.data.model, snapshot_id: data.snapshot_id, candidate_id: answer.choice, confidence: answer.confidence, probabilities: answer.probabilities, usage: result.data.usage ?? null, elapsed_ms: performance.now() - start, request_count: attempt + 1, retry_count: attempt, unknown_usage_requests: attempt + (result.data.usage ? 0 : 1) }, data.snapshot_id, data.candidates.map(c => c.candidate_id));
+                const decision = validateDecision({ provider: 'jev', model: result.data.model, snapshot_id: data.snapshot_id, candidate_id: answer.choice, confidence: answer.confidence, ...(answer.probabilities?{probabilities:answer.probabilities}:{}), usage: result.data.usage ?? null, elapsed_ms: performance.now() - start, request_count: attempt + 1, retry_count: attempt, unknown_usage_requests: attempt + (result.data.usage ? 0 : 1) }, data.snapshot_id, data.candidates.map(c => c.candidate_id));
                 if (answer.probabilities && Object.values(answer.probabilities).some(p => p > (answer.probabilities?.[answer.choice] ?? 0) + 1e-9))
                     throw new Fault('INVALID_PROBABILITIES');
                 if (result.data.usage) {

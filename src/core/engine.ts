@@ -3,6 +3,7 @@ import { performance } from 'node:perf_hooks';
 import { schemas, operations, candidateSchema, validateDecision, type BrowserPort, type DecisionProvider, type GoalResult, type Snapshot, type RunGoalRequest } from './contracts.js';
 import { Fault, reason, ExecutionNotStarted } from './errors.js';
 import { Ledger } from '../session/ledger.js';
+import {prepareExecutionRequest,verifyExecutionReceipt,revalidateExecutionBinding,type RemoteExecutionPolicy} from '../remote/execution.js';
 interface Lease {
     epoch: number;
     goal_id: string;
@@ -30,6 +31,7 @@ export interface EngineEvent {
 }
 export interface EngineOptions {
     storageDir: string;
+    remotePolicy?:RemoteExecutionPolicy;
     browser: BrowserPort;
     provider: DecisionProvider;
     clients: readonly string[];
@@ -141,7 +143,7 @@ export class Engine {
         const request = schemas.run_goal.parse(input);
         const session = this.auth(client, request.session_id)!;
         const hash = createHash('sha256').update(JSON.stringify(request)).digest('hex');
-        const prior = Object.values(this.ledger.state.goals).find(g => g.session_id === request.session_id && g.idempotency_key === request.idempotency_key);
+        const prior = this.ledger.findGoal(request.session_id, request.idempotency_key);
         if (prior) {
             if (prior.request_hash !== hash)
                 throw new Fault('IDEMPOTENCY_CONFLICT');
@@ -199,6 +201,7 @@ export class Engine {
         for (let step = 0; step < req.max_steps; step++) {
             this.fence(req.session_id, lease);
             const before = performance.now();
+            const snapshotStarted=performance.now();
             const snapshot = await this.bounded(this.options.browser.observe(req.session_id, req.goal, signal), lease);
             this.emit({ phase: 'observe', elapsed_ms: performance.now() - before, session_id: req.session_id, goal_id: req.goal_id });
             const candidateStart = performance.now();
@@ -212,7 +215,12 @@ export class Engine {
             if (!snapshot.candidates.length)
                 throw new Fault('NO_CANDIDATES');
             const decidedAt = performance.now();
-            const decision = validateDecision(await this.bounded(this.options.provider.decide({ snapshot_id: snapshot.snapshot_id, synthetic: true, summary: snapshot.safe_summary, goal: { task: req.goal.task, language: req.goal.language }, candidates: snapshot.candidates.map(c => ({ candidate_id: c.candidate_id, description: c.description })) }, { signal, deadline: Date.now() + Math.max(0, lease.deadline - performance.now()) }), lease), snapshot.snapshot_id, snapshot.candidates.map(c => c.candidate_id));
+            const input={snapshot_id:snapshot.snapshot_id,synthetic:true as const,summary:snapshot.safe_summary,goal:{task:req.goal.task,language:req.goal.language},candidates:snapshot.candidates.map(c=>({candidate_id:c.candidate_id,description:c.description}))};
+            const remote=this.options.remotePolicy?await this.bounded(prepareExecutionRequest(this.options.browser,snapshot,req.goal,req.goal_id,lease.epoch,input,snapshotStarted,lease.deadline,signal),lease):undefined;
+            const raw=await this.bounded(this.options.provider.decide(structuredClone(input),{signal,deadline:Date.now()+Math.max(0,lease.deadline-performance.now()),...(remote?{remoteRequest:structuredClone(remote.request)}:{})}),lease);
+            const response=remote?structuredClone(raw):raw;
+            const permission=remote?verifyExecutionReceipt(response,remote,this.options.remotePolicy!):undefined;
+            const decision=validateDecision(permission?.decision??response,snapshot.snapshot_id,snapshot.candidates.map(c=>c.candidate_id));
             this.emit({ phase: 'provider', elapsed_ms: performance.now() - decidedAt, session_id: req.session_id, goal_id: req.goal_id, provider: decision.provider, model: decision.model, usage: decision.usage, requests: decision.request_count, retries: decision.retry_count, unknown_usage_requests: decision.unknown_usage_requests });
             const policyStart = performance.now();
             if (decision.confidence < (this.options.confidenceThreshold ?? .9))
@@ -228,18 +236,20 @@ export class Engine {
             this.fence(req.session_id, lease);
             if (Date.now() >= snapshot.expires_at)
                 throw new Fault('STALE_SNAPSHOT');
+            if(remote){await this.bounded(revalidateExecutionBinding(this.options.browser,snapshot,req.goal,remote,signal),lease);verifyExecutionReceipt(response,remote,this.options.remotePolicy!);}
             this.emit({ phase: 'policy', elapsed_ms: performance.now() - policyStart, session_id: req.session_id, goal_id: req.goal_id });
             const action_id = randomUUID();
             await this.ledger.transaction(s => { s.actions[action_id] = { action_id, session_id: req.session_id, goal_id: req.goal_id, lease_epoch: lease.epoch, idempotency_key: req.idempotency_key, request_hash: s.goals[key]!.request_hash, snapshot_id: snapshot.snapshot_id, candidate_id: candidate.candidate_id, policy_version: candidate.policy_version, status: 'VALIDATED', created_at: Date.now(), updated_at: Date.now(), validated_at: Date.now() }; s.goals[key]!.action_ids.push(action_id); });
             this.fence(req.session_id, lease);
+            await this.ledger.transaction(s => { if(remote){const permit=verifyExecutionReceipt(response,remote,this.options.remotePolicy!);s.actions[action_id]!.receipt={decision_id:permit.decision_id,nonce:permit.nonce,receipt_digest:permit.receipt_digest,route:permit.route,...this.options.remotePolicy!.identity};} s.actions[action_id]!.status = 'EXECUTING'; s.actions[action_id]!.updated_at = Date.now(); s.actions[action_id]!.execution_started_at = Date.now(); s.goals[key]!.steps++; });
             lease.inFlight = true;
-            await this.ledger.transaction(s => { s.actions[action_id]!.status = 'EXECUTING'; s.actions[action_id]!.updated_at = Date.now(); s.actions[action_id]!.execution_started_at = Date.now(); s.goals[key]!.steps++; });
             this.fence(req.session_id, lease);
-            lease.inFlight = true;
             const executionStart = performance.now();
             try {
                 if(Date.now()>=snapshot.expires_at)throw new ExecutionNotStarted();
-                await this.bounded(this.options.browser.execute(req.session_id,candidate,req.goal,signal),lease);
+                let authorization;
+                if(remote){try{const permit=verifyExecutionReceipt(response,remote,this.options.remotePolicy!);authorization={expiresAtMonotonic:permit.expires_at_monotonic_ms,assertAuthorized:()=>{this.fence(req.session_id,lease);verifyExecutionReceipt(response,remote,this.options.remotePolicy!);}};}catch{throw new ExecutionNotStarted();}}
+                await this.bounded(this.options.browser.execute(req.session_id,candidate,req.goal,signal,authorization),lease);
             } catch(error) {
                 if(!(error instanceof ExecutionNotStarted))throw error;
                 await this.ledger.transaction(state=>{const action=state.actions[action_id]!;action.status='REJECTED';action.completed_at=Date.now();action.updated_at=Date.now();state.goals[key]!.evidence.push('REJECTED_BEFORE_EXECUTION');});
@@ -296,21 +306,22 @@ export class Engine {
     } return { session_id: request.session_id, closed: session.closed, quarantined: session.quarantined, busy: this.leases.has(request.session_id) }; }
     async closeSession(client:string,input:unknown) {
         const {session_id}=schemas.close_session.parse(input);
-        this.auth(client,session_id);
+        const session=this.auth(client,session_id)!;
         const existing=this.pendingCloses.get(session_id);
         if(existing)return existing;
+        if(session.closed&&!this.opened.has(session_id))return {closed:true,quarantined:session.quarantined};
         this.closing.add(session_id);
         const pending=(async()=>{
             const lease=this.leases.get(session_id);
             if(lease){lease.controller.abort();await lease.done;}
             await this.observations.get(session_id)?.catch(()=>{});
-            await this.ledger.transaction(state=>{state.sessions[session_id]!.closed=true;state.sessions[session_id]!.epoch++;});
+            if(!session.closed)await this.ledger.transaction(state=>{state.sessions[session_id]!.closed=true;state.sessions[session_id]!.epoch++;});
             await this.options.browser.close(session_id);
             this.opened.delete(session_id);
             return {closed:true,quarantined:this.ledger.state.sessions[session_id]!.quarantined};
         })();
         this.pendingCloses.set(session_id,pending);
-        return pending;
+        try{return await pending;}finally{this.pendingCloses.delete(session_id);}
     }
     async kill() {
         this.killed=true;
@@ -324,9 +335,14 @@ export class Engine {
         this.shutdownPromise=(async()=>{
             await this.kill();
             await Promise.allSettled([...this.pendingOpens,...this.pendingCloses.values(),...this.observations.values()]);
-            try {for(const id of this.opened)await this.options.browser.close(id);}
-            finally {this.opened.clear();await this.ledger.close();}
-        })();
+            const errors:unknown[]=[];
+            for(const id of this.opened){
+                try{await this.options.browser.close(id);this.opened.delete(id);}catch(error){errors.push(error);}
+            }
+            try{await this.ledger.close();}catch(error){errors.push(error);}
+            if(errors.length===1)throw errors[0];
+            if(errors.length)throw new AggregateError(errors,'Engine shutdown cleanup failed');
+        })().catch(error=>{this.shutdownPromise=undefined;throw error;});
         return this.shutdownPromise;
     }
 }

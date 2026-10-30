@@ -1,26 +1,29 @@
 import {chromium,type Browser,type BrowserContext,type Page,type ElementHandle} from 'playwright';
 import {randomUUID,createHash} from 'node:crypto';
-import {existsSync} from 'node:fs';
-import {homedir} from 'node:os';
-import type {BrowserPort,Goal,Snapshot,Candidate,Predicate} from '../core/contracts.js';
+import {chromiumExecutable} from './executable.js';
+import type {BrowserPort,Goal,Snapshot,Candidate,Predicate,ExecutionAuthorization} from '../core/contracts.js';
+import {performance} from 'node:perf_hooks';
 import {readFrame,sensitiveSelector} from './frame.js';
 import {Fault,ExecutionNotStarted} from '../core/errors.js';
+import {canonicalDigest} from '../remote/protocol.js';
 interface Bound {candidate:Candidate;node:ElementHandle<HTMLElement|SVGElement>|null;value?:string;signature:string;}
 interface Session {context:BrowserContext;page:Page;goalKey?:string;goal?:Goal;snapshot?:Snapshot;bound:Map<string,Bound>;}
 export interface BrowserOptions {executablePath?:string;onPage?:(id:string,page:Page)=>void;}
 export class BrowserAdapter implements BrowserPort {
  readonly blockedRequests:string[]=[];
  private browser?:Browser;private sessions=new Map<string,Session>();
+ private contexts=new Map<string,BrowserContext>();
  constructor(readonly origin:string,private options:BrowserOptions={}){
   const u=new URL(origin);if(u.hostname!=='127.0.0.1'||u.protocol!=='http:')throw new Fault('OUT_OF_SCOPE');
  }
  async open(id:string,_fixture:'standard'){
+  if(this.contexts.has(id))throw new Fault('SESSION_UNAVAILABLE');
   if(!this.browser){
-   const cached=homedir()+'/Library/Caches/ms-playwright/chromium-1223/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing';
-   const executablePath=this.options.executablePath??process.env.JEV_CHROMIUM_PATH??(existsSync(chromium.executablePath())?undefined:existsSync(cached)?cached:undefined);
-   this.browser=await chromium.launch({headless:true,executablePath});
+   this.browser=await chromium.launch({headless:true,executablePath:chromiumExecutable(this.options.executablePath)});
   }
   const context=await this.browser.newContext({acceptDownloads:false,serviceWorkers:'block'});
+  this.contexts.set(id,context);
+  try{
   const primary:{page?:Page}={};
   await context.route('**/*',async route=>{
    const request=route.request();let allowed=false;
@@ -31,10 +34,28 @@ export class BrowserAdapter implements BrowserPort {
   context.on('page',page=>{if(primary.page&&page!==primary.page)void page.close().catch(()=>{});});
   const page=await context.newPage();primary.page=page;page.setDefaultTimeout(1500);
   page.on('download',download=>{void download.cancel();});page.on('dialog',dialog=>{void dialog.dismiss();});
-  this.sessions.set(id,{context,page,bound:new Map()});this.options.onPage?.(id,page);
-  await page.goto(this.origin+'/form');return {allowed_origin:this.origin};
+  this.options.onPage?.(id,page);
+  await page.goto(this.origin+'/form');
+  this.sessions.set(id,{context,page,bound:new Map()});return {allowed_origin:this.origin};
+  }catch(error){
+   try{await this.close(id);}catch(cleanupError){throw new AggregateError([error,cleanupError],'Browser open and context cleanup failed');}
+   throw error;
+  }
  }
  private session(id:string){const s=this.sessions.get(id);if(!s)throw new Fault('SESSION_UNAVAILABLE');return s;}
+ private readonly commitmentSalts=new WeakMap<Session,string>();
+ async commitments(id:string,snapshot:Snapshot,goal:Goal,signal:AbortSignal){
+  signal.throwIfAborted();const session=this.session(id);this.synthetic(goal);
+  if(session.snapshot!==snapshot)throw new Fault('STALE_SNAPSHOT');
+  let salt=this.commitmentSalts.get(session);if(!salt){salt=randomUUID()+randomUUID();this.commitmentSalts.set(session,salt);}
+  const commitments=[];
+  for(const candidate of snapshot.candidates){
+   const bound=session.bound.get(candidate.candidate_id);if(!bound||bound.candidate!==candidate)throw new Fault('INVALID_CANDIDATE_BINDING');
+   const signature=bound.node?await bound.node.evaluate(el=>JSON.stringify({html:el.outerHTML,value:(el as HTMLInputElement).value})):'';
+   commitments.push({candidate_id:candidate.candidate_id,target_digest:canonicalDigest({salt,signature,snapshot_id:snapshot.snapshot_id,target_ref:candidate.target_ref,candidate_id:candidate.candidate_id}),params_digest:canonicalDigest({salt,params_ref:candidate.params_ref,value:bound.value??null})});
+  }
+  signal.throwIfAborted();return commitments;
+ }
  private synthetic(goal:Goal){
   const values={name:`Synthetic-${goal.seed}`,email:`synthetic-${goal.seed}@example.invalid`,category:'beta',query:`item-${goal.seed}`};
   for(const [k,v] of Object.entries(goal.values??{}))if(v!==values[k as keyof typeof values])throw new Fault('OUT_OF_SCOPE');return values;
@@ -99,15 +120,19 @@ export class BrowserAdapter implements BrowserPort {
   }
   return true;
  }
- async execute(id:string,candidate:Candidate,goal:Goal,signal:AbortSignal){
+ async execute(id:string,candidate:Candidate,goal:Goal,signal:AbortSignal,authorization?:ExecutionAuthorization){
   const s=this.session(id);if(!s.snapshot||!await this.validate(id,s.snapshot,candidate,goal,signal))throw new ExecutionNotStarted();
   const bound=s.bound.get(candidate.candidate_id)!;signal.throwIfAborted();
+  let timeout=1500;
+  if(authorization){
+   try{authorization.assertAuthorized();timeout=Math.floor(Math.min(timeout,authorization.expiresAtMonotonic-performance.now()));if(timeout<=0)throw new Error();}catch{throw new ExecutionNotStarted();}
+  }
   switch(candidate.operation){
-   case 'fill':await bound.node!.fill(bound.value!);break;
-   case 'select':await bound.node!.selectOption(bound.value!);break;
-   case 'click':await bound.node!.click({timeout:1500});break;
-   case 'scroll':await bound.node!.scrollIntoViewIfNeeded();break;
-   case 'back':await s.page.goBack({timeout:1500});break;
+   case 'fill':await bound.node!.fill(bound.value!,{timeout});break;
+   case 'select':await bound.node!.selectOption(bound.value!,{timeout});break;
+   case 'click':await bound.node!.click({timeout});break;
+   case 'scroll':await bound.node!.scrollIntoViewIfNeeded({timeout});break;
+   case 'back':await s.page.goBack({timeout});break;
    case 'wait':break;
   }
   const deadline=Date.now()+Math.min(candidate.operation==='wait'?2000:700,2000);
@@ -122,7 +147,17 @@ export class BrowserAdapter implements BrowserPort {
    case 'page':return new URL(frame.url).pathname===predicate.path&&frame.title==='Jev '+predicate.path;
   }
  }
- async close(id:string){const s=this.sessions.get(id);if(s){await s.context.close();this.sessions.delete(id);}}
- async shutdown(){await this.browser?.close();this.browser=undefined;this.sessions.clear();}
+ async close(id:string){
+  this.sessions.delete(id);
+  const context=this.contexts.get(id);
+  if(context){await context.close();this.contexts.delete(id);}
+ }
+ async shutdown(){
+  const errors:unknown[]=[];
+  for(const id of this.contexts.keys())try{await this.close(id);}catch(error){errors.push(error);}
+  try{await this.browser?.close();this.browser=undefined;this.contexts.clear();this.sessions.clear();}catch(error){errors.push(error);}
+  if(errors.length===1)throw errors[0];
+  if(errors.length)throw new AggregateError(errors,'Browser shutdown cleanup failed');
+ }
  get browserVersion(){return this.browser?.version()??'not-started';}
 }

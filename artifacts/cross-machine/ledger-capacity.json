@@ -1,0 +1,26 @@
+{
+  "node": "v24.19.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "method": "One validation, one reopen/recovery transaction, one mutation, 10000 indexed reads per size. No paid API. RSS includes prior samples; not isolated peak.",
+  "samples": [
+    {
+      "history_actions": 10000,
+      "bytes": 5969084,
+      "validate_ms": 67.97395899999998,
+      "open_recovery_ms": 164.51450000000003,
+      "transaction_ms": 84.07045799999997,
+      "lookup_10000_ms": 14.635874999999999,
+      "rss_bytes": 288063488
+    },
+    {
+      "history_actions": 100000,
+      "bytes": 60689084,
+      "validate_ms": 469.53675,
+      "open_recovery_ms": 1627.957583,
+      "transaction_ms": 907.2244999999998,
+      "lookup_10000_ms": 13.522625000000062,
+      "rss_bytes": 1054867456
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+
+> jev-p0@0.2.0 test:integration
+> npm run build && node --test dist/tests/integration/*.test.js
+
+
+> jev-p0@0.2.0 build
+> node scripts/build.mjs
+
+✔ mock benchmark exports both modes, all rows, actual manifest and no secrets (7815.225333ms)
+✔ benchmark exceptions replace stale success artifacts and retain started task failures (1526.948708ms)
+✔ F01–F03 real browser all twelve tasks en (10555.432666ms)
+✔ F01–F03 real browser all twelve tasks zh (4780.937959ms)
+✔ challenge fixture exports its public browser contract (0.422791ms)
+✔ all challenge variants and seeds complete through visible labels with a single terminal completion (22184.47925ms)
+✔ wrong choices are recoverable, observations do not leak oracle, rerenders reject stale inputs (1968.050667ms)
+✔ server validates challenge queries and rejects nonlocal origins and unbounded events (13.70775ms)
+✔ bound actions reject changed values and never classify a post-input error as safe stale (583.690584ms)
+✔ mutating a returned candidate cannot alter its private authorized action (484.294083ms)
+✔ expiry crossing during preflight rejects input and action waits use the remaining deadline (962.384166ms)
+✔ a hung preflight read settles stale by its deadline without input (546.024542ms)
+✔ observations prune only current-value no-ops and preserve visible field state and alternatives (552.710625ms)
+✔ hybrid controller handles real rendered filter reset and transient labels without replay (7269.521125ms)
+✔ bounded graded harness exports its runner (0.452042ms)
+✔ scripted visible-controls baseline solves all six variants and includes loading time (8429.553583ms)
+✔ low confidence and invalid candidate answers stop before physical input; reasons are redacted (1587.409875ms)
+✔ Jev routes a singleton wait through its provider and awaits audit before execution (749.117084ms)
+✔ post-input lost acknowledgement remains UNKNOWN even when scoring oracle says success (790.498583ms)
+✔ stale snapshots refresh at most twice, consume decisions, and never execute (6835.303542ms)
+✔ recoverable wrong choices remain scored and known usage is summed (649.527959ms)
+✔ twelve-step cap retains every wrong action and audit failure prevents input (1119.313459ms)
+✔ manifest plan freezes six calibration cases and sixty alternating evaluation trials (0.311459ms)
+✔ partial usage retains known spend while total remains unknown (552.943209ms)
+✔ terminal commit clears active before detail failure, preserving exactly one row (0.361042ms)
+✔ durable start event carries absolute epoch and immutable trial identity (0.078125ms)
+✔ calibration seed 102 stays separate from evaluation seeds and invalid seed overrides fail (0.141833ms)
+✔ two real MCP stdio clients share one local coordinator while keeping default identities isolated (7151.209958ms)
+✔ server ACL permits deliberate two-client BUSY and cancellation without overlapping actions (2017.706375ms)
+✔ MCP queries UNKNOWN physical-action outcome and idempotent retry never replays (1390.532458ms)
+✔ remote CLI uses one configured agent, reports authenticated health, and stops while offline (11115.671292ms)
+✔ two logical devices execute separate browsers through one TLS gateway and share CLI/MCP semantics (7486.984875ms)
+✔ two mTLS principals receive separately bound signed decisions and exact duplicate bytes (295.075667ms)
+✔ certificate-bound tokens reject device copying, forged identity, expired and revoked credentials (250.116458ms)
+✔ gateway strictly rejects Origin, route, unknown fields and large bodies before dispatch (66.504583ms)
+✔ client rejects mismatched input, cancellation, bad TLS and offline without retry (11.3555ms)
+✔ pending duplicate and aborted provider timeout become unknown and never retrigger (156.006208ms)
+✔ revocation while provider is in flight prevents issuing a receipt (47.039084ms)
+✔ low confidence is durably rejected and cannot become a cached authorization (31.172917ms)
+✔ live gateway reserves every provider attempt and shares persisted approval cap (63.913625ms)
+✔ per-principal and global admission stay bounded with four pending decision calls (226.538292ms)
+✔ bounded rate limiter includes authenticated health traffic (1041.222292ms)
+✔ missing or untrusted client certificate fails the TLS handshake (29.145ms)
+✔ client never follows redirects and caps response bytes and absolute waiting time (107.204417ms)
+✔ client health uses authenticated TLS and reports only bounded capability metadata (155.341375ms)
+✔ revocation during request upload denies cached receipt delivery (57.528167ms)
+✔ synchronous durable-store delay cannot permit dispatch after the snapshot deadline (115.423625ms)
+✔ revocation during store begin prevents cached receipt delivery (35.795875ms)
+✔ revocation during reservation prevents hosted dispatch (49.534458ms)
+✔ revocation during receipt persistence prevents delivery (19.186917ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 50
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27591.050625

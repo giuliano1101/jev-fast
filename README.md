@@ -1,6 +1,8 @@
 # jev-fast · Jev 电脑操控加速层
 
-当前阶段：**S9 安卓实机对照与混合执行研究**。保留 S6 本地浏览器 P0、S7 真实网站/抖音与 S8 混合执行，新增通过 Mobile MCP 的固定手机任务适配器。它还不是通用电脑或手机自动操作产品。
+当前阶段：**S10 跨机器 CLI/MCP 的 A/B 工程接线与离线验收**。在 S9 安卓实测版本上新增远程决策网关、本机执行回执、持久预算与运维命令。已验证同机双逻辑设备，尚未部署两台实体电脑，也不是通用电脑或手机自动操作产品。
+
+[S10 完成报告](artifacts/cross-machine/report.md) · [中文 CLI/MCP 使用手册](docs/cross-machine-cli-mcp.md) · [架构、发布与后续验收](docs/cross-machine-operations.md) · [agent 接入指南](docs/agent-integration-guide.md)
 
 [S9 安卓题目与实测报告](artifacts/mobile/report.md) · [手机研究工具使用说明](docs/mobile-testing.md) · [S7 真实网站与抖音报告](artifacts/real/report.md) · [六道测试题](artifacts/real/tasks.json) · [S7 复现说明](docs/real-testing.md) · [S6 合成环境对比报告](artifacts/live/report/summary.md) · [原始逐项结果](artifacts/live/report/rows.csv) · [S7 检查记录](artifacts/real/verification/checks.json) · [S6 检查记录](artifacts/live/offline-verification/final/checks.json) · [阶段变更](CHANGELOG.md)
 
@@ -8,7 +10,7 @@
 
 ## 本机启动与测试
 
-推荐在 macOS 使用 Node.js 24+ 与 npm：
+推荐在 macOS 使用 Node.js 24.19+ 与 npm：
 
 ```sh
 git clone https://github.com/giuliano1101/jev-fast.git
@@ -56,7 +58,7 @@ S9 在实体安卓手机上完成六题、每题两轮对照：普通 Mobile MCP
 
 目录索引：`src/` 为执行核心与接口，`fixtures/` 为合成页面，`tests/` 为回归测试，`bench/` 为基准工具，`docs/` 为交接与设计记录，`artifacts/` 为已归档证据。运行状态和密钥不入库；大体积重复 ZIP 留在本机，GitHub 直接保存展开后的源码与结果。
 
-MCP 和 CLI 共享同一 coordinator 与安全核心。完整配置和命令见 [本地 MCP/CLI 使用说明](docs/mcp.md)。提供六个工具：
+MCP 和 CLI 共享同一 coordinator 与安全核心。本地基础操作见 [MCP/CLI 说明](docs/mcp.md)，新增远程模式、诊断与运维见 [S10 使用手册](docs/cross-machine-cli-mcp.md)。提供六个工具：
 
 - `jev.open_session`：打开固定 fixture，身份来自已鉴权传输。
 - `jev.observe`：读取脱敏状态；活动任务期间返回 BUSY。
@@ -81,7 +83,7 @@ Snapshot 绑定文档、变更版本、节点身份与输入属性，默认有�
 
 若回收锁的过程中再次崩溃，`recovery.lock` 会保守阻止启动；先确认相关 coordinator 进程均已停止并备份账本，再人工移除该恢复标记。不要删除 owner lock 来绕过仍活着的进程。UNKNOWN 不能通过清空账本或重试来“修复”。
 
-本项目未修改全局 agent 配置、系统权限或用户浏览器资料。回滚只需停止本项目进程；保留账本审计后，可以移走整个项目目录。不需要撤销系统辅助功能/屏幕录制权限。
+本项目未修改全局 agent 配置、系统权限或用户浏览器资料。回滚应先停止本项目进程并保留账本审计。S10 会将旧账本升级为 v2，不能将 v2 交给仅支持 v1 的旧程序；具体兼容规则见 [回滚说明](docs/cross-machine-operations.md)。不需要撤销系统辅助功能/屏幕录制权限。
 
 ## 已知限制与真实测试
 

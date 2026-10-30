@@ -7,7 +7,7 @@ import {ipcCall,readCredential,safeCode,MAX_FRAME_BYTES} from '../service/ipc.js
 async function main(){
  const args=process.argv.slice(2);if(args.length!==2||args[0]!=='--credential')throw new Fault('INVALID_ARGUMENTS');
  const credential=await readCredential(args[1]!);await ipcCall(credential,'service.health',{});
- const server=new Server({name:'jev-local-mock',version:'0.1.0'},{capabilities:{tools:{}}});
+ const server=new Server({name:'jev-local',version:'0.1.0'},{capabilities:{tools:{}}});
  server.setRequestHandler(ListToolsRequestSchema,async()=>({tools:toolDefinitions}));
  server.setRequestHandler(CallToolRequestSchema,async request=>{
   try{const params=parseTool(request.params.name,request.params.arguments??{});const result=await ipcCall(credential,request.params.name,params);return {content:[{type:'text',text:JSON.stringify(result)}]};}

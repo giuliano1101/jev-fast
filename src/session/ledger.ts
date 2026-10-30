@@ -2,13 +2,22 @@ import { mkdir, open, readFile, rename, unlink, rmdir, stat } from 'node:fs/prom
 import type { FileHandle } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import type { LedgerState } from '../core/contracts.js';
+import type { LedgerState, GoalResult } from '../core/contracts.js';
 import { Fault } from '../core/errors.js';
+import {validateLedgerState} from './schema.js';
 /** Exclusive owner marker and atomic fsync/rename snapshots. Stale markers require manual PID verification. */
 export class Ledger {
     private tail: Promise<void> = Promise.resolve();
     private closed = false;
-    private constructor(readonly directory: string, private lock: FileHandle, public state: LedgerState) { }
+    private uncertain = false;
+    private closing?:Promise<void>;
+    private lockClosed=false;
+    private released=false;
+    private readonly goalIndex=new Map<string,GoalResult>();
+    private constructor(readonly directory: string, private lock: FileHandle, private currentState: LedgerState) { this.index(); }
+    get state():LedgerState {if(this.uncertain)throw new Fault('STORAGE_WRITE_UNCERTAIN');return this.currentState;}
+    private index(){this.goalIndex.clear();for(const goal of Object.values(this.state.goals))this.goalIndex.set(`${goal.session_id}:${goal.idempotency_key}`,goal);}
+    findGoal(sessionId:string,idempotencyKey:string):GoalResult|undefined {if(this.uncertain)throw new Fault('STORAGE_WRITE_UNCERTAIN');const value=this.goalIndex.get(`${sessionId}:${idempotencyKey}`);return value?structuredClone(value):undefined;}
     static async open(directory: string): Promise<Ledger> {
         await mkdir(directory, { recursive: true, mode: 0o700 });
         let lock: FileHandle;
@@ -59,16 +68,16 @@ export class Ledger {
         try {
             await lock.writeFile(JSON.stringify({ pid: process.pid, token: randomUUID() }));
             await lock.sync();
-            let state: LedgerState = { version: 1, sessions: {}, goals: {}, actions: {} };
+            let state: LedgerState = { version: 2, sessions: {}, goals: {}, actions: {} };
             try {
                 state = JSON.parse(await readFile(join(directory, 'ledger.json'), 'utf8')) as LedgerState;
-                if (state.version !== 1 || !state.sessions || !state.goals || !state.actions)
-                    throw new Error('invalid');
+                validateLedgerState(state);
             }
             catch (e) {
                 if ((e as NodeJS.ErrnoException).code !== 'ENOENT')
                     throw new Fault('STORAGE_CORRUPT');
             }
+            state.version=2; // Atomic recovery transaction migrates legacy state; old readers fail closed.
             const ledger = new Ledger(directory, lock, state);
             await ledger.transaction(s => {
                 for (const action of Object.values(s.actions)) {
@@ -98,22 +107,34 @@ export class Ledger {
         }
     }
     transaction(fn: (state: LedgerState) => void): Promise<void> {
-        const next = this.tail.then(async () => { if (this.closed)
-            throw new Fault('STORAGE_CLOSED'); const draft = structuredClone(this.state); fn(draft); const temp = join(this.directory, `ledger-${randomUUID()}.tmp`); const file = await open(temp, 'wx', 0o600); try {
-            await file.writeFile(JSON.stringify(draft));
-            await file.sync();
-        }
-        finally {
-            await file.close();
-        } await rename(temp, join(this.directory, 'ledger.json')); const dir = await open(this.directory, 'r'); try {
-            await dir.sync();
-        }
-        finally {
-            await dir.close();
-        } this.state = draft; });
-        this.tail = next.catch(() => { });
-        return next;
+        if(this.closing||this.closed)return Promise.reject(new Fault('STORAGE_CLOSED'));
+        const next=this.tail.then(async()=>{
+            if(this.uncertain)throw new Fault('STORAGE_WRITE_UNCERTAIN');
+            if(this.closed)throw new Fault('STORAGE_CLOSED');
+            const draft=structuredClone(this.state);fn(draft);if(draft.version!==2)throw new Fault('STORAGE_CORRUPT');validateLedgerState(draft);
+            const temp=join(this.directory,`ledger-${randomUUID()}.tmp`);let renamed=false;
+            try{
+                const file=await open(temp,'wx',0o600);
+                try{await file.writeFile(JSON.stringify(draft));await file.sync();}finally{await file.close();}
+                await rename(temp,join(this.directory,'ledger.json'));renamed=true;
+                const directory=await open(this.directory,'r');
+                try{await directory.sync();}finally{await directory.close();}
+                this.currentState=draft;this.index();
+            }catch(error){
+                if(renamed){this.uncertain=true;throw new Fault('STORAGE_WRITE_UNCERTAIN');}
+                await unlink(temp).catch(()=>{});throw error;
+            }
+        });
+        this.tail=next.catch(()=>{});return next;
     }
-    async close(): Promise<void> { await this.tail; if (this.closed)
-        return; this.closed = true; await this.lock.close(); await unlink(join(this.directory, 'owner.lock')); }
+    close():Promise<void> {
+        if(this.released)return Promise.resolve();
+        if(this.closing)return this.closing;
+        const pending=this.tail.then(async()=>{
+            this.closed=true;
+            if(!this.lockClosed){await this.lock.close();this.lockClosed=true;}
+            await unlink(join(this.directory,'owner.lock'));this.released=true;
+        });
+        this.closing=pending.finally(()=>{this.closing=undefined;});return this.closing;
+    }
 }

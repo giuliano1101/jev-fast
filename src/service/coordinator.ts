@@ -7,7 +7,7 @@ import type {Engine} from '../core/engine.js';
 import {Fault} from '../core/errors.js';
 import {parseTool} from './contracts.js';
 import {encodeFrame,MAX_FRAME_BYTES,MAX_CALL_MS,requestSchema,safeCode,type Reply} from './ipc.js';
-export interface CoordinatorOptions {runtimeDir:string;engine:Engine;clients:readonly string[];transportTimeoutMs?:number;onStop?:()=>Promise<void>;}
+export interface CoordinatorOptions {runtimeDir:string;engine:Engine;clients:readonly string[];transportTimeoutMs?:number;health?:()=>Promise<Record<string,unknown>>;onStop?:()=>Promise<void>;}
 export class Coordinator {
  private server:Server;
  private sockets=new Set<Socket>();
@@ -58,7 +58,7 @@ export class Coordinator {
   const {token,method,params}=request.data;const client=this.tokens.get(token);if(!client)throw new Fault('UNAUTHORIZED');
   if(method==='service.health'||method==='service.stop'){
    if(!z.strictObject({}).safeParse(params).success)throw new Fault('INVALID_ARGUMENTS');
-   if(method==='service.health')return {ready:!this.stopping,provider:'mock',active_session_limit:1};
+   if(method==='service.health')return {...(this.options.health?await this.options.health():{provider:'mock'}),ready:!this.stopping,active_session_limit:1};
    if(client!=='operator')throw new Fault('UNAUTHORIZED');
    this.stopping=true;await this.options.engine.kill();
    setImmediate(()=>{void this.close().catch(()=>{process.stderr.write('SERVICE_SHUTDOWN_FAILED\n');});});

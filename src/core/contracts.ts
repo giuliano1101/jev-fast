@@ -72,6 +72,7 @@ export interface DecisionInput {
     }>;
 }
 export interface DecisionContext {
+    remoteRequest?: import('../remote/protocol.js').DecisionRequest;
     signal: AbortSignal;
     deadline: number;
 }
@@ -79,15 +80,18 @@ export interface DecisionProvider {
     decide(input: DecisionInput, context: DecisionContext): Promise<unknown>;
 }
 export interface BrowserPort {
+    /** Trusted local commitments; required by remote profiles. No target or value leaves the host. */
+    commitments?(sessionId:string,snapshot:Snapshot,goal:Goal,signal:AbortSignal):Promise<readonly import('../remote/protocol.js').CandidateCommitment[]>;
     open(sessionId: string, fixtureId: 'standard'): Promise<{
         allowed_origin: string;
     }>;
     observe(sessionId: string, goal?: Goal, signal?: AbortSignal): Promise<Snapshot>;
     validate(sessionId: string, snapshot: Snapshot, candidate: Candidate, goal: Goal, signal: AbortSignal): Promise<boolean>;
-    execute(sessionId: string, candidate: Candidate, goal: Goal, signal: AbortSignal): Promise<void>;
+    execute(sessionId: string, candidate: Candidate, goal: Goal, signal: AbortSignal, authorization?:ExecutionAuthorization): Promise<void>;
     check(sessionId: string, predicate: Predicate, signal?: AbortSignal): Promise<boolean>;
     close(sessionId: string): Promise<void>;
 }
+export interface ExecutionAuthorization {expiresAtMonotonic:number;assertAuthorized:()=>void}
 export type GoalStatus = 'RUNNING' | 'SUCCEEDED' | 'FALLBACK' | 'CANCELLED' | 'UNKNOWN';
 export interface GoalResult {
     session_id: string;
@@ -103,6 +107,7 @@ export interface GoalResult {
 }
 export type ActionStatus = 'VALIDATED' | 'EXECUTING' | 'VERIFYING' | 'SUCCEEDED' | 'FAILED' | 'UNKNOWN' | 'REJECTED';
 export interface ActionRecord {
+    receipt?:{decision_id:string;nonce:string;receipt_digest:string;route:'jev'|'mock';owner_id:string;device_id:string;agent_id:string};
     action_id: string;
     session_id: string;
     goal_id: string;
@@ -129,7 +134,7 @@ export interface SessionRecord {
     closed: boolean;
 }
 export interface LedgerState {
-    version: 1;
+    version: 1 | 2;
     sessions: Record<string, SessionRecord>;
     goals: Record<string, GoalResult>;
     actions: Record<string, ActionRecord>;
