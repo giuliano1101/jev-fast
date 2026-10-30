@@ -1,0 +1,18 @@
+{
+  "run_url": "https://github.com/giuliano1101/jev-fast/actions/runs/41019715321",
+  "commit": "2f8579cc19e74ac57dbcefb79c1b72c079ed5d94",
+  "result": "failure",
+  "integration_passed": 54,
+  "integration_failed": 2,
+  "observed_errors": [
+    "browser-projection: first page.goto exceeded1500ms",
+    "mock benchmark: BENCHMARK_FAILED; internal cause not exported"
+  ],
+  "hypothesis": "parallel Chromium startup resource contention may explain navigation timeout; benchmark cause unconfirmed",
+  "change": "integration file concurrency1; product deadlines/assertions unchanged",
+  "local_serial_result": {
+    "passed": 56,
+    "failed": 0,
+    "duration_ms": 59403.942875
+  }
+}

@@ -71,3 +71,9 @@ python3 scripts/report-stability.py --normal artifacts/stability/live --faults a
 ```
 
 本轮结果支持：在当前固定合成范围内，三入口完成率保持一致，MCP与直接调用的工作流耗时接近，CLI存在可见封装开销。边界仍是单机、固定模板、短时运行和受限候选选择；没有证明多小时负载、开放网页、手机或实体双机稳定性。
+
+## CI运行条件补充
+
+首次GitHub检查中，集成56项通过54、失败2：一个首次导航超过1.5秒，另一个基准包装返回BENCHMARK_FAILED。多文件同时冷启动Chromium的资源争用是导航超时的合理假设，基准内部原因未完整导出，不能直接认定同因。[原失败记录](verification/ci-initial.json)保留。
+
+集成测试现按文件串行运行，产品1.5秒操作/2秒快照期限和全部断言保持；文件内部明确设计的多客户端并发仍测试。本机串行复核56/56通过，详见[integration-serial.log](verification/integration-serial.log)。最终GitHub结果以该修正后的提交为准。本次真实108目标原本就是逐题执行，采样未受此测试调度更改影响；多实例同时冷启动的高负载稳定性仍不在本轮结论中。

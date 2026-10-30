@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "npm run build && node --test dist/tests/unit/*.test.js dist/tests/safety/core.test.js",
-    "test:integration": "npm run build && node --test dist/tests/integration/*.test.js",
+    "test:integration": "npm run build && node --test --test-concurrency=1 dist/tests/integration/*.test.js",
     "test:safety": "npm run build && node --test dist/tests/safety/*.test.js",
     "bench:mock": "npm run build && node dist/bench/run.js",
     "start:service": "node dist/src/service/main.js",
