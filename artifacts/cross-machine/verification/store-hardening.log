@@ -1,0 +1,15 @@
+✔ central reservations survive restart and conflicting configuration cannot reset caps (14.194125ms)
+✔ unknown decision cannot be restarted or reserved again and identity isolates keys (3.315916ms)
+✔ revocation and per-device certificate binding persist across restart (3.579459ms)
+✔ missing tables in an existing database cannot silently recreate budget or idempotency (8.65225ms)
+✔ completed signed response survives restart byte-for-byte without a new reservation (5.714625ms)
+✔ separate store instances share the same durable cap and cannot take over pending calls (2.406125ms)
+✔ well-formed SQLite with invalid decision fields fails closed on reopen (12.760166ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.894542

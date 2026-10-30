@@ -72,7 +72,7 @@ npm run release -- pack --out .runtime/releases/s10
 npm run release -- verify --manifest .runtime/releases/s10/manifest.json
 ```
 
-只打包 Git HEAD 的受版本控制文件，不打包 `.runtime`、私钥、node_modules 或浏览器。命令要求工作区干净；输出路径必须尚无同名包/manifest。输出包含完整 revision、SHA-256、大小和兼容版本。收件方须通过可信渠道核对 manifest，再校验包、解压、安装锁定依赖、构建并运行离线测试。校验和用于发现传输损坏，**不是发布者签名**；没有自动发布或更新服务。`verify` 不解压、不安装也不执行包内文件。
+只打包 Git HEAD 的受版本控制文件，不打包 `.runtime`、私钥、node_modules 或浏览器。命令要求工作区干净；输出路径必须尚无同名包/manifest。输出包含完整 revision、SHA-256、大小和兼容版本。收件方须通过可信渠道核对 manifest，再校验包、解压、安装锁定依赖、构建并运行离线测试。`verify` 只核对文件名形式、字节数和 SHA-256；输出的 revision 和兼容性字段不能当作已经验证了包内源码或版本兼容。校验和用于发现传输损坏，**不是发布者签名**；没有自动发布或更新服务。`verify` 不解压、不安装也不执行包内文件。
 
 ## C–E 后续验收条件
 

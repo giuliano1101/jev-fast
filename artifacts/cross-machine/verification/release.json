@@ -1,0 +1,9 @@
+{
+  "source_commit": "aa8b983e9961bbdea414b2b710bfd218151be659",
+  "clean_build_metadata_verified": true,
+  "source_package_checksum_verified": true,
+  "corrupted_package_rejected": true,
+  "archive_sha256": "870404888f17c840ecfcd8fe7d3915851003cdd4b79603ef79d3244a41407774",
+  "archive_bytes": 1217877,
+  "authentication": "checksum only; trusted manifest required; not publisher signature"
+}

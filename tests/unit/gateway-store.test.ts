@@ -27,8 +27,8 @@ test('separate store instances share the same durable cap and cannot take over p
 }));
 test('well-formed SQLite with invalid decision fields fails closed on reopen',async()=>{
  const Store=await api(),{DatabaseSync}=await import('node:sqlite');
- for(const sql of ["UPDATE decisions SET cost=-1","UPDATE decisions SET owner='not-a-process-instance'","UPDATE decisions SET code='ILLEGAL_PENDING_CODE'","UPDATE decisions SET id='invalid-composite-key'"])await fixture(async dir=>{
-  const store=new Store(dir);store.begin(identity,'key','a'.repeat(64));store.close();const db=new DatabaseSync(join(dir,'gateway.sqlite'));db.exec(sql);db.close();let reopened:{close:()=>void}|undefined;
+ for(const sql of ["UPDATE budgets SET requests=0.5,reserved=5000000","UPDATE decisions SET cost=-1","UPDATE decisions SET owner='not-a-process-instance'","UPDATE decisions SET code='ILLEGAL_PENDING_CODE'","UPDATE decisions SET id='invalid-composite-key'"])await fixture(async dir=>{
+  const store=new Store(dir);store.configureBudget(approval());store.begin(identity,'key','a'.repeat(64));store.close();const db=new DatabaseSync(join(dir,'gateway.sqlite'));db.exec(sql);db.close();let reopened:{close:()=>void}|undefined;
   try{assert.throws(()=>{reopened=new Store(dir);},/GATEWAY_STORAGE_CORRUPT/);}finally{reopened?.close();}
  });
 });

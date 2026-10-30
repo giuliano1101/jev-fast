@@ -27,5 +27,13 @@
       "exit_code": 0,
       "elapsed_seconds": 11.14
     }
-  ]
+  ],
+  "post_suite_hardening": {
+    "change": "Reject fractional SQLite budget counters as corrupt storage",
+    "test": "gateway-store.test.ts",
+    "passed": 7,
+    "failed": 0,
+    "typecheck_exit_code": 0,
+    "lint_exit_code": 0
+  }
 }

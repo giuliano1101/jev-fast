@@ -45,7 +45,7 @@ export class GatewayStore {
     this.db.exec('BEGIN IMMEDIATE;'+tableSql.join(';')+';PRAGMA user_version=1;COMMIT;');
    }
    if(this.db.prepare('PRAGMA quick_check').get()?.quick_check!=='ok')throw new Fault('GATEWAY_STORAGE_CORRUPT');
-   for(const row of this.db.prepare('SELECT * FROM budgets').all()){const a=approvalSchema.parse(JSON.parse(String(row.config)));if(row.id!==a.approval_id||typeof row.requests!=='number'||row.requests<0||row.requests>a.max_requests||typeof row.reserved!=='number'||row.reserved!==row.requests*units(a.reservation_usd)||row.reserved>units(a.max_cost_usd))throw new Fault('GATEWAY_STORAGE_CORRUPT');}
+   for(const row of this.db.prepare('SELECT * FROM budgets').all()){const a=approvalSchema.parse(JSON.parse(String(row.config)));if(row.id!==a.approval_id||typeof row.requests!=='number'||!Number.isSafeInteger(row.requests)||row.requests<0||row.requests>a.max_requests||typeof row.reserved!=='number'||!Number.isSafeInteger(row.reserved)||row.reserved!==row.requests*units(a.reservation_usd)||row.reserved>units(a.max_cost_usd))throw new Fault('GATEWAY_STORAGE_CORRUPT');}
    for(const row of this.db.prepare('SELECT * FROM principals').all()){const e=enrollmentSchema.parse(JSON.parse(String(row.enrollment)));if(row.id!==identityKey({owner_id:e.owner_id,device_id:e.device_id,agent_id:e.agent_id})||![0,1].includes(Number(row.revoked)))throw new Fault('GATEWAY_STORAGE_CORRUPT');}
    const decisions=this.db.prepare('SELECT * FROM decisions').all();if(decisions.length>MAX_RECORDS)throw new Fault('GATEWAY_STORAGE_CORRUPT');
    for(const value of decisions){const row=storedDecisionSchema.parse(value);if(row.status==='complete')responseSchema.parse(JSON.parse(row.response!));}

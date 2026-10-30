@@ -47,6 +47,8 @@
 
 测试集合部分有交叉，不能将三项简单相加当作独立场景数量。详细日志：[unit](verification/unit.log)、[integration](verification/integration.log)、[safety](verification/safety.log)。独立代码审查后补上了存储缺表、撤销竞态、最终执行 TTL、预执行误标 UNKNOWN 和诊断身份对照等问题的回归验证。
 
+源码校验包已实际生成并通过 SHA-256 校验；追加字节的损坏包被拒绝，干净提交构建来源也已核对。记录见 [release.json](verification/release.json)，其中保留了被验证的具体源码提交；该校验不是发布者签名。
+
 ## 账本容量实测
 
 使用当前 v2 格式，单台 Mac / Node v24.19.0，每档一次样本。记录包括完整校验、打开恢复、一次事务、10,000 次索引读取；RSS 不是隔离峰值，且继承前一档进程状态。原始结果见 [ledger-capacity.json](ledger-capacity.json)。
