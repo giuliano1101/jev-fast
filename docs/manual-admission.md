@@ -64,6 +64,6 @@ AI 使用普通 Streamable HTTP MCP 地址，例如 `https://jev.example.com/mcp
 
 ## 验证与限制
 
-测试用实际 HTTPS SDK、无 Authorization 请求、隔离浏览器和控制台 UI 验证登记、待启用、开启后执行、同名连接隔离、关闭/重新开启与结果不重放。部署前仍需验收实际公网、目标 AI 宿主及服务器环境。接入无身份验证，不能仅凭名称判断设备归属；管理边界、TLS、请求大小和连接数量限制继续保留。
+本机测试用实际 HTTPS SDK、无 Authorization 请求、隔离浏览器和控制台 UI 验证登记、待启用、开启后执行、同名连接隔离、关闭/重新开启与结果不重放。S16另在指定Ubuntu服务器验证公网TLS/SDK初始化、默认拒绝执行、私有管理台和未授权Mac连接器心跳恢复，见[报告](../artifacts/public-deployment/report.md)及[实际接入说明](public-service-quickstart.md)。目标商业AI宿主、已批准公网在途任务及实体第二电脑仍需后续验收。接入无身份验证，不能仅凭名称判断设备归属；管理边界、TLS、请求大小和连接数量限制继续保留。
 
 旧 S14 Bearer 网络协议的使用和恢复说明仍见[网络手册](network-mcp.md)。手动接入的长断线和重新审批策略比旧模式更保守，不能混用二者的恢复假设。

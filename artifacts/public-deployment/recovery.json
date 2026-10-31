@@ -1,0 +1,17 @@
+{
+  "test": "heartbeat outage of unapproved connector",
+  "mechanism": "SIGSTOP then SIGCONT on the same connector process; no vhost/server changes",
+  "pausedAt": "2026-10-31T23:04:46.772Z",
+  "resumedAt": "2026-10-31T23:05:33.200Z",
+  "recoveredAt": "2026-10-31T23:06:37.539Z",
+  "observedStates": [
+    "pending",
+    "offline",
+    "pending"
+  ],
+  "sameDisplayedDeviceId": true,
+  "permissionAutoEnabled": false,
+  "localServiceStarted": false,
+  "executedPhysicalActions": 0,
+  "limitation": "Does not validate active approved jobs, dispatch interruption, or physical action cancellation over the public link."
+}

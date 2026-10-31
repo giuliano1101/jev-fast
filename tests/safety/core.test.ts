@@ -227,4 +227,26 @@ test('proven pre-execution stale rejection reobserves without UNKNOWN or replay'
  try{const result=await f.engine.runGoal('a',req(f.s));assert.equal(result.status,'SUCCEEDED');assert.equal(attempts,1);assert.equal(f.browser.executions,0);assert.equal(f.engine.ledger.state.sessions[f.s]!.quarantined,false);assert.equal(f.engine.ledger.state.actions[result.action_ids[0]!]!.status,'REJECTED');}finally{await f.cleanup();}
 });
 test('failed public observation cannot prevent session cleanup',async()=>{const f=await setup();let reject!: (error:Error)=>void;let closed=0;f.browser.observe=async()=>new Promise((_resolve,r)=>{reject=r;});f.browser.close=async()=>{closed++;};try{const observation=f.engine.observe('a',{session_id:f.s}).catch(()=>{});const closing=f.engine.closeSession('a',{session_id:f.s});reject(new Error('READ_FAILED'));await observation;assert.equal((await closing).closed,true);assert.equal(closed,1);}finally{await f.cleanup();}});
-test('lost action response preserves committed side effect without replay',async()=>{const f=await setup();f.browser.execute=async()=>{f.browser.executions++;f.browser.done=true;await new Promise(()=>{});};try{const result=await f.engine.runGoal('a',{...req(f.s),time_budget_ms:50});assert.equal(result.status,'UNKNOWN');assert.equal(f.browser.done,true);const repeated=await f.engine.runGoal('a',{...req(f.s),time_budget_ms:50});assert.deepEqual(repeated,result);assert.equal(f.browser.executions,1);}finally{await f.cleanup();}});
+test('lost action response preserves committed side effect without replay',async()=>{
+ const f=await setup();
+ f.browser.execute=async()=>{
+  f.browser.executions++;
+  f.browser.done=true;
+  // A short goal deadline can expire during durable setup before execute starts.
+  // Commit then lose the response; the separate hung-executor test covers timeouts.
+  throw new Error('ACTION_RESPONSE_LOST');
+ };
+ try{
+  const result=await f.engine.runGoal('a',req(f.s));
+  assert.equal(result.status,'UNKNOWN');
+  assert.equal(f.browser.done,true);
+  assert.equal(result.action_ids.length,1);
+  assert.equal(f.engine.ledger.state.actions[result.action_ids[0]!]!.status,'UNKNOWN');
+  assert.equal(f.engine.ledger.state.sessions[f.s]!.quarantined,true);
+  const repeated=await f.engine.runGoal('a',req(f.s));
+  assert.deepEqual(repeated,result);
+  assert.equal(f.browser.executions,1);
+  await assert.rejects(f.engine.runGoal('a',{...req(f.s),goal_id:'g2',idempotency_key:'id2'}),/QUARANTINED/);
+  assert.equal(f.browser.executions,1);
+ }finally{await f.cleanup();}
+});

@@ -1,0 +1,11 @@
+{
+  "typecheck": {"command": "npm run typecheck", "exit_code": 0, "log": "typecheck.log"},
+  "lint": {"command": "npm run lint", "exit_code": 0, "log": "lint.log"},
+  "unit_core": {"command": "npm test", "default_concurrency": true, "passed": 405, "failed": 0, "cancelled": 0, "log": "unit.log"},
+  "integration": {"command": "npm run test:integration", "passed": 77, "failed": 0, "cancelled": 0, "log": "integration.log"},
+  "safety": {"command": "npm run test:safety", "passed": 40, "failed": 0, "cancelled": 0, "log": "safety.log"},
+  "deployment_helper": {"command": "python3 -m unittest discover -s deploy/network/tests -v", "passed": 16, "failed": 0, "log": "deployment-helper.log"},
+  "sets_overlap": true,
+  "initial_failed_attempts_retained": "attempts/",
+  "hosted_requests_in_ordinary_tests": 0
+}

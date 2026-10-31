@@ -9,4 +9,6 @@ Current primary mode is `accessMode: "manual"`: no AI/device login, OAuth or pre
 
 Names are labels, not verified identities. Connection/session handles are internal capabilities. Keep the operator console loopback-only and access it through an operator tunnel/provider control boundary; never expose it as a public self-approval endpoint. TLS remains mandatory for network traffic. No API key or model budget authorization is created by manual admission.
 
-See [manual admission](../../docs/manual-admission.md) and [deployment guide](../../docs/server-deployment.md). These are templates, not an already deployed or Linux-tested installation.
+The operator helper [public_deploy.py](public_deploy.py) and [its manual](PUBLIC_DEPLOYMENT.md) provide private preparation and explicitly confirmed publication on Ubuntu24.04. They preserve existing vhosts and audit state; default preparation refuses existing installation paths. Opt-in recovery supports only the reviewed Node-only prefix and verifies it against a fresh official download.
+
+See [manual admission](../../docs/manual-admission.md), [deployment guide](../../docs/server-deployment.md), and [the deployed-service instructions](../../docs/public-service-quickstart.md). S16 verified the actual Ubuntu relay; the example JSON/systemd files remain configurable templates rather than target-specific private configuration.

@@ -1,6 +1,6 @@
 # 让另一个 AI 接入 Jev
 
-可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用[免 Key 网络接入与本机连接器](manual-admission.md)，由操作员先部署 relay，并在控制台手动开启对应设备/AI实例。网络接口尚未部署公网，不能把本机 Unix socket 或控制面板链接当作远程 MCP 地址。
+可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。初始化后仍需操作员在控制台手动开启设备/AI实例，才能执行。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
 
 当前正式 CLI/MCP 只执行 `standard` 本地模拟页面上的十二类固定任务。默认离线 mock；它可验证接线，不代表已经使用真实 Jev 模型。既有真实网页、抖音和 Android 测试工具仍是独立研究适配器。双实体电脑和任意真实应用接入尚未验收。
 

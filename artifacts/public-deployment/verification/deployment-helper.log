@@ -1,0 +1,21 @@
+test_acme_account_selection_requires_explicit_new_account_terms (test_public_deploy.DeploymentTests) ... ok
+test_acme_webroot_is_readable_under_private_umask_and_preserves_existing_permissions (test_public_deploy.DeploymentTests) ... ok
+test_builder_uses_absolute_launcher_outside_restricted_child_path (test_public_deploy.DeploymentTests) ... ok
+test_collision_detects_hostname_even_in_inline_nginx_configuration (test_public_deploy.DeploymentTests) ... ok
+test_collision_preflight_does_not_mutate_any_path (test_public_deploy.DeploymentTests) ... ok
+test_duplicate_links_special_members_and_oversized_archive_are_rejected (test_public_deploy.DeploymentTests) ... ok
+test_existing_symlink_collision_and_immutable_install_permissions (test_public_deploy.DeploymentTests) ... ok
+test_extract_selects_build_inputs_without_archived_artifacts (test_public_deploy.DeploymentTests) ... ok
+test_fresh_and_explicit_node_only_resume_require_exact_prefix (test_public_deploy.DeploymentTests) ... ok
+test_hash_mismatch_or_unsafe_archive_never_extracts_any_file (test_public_deploy.DeploymentTests) ... ok
+test_hostname_and_digest_refuse_injection_or_ambiguous_host (test_public_deploy.DeploymentTests) ... ok
+test_prepare_configs_are_private_loopback_and_do_not_enable_nginx (test_public_deploy.DeploymentTests) ... ok
+test_prepare_fresh_and_reviewed_resume_validate_before_builder_stage (test_public_deploy.DeploymentTests) ... ok
+test_public_vhost_is_exact_scoped_verified_and_private (test_public_deploy.DeploymentTests) ... ok
+test_publish_terms_are_checked_before_mutation (test_public_deploy.DeploymentTests) ... ok
+test_resume_node_contents_modes_links_and_owners_must_match_official_tree (test_public_deploy.DeploymentTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.111s
+
+OK

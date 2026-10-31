@@ -1,0 +1,8 @@
+{
+  "source_archive_sha256": "46836657b91c3a79bfbd3fdc4d2889f9c6cda310419e372860dfbd7e5200b12d",
+  "attempts": [
+    {"stage": "first private preparation", "helper_sha256": "85afcf61ab12ba512d60c9413d74545780b9180e8de1c4e9670f3bf100caa342", "result": "stopped", "error": "FileNotFoundError: runuser", "cause": "child PATH omitted /usr/sbin", "completed_prefix": ["dedicated nonlogin account", "verified read-only official Node"], "service_configuration_or_ledger_created": false, "public_vhost_enabled": false},
+    {"stage": "reviewed Node-only resume", "helper_sha256": "49c96815dd109bf67042d44595575935bf8d837e56c96a543887b5df4cec500f", "result": "passed", "prefix_reverified_against_fresh_official_download": true, "existing_account_or_node_overwritten": false, "audit_deleted": false, "private_health_and_isolation_verified": true},
+    {"stage": "public HTTPS publication", "helper_sha256": "49c96815dd109bf67042d44595575935bf8d837e56c96a543887b5df4cec500f", "result": "passed", "user_action_time_confirmation": true, "existing_acme_account_reused": true, "new_vhost_only": true, "public_probe": "public-probe.json"}
+  ]
+}

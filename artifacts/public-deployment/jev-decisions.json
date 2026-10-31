@@ -1,0 +1,167 @@
+{
+  "summary": {
+    "requests": 7,
+    "validDecisions": 7,
+    "hostVerifiedSteps": 7,
+    "inputTokens": 3334,
+    "outputTokens": 208,
+    "knownCostUsd": 0.00014002800000000002,
+    "unknownUsageRequests": 0,
+    "reservedUsd": 0.07,
+    "budgetMaxUsd": 0.1,
+    "selectorMeanMs": 929.7612854285716,
+    "selectorMinMs": 771.843625,
+    "selectorMaxMs": 1103.578166,
+    "executionSpeedComparison": false
+  },
+  "results": [
+    {
+      "createdAt": "2026-10-31T22:44:59.076Z",
+      "phase": "preflight",
+      "candidates": [
+        "verify_dns",
+        "inspect_listeners"
+      ],
+      "candidate_id": "verify_dns",
+      "confidence": 0.88,
+      "selector_elapsed_ms": 1103.578166,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 499,
+        "output_tokens": 36
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000020958,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "host CUA executed fixed DNS check selected by real Jev",
+      "verifiedAt": "2026-10-31T22:46:19.685Z"
+    },
+    {
+      "createdAt": "2026-10-31T22:46:19.743Z",
+      "phase": "preflight",
+      "candidates": [
+        "inspect_listeners"
+      ],
+      "candidate_id": "inspect_listeners",
+      "confidence": 1,
+      "selector_elapsed_ms": 1068.168708,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 474,
+        "output_tokens": 30
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019908000000000003,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "host CUA executed fixed loopback port availability check selected by real Jev",
+      "verifiedAt": "2026-10-31T22:48:32.072Z"
+    },
+    {
+      "createdAt": "2026-10-31T22:48:32.165Z",
+      "phase": "private_relay",
+      "candidates": [
+        "prepare_private_relay"
+      ],
+      "candidate_id": "prepare_private_relay",
+      "confidence": 1,
+      "selector_elapsed_ms": 782.4871250000001,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 473,
+        "output_tokens": 30
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019866000000000003,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "host CUA invoked checksum-verified reviewed installer, explicit verified Node-only resume",
+      "verifiedAt": "2026-10-31T22:49:47.311Z"
+    },
+    {
+      "createdAt": "2026-10-31T22:49:47.375Z",
+      "phase": "private_health",
+      "candidates": [
+        "verify_private_health"
+      ],
+      "candidate_id": "verify_private_health",
+      "confidence": 1,
+      "selector_elapsed_ms": 771.843625,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 470,
+        "output_tokens": 28
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019740000000000004,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "host CUA verified trusted local HTTPS health, systemd user jev, loopback8443/47832, private0600 files, new public vhost absent",
+      "verifiedAt": "2026-10-31T22:51:03.272Z"
+    },
+    {
+      "createdAt": "2026-10-31T22:53:39.156Z",
+      "phase": "https",
+      "candidates": [
+        "publish_https"
+      ],
+      "candidate_id": "publish_https",
+      "confidence": 1,
+      "selector_elapsed_ms": 1010.0144579999999,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 469,
+        "output_tokens": 26
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019698000000000004,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "host CUA invoked checksum-verified publisher after explicit user action-time confirmation",
+      "verifiedAt": "2026-10-31T22:55:42.587Z"
+    },
+    {
+      "createdAt": "2026-10-31T22:55:42.696Z",
+      "phase": "public_mcp",
+      "candidates": [
+        "verify_public_mcp"
+      ],
+      "candidate_id": "verify_public_mcp",
+      "confidence": 1,
+      "selector_elapsed_ms": 917.423958,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 476,
+        "output_tokens": 30
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019992,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "host SDK and TLS client verified public endpoint after Jev selected public MCP verification",
+      "verifiedAt": "2026-10-31T22:56:51.882Z"
+    },
+    {
+      "createdAt": "2026-10-31T22:56:51.959Z",
+      "phase": "operator_route",
+      "candidates": [
+        "inspect_operator_route"
+      ],
+      "candidate_id": "inspect_operator_route",
+      "confidence": 1,
+      "selector_elapsed_ms": 854.812958,
+      "execution_status": "NOT_EXECUTED",
+      "usage": {
+        "input_tokens": 473,
+        "output_tokens": 28
+      },
+      "request_count": 1,
+      "known_cost_usd": 0.000019866000000000003,
+      "unknown_usage_requests": 0,
+      "hostExecution": "VERIFIED_PASS",
+      "actualMethod": "existing authenticated SSH local tunnel + host CUA opened private admission UI; live Mac connector visible pending; no operator permission toggled",
+      "verifiedAt": "2026-10-31T23:03:47.758Z"
+    }
+  ]
+}
