@@ -48,6 +48,12 @@ macOS 提供根目录 `打开Jev控制面板.command`，双击后检查 Node、�
 
 这些结果证明本机控制面板和现有接口接线在本次离线场景可用，不能代替真实应用、第二实体设备或长期运行验收。浏览器预览截图使用模拟目录；最终操作面板不自动开启协调服务。
 
+## GitHub 验证环境迁移
+
+功能提交 `42e6017` 的首次 CI [41241457939](https://github.com/giuliano1101/jev-fast/actions/runs/41241457939) 在开始任何 step 前即被 GitHub 取消。检查注释确认是 macOS 14 runner 的计划 brownout，而非测试断言失败。[官方迁移公告](https://github.com/actions/runner-images/issues/13518)说明该镜像将于 2026-11-02 退役，并列出 macos-15 等迁移选项。
+
+已将 workflow 的 runner 改为 `macos-15`，其余步骤、期限和测试断言保持不变。首次取消的元数据见 [ci-initial.json](verification/ci-initial.json)；迁移后运行结果以当前提交对应的 GitHub Actions 为准。本机完整验收的代码与面板实现未因这次 CI 配置迁移改变。
+
 ## 操作说明
 
 - [面板使用说明](../../docs/control-panel.md)

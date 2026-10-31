@@ -25,4 +25,6 @@
 - [x] Add real-loopback browser test: status while stopped, start mock, CLI/MCP health, stop, service no longer reachable, page error handling; all disposable runtime and no paid API.
 - [x] Independent spec review followed by code review; fix findings and recheck.
 - [x] Run typecheck/lint/unit/integration/safety. Record results and limitations in artifacts/control-panel/report.md.
-- [ ] Release operation: commit/push following existing authorized repository workflow; verify CI. Open an operator panel on this machine, with coordinator initially off. The release outcome is recorded in Git history/CI and the final task delivery, rather than predicted in this pre-release plan.
+- [x] Release operation: commit/push following existing authorized repository workflow; verify CI. Open an operator panel on this machine, with coordinator initially off. The release outcome is recorded in Git history/CI and the final task delivery, rather than predicted in this pre-release plan.
+
+Release note: feature commit uploaded and operator panel opened with coordinator off. Initial CI cancelled before all steps by macOS14 brownout; workflow migrated to macOS15. Current run status is tracked in GitHub Actions.

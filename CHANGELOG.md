@@ -4,6 +4,7 @@
 - 本地令牌、Host/Origin 校验与固定操作接口，不向网页提供凭据内容，不自动执行任务或申请付费额度。
 - 增加 AI 接入快速指南、根目录 AGENTS.md 和面板操作说明，明确私有仓库访问、本机执行权限、mock/remote 区别及当前合成能力范围。
 - 验证与限制见 `artifacts/control-panel/report.md`。
+- 首次 CI 在执行任何 step 前因 macOS 14 runner brownout 被取消；迁移到 macos-15 并保留取消证据，测试条件不变。
 
 # S12 · 2026-10-30
 

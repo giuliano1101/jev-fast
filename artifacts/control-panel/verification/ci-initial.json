@@ -1,0 +1,11 @@
+{
+  "run_id": 41241457939,
+  "head_sha": "42e60177c1e4cf22fbb77eb3d9fc3c8f1f3ea66b",
+  "status": "completed",
+  "conclusion": "cancelled",
+  "job_id": 124656055616,
+  "steps": [],
+  "annotation_reason": "Scheduled macOS 14 runner image brownout; image retirement 2026-11-02. No test step executed.",
+  "official_migration": "https://github.com/actions/runner-images/issues/13518",
+  "replacement_runner": "macos-15"
+}
