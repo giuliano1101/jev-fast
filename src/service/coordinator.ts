@@ -67,6 +67,25 @@ export class Coordinator {
    return {stopping:true};
   }
   if(this.stopping)throw new Fault('KILLED');if(client==='operator')throw new Fault('UNAUTHORIZED');
+  if(method.startsWith('service.network_')){
+   if(client!=='a')throw new Fault('UNAUTHORIZED');
+   if(method==='service.network_reconcile'){
+    const input=z.strictObject({owners:z.array(z.string().regex(/^network-[a-f0-9]{64}$/)).max(128)}).parse(params);
+    return this.options.engine.reconcileNetworkOwners(input.owners);
+   }
+   if(method==='service.network_revoke'){
+    const input=z.strictObject({owner:z.string().regex(/^network-[a-f0-9]{64}$/)}).parse(params);
+    await this.options.engine.revokeNetworkOwner(input.owner);return {revoked:true};
+   }
+   if(method==='service.network_dispatch'){
+    const input=z.strictObject({owner:z.string().regex(/^network-[a-f0-9]{64}$/),method:z.string(),params:z.unknown()}).parse(params);
+    return this.tool(input.owner,input.method,input.params);
+   }
+   throw new Fault('UNKNOWN_METHOD');
+  }
+  return this.tool(client,method,params);
+ }
+ private tool(client:string,method:string,params:unknown){
   const args=parseTool(method,params);const engine=this.options.engine;
   switch(method){
    case 'jev.open_session':return engine.openSession(client,args);

@@ -10,9 +10,11 @@ import {idSchema} from '../core/contracts.js';
 import {safeCode} from '../service/ipc.js';
 import {MAX_BODY,networkToolDefinitions,syncSchema} from './protocol.js';
 import {RelayStore} from './store.js';
+import {startManualNetworkServer,type ManualNetworkServerOptions} from './manual-server.js';
 export const tokenSchema=z.strictObject({token:z.string().regex(/^[a-f0-9]{64}$/),expiresAt:z.number().int().positive()});
 export type NetworkToken=z.infer<typeof tokenSchema>;
 export interface NetworkServerOptions {
+ accessMode?:'bearer';
  host?:string;port?:number;publicHost?:string;allowedOrigins:string[];deviceId:string;agentId:string;storeDir:string;
  tls:{key:Buffer;cert:Buffer};mcpToken:NetworkToken;connectorToken:NetworkToken;leaseMs?:number;queueTtlMs?:number;responseTtlMs?:number;
 }
@@ -31,7 +33,12 @@ async function readBody(req:IncomingMessage):Promise<unknown>{
   req.on('data',data);req.once('end',end);req.once('error',fail);req.once('aborted',fail);
  });
 }
-export async function startNetworkServer(options:NetworkServerOptions):Promise<{server:HttpsServer;store:RelayStore;url:string;close():Promise<void>}>{
+type LegacyNetworkServer= {server:HttpsServer;store:RelayStore;url:string;close():Promise<void>};
+export function startNetworkServer(options:NetworkServerOptions):Promise<LegacyNetworkServer>;
+export function startNetworkServer(options:ManualNetworkServerOptions & {accessMode:'manual'}):ReturnType<typeof startManualNetworkServer>;
+export function startNetworkServer(options:NetworkServerOptions|(ManualNetworkServerOptions & {accessMode:'manual'})):Promise<LegacyNetworkServer|Awaited<ReturnType<typeof startManualNetworkServer>>>;
+export async function startNetworkServer(options:NetworkServerOptions|(ManualNetworkServerOptions & {accessMode:'manual'})):Promise<LegacyNetworkServer|Awaited<ReturnType<typeof startManualNetworkServer>>>{
+ if(options.accessMode==='manual')return startManualNetworkServer(options);
  tokenSchema.parse(options.mcpToken);tokenSchema.parse(options.connectorToken);if(options.mcpToken.token===options.connectorToken.token)throw new Fault('DISTINCT_TOKENS_REQUIRED');
  const host=options.host??'127.0.0.1',loopback=['127.0.0.1','localhost','::1'].includes(host);
  if(!options.publicHost&&!loopback)throw new Fault('PUBLIC_HOST_REQUIRED');

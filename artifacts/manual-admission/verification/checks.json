@@ -1,0 +1,68 @@
+{
+  "report_date": "2026-11-01",
+  "timezone": "Asia/Shanghai",
+  "node": "v24.22.1",
+  "base_revision": "94fafee7b82c7fc379385ad8ea6d0946a57158d5",
+  "hosted_requests": 0,
+  "new_manual_unit_tests": 16,
+  "new_manual_integration_tests": 6,
+  "reviews": {
+    "spec": "passed_after_revoke_cleanup_targeting_fixes",
+    "code_quality": "passed"
+  },
+  "checks": {
+    "typecheck": {
+      "status": "passed"
+    },
+    "lint": {
+      "status": "passed"
+    },
+    "unit": {
+      "status": "passed",
+      "tests": 392,
+      "pass": 392,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 11074.242292
+    },
+    "integration": {
+      "status": "passed",
+      "tests": 77,
+      "pass": 77,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 101730.510375
+    },
+    "safety": {
+      "status": "passed",
+      "tests": 40,
+      "pass": 40,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 9736.828416
+    }
+  },
+  "privacy": {
+    "known_key_checked": true,
+    "violations": [],
+    "literal_tokens_or_operator_links_found": false
+  },
+  "source_hashes": {
+    "src/network/manual-server.ts": "1b8d48ee2d62a05f5d70069301403e41cc53bad39c660b1ccd3f6bff4e995793",
+    "src/network/admission-console.ts": "957711c59d03398eee14fb22206b951e28a72914cf4f577c1491c10789899af0",
+    "src/network/manual-connector.ts": "9f70a0940cc01c7ad91dd396e5da7bea0b9498c403e07d6f51f3620382403880",
+    "src/network/main.ts": "96f5a5bd5f7c4ad004c8a1809a9a13f38463cdaebfcc2abfcb50ffb66993057b",
+    "src/network/admission.ts": "2a942ac557fd51ced465e47433d668eaad0582bbd320eee878259949d06d8fc3",
+    "src/network/connector.ts": "f3d190d0e030fe1a8f767a9531d9e097fca0f2c4ef7802cb144b591d76f04a4c",
+    "src/network/protocol.ts": "e4d3bd50ca6bfbe1f6418a5458691bc72b622268414eb21a96f056ea2925936e",
+    "src/network/config.ts": "8d3eb89725010ed54b7b140c68624bbfe45919a9dd9540e6828e43061ef71ae0",
+    "src/network/server.ts": "bc88b83e40bae08649104284cc643d48aaebbd3ce20fa994a5dee66422f3bf99",
+    "src/network/manual-protocol.ts": "337a2a81acb48dc0df1dc5dc984cea35c504d50b11a4d757564f753b6d528e37",
+    "src/network/store.ts": "717a35ded5a8b6d69a610c81ab2d3515a3a662fdf5a9924cb12d8a97fbb9cb2e",
+    "src/core/engine.ts": "59f4b52778585987c2ee1c2378c485b634c47e046655a36621cb7c6fcbcb6395",
+    "src/service/coordinator.ts": "8c9dc1e284fd9132a08bdded842dd6c4411e1a92f5c8659562b485ba52357aa5"
+  }
+}

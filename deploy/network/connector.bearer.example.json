@@ -1,0 +1,9 @@
+{
+  "url": "https://jev.example.com:8443",
+  "deviceId": "mac-mini",
+  "agentId": "primary-ai",
+  "journalDir": "/absolute/private/jev-network/connector-state",
+  "credentialFile": "/tmp/jev-operator/client-a.json",
+  "tokenFile": "/absolute/private/jev-network/connector-token.json",
+  "pollMs": 250
+}

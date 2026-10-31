@@ -4,6 +4,7 @@
   "agentId": "primary-ai",
   "journalDir": "/absolute/private/jev-network/connector-state",
   "credentialFile": "/tmp/jev-operator/client-a.json",
-  "tokenFile": "/absolute/private/jev-network/connector-token.json",
-  "pollMs": 250
+  "pollMs": 250,
+  "accessMode": "manual",
+  "name": "Mac mini"
 }

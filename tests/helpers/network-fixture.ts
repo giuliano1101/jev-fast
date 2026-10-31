@@ -78,7 +78,7 @@ export async function networkFixture(options:{connector?:boolean;local?:boolean;
  };
 }
 /** TLS-verified test-only link interruption. It never modifies production trust rules. */
-async function faultProxy(target:string,certs:ReturnType<typeof makeRemoteCertificates>){
+export async function faultProxy(target:string,certs:ReturnType<typeof makeRemoteCertificates>){
  let offline=false,blockedUploads=0,dropUploads=false,dropDeliveries=false,droppedDeliveries=0,receiptBodies=0;const upstreams=new Set<ReturnType<typeof httpsRequest>>();
  const server:HttpsServer=createHttpsServer(certs.server,(req,res)=>{
   const chunks:Buffer[]=[];req.on('data',(chunk:Buffer)=>chunks.push(chunk));req.on('end',()=>{

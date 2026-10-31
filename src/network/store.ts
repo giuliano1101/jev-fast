@@ -9,7 +9,7 @@ import {bindingSchema,canonicalDigest,canonicalJson,deliverySchema,methodSchema,
 const TABLES=['CREATE TABLE metadata(key TEXT PRIMARY KEY, value TEXT NOT NULL)','CREATE TABLE records(id TEXT PRIMARY KEY, data TEXT NOT NULL)'];
 const CAP=10000;
 /** Private, single-process SQLite audit. Stale locks require explicit operator recovery. */
-class Audit<T> {
+export class Audit<T> {
  private db!:DatabaseSync;private lock:number;private closed=false;private readonly lockPath:string;
  constructor(directory:string,profile:unknown,private schema:z.ZodType<T>){
   const root=resolve(directory);mkdirSync(root,{recursive:true,mode:0o700});privatePath(root,true);this.lockPath=join(root,'owner.lock');
@@ -98,6 +98,9 @@ export class RelayStore {
   }
   this.audit.put(row.request_id,{...row,outcome:receipt.outcome,delivery_status:receipt.outcome.kind==='reply'?'COMPLETED':'UNKNOWN'});
  }
+ selectConnector(id:string){if(this.lease&&this.lease.id!==id){this.lease=undefined;this.refresh();}}
+ acceptReceipts(receipts:readonly Receipt[]){return receipts.map(receipt=>{this.complete(receipt);return {request_id:receipt.request_id,delivery_nonce:receipt.delivery_nonce};});}
+ rejectQueued(ids:readonly string[]){for(const id of ids){const row=this.audit.get(id);if(row?.delivery_status==='QUEUED')this.audit.put(id,{...row,delivery_status:'REJECTED'});}}
  close(){this.audit.close();}
 }
 function envelope(row:Row):Envelope{return {request_id:row.request_id,delivery_status:row.delivery_status,...(row.outcome?.kind==='reply'?{reply:row.outcome.reply}:{})};}

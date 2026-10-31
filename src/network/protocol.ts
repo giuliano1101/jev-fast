@@ -20,7 +20,7 @@ export const outcomeSchema=z.discriminatedUnion('kind',[
 export type Outcome=z.infer<typeof outcomeSchema>;
 export const receiptSchema=z.strictObject({request_id:idSchema,delivery_nonce:nonceSchema,outcome:outcomeSchema});
 export type Receipt=z.infer<typeof receiptSchema>;
-export const deliverySchema=bindingSchema.extend({request_id:idSchema,method:methodSchema,params:z.json(),delivery_nonce:nonceSchema,expires_at:z.number().int().positive(),local_instance_id:z.uuid()});
+export const deliverySchema=bindingSchema.extend({network_owner:z.string().regex(/^network-[a-f0-9]{64}$/).optional(),request_id:idSchema,method:methodSchema,params:z.json(),delivery_nonce:nonceSchema,expires_at:z.number().int().positive(),local_instance_id:z.uuid()});
 export type Delivery=z.infer<typeof deliverySchema>;
 export const syncSchema=z.strictObject({connector_id:z.uuid(),ready:z.boolean(),local_instance_id:z.uuid().nullable(),capacity:z.number().int().min(0).max(4),results:z.array(receiptSchema).max(1)}).refine(v=>!v.ready||v.local_instance_id!==null);
 export type Sync=z.infer<typeof syncSchema>;

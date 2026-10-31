@@ -1,5 +1,7 @@
 # jev-fast · Jev 电脑操控加速层
 
+**S15 手动接入：** 新增[免 Key 接入控制台](docs/manual-admission.md)。设备和 AI 按自报名称登记，默认待启用，由操作员逐项开启/关闭；同名新连接不继承权限。执行会话与请求按 AI 实例隔离，关闭会取消并收尾，旧 Bearer 模式保留。见[报告](artifacts/manual-admission/report.md)及[更新后的部署准备](docs/server-deployment.md)。管理入口仍只对本机操作员开放。
+
 **S14 网络接入：** 已实现 HTTPS Streamable HTTP MCP + Mac 主动连接器、持久交付账本和断线结果恢复。本机开关继续控制实际执行。见[网络使用说明](docs/network-mcp.md)、[服务器部署准备](docs/server-deployment.md)和[验收报告](artifacts/network-mcp/report.md)。目前为单设备/agent 私有 Bearer 初版，尚未部署公网或验收 OAuth 宿主，执行范围仍为合成 fixture。
 
 **接入与操作入口：** [其他 AI 快速接入](docs/quickstart-agent.md) · [本机服务开关面板](docs/control-panel.md) · [agent 工程与接入规则](AGENTS.md)。macOS 可双击根目录 `打开Jev控制面板.command`；也可用 `npm run control -- --runtime /tmp/jev-operator` 启动（先安装依赖并 build）。面板可开启、关闭共用协调服务并查看实际 MCP 配置，默认离线 mock。当前主接口仅支持本地合成任务，真实网站和手机研究工具尚未接入通用 CLI/MCP。

@@ -8,6 +8,6 @@
   "storeDir": "/var/lib/jev-network/relay",
   "tlsKeyFile": "/etc/jev-network/server.key",
   "tlsCertFile": "/etc/jev-network/server.pem",
-  "mcpTokenFile": "/etc/jev-network/mcp-token.json",
-  "connectorTokenFile": "/etc/jev-network/connector-token.json"
+  "accessMode": "manual",
+  "adminPort": 47832
 }

@@ -1,5 +1,7 @@
 # 网络 MCP 与本机主动连接器
 
+> 本文保留 S14 **旧 Bearer 模式**的接线和恢复约定。当前默认模板已改为[免 Key、逐连接手动开关](manual-admission.md)，旧配置参考 `deploy/network/*.bearer.example.json`。两个模式的长断线/重新授权策略不同，请按实际 accessMode 使用。
+
 这是新增的 HTTPS 接入层：AI 连接网络 MCP，Mac 连接器主动连接同一个服务器，再经现有私有 Unix socket 调用本机执行器。Mac 不需要开放入站控制端口。云端不执行浏览器点击，也不会收到本机 operator 凭据。
 
 当前版本每个 relay 固定一个 `deviceId + agentId`，连接器固定本机 `client-a.json`。多设备需要独立 profile/relay，不提供任意设备选择。正式执行范围仍是 `standard` 合成 fixture 的十二类任务；本轮未将真实网页、App 和安卓研究适配器通用化，也未调用付费模型。

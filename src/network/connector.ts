@@ -7,7 +7,8 @@ import {ipcCall,readCredential,safeCode} from '../service/ipc.js';
 import {bindingSchema,canonicalJson,MAX_BODY,normalizeRequest,replySchema,syncReplySchema,type Delivery,type Outcome,type Sync} from './protocol.js';
 import {ConnectorJournal} from './store.js';
 import {tokenSchema,type NetworkToken} from './server.js';
-export interface ConnectorOptions {url:string;deviceId:string;agentId:string;journalDir:string;credentialFile:string;token:NetworkToken;ca?:Buffer;pollMs?:number;}
+import {startManualConnector,type ManualConnectorOptions} from './manual-connector.js';
+export interface ConnectorOptions {accessMode?:'bearer';url:string;deviceId:string;agentId:string;journalDir:string;credentialFile:string;token:NetworkToken;ca?:Buffer;pollMs?:number;}
 const healthSchema=z.strictObject({ready:z.boolean(),instance_id:z.uuid()});
 const ambiguous=new Set(['TRANSPORT_TIMEOUT','RESPONSE_LOST','SERVICE_UNAVAILABLE','INVALID_RESPONSE','FRAME_TOO_LARGE']);
 /** HTTPS only, no redirects, fixed absolute deadline and strict byte caps. */
@@ -26,7 +27,13 @@ async function syncRequest(options:ConnectorOptions,body:Sync){
   const timer=setTimeout(()=>finish(new Fault('NETWORK_TIMEOUT')),5000);req.on('error',()=>finish(new Fault('NETWORK_UNAVAILABLE')));req.end(data);
  });
 }
-export async function startConnector(options:ConnectorOptions):Promise<{stop():Promise<void>;done:Promise<void>;failureCode():string|undefined}> {
+type RunningConnector={stop():Promise<void>;done:Promise<void>;failureCode():string|undefined};
+export function startConnector(options:ConnectorOptions):Promise<RunningConnector>;
+export function startConnector(options:ManualConnectorOptions & {accessMode:'manual'}):ReturnType<typeof startManualConnector>;
+export function startConnector(options:ConnectorOptions|(ManualConnectorOptions & {accessMode:'manual'})):Promise<RunningConnector>;
+export async function startConnector(input:ConnectorOptions|(ManualConnectorOptions & {accessMode:'manual'})):Promise<RunningConnector> {
+ if(input.accessMode==='manual')return startManualConnector(input);
+ const options=input;
  tokenSchema.parse(options.token);const binding=bindingSchema.parse({device_id:options.deviceId,agent_id:options.agentId});
  const url=new URL(options.url);if(url.protocol!=='https:'||url.origin!==options.url||url.username||url.password)throw new Fault('HTTPS_ORIGIN_REQUIRED');
  if(!isAbsolute(options.credentialFile)||basename(options.credentialFile)!=='client-a.json'||!isAbsolute(options.journalDir))throw new Fault('PRIVATE_CLIENT_A_REQUIRED');

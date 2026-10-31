@@ -46,6 +46,12 @@ export class Engine {
     private readonly opened = new Set<string>();
     private readonly pendingOpens = new Set<Promise<unknown>>();
     private readonly closing = new Set<string>();
+    private readonly networkOwners = new Map<string, ReturnType<typeof setTimeout>>();
+    private readonly revokedOwners = new Set<string>();
+    private readonly revokingOwners = new Map<string,Promise<void>>();
+    private readonly pendingOwnerRevocations = new Set<string>();
+    private readonly ownerOpens = new Map<Promise<unknown>,string>();
+    private readonly failedOpenCloses = new Map<string,string>();
     private readonly observations = new Map<string,Promise<unknown>>();
     private readonly pendingCloses = new Map<string, Promise<{closed:boolean;quarantined:boolean}>>();
     private shutdownPromise?: Promise<void>;
@@ -55,10 +61,42 @@ export class Engine {
     static async create(options: EngineOptions): Promise<Engine> { if (options.clients.length === 0)
         throw new Fault('NO_CLIENTS'); const threshold = options.confidenceThreshold ?? .9; if (!Number.isFinite(threshold) || threshold < .9 || threshold > 1)
         throw new Fault('INVALID_THRESHOLD'); return new Engine(options, await Ledger.open(options.storageDir)); }
-    private auth(client: string, sessionId?: string) { if (!this.options.clients.includes(client))
+    private auth(client: string, sessionId?: string) { if (this.revokedOwners.has(client)||(!this.options.clients.includes(client)&&!this.networkOwners.has(client)))
         throw new Fault('UNAUTHORIZED'); if (!sessionId)
         return; const session = this.ledger.state.sessions[sessionId]; if (!session || (session.owner !== client && !this.options.sharedAccess?.[session.owner]?.includes(client)))
         throw new Fault('UNAUTHORIZED'); return session; }
+    /** Trusted coordinator capability; never exposed as an MCP argument. */
+    grantNetworkOwner(owner:string) {
+        if(!/^network-[a-f0-9]{64}$/.test(owner))throw new Fault('INVALID_NETWORK_OWNER');
+        if(this.revokedOwners.has(owner))throw new Fault('OWNER_REVOKED');
+        this.live();
+        if(!this.networkOwners.has(owner)&&this.networkOwners.size+this.revokedOwners.size>=10000)throw new Fault('OWNER_CAPACITY');
+        clearTimeout(this.networkOwners.get(owner));
+        const timer=setTimeout(()=>{void this.revokeNetworkOwner(owner).catch(()=>{});},5000);timer.unref();this.networkOwners.set(owner,timer);
+    }
+    async revokeNetworkOwner(owner:string) {
+        if(!/^network-[a-f0-9]{64}$/.test(owner))throw new Fault('INVALID_NETWORK_OWNER');
+        if(!this.networkOwners.has(owner)&&!this.revokedOwners.has(owner)&&this.networkOwners.size+this.revokedOwners.size>=10000)throw new Fault('OWNER_CAPACITY');
+        const existing=this.revokingOwners.get(owner);if(existing)return existing;
+        clearTimeout(this.networkOwners.get(owner));this.networkOwners.delete(owner);this.revokedOwners.add(owner);this.pendingOwnerRevocations.add(owner);
+        const pending=(async()=>{
+        const sessions=Object.entries(this.ledger.state.sessions).filter(([,s])=>s.owner===owner).map(([id])=>id);
+        for(const id of sessions)this.leases.get(id)?.controller.abort();
+        await Promise.allSettled([...this.ownerOpens].filter(([,o])=>o===owner).map(([p])=>p));
+        for(const [id,allocatedOwner] of this.failedOpenCloses)if(allocatedOwner===owner)await this.retryOpenCleanup(id);
+        for(const [id,session] of Object.entries(this.ledger.state.sessions))if(session.owner===owner)await this.closeOwnedSession(id);
+        })();this.revokingOwners.set(owner,pending);
+        try{await pending;this.pendingOwnerRevocations.delete(owner);}finally{if(this.revokingOwners.get(owner)===pending)this.revokingOwners.delete(owner);}
+    }
+    async reconcileNetworkOwners(owners:readonly string[]) {
+        if(owners.length>128||new Set(owners).size!==owners.length)throw new Fault('OWNER_CAPACITY');
+        for(const owner of owners)if(!/^network-[a-f0-9]{64}$/.test(owner)||this.revokedOwners.has(owner))throw new Fault('OWNER_REVOKED');
+        // Revoke admission synchronously, then drain every removed owner's work before granting.
+        await Promise.all([...new Set([...this.networkOwners.keys()].filter(owner=>!owners.includes(owner)).concat([...this.pendingOwnerRevocations]))].map(owner=>this.revokeNetworkOwner(owner)));
+        await Promise.all([...this.revokingOwners.values()]);
+        for(const owner of owners)this.grantNetworkOwner(owner);
+        return {owners:[...this.networkOwners.keys()]};
+    }
     private emit(event: EngineEvent) { try {
         this.options.onEvent?.(event);
     }
@@ -69,27 +107,27 @@ export class Engine {
         this.auth(client);
         this.live();
         const request=schemas.open_session.parse(input);
-        if(this.opened.size||this.pendingOpens.size)throw new Fault('BUSY');
+        if(this.opened.size||this.pendingOpens.size||this.failedOpenCloses.size)throw new Fault('BUSY');
         const session_id=randomUUID();
         const pending=(async()=>{
             let allocated=false;
             try {
                 const opened=await this.options.browser.open(session_id,request.fixture_id);
                 allocated=true;
-                this.live();
+                this.live();this.auth(client);
                 const url=new URL(opened.allowed_origin);
                 if(url.origin!==opened.allowed_origin||url.protocol!=='http:'||url.hostname!=='127.0.0.1'||!url.port)throw new Fault('OUT_OF_SCOPE');
                 await this.ledger.transaction(state=>{state.sessions[session_id]={owner:client,fixture_id:request.fixture_id,allowed_origin:opened.allowed_origin,epoch:0,quarantined:false,closed:false};});
-                this.live();
+                this.live();this.auth(client);
                 this.opened.add(session_id);
                 return {session_id,capabilities:[...operations],allowed_origin:opened.allowed_origin};
             }catch(error){
-                if(allocated)await this.options.browser.close(session_id);
+                if(allocated){try{await this.options.browser.close(session_id);}catch(cleanupError){this.failedOpenCloses.set(session_id,client);throw cleanupError;}}
                 throw error;
             }
         })();
-        this.pendingOpens.add(pending);
-        try{return await pending;}finally{this.pendingOpens.delete(pending);}
+        this.pendingOpens.add(pending);this.ownerOpens.set(pending,client);
+        try{return await pending;}finally{this.pendingOpens.delete(pending);this.ownerOpens.delete(pending);}
     }
     async observe(client:string,input:unknown) {
         const {session_id}=schemas.observe.parse(input);
@@ -99,7 +137,7 @@ export class Engine {
         if(this.leases.has(session_id)||this.observations.has(session_id))throw new Fault('BUSY');
         const pending=(async()=>{
             const snap=await this.options.browser.observe(session_id);
-            this.snapshotSafe(session_id,snap);
+            this.auth(client,session_id);this.snapshotSafe(session_id,snap);
             return {snapshot_id:snap.snapshot_id,document_epoch:snap.document_epoch,mutation_version:snap.mutation_version,expires_at:snap.expires_at,summary:snap.safe_summary,candidates:snap.candidates.map(c=>({candidate_id:c.candidate_id,operation:c.operation,description:c.description}))};
         })();
         this.observations.set(session_id,pending);
@@ -307,10 +345,19 @@ export class Engine {
     } return { session_id: request.session_id, closed: session.closed, quarantined: session.quarantined, busy: this.leases.has(request.session_id) }; }
     async closeSession(client:string,input:unknown) {
         const {session_id}=schemas.close_session.parse(input);
-        const session=this.auth(client,session_id)!;
+        this.auth(client,session_id);
+        return this.closeOwnedSession(session_id);
+    }
+    private async retryOpenCleanup(session_id:string){
+        if(this.ledger.state.sessions[session_id])await this.closeOwnedSession(session_id);
+        else await this.options.browser.close(session_id);
+        this.failedOpenCloses.delete(session_id);
+    }
+    private async closeOwnedSession(session_id:string) {
+        const session=this.ledger.state.sessions[session_id]!;
         const existing=this.pendingCloses.get(session_id);
         if(existing)return existing;
-        if(session.closed&&!this.opened.has(session_id))return {closed:true,quarantined:session.quarantined};
+        if(session.closed&&!this.opened.has(session_id)&&!this.failedOpenCloses.has(session_id))return {closed:true,quarantined:session.quarantined};
         this.closing.add(session_id);
         const pending=(async()=>{
             const lease=this.leases.get(session_id);
@@ -333,10 +380,12 @@ export class Engine {
     shutdown():Promise<void> {
         if(this.shutdownPromise)return this.shutdownPromise;
         this.stopped=true;
+        for(const timer of this.networkOwners.values())clearTimeout(timer);
         this.shutdownPromise=(async()=>{
             await this.kill();
-            await Promise.allSettled([...this.pendingOpens,...this.pendingCloses.values(),...this.observations.values()]);
+            await Promise.allSettled([...this.pendingOpens,...this.pendingCloses.values(),...this.observations.values(),...this.revokingOwners.values()]);
             const errors:unknown[]=[];
+            for(const id of this.failedOpenCloses.keys()){try{await this.retryOpenCleanup(id);}catch(error){errors.push(error);}}
             for(const id of this.opened){
                 try{await this.options.browser.close(id);this.opened.delete(id);}catch(error){errors.push(error);}
             }
