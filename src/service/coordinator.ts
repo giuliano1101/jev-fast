@@ -1,7 +1,7 @@
 import {createServer,type Server,type Socket} from 'node:net';
 import {mkdir,lstat,open,chmod,unlink,type FileHandle} from 'node:fs/promises';
 import {join} from 'node:path';
-import {randomBytes} from 'node:crypto';
+import {randomBytes,randomUUID} from 'node:crypto';
 import {z} from 'zod';
 import type {Engine} from '../core/engine.js';
 import {Fault} from '../core/errors.js';
@@ -16,6 +16,7 @@ export class Coordinator {
  private credentialFiles:string[]=[];
  private closing?:Promise<void>;
  private stopping=false;
+ private readonly instanceId=randomUUID();
  private constructor(private options:CoordinatorOptions){this.server=createServer(socket=>this.accept(socket));}
  static async start(options:CoordinatorOptions):Promise<Coordinator>{
   if(options.transportTimeoutMs!==undefined&&(!Number.isInteger(options.transportTimeoutMs)||options.transportTimeoutMs<10||options.transportTimeoutMs>MAX_CALL_MS))throw new Fault('INVALID_TIMEOUT');
@@ -56,8 +57,9 @@ export class Coordinator {
  private async dispatch(value:unknown):Promise<unknown>{
   const request=requestSchema.safeParse(value);if(!request.success)throw new Fault('INVALID_REQUEST');
   const {token,method,params}=request.data;const client=this.tokens.get(token);if(!client)throw new Fault('UNAUTHORIZED');
-  if(method==='service.health'||method==='service.stop'){
+  if(method==='service.health'||method==='service.local_health'||method==='service.stop'){
    if(!z.strictObject({}).safeParse(params).success)throw new Fault('INVALID_ARGUMENTS');
+   if(method==='service.local_health')return {ready:!this.stopping,instance_id:this.instanceId};
    if(method==='service.health')return {...(this.options.health?await this.options.health():{provider:'mock'}),ready:!this.stopping,active_session_limit:1};
    if(client!=='operator')throw new Fault('UNAUTHORIZED');
    this.stopping=true;await this.options.engine.kill();

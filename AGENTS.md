@@ -2,6 +2,8 @@
 
 Read [the agent quick start](docs/quickstart-agent.md) before connecting. Operator setup is in [the control panel manual](docs/control-panel.md) and [the CLI/MCP manual](docs/cross-machine-cli-mcp.md).
 
+For remote hosts, read [network MCP](docs/network-mcp.md). It is a separate HTTPS relay and outbound Mac connector, initially one provisioned device/agent pair per relay with expiring private Bearer tokens. The network six action tools require `{request_id, params}` wrappers and add two read-only delivery/status tools; local stdio/CLI schemas remain unchanged. Keep the caller request_id stable across reconnects, query its durable result, and distinguish network delivery UNKNOWN from core goal UNKNOWN. The relay cannot start the local service; local stop overrides network work. Public deployment, OAuth hosts and physical second-machine acceptance remain unverified.
+
 - This is an experimental, bounded execution service. The main CLI/MCP supports only the `standard` local synthetic fixture and its twelve fixed tasks. Historical website/Android research adapters are separate; do not claim arbitrary website, desktop or phone support.
 - Default is offline `mock`. Reading this repository, starting the panel, or possessing an API key does not authorize hosted spending. Remote Jev requires operator-provisioned private configuration, enrollment, certificates, token and an explicit current budget approval. Never create or reset approval counters on behalf of an agent.
 - Start the local coordinator before connecting an MCP stdio facade. Use Node 24.19+ and absolute executable/entry/credential paths in host configuration. `scripts/env.sh` belongs to the original development machine only.

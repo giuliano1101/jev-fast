@@ -1,5 +1,7 @@
 # jev-fast · Jev 电脑操控加速层
 
+**S14 网络接入：** 已实现 HTTPS Streamable HTTP MCP + Mac 主动连接器、持久交付账本和断线结果恢复。本机开关继续控制实际执行。见[网络使用说明](docs/network-mcp.md)、[服务器部署准备](docs/server-deployment.md)和[验收报告](artifacts/network-mcp/report.md)。目前为单设备/agent 私有 Bearer 初版，尚未部署公网或验收 OAuth 宿主，执行范围仍为合成 fixture。
+
 **接入与操作入口：** [其他 AI 快速接入](docs/quickstart-agent.md) · [本机服务开关面板](docs/control-panel.md) · [agent 工程与接入规则](AGENTS.md)。macOS 可双击根目录 `打开Jev控制面板.command`；也可用 `npm run control -- --runtime /tmp/jev-operator` 启动（先安装依赖并 build）。面板可开启、关闭共用协调服务并查看实际 MCP 配置，默认离线 mock。当前主接口仅支持本地合成任务，真实网站和手机研究工具尚未接入通用 CLI/MCP。
 
 **S12 扩样结果：正常任务108/108完成，direct/CLI/MCP各36/36；48/48异常目标符合安全预期。** [完整稳定性与速度报告](artifacts/stability/report.md)。本机合成范围内MCP耗时接近直接调用，CLI工作流存在额外开销；不外推真实应用或长期稳定率。
@@ -66,7 +68,7 @@ S9 在实体安卓手机上完成六题、每题两轮对照：普通 Mobile MCP
 
 目录索引：`src/` 为执行核心与接口，`fixtures/` 为合成页面，`tests/` 为回归测试，`bench/` 为基准工具，`docs/` 为交接与设计记录，`artifacts/` 为已归档证据。运行状态和密钥不入库；大体积重复 ZIP 留在本机，GitHub 直接保存展开后的源码与结果。
 
-MCP 和 CLI 共享同一 coordinator 与安全核心。本地基础操作见 [MCP/CLI 说明](docs/mcp.md)，新增远程模式、诊断与运维见 [S10 使用手册](docs/cross-machine-cli-mcp.md)。提供六个工具：
+本地 stdio MCP 和 CLI 共享同一 coordinator 与安全核心。本地基础操作见 [MCP/CLI 说明](docs/mcp.md)，新增远程决策模式、诊断与运维见 [S10 使用手册](docs/cross-machine-cli-mcp.md)。新增[网络 MCP](docs/network-mcp.md)经连接器调用同一核心，使用带 request_id 的封装及两个额外状态工具。本地提供六个工具：
 
 - `jev.open_session`：打开固定 fixture，身份来自已鉴权传输。
 - `jev.observe`：读取脱敏状态；活动任务期间返回 BUSY。

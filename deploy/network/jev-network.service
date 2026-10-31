@@ -1,0 +1,22 @@
+[Unit]
+Description=Jev private network MCP relay
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=jev
+Group=jev
+WorkingDirectory=/opt/jev-fast
+ExecStart=/usr/bin/node /opt/jev-fast/dist/src/network/main.js server --config /etc/jev-network/server.json
+Restart=no
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/jev-network
+TimeoutStopSec=90
+
+[Install]
+WantedBy=multi-user.target

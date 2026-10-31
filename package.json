@@ -19,7 +19,9 @@
     "cli": "node dist/src/cli/index.js",
     "gateway": "node dist/src/remote/main.js",
     "release": "node scripts/release.mjs",
-    "control": "node dist/src/control/main.js"
+    "control": "node dist/src/control/main.js",
+    "network:server": "node dist/src/network/main.js server",
+    "network:connector": "node dist/src/network/main.js connector"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",

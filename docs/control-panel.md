@@ -27,6 +27,8 @@ node dist/src/control/main.js --help
 
 runtime 必须与 AI 的 CLI 参数和 MCP 凭据路径一致。面板不会扫描或控制其他 runtime。端口冲突时更换 `--port`，不会接管已有进程。
 
+使用[网络 MCP 连接器](network-mcp.md)时，其 credentialFile 也必须指向这个 runtime 的 client-a.json。面板停止同一个本地协调服务后，远程任务同样受阻；云端没有重新开启本机服务的工具。连接器和 relay 独立管理，面板不负责启动它们。
+
 ## 使用开关
 
 - **启动服务**：调用既有 `service start`，等待鉴权健康检查确认运行，重复开启不会创建第二个协调服务。
