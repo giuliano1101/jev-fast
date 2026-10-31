@@ -1,5 +1,7 @@
 # jev-fast · Jev 电脑操控加速层
 
+**接入与操作入口：** [其他 AI 快速接入](docs/quickstart-agent.md) · [本机服务开关面板](docs/control-panel.md) · [agent 工程与接入规则](AGENTS.md)。macOS 可双击根目录 `打开Jev控制面板.command`；也可用 `npm run control -- --runtime /tmp/jev-operator` 启动（先安装依赖并 build）。面板可开启、关闭共用协调服务并查看实际 MCP 配置，默认离线 mock。当前主接口仅支持本地合成任务，真实网站和手机研究工具尚未接入通用 CLI/MCP。
+
 **S12 扩样结果：正常任务108/108完成，direct/CLI/MCP各36/36；48/48异常目标符合安全预期。** [完整稳定性与速度报告](artifacts/stability/report.md)。本机合成范围内MCP耗时接近直接调用，CLI工作流存在额外开销；不外推真实应用或长期稳定率。
 
 [S11 同条件入口对照与优化迁移](artifacts/parity/report.md)：离线三入口语义一致；有限实测中等题 CLI/MCP 完成，直接调用暴露共用恢复计步缺陷，已修复。追加批准后的完整同题对照：旧投影2/9，新投影9/9，均为本机合成小样本。

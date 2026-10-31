@@ -18,7 +18,8 @@
     "start:mcp": "node dist/src/mcp/index.js",
     "cli": "node dist/src/cli/index.js",
     "gateway": "node dist/src/remote/main.js",
-    "release": "node scripts/release.mjs"
+    "release": "node scripts/release.mjs",
+    "control": "node dist/src/control/main.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",

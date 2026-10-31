@@ -4,7 +4,7 @@
 
 一个长期运行的 coordinator 持有唯一 Engine、浏览器和持久账本。CLI 与每个 MCP stdio facade 都只把严格校验的请求送到同一个私有 Unix-domain socket；stdio facade 不创建自己的浏览器。P0 同一时刻最多一个已打开或正在打开的 session，同一 session 最多一个活动 goal。额外打开或有冲突的执行返回 `BUSY`，不隐式排队。
 
-当前服务只实例化 `MockProvider`，不读取 API key，也不会因环境中存在 key 开启 live。浏览器仅访问服务启动的 `127.0.0.1` 合成 fixture。coordinator 没有 TCP listener；fixture HTTP 服务仅绑定 loopback。
+默认服务实例化 `MockProvider`，不会因环境中存在 key 开启 live；显式私有配置可选远程决策，详见 S10 手册。浏览器仅访问服务启动的 `127.0.0.1` 合成 fixture。coordinator 没有 TCP listener；fixture HTTP 服务仅绑定 loopback。另有显式启动的[本机操作面板](control-panel.md)，其 HTTP 监听仅用于本机操作员开关和状态，不是公开执行接口。
 
 ## 启动、就绪和停止
 
