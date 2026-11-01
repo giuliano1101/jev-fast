@@ -4,7 +4,7 @@ import {z} from 'zod';
 import type {DecisionContext,DecisionInput,DecisionProvider} from '../core/contracts.js';
 import {Fault} from '../core/errors.js';
 import {canonicalDigest,parseDecisionRequest,responseSchema,identitySchema,type DecisionResponse} from './protocol.js';
-export interface RemoteDecisionOptions {url:string;cert:string|Buffer;key:string|Buffer;ca:string|Buffer;token:string;}
+export interface RemoteDecisionOptions {url:string;cert:string|Buffer;key:string|Buffer;ca:string|Buffer;token:string;tokenLoader?:()=>Promise<string>;}
 const healthSchema=z.strictObject({mode:z.enum(['mock','jev']),model:z.enum(['mock-v1','jev-1.14.0']),protocol:z.literal('decision-v1'),policy:z.literal('p0-v1'),identity:identitySchema}).refine(value=>(value.mode==='mock')===(value.model==='mock-v1'));
 export type RemoteHealth=z.infer<typeof healthSchema>;
 const safeCodes=new Set(['UNAUTHENTICATED','FORBIDDEN','INVALID_PROTOCOL','REQUEST_TOO_LARGE','STALE_SNAPSHOT','BUDGET_EXHAUSTED','RATE_LIMITED','PROVIDER_UNAVAILABLE','IDEMPOTENCY_CONFLICT','DECISION_UNKNOWN','LIVE_NOT_AUTHORIZED','INVALID_DECISION']);
@@ -35,10 +35,19 @@ export class RemoteDecisionProvider implements DecisionProvider {
   if(signal.aborted)throw new Fault('CANCELLED');if(!Number.isFinite(remaining)||remaining<=0)throw new Fault('PROVIDER_DEADLINE');
   const expires=performance.now()+remaining;
   return new Promise<unknown>((resolve,reject)=>{
+   let req:ReturnType<typeof httpsRequest>|undefined;
    let settled=false;const finish=(error?:Fault,value?:unknown)=>{if(settled)return;settled=true;clearTimeout(timer);signal.removeEventListener('abort',abort);if(error)reject(error);else resolve(value);};
-   const req=httpsRequest(new URL(path,this.url),{method,cert:this.options.cert,key:this.options.key,ca:this.options.ca,rejectUnauthorized:true,minVersion:'TLSv1.2',agent:false,headers:{authorization:`Bearer ${this.options.token}`,...(body===undefined?{}:{'content-type':'application/json','content-length':Buffer.byteLength(body)})}},res=>{
+   const abort=()=>{finish(new Fault('CANCELLED'));req?.destroy();};
+   const timer=setTimeout(()=>{finish(new Fault('PROVIDER_DEADLINE'));req?.destroy();},remaining);
+   signal.addEventListener('abort',abort,{once:true});
+   const dispatch=async()=>{
+    const token=this.options.tokenLoader?await this.options.tokenLoader():this.options.token;
+    if(settled)return;if(signal.aborted){abort();return;}
+    if(performance.now()>=expires){finish(new Fault('PROVIDER_DEADLINE'));return;}
+    if(this.options.tokenLoader&&(typeof token!=='string'||token.length>8192||!/^[\x21-\x7e]+$/.test(token)))throw new Fault('INVALID_REMOTE_CONFIGURATION');
+    req=httpsRequest(new URL(path,this.url),{method,cert:this.options.cert,key:this.options.key,ca:this.options.ca,rejectUnauthorized:true,minVersion:'TLSv1.2',agent:false,headers:{authorization:`Bearer ${token}`,...(body===undefined?{}:{'content-type':'application/json','content-length':Buffer.byteLength(body)})}},res=>{
     const chunks:Buffer[]=[];let size=0;
-    res.on('data',(chunk:Buffer)=>{size+=chunk.length;if(size>64000){finish(new Fault('RESPONSE_LIMIT'));res.destroy();req.destroy();}else chunks.push(chunk);});
+    res.on('data',(chunk:Buffer)=>{size+=chunk.length;if(size>64000){finish(new Fault('RESPONSE_LIMIT'));res.destroy();req?.destroy();}else chunks.push(chunk);});
     res.on('error',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));
     res.on('aborted',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));
     res.on('end',()=>{
@@ -47,11 +56,11 @@ export class RemoteDecisionProvider implements DecisionProvider {
      if(res.statusCode!==200){const code=raw&&typeof raw==='object'&&'code' in raw?String(raw.code):'';finish(new Fault(safeCodes.has(code)?code:'PROVIDER_UNAVAILABLE'));return;}finish(undefined,raw);
     });
    });
-   const abort=()=>{finish(new Fault('CANCELLED'));req.destroy();};
-   const timer=setTimeout(()=>{finish(new Fault('PROVIDER_DEADLINE'));req.destroy();},remaining);
-   signal.addEventListener('abort',abort,{once:true});
-   req.on('error',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));
-   if(signal.aborted){abort();return;}req.end(body);
+    req.on('error',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));
+    if(signal.aborted){abort();return;}req.end(body);
+   };
+   if(signal.aborted){abort();return;}
+   void dispatch().catch(()=>{finish(new Fault('PROVIDER_UNAVAILABLE'));req?.destroy();});
   }).catch(error=>{throw error instanceof Fault?error:new Fault('PROVIDER_UNAVAILABLE');});
  }
 }

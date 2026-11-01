@@ -25,7 +25,7 @@ export async function readPrivateJson(path:string):Promise<unknown>{const bytes=
 const pathSchema=z.string().min(1).max(4096);
 const schema=z.discriminatedUnion('mode',[
  z.strictObject({mode:z.literal('mock')}),
- z.strictObject({mode:z.literal('remote'),endpoint:z.string().min(1).max(2048),caFile:pathSchema,certFile:pathSchema,keyFile:pathSchema,tokenFile:pathSchema,receiptPublicKeyFile:pathSchema,issuer:idSchema,audience:idSchema,identity:identitySchema,enforcementMode:z.enum(['required_jev','test_mock'])})
+ z.strictObject({mode:z.literal('remote'),endpoint:z.string().min(1).max(2048),caFile:pathSchema,certFile:pathSchema,keyFile:pathSchema,tokenFile:pathSchema,tokenReload:z.boolean().optional(),receiptPublicKeyFile:pathSchema,issuer:idSchema,audience:idSchema,identity:identitySchema,enforcementMode:z.enum(['required_jev','test_mock'])})
 ]);
 export interface ServiceProfile {mode:'mock'|'remote';provider:DecisionProvider;clients:readonly string[];sharedAccess?:Record<string,string[]>;remotePolicy?:RemoteExecutionPolicy;fingerprint:string;health:()=>Promise<Record<string,unknown>>}
 import {buildMetadata} from './build.js';
@@ -42,11 +42,17 @@ export async function loadServiceProfile(configFile?:string,shared=false):Promis
  const root=dirname(resolve(configFile!));
  const [ca,cert,key,tokenBytes,publicBytes]=await Promise.all([config.caFile,config.certFile,config.keyFile,config.tokenFile,config.receiptPublicKeyFile].map(path=>readPrivateFile(resolve(root,path))));
  let publicKey;try{publicKey=createPublicKey(publicBytes!);if(publicKey.asymmetricKeyType!=='ed25519')throw new Error();}catch{throw new Fault('INVALID_REMOTE_CONFIGURATION');}
- const token=tokenBytes!.toString('utf8').trim();
+ const parseReloadToken=(bytes:Buffer)=>{
+  const raw=bytes.toString('utf8');
+  if(!/^[\x21-\x7e]+(?:\r?\n)?$/.test(raw))throw new Fault('INVALID_REMOTE_CONFIGURATION');
+  const value=raw.trim();if(value.length>8192)throw new Fault('INVALID_REMOTE_CONFIGURATION');return value;
+ };
+ const token=config.tokenReload?parseReloadToken(tokenBytes!):tokenBytes!.toString('utf8').trim();
  if(token.length>8192)throw new Fault('INVALID_REMOTE_CONFIGURATION');
- const provider=new RemoteDecisionProvider({url:config.endpoint,ca:ca!,cert:cert!,key:key!,token});
+ const tokenLoader=config.tokenReload?async()=>parseReloadToken(await readPrivateFile(resolve(root,config.tokenFile),8194)):undefined;
+ const provider=new RemoteDecisionProvider({url:config.endpoint,ca:ca!,cert:cert!,key:key!,token,tokenLoader});
  const remotePolicy={publicKey,issuer:config.issuer,audience:config.audience,identity:config.identity,enforcementMode:config.enforcementMode};
- const fingerprint=canonicalDigest({config,shared:false,material:[ca,cert,key,tokenBytes,publicBytes].map(bytes=>createHash('sha256').update(bytes!).digest('hex'))});
+ const fingerprint=canonicalDigest({config,shared:false,...(config.tokenReload?{configFile:resolve(configFile!)}:{}),material:(config.tokenReload?[ca,cert,key,publicBytes]:[ca,cert,key,tokenBytes,publicBytes]).map(bytes=>createHash('sha256').update(bytes!).digest('hex'))});
  return {mode:'remote',provider,clients:['a'],remotePolicy,fingerprint,health:async()=>{
   const metadata={...base,provider:'remote',model:'unknown',enforcementMode:config.enforcementMode,identity:config.identity,localClient:'a',profileFingerprint:fingerprint};
   try{const actual=await provider.health();const identityMatches=canonicalDigest(actual.identity)===canonicalDigest(config.identity);return {...metadata,provider:actual.mode,transport:'remote',model:actual.model,protocol:actual.protocol,policy:actual.policy,authenticatedIdentity:actual.identity,identityMatches,remoteReachable:true,routeCompatible:identityMatches&&(config.enforcementMode==='test_mock'||actual.mode==='jev')};}

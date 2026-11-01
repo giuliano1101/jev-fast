@@ -1,6 +1,8 @@
 # jev-fast · Jev 电脑操控加速层
 
-**S16 公网部署：** 已在指定 Ubuntu 24.04 服务器部署免 Key 网络 MCP，公网地址为 [`https://jev.43-160-233-161.sslip.io/mcp`](https://jev.43-160-233-161.sslip.io/mcp)。免费 IP 映射域名、Let's Encrypt HTTPS、私有 SSH 管理台和待开启 Mac 连接器已实测；没有自动批准设备或 AI。见[接入与开关使用说明](docs/public-service-quickstart.md)和[部署报告](artifacts/public-deployment/report.md)。本轮使用真实 Jev 选择固定的脱敏部署步骤，仍未新增通用网页/桌面执行能力。
+**S17 真实服务已接通（2026-11-01）：** 公网 MCP → Mac 连接器 → `remote · Jev` 已完成一次真实签名决策验收，结果 `SUCCEEDED`、动作路由 `jev`，没有 mock 回退。按操作员最新要求，本机自动接入程序会开启新 AI 实例；AI 不需要提供模型 Key/profile。服务保持后台运行，费用仍受原批准的上限和期限限制。[接入说明](docs/public-service-quickstart.md) · [实测和运行报告](artifacts/live-service/report.md)。新安装的代码默认仍为离线 mock。
+
+**S16 公网部署（历史阶段）：** 已在指定 Ubuntu 24.04 服务器部署免 Key 网络 MCP，公网地址为 [`https://jev.43-160-233-161.sslip.io/mcp`](https://jev.43-160-233-161.sslip.io/mcp)。免费 IP 映射域名、Let's Encrypt HTTPS、私有 SSH 管理台和待开启 Mac 连接器已实测；该阶段没有自动批准设备或 AI；当前部署策略见 S17。见[接入与开关使用说明](docs/public-service-quickstart.md)和[部署报告](artifacts/public-deployment/report.md)。本轮使用真实 Jev 选择固定的脱敏部署步骤，仍未新增通用网页/桌面执行能力。
 
 **S15 手动接入：** 新增[免 Key 接入控制台](docs/manual-admission.md)。设备和 AI 按自报名称登记，默认待启用，由操作员逐项开启/关闭；同名新连接不继承权限。执行会话与请求按 AI 实例隔离，关闭会取消并收尾，旧 Bearer 模式保留。见[报告](artifacts/manual-admission/report.md)及[更新后的部署准备](docs/server-deployment.md)。管理入口仍只对本机操作员开放。
 

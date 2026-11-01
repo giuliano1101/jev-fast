@@ -1,3 +1,11 @@
+# S17 · 2026-11-01
+
+- 接通公网 MCP 到本机真实 Jev：一次真实合成目标 SUCCEEDED、签名回执 route=jev、上游 HTTP200；服务保持后台运行。
+- 按操作员最新指令启用本机自动 AI 接入；不要求各 AI 提供模型 Key/profile，不新增普通 AI 管理工具。
+- 可信 remote profile 增加可选 tokenReload，在原期限内逐请求读取原路径私有 token，支持短期 token 无重启轮换；损坏/读取失败/超时拒绝，不复用旧值。默认静态指纹语义不变。
+- 原批准计数 7→8、预留 $0.07→$0.08；没有重置计数、加预算或延期。验收后最多剩 2 次保守尝试。
+- 类型、lint、411项默认测试、77项集成、40项安全通过；独立规范/质量审核通过。详见 artifacts/live-service/report.md。
+
 # S16 · 2026-11-01
 
 - 部署指定 Ubuntu24.04 网络 relay：免费 sslip.io 域名、Let's Encrypt 443、非 root Node、验证后端 TLS 的独立 Nginx 站点；保留既有服务。

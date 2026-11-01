@@ -1,6 +1,6 @@
 # 让另一个 AI 接入 Jev
 
-可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。初始化后仍需操作员在控制台手动开启设备/AI实例，才能执行。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
+可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。当前部署已由操作员启用自动接入 AI，会话初始化后等待 `jev.network_status.enabled`；新安装仍默认待开启。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
 
 当前正式 CLI/MCP 只执行 `standard` 本地模拟页面上的十二类固定任务。默认离线 mock；它可验证接线，不代表已经使用真实 Jev 模型。既有真实网页、抖音和 Android 测试工具仍是独立研究适配器。双实体电脑和任意真实应用接入尚未验收。
 
@@ -92,4 +92,4 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-demo --json
 
 ## 网络接入的区别
 
-当前主路径为[手动接入](manual-admission.md)：使用 HTTPS Streamable HTTP，无需 Authorization，初始化clientInfo.name后出现在控制台待启用。名称不是身份验证，只有操作员允许的连接实例可以执行。六个原有操作及 `jev.network_status`、`jev.request_status` 两个网络状态工具继续提供；操作 arguments 为 `{request_id, params}`，收到 QUEUED 后用原 request_id 查询。网络 COMPLETED 后还需检查 reply/goal.status。同名新session、长失联及实例变更需要重新核对/开启；不同AI不能读彼此结果。本地未封装参数不能直接传网络版。旧预配Bearer方式保留在[旧网络手册](network-mcp.md)，具体AI宿主仍需部署时验证。
+协议基础为[手动接入](manual-admission.md)，当前部署额外启用了操作员自动接入程序，详见[实时接入状态](public-service-quickstart.md)。协议本身为：使用 HTTPS Streamable HTTP，无需 Authorization，初始化clientInfo.name后出现在控制台待启用。名称不是身份验证，只有操作员允许的连接实例可以执行。六个原有操作及 `jev.network_status`、`jev.request_status` 两个网络状态工具继续提供；操作 arguments 为 `{request_id, params}`，收到 QUEUED 后用原 request_id 查询。网络 COMPLETED 后还需检查 reply/goal.status。同名新session、长失联及实例变更需要重新核对/开启；不同AI不能读彼此结果。本地未封装参数不能直接传网络版。旧预配Bearer方式保留在[旧网络手册](network-mcp.md)，具体AI宿主仍需部署时验证。

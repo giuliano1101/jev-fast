@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-01T11:59:48.875Z",
+  "goalId": "live-cancel-936b6268-7960-49e8-b82d-10623cb763b9",
+  "requestIds": {
+    "open": "open-936b6268-7960-49e8-b82d-10623cb763b9",
+    "run": "run-936b6268-7960-49e8-b82d-10623cb763b9",
+    "close": "close-936b6268-7960-49e8-b82d-10623cb763b9"
+  },
+  "status": "SUCCEEDED",
+  "reason": null,
+  "steps": 1,
+  "actions": [
+    {
+      "status": "SUCCEEDED",
+      "route": "jev",
+      "decisionId": "c806f25d-dc01-44b6-8ece-353b65206987"
+    }
+  ],
+  "signedJevReceiptPresent": true
+}

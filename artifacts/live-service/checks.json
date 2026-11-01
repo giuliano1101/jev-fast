@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-01",
+  "typecheck": {
+    "exitCode": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "defaultTests": {
+    "passed": 411,
+    "failed": 0,
+    "skipped": 0
+  },
+  "integration": {
+    "passed": 77,
+    "failed": 0,
+    "skipped": 0
+  },
+  "safety": {
+    "passed": 40,
+    "failed": 0,
+    "skipped": 0
+  },
+  "focusedReloadTests": 6,
+  "independentSpecReview": "APPROVED",
+  "independentQualityReview": "APPROVED",
+  "realPublicMcp": {
+    "goals": 1,
+    "succeeded": 1,
+    "signedRoute": "jev",
+    "upstreamHttp": 200
+  },
+  "noGeneralDesktopClaim": true,
+  "noBudgetReset": true,
+  "noExpiryExtension": true,
+  "leftRunning": true
+}

@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-11-01T12:13:57.134Z",
+  "protocol": "decision-v1",
+  "policy": "p0-v1",
+  "enforcement": "advisory-only",
+  "build": {
+    "revision": "9e86308d8920bbbe2dfe2fbf6156cc23a497ef42",
+    "provenance": "git-checkout",
+    "dirty": true,
+    "sourceDigest": "sha256:2630e6a358c21e98542eeb6cc42a2569b552fc244af794572b62d4314ae74660"
+  },
+  "provider": "jev",
+  "model": "jev-1.14.0",
+  "enforcementMode": "required_jev",
+  "identity": {
+    "owner_id": "operator",
+    "device_id": "mac-mini",
+    "agent_id": "shared-executor"
+  },
+  "localClient": "a",
+  "profileFingerprint": "sha256:832acd62ce07e5c10897a3bbedcb085aa80bc256cd0ab8dc8aedf0dc214c6b4a",
+  "transport": "remote",
+  "authenticatedIdentity": {
+    "owner_id": "operator",
+    "device_id": "mac-mini",
+    "agent_id": "shared-executor"
+  },
+  "identityMatches": true,
+  "remoteReachable": true,
+  "routeCompatible": true,
+  "ready": true,
+  "active_session_limit": 1,
+  "installation": {
+    "node": {
+      "version": "24.22.1",
+      "supported": true
+    },
+    "chromium": {
+      "executableAvailable": true,
+      "launchVerified": false
+    },
+    "runtime": {
+      "status": "private"
+    },
+    "socket": {
+      "status": "private"
+    }
+  }
+}

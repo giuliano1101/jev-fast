@@ -1,4 +1,4 @@
-# 已部署服务：接入与手动开关
+# 已部署服务：AI 接入与服务开关
 
 本阶段的公网 MCP 地址：
 
@@ -8,15 +8,21 @@ https://jev.43-160-233-161.sslip.io/mcp
 
 传输使用 **Streamable HTTP**，无需 Authorization、OAuth 或网络 API key。地址使用免费的 [sslip.io/nip.io IP 映射 DNS](https://nip.io/)，HTTPS 使用服务器单独申请的 Let's Encrypt 证书。它不是自有注册域名；更换服务器公网 IP 后需要更换地址和证书，公共 DNS 的可用性也依赖服务提供方。
 
-## 现在如何开启
+## 当前部署状态（2026-11-01）
 
-1. Chrome 中已打开 **Jev 接入控制台**。它通过仅绑定本机的 SSH 隧道访问 `http://127.0.0.1:47832/`，公网不能访问管理端口。完整管理链接含有本次启动的私有片段，不能分享；页面加载后会从地址栏移除。
-2. 在已有 **Jev · 本地服务控制** 标签页点击“启动服务”。两张已有标签页都指向 `/tmp/jev-501`。也可双击仓库根目录 `打开Jev控制面板.command`。当前默认离线 mock；启动不执行任务、不消耗模型额度。
-3. 在接入控制台，核对 **Mac mini · Jev connector** 后点击“开启”。本轮已启动连接器，当前仍等待你开启；本机总开关保持原来的关闭状态。
-4. 让 AI 宿主以 Streamable HTTP 连接上面的 `/mcp`。AI 的 `clientInfo.name` 是控制台展示名，新会话默认关闭。核对它后手动“开启”，再运行任务。
-5. 逐项关闭使用接入控制台；关闭全部本机执行使用 Mac 面板的“停止服务”。云端不能代替你开启本机服务。离线连接不能开启，停止中需等待连接器确认。
+已经开启真实服务，无需 AI 再向用户索取模型 API key、profile、证书或逐连接开关。Mac 面板显示 **运行中 / remote · Jev / 已连通**。公网 MCP 的真实验收目标完成，动作回执 `route: jev`，上游 HTTP 200；详细证据见[本轮报告](../artifacts/live-service/report.md)。
 
-控制台里的 `Jev Deployment Acceptance Mac` 是本轮已关闭的协议验收客户端，显示离线是正常结果；它没有获准执行过动作。名称由对方自报，不是身份验证。新同名会话不会继承旧权限。
+操作员按最新要求启用了本机自动接入程序，接受任意非空 AI 展示名，自动开启新 AI 会话；协议本身仍默认关闭，不同 AI 的结果仍隔离。名称只是展示信息，不是身份验证。自动接入是这台 Mac 的部署策略，不会随 clone 自动安装，也不是 AI 工具的管理权限。
+
+1. AI 宿主选择 Streamable HTTP，填上面的 `/mcp`，无需 Authorization。
+2. 初始化时设置 `clientInfo.name`；等待 `jev.network_status` 的 `enabled: true`。自动接入存在短暂轮询延迟，未开启时先等状态，不重复发送业务请求。
+3. 使用下方固定契约，保留 request_id 和业务幂等键。工作结束仅关闭自己的 MCP/业务会话，不要停止共用协调器、连接器或网关。
+
+本机总开关仍可停止实际执行。当前自动接入程序持续允许新 AI，因此若操作员要撤销自动接入策略，应先暂停该程序再管理接入开关；单个新会话的“关闭”不是永久屏蔽名单。
+
+协调器、真实网关及配置了私有 remote profile 的本机面板已经独立后台运行，不随本次对话结束主动关闭。当前未承诺 Mac 重启后自动恢复。费用没有变为无限：继续使用原批准余额与原到期时间；2026-11-01 20:00 验收后保守余额为 **最多 2 次 HTTP 尝试 / $0.02 预留**，失败/重试也计入，到期或耗尽后拒绝新的付费决策，进程仍保持运行。已知实际费用远低于预留，但不会因此擅自重置账本。
+
+当前已打开的新版本机面板固定使用真实配置；根目录通用 Finder launcher 仍是新安装用的默认 mock 启动入口，不要用它替换正在运行的面板。维护和恢复路径见本轮报告。
 
 ## AI 连接示例
 
@@ -35,7 +41,7 @@ console.log(tools.tools.map(tool => tool.name));
 const response = await client.callTool({name: 'jev.network_status', arguments: {}});
 const status = JSON.parse(response.content.find(item => item.type === 'text').text);
 console.log({admission: status.admission, enabled: status.enabled});
-// 尚未人工开启时，动作工具返回 ADMISSION_REQUIRED。
+// 等待 enabled === true；尚未开启时，动作工具返回 ADMISSION_REQUIRED。
 await transport.terminateSession();
 await client.close();
 ```
@@ -52,7 +58,7 @@ await client.close();
 }
 ```
 
-只有人工开启后才可运行。响应不确定时查询原 request_id；UNKNOWN 不允许换编号重放。详细契约见[手动接入说明](manual-admission.md)和[AI 快速开始](quickstart-agent.md)。
+接入实例开启后才可运行；当前由操作员的自动接入程序处理。响应不确定时查询原 request_id；UNKNOWN 不允许换编号重放。详细契约见[手动接入说明](manual-admission.md)和[AI 快速开始](quickstart-agent.md)。
 
 ## Mac 连接器和私有隧道
 
@@ -90,6 +96,6 @@ ssh -N -T -i /Users/yubinai/.ssh/dotwi_deploy \
 
 Nginx 只代理 `/mcp`、两个 connector 路径及 `/health`。`/` 返回404是预期行为；管理台不在公网根目录。证书续期使用既有 Certbot，新增 hook 仅匹配本证书，再校验和 reload Nginx；真实长期续期需继续观察。
 
-**当前正式执行器仍限内置 standard fixture 的十二道任务。** 公网部署没有新增任意网页、桌面或手机控制能力。此次“使用 Jev 部署”由独立研究选择器选择固定、脱敏的部署步骤，主机通过 CUA/协议工具执行和验收；它不能自动生成任意服务器命令，也不是部署速度对照实验。真实模型执行任务仍需另行配置有效的本机 profile 和明确预算，本次部署选择额度不会自动用于其他目标。
+**当前正式执行器仍限内置 standard fixture 的十二道任务。** 公网部署没有新增任意网页、桌面或手机控制能力。此次“使用 Jev 部署”由独立研究选择器选择固定、脱敏的部署步骤，主机通过 CUA/协议工具执行和验收；它不能自动生成任意服务器命令，也不是部署速度对照实验。S17 已按操作员最新指令配置真实 profile，并将原部署批准的未用余额用于服务决策，没有增加费用上限或延长期限。新的 AI 只需连接，不管理模型配置。
 
 本轮结果和限制见[部署报告](../artifacts/public-deployment/report.md)。
