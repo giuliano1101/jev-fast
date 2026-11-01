@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {parseArgs} from 'node:util';
 import {defaultRuntime} from '../service/runtime.js';
 import {controlPage,controlScript,controlStyle} from './ui.js';
+import {admissionMutationSchema,loadAdmissionAdapter,type AdmissionAdapter} from './admission.js';
 export {defaultRuntime} from '../service/runtime.js';
 export interface CommandResult {code:number|null;stdout:string;failure?:string}
 export async function executeBounded(file:string,args:string[],options:{timeoutMs?:number;maxBytes?:number}={}):Promise<CommandResult>{
@@ -23,7 +24,7 @@ export async function executeBounded(file:string,args:string[],options:{timeoutM
 }
 export interface ControlStatus {state:'running'|'unavailable'|'blocked';mode:'mock'|'remote'|'unknown';decisionProvider:'mock'|'jev'|'unknown';remoteReachable:boolean|null;routeCompatible?:boolean;installation?:{nodeSupported:boolean|null;chromiumAvailable:boolean|null;runtime:string;socket:string}}
 export interface ControlAdapter {status:()=>Promise<ControlStatus>;start:()=>Promise<void>;stop:()=>Promise<void>}
-const actionCodes=new Set(['SERVICE_PROFILE_MISMATCH','UNSAFE_PRIVATE_FILE','INVALID_SERVICE_CONFIGURATION','INVALID_CONFIGURATION_JSON','UNSAFE_RUNTIME','SERVICE_START_FAILED','SERVICE_START_TIMEOUT','SERVICE_STOP_TIMEOUT','REMOTE_SHARING_NOT_SUPPORTED','CONTROL_COMMAND_LIMIT']);
+const actionCodes=new Set(['SERVICE_PROFILE_MISMATCH','UNSAFE_PRIVATE_FILE','INVALID_SERVICE_CONFIGURATION','INVALID_CONFIGURATION_JSON','UNSAFE_RUNTIME','SERVICE_START_FAILED','SERVICE_START_TIMEOUT','SERVICE_STOP_TIMEOUT','REMOTE_SHARING_NOT_SUPPORTED','CONTROL_COMMAND_LIMIT','CONTROL_ADMISSION_UNAVAILABLE','CONTROL_ADMISSION_NOT_CONFIGURED','DEVICE_NOT_ENABLED','DEVICE_NOT_READY','DEVICE_ALREADY_ENABLED','REVOCATION_PENDING','CONNECTION_OFFLINE','CONNECTION_NOT_FOUND']);
 function safeError(error:unknown){const code=error instanceof Error?error.message:'';return actionCodes.has(code)?code:'CONTROL_ACTION_FAILED';}
 function record(value:unknown):Record<string,unknown>{return typeof value==='object'&&value!==null&&!Array.isArray(value)?value as Record<string,unknown>:{};}
 const booleanOrNull=(value:unknown)=>typeof value==='boolean'?value:null;
@@ -50,15 +51,17 @@ export class CliControlAdapter implements ControlAdapter {
 }
 export function parseControlArgs(args:string[]){
  try{
-  const {values}=parseArgs({args,strict:true,allowPositionals:false,options:{runtime:{type:'string'},config:{type:'string'},port:{type:'string'},help:{type:'boolean',short:'h'},open:{type:'boolean'}}});
+  const {values}=parseArgs({args,strict:true,allowPositionals:false,options:{runtime:{type:'string'},config:{type:'string'},'admission-config':{type:'string'},port:{type:'string'},help:{type:'boolean',short:'h'},open:{type:'boolean'}}});
   if(values.help&&Object.keys(values).some(key=>key!=='help'))throw new Error();
   const port=values.port===undefined?47831:Number(values.port);
-  if(values.port!==undefined&&!/^\d+$/.test(values.port)||!Number.isInteger(port)||port<0||port>65535||values.runtime===''||values.config==='')throw new Error();
-  return {runtime:resolve(values.runtime??defaultRuntime()),...(values.config?{config:resolve(values.config)}:{}),port,help:values.help??false,...(values.open?{open:true}:{})};
+  if(values.port!==undefined&&!/^\d+$/.test(values.port)||!Number.isInteger(port)||port<0||port>65535||values.runtime===''||values.config===''||values['admission-config']==='')throw new Error();
+  return {runtime:resolve(values.runtime??defaultRuntime()),...(values.config?{config:resolve(values.config)}:{}),...(values['admission-config']?{admissionConfig:resolve(values['admission-config'])}:{}),port,help:values.help??false,...(values.open?{open:true}:{})};
  }catch{throw new Error('INVALID_ARGUMENTS');}
 }
-export async function startControlPanel(options:{runtime:string;config?:string;port?:number;adapter?:ControlAdapter}){
+export async function startControlPanel(options:{runtime:string;config?:string;admissionConfig?:string;port?:number;adapter?:ControlAdapter;admissionAdapter?:AdmissionAdapter}){
  const runtime=resolve(options.runtime),adapter=options.adapter??new CliControlAdapter({runtime,config:options.config});
+ if(options.admissionAdapter&&options.admissionConfig)throw new Error('INVALID_ADMISSION_CONFIGURATION');
+ const admission=options.admissionAdapter??(options.admissionConfig?await loadAdmissionAdapter(resolve(options.admissionConfig)):undefined);
  const token=randomBytes(32).toString('hex');let origin='',host='';let mutations:Promise<unknown>=Promise.resolve();
  function respond(res:ServerResponse,status:number,value:unknown,type='application/json; charset=utf-8'){
   const body=typeof value==='string'?value:JSON.stringify(value);res.writeHead(status,{'content-type':type,'cache-control':'no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','content-security-policy':"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",'content-length':Buffer.byteLength(body)});res.end(body);
@@ -73,7 +76,7 @@ export async function startControlPanel(options:{runtime:string;config?:string;p
   if(req.url==='/app.js'&&req.method==='GET'){respond(res,200,controlScript,'text/javascript; charset=utf-8');return;}
   if(req.url==='/style.css'&&req.method==='GET'){respond(res,200,controlStyle,'text/css; charset=utf-8');return;}
   if(!authorized(req)){respond(res,403,{error:{code:'CONTROL_FORBIDDEN'}});return;}
-  if(!['/api/status','/api/start','/api/stop'].includes(req.url??'')){respond(res,404,{error:{code:'CONTROL_NOT_FOUND'}});return;}
+  if(!['/api/status','/api/start','/api/stop','/api/connections','/api/admission'].includes(req.url??'')){respond(res,404,{error:{code:'CONTROL_NOT_FOUND'}});return;}
   if(!(req.method==='POST'||req.method==='GET'&&req.url==='/api/status')){respond(res,405,{error:{code:'CONTROL_METHOD_NOT_ALLOWED'}});return;}
   if(Number(req.headers['content-length']??0)>2048){respond(res,413,{error:{code:'CONTROL_BODY_TOO_LARGE'}});return;}
   let size=0;const chunks:Buffer[]=[];
@@ -81,8 +84,20 @@ export async function startControlPanel(options:{runtime:string;config?:string;p
   const bodyDeadline=setTimeout(()=>req.destroy(),5000);
   try{for await(const chunk of req){size+=Buffer.byteLength(chunk);if(size>2048){respond(res,413,{error:{code:'CONTROL_BODY_TOO_LARGE'}});return;}chunks.push(Buffer.from(chunk));}}
   finally{clearTimeout(bodyDeadline);}
-  if(Buffer.concat(chunks).toString('utf8')!==''){respond(res,400,{error:{code:'CONTROL_INVALID_BODY'}});return;}
+  const raw=Buffer.concat(chunks).toString('utf8');
+  if(req.url==='/api/admission'){
+   if(req.headers['content-type']?.split(';')[0]!=='application/json'){respond(res,415,{error:{code:'CONTROL_INVALID_BODY'}});return;}
+   let input:{id:string;enabled:boolean};try{input=admissionMutationSchema.parse(JSON.parse(raw));}catch{respond(res,400,{error:{code:'CONTROL_INVALID_BODY'}});return;}
+   if(!admission){respond(res,503,{error:{code:'CONTROL_ADMISSION_NOT_CONFIGURED'}});return;}
+   const result=mutations.then(()=>admission.setEnabled(input.id,input.enabled));mutations=result.catch(()=>{});
+   try{respond(res,200,{connection:await result});}catch(error){respond(res,503,{error:{code:safeError(error)}});}return;
+  }
+  if(raw!==''){respond(res,400,{error:{code:'CONTROL_INVALID_BODY'}});return;}
   if(req.url==='/api/status'){respond(res,200,await adapter.status());return;}
+  if(req.url==='/api/connections'){
+   if(!admission){respond(res,200,{configured:false,connections:[]});return;}
+   try{respond(res,200,{configured:true,...await admission.list()});}catch{respond(res,503,{error:{code:'CONTROL_ADMISSION_UNAVAILABLE'}});}return;
+  }
   const action=req.url==='/api/start'?'start':'stop';const result=mutations.then(()=>adapter[action]());mutations=result.catch(()=>{});
   try{await result;respond(res,200,{ok:true});}catch(error){respond(res,503,{error:{code:safeError(error)}});}
  })().catch(()=>{if(!res.headersSent)respond(res,503,{error:{code:'CONTROL_ACTION_FAILED'}});else res.destroy();});});

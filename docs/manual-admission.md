@@ -1,5 +1,7 @@
 # 免 Key 接入、手动开关与 continuation
 
+日常操作已合并到[统一控制台](control-panel.md)：服务总开关、AI／设备开关、搜索和历史记录都在同一页。原 relay loopback 管理接口继续作为后台使用，不需要日常打开第二个页面。
+
 本文描述手动接入的默认规则及可选部署策略。当前共享公网已启用 `autoAdmitAi: true`、`allowContinuations: true` 和真实 Jev 只计费；其他 AI 直接使用[接入手册](other-ai-real-testing.md)，不向用户索取 Key 或新审批。
 
 设备/AI 不需要 OAuth 或预配网络 Key。名称来自连接方自报，不能证明身份；权限按随机连接实例、owner 和代次管理。管理 API 仅限操作员 loopback 入口，AI 工具不能自己开启。

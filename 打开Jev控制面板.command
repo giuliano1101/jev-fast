@@ -15,6 +15,17 @@ if [[ -z "$jev_node" ]]; then
   exit 1
 fi
 export PATH="${jev_node:h}:$PATH"
+# The original operator installation keeps one provisioned, private console link.
+# Reopen that page instead of starting another panel or changing service mode.
+jev_console="$PWD/.runtime/live-service/panel.html"
+if [[ -e "$jev_console" ]]; then
+  if "$jev_node" --input-type=module -e 'import fs from "node:fs"; const s=fs.lstatSync(process.argv[1]);process.exit(s.isFile()&&!s.isSymbolicLink()&&s.uid===process.getuid()&&(s.mode&0o777)===0o600?0:1)' "$jev_console"; then
+    /usr/bin/open "$jev_console"
+    exit $?
+  fi
+  print '已有控制台链接的文件权限异常，请检查本机私有配置。'
+  exit 1
+fi
 if [[ ! -d node_modules ]]; then
   print '请先在本目录运行 npm ci --ignore-scripts 和 npx playwright install chromium。'
   read '?按回车退出。'

@@ -99,3 +99,27 @@ if(panel){
   }finally{await rm(root,{recursive:true,force:true});}
  });
 }
+
+if(panel)test('one authenticated local console lists and switches exact connection instances without exposing a second management page',async()=>{
+ const changes:{id:string;enabled:boolean}[]=[];let reads=0;
+ const row={id:'device-one',name:'My Mac',type:'device',state:'enabled',enabled:true,generation:1,firstSeen:1,lastSeen:2};
+ const admissionAdapter={list:async()=>{reads++;return {connections:[row],publicMcpUrl:'https://example.invalid/mcp'};},setEnabled:async(id:string,enabled:boolean)=>{changes.push({id,enabled});return {...row,enabled,state:'stopping'};}};
+ const server=await panel.startControlPanel({runtime:'/tmp/unified-console',port:0,adapter:{status:async()=>({state:'running',mode:'mock',decisionProvider:'mock',remoteReachable:null}),start:async()=>{},stop:async()=>{}},admissionAdapter});
+ const origin=new URL(server.url).origin,headers={origin,'x-jev-control-token':new URL(server.url).hash.slice(1)};
+ try{
+  assert.equal((await http(origin+'/api/connections','POST')).status,403);assert.equal(reads,0);
+  const list=await http(origin+'/api/connections','POST',headers);assert.equal(list.status,200);assert.equal(JSON.parse(list.body).configured,true);assert.equal(JSON.parse(list.body).connections[0].name,'My Mac');
+  assert.equal((await http(origin+'/api/admission','GET',headers)).status,405);
+  assert.equal((await http(origin+'/api/admission','POST',{...headers,'content-type':'application/json'},JSON.stringify({id:'device-one',enabled:false,url:'http://evil.invalid'}))).status,400);
+  assert.equal((await http(origin+'/api/admission','POST',{...headers,origin:'http://evil.invalid','content-type':'application/json'},JSON.stringify({id:'device-one',enabled:false}))).status,403);assert.equal(changes.length,0);
+  const changed=await http(origin+'/api/admission','POST',{...headers,'content-type':'application/json'},JSON.stringify({id:'device-one',enabled:false}));assert.equal(changed.status,200);assert.equal(JSON.parse(changed.body).connection.state,'stopping');assert.deepEqual(changes,[{id:'device-one',enabled:false}]);
+ }finally{await server.close();}
+ assert.equal(changes.length,1,'closing unified panel does not change any admission');
+});
+if(panel)test('unconfigured admission and configured-unavailable admission are distinct states',async()=>{
+ const adapter={status:async()=>({state:'running',mode:'mock',decisionProvider:'mock',remoteReachable:null}),start:async()=>{},stop:async()=>{}};
+ for(const configured of [false,true]){const server=await panel.startControlPanel({runtime:'/tmp/unified-console-error',port:0,adapter,...(configured?{admissionAdapter:{list:async()=>{throw Error('PRIVATE_KEY');},setEnabled:async()=>{throw Error('PRIVATE_KEY');}}}:{})});
+  try{const origin=new URL(server.url).origin,auth={origin,'x-jev-control-token':new URL(server.url).hash.slice(1)};const result=await http(origin+'/api/connections','POST',auth);assert.equal(result.status,configured?503:200);assert.ok(!result.body.includes('PRIVATE_KEY'));if(!configured)assert.deepEqual(JSON.parse(result.body),{configured:false,connections:[]});}
+  finally{await server.close();}
+ }
+});

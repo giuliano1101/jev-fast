@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-11-01T18:50:34.866Z",
+  "unifiedConsoleReady": true,
+  "mode": "remote",
+  "decisionProvider": "jev",
+  "remoteReachable": true,
+  "admissionConfigured": true,
+  "connectionCount": 351,
+  "currentConnections": 9,
+  "activeDevices": 1,
+  "offlineHistory": 342,
+  "onlyPanelRestarted": true,
+  "managementTunnelRestored": true,
+  "sharedServiceRunning": true
+}

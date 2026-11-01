@@ -9,7 +9,7 @@
 | 另一个 AI 连接当前共享服务 | [接入/真实网页与手机示例/SDK](docs/other-ai-real-testing.md) |
 | 部署状态、continuation 与共享服务规则 | [公网快速开始](docs/public-service-quickstart.md) |
 | 新机器的离线 mock 安装 | [Agent 快速开始](docs/quickstart-agent.md) |
-| 操作员开关/私有配置 | [控制面板](docs/control-panel.md) · [CLI/MCP](docs/cross-machine-cli-mcp.md) |
+| 一个页面管理服务、AI／设备、历史与接入配置 | [统一控制台](docs/control-panel.md) · [CLI/MCP](docs/cross-machine-cli-mcp.md) |
 | 默认手动准入与可选自动策略 | [手动接入](docs/manual-admission.md) · [旧 Bearer 网络模式](docs/network-mcp.md) |
 | 计量与工程约束 | [usage-only](docs/metered-service.md) · [AGENTS.md](AGENTS.md) |
 

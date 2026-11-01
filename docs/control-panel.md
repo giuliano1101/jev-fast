@@ -1,71 +1,77 @@
-# Jev 本机服务开关面板
+# Jev 统一控制台
 
-2026-11-02 当前部署：操作员已启动固定私有 remote profile 的后台面板，显示 `运行中 / remote · Jev / 已连通`，无需 AI 提供密钥。请复用已打开的最新标签页；下面的默认 mock 流程用于新安装。[当前部署与预算边界](public-service-quickstart.md)。
+服务总开关、AI／设备接入、离线历史、连接地址和本机配置现在集中在**同一页**。当前 Mac 已配置真实 Jev 与接入管理，打开既有控制台即可，不需要提供模型 Key 或管理令牌。
 
-这个面板用于开启、关闭和检查 **CLI/MCP 共用的本地协调服务**。它不需要托管 API key，默认使用离线 mock。开启不会自动执行任务或消耗模型额度；remote 模式的健康检查只查询网关健康状态。remote 调用遵循操作员私有付费策略；当前部署已明确改为[只计费](metered-service.md)，不设金额/累计次数/预算有效期上限。可选有上限安装仍保留其显式预算规则。
+## 日常操作
 
-## 打开面板
+1. **顶部服务卡片**：检查“运行中 / remote · Jev / 已连通”，启动、停止或刷新协调服务。
+2. **连接管理**：直接查看当前 AI 和执行设备，按名称或编号搜索，也可筛选 AI／设备。每行开关只作用于该连接实例。
+3. **离线历史**：默认收起，避免旧连接淹没在线连接；展开后仍可搜索。记录不会被删除。
+4. **连接方式与本机设置**：同页展开即可复制公网 MCP 地址、查看本机 stdio 配置、CLI 命令与运行目录。
 
-macOS 安装完成后可在 Finder 双击仓库根目录的 **`打开Jev控制面板.command`**。它检查 Node 24.19+、编译当前 checkout 并打开浏览器，使用默认 `/tmp/jev-<uid>` 运行目录，不自动开启协调服务。终端窗口负责运行面板，保留它即可。若已有面板占用端口，使用原面板或先退出原终端。脚本不执行依赖安装；找不到可用 Node 时可设置 `JEV_NODE` 为绝对路径。
+列表每 2 秒刷新，保留筛选、展开状态和当前操作焦点。“正在停止 · 等待确认”表示撤销尚未完成，不会提前显示已停止。连接列表不可达会明确提示；保留的旧列表不作为最新状态保证，也不影响使用服务总开关。
 
-在已安装依赖和 Chromium 的 checkout 中：
+关闭页面或控制台进程不会停止共享协调服务；停止服务需点击顶部“停止服务”。已完成的物理动作不会被撤销，UNKNOWN 不会因切换页面或开关而自动重放。
+
+## 当前 Mac 打开方式
+
+双击仓库根目录 **`打开Jev控制面板.command`**。操作员安装已有私有面板书签时，脚本直接复用它，不再新建第二个面板，也不会切换 provider 或停止正在运行的服务。已打开的最新 Chrome 标签页同样可用。
+
+原本机的服务页和接入页快捷入口都指向统一控制台。relay 的 loopback 管理接口作为后台保留，日常无需再打开另一页。只有操作员维护或独立 relay 安装才使用原[管理接口说明](manual-admission.md)。
+
+## 新安装
+
+需要 Node 24.19+、项目依赖；运行服务的机器还需要匹配的 Chromium。新安装默认离线 mock，启动控制台不会自动获得付费授权。
 
 ```sh
 npm run build
-npm run control -- --runtime /tmp/jev-operator
+npm run control -- --runtime /tmp/jev-operator --open
 ```
 
-终端会打印一个 `http://127.0.0.1:端口/#...` 本机链接，在浏览器打开完整链接。片段中的随机令牌授予本次面板的操作权限，请勿分享完整链接。初次载入后页面会移除地址栏片段，并将令牌仅保存在当前标签页的 sessionStorage 中供刷新使用。新开无令牌页面需要使用终端中的完整链接。
+默认端口 47831，可用 `--port 0` 选择空闲端口。控制台仅绑定 127.0.0.1。终端输出的完整本机链接包含本次访问能力，不要公开；页面载入后移除地址栏片段，将其保存在当前标签页的 sessionStorage。
 
-加 `--open` 可以自动用系统浏览器打开链接；默认端口是 47831，`--port 0` 自动分配空闲端口。
+原开发 Mac 若需手动使用 Node，先 `. scripts/env.sh`；其他机器使用自己的安装路径。
 
-原开发 Mac 的 Node/npm wrapper 不可用时，先在该 checkout 根目录运行 `. scripts/env.sh`；其他机器不要使用这份专用环境配置。
+## 操作员接入 relay 管理
 
-查看启动选项：
+配置由操作员一次性设置，AI 客户端不需要这些文件。协调服务启动配置与控制台管理桥配置分别固定：
 
 ```sh
-node dist/src/control/main.js --help
+node dist/src/control/main.js \
+  --runtime /tmp/jev-operator \
+  --config /absolute/private/profile.json \
+  --admission-config /absolute/private/console-admission.json \
+  --open
 ```
 
-runtime 必须与 AI 的 CLI 参数和 MCP 凭据路径一致。面板不会扫描或控制其他 runtime。端口冲突时更换 `--port`，不会接管已有进程。
+`console-admission.json` 使用当前用户拥有、权限 0600 的普通文件：
 
-使用[网络 MCP 连接器](network-mcp.md)时，其 credentialFile 也必须指向这个 runtime 的 client-a.json。面板停止同一个本地协调服务后，远程任务同样受阻；云端没有重新开启本机服务的工具。连接器和 relay 独立管理，面板不负责启动它们。
-
-逐个管理设备或AI使用新的[接入控制台](manual-admission.md)。它是 relay 启动时提供的本机管理入口，列出自报名称与独立编号；新安装默认关闭，由操作员开启。当前共享公网由私有 autoAdmitAi 策略即时准入新 AI，手动关闭原 owner 仍有效。这里的 Mac 面板仍是整个执行器总开关；接入开关表示允许该连接，不替代执行器进程的启动。服务器部署后，接入管理端口仍限loopback，通过操作员隧道/控制台访问。
-
-## 使用开关
-
-- **启动服务**：调用既有 `service start`，等待鉴权健康检查确认运行，重复开启不会创建第二个协调服务。
-- **停止服务**：调用本地操作员 `service stop`，阻止新动作、取消目标并等待浏览器和账本收尾。已完成的物理动作不会撤销，结果不明仍保留 `UNKNOWN`。
-- **刷新状态**：检查实际服务和安装环境。不可达或诊断失败不能证明进程已退出；残留锁、权限异常等需按运维手册处理。
-- **接入信息**：按当前 Node、checkout 和 runtime 显示 MCP 配置与 CLI 示例。先开启服务，再让宿主启动 MCP。服务重启会轮换凭据，宿主需要重新连接。
-
-面板会显示本地 `mock`，或远程 `remote · Jev` / `remote · 网关模拟` / `remote · provider 未知`，以及远程可达性和兼容状态。`ready` 仅代表本地协调服务可用；`remoteReachable: false` 或 `routeCompatible: false` 时应先解决远程配置问题。当前主接口包含真实网页 browser_* 和配置 MCP host 的 host_* 工具，以及兼容 fixture。真实网页使用独立无头 Chromium，不接管日常 Chrome；手机是否可用取决于实际 configured_hosts（当前共享部署有 android）。仅开启默认 mock 面板不会自动配置真实 Jev 或手机 backend，具体调用见[接入手册](other-ai-real-testing.md)。
-
-## 使用已经配置的真实 Jev
-
-由操作员先按[CLI/MCP 手册](cross-machine-cli-mcp.md)准备好私有 remote profile 和有效授权，然后显式运行：
-
-```sh
-npm run control -- --runtime /tmp/jev-operator --config /absolute/private/profile.json
+```json
+{
+  "url": "http://127.0.0.1:47832",
+  "tokenFile": "/absolute/private/relay-console-token",
+  "publicMcpUrl": "https://your-relay.example/mcp"
+}
 ```
 
-配置文件路径和 runtime 在面板启动时固定，网页不接受 API key、任意路径或 provider 修改。已有服务与启动 profile 不同会返回 `SERVICE_PROFILE_MISMATCH`，不会静默改用 mock。停止服务仍依赖本地操作员凭据，不依赖远程网关可用。
+- `url` 只接受 literal 127.0.0.1 HTTP origin，不带路径、账号、查询或片段。远程 relay 经既有操作员隧道映射到本机；不公开管理端口。
+- `tokenFile` 是绝对路径、当前用户拥有且权限 0600 的普通文件，保存 relay 已有本地管理能力；服务端每次请求重新读取，支持操作员轮换。它不是模型 Key，也不是给其他 AI 的网络接入 Key。
+- `publicMcpUrl` 可选，用于同页复制公开的 Streamable HTTP 地址。
 
-面板不负责启动中央网关、签发或续期 token、登记设备、批准或重置付费预算。先前实验的限时预算不会因开启服务而续期。若要更换配置，先安全停止协调服务，再退出面板，用新的参数启动；保留原账本。
+控制台服务端只转发固定 `/api/status` 与 `/api/admission`，浏览器只使用当前控制台自己的本机访问能力，收不到 relay token、owner、grant 或 local-instance 字段。浏览器不能指定上游 URL、配置路径、provider、脚本或 shell。
 
-## 面板与服务的生命周期
+未配置管理桥的新安装仍可使用服务总开关；接入区域会显示未配置提示，而不是假装已经连接。已配置但不可达会显示错误，修复隧道／私有文件后点击刷新即可。
 
-关闭浏览器标签页只关闭页面。终端按 Ctrl+C 退出面板进程，协调服务可以继续供 AI 使用。要关闭 Jev，请先点击“停止服务”，或者运行：
+## 服务与开关规则
 
-```sh
-node dist/src/cli/index.js service stop --runtime /tmp/jev-operator --json
-```
+- 协调器、CLI、stdio MCP 和网络连接器复用相同 runtime。面板只管理固定 runtime。
+- 当前共享部署为 usage-only，不设金额、累计次数或付费到期封顶；只记录实际模型费用。控制台查看状态不调用付费模型。
+- 新 AI 按现有自动接入策略启用；操作员手动关闭始终有效。设备短暂失联恢复会保留操作员开启意图，但不复活旧 AI owner/token。
+- 启动使用既有 CLI 校验固定 profile，不会静默回退 mock。停止由本地操作员凭据授权，不依赖上游模型可达。
+- 原生 Mac App 能力、网页／手机实际执行边界与 UNKNOWN 处理见[其他 AI 接入手册](other-ai-real-testing.md)。
 
-无需自动登录、开机自启或全局 agent 配置。关闭这个服务也不会禁止 AI 使用它本来拥有的 shell/CUA 等其他工具。
+## 本机访问保护与维护
 
-## 本机访问保护
+控制台校验精确 Host、Origin 和启动时生成的本地能力，不启用跨域权限；使用 CSP、禁缓存和 no-referrer。不要把控制端口代理到公网或分享完整私有链接。它是同一操作系统用户下的操作员工具，不构成 OS 隔离边界。
 
-控制端只绑定 `127.0.0.1`，校验精确 Host、Origin 和每次启动生成的令牌，不提供跨域权限。令牌不放进查询参数、cookie 或请求日志。页面使用 CSP、禁止缓存和 referrer；操作只映射到固定 CLI 参数，不执行网页提交的 shell。
-
-这仍是同一 macOS 用户下的本机操作工具。它不能抵御已拥有同一用户文件/浏览器访问权限的恶意程序。不要将监听端口代理到公网，不要公开完整面板链接。残留锁、未知动作、升级与回滚见[运维手册](cross-machine-operations.md)。
+启动控制台不会启动 relay、网关或连接器，也不修改费用账本。维护这些后台进程见[运维手册](cross-machine-operations.md)；不要通过清锁、清审计或关闭其他 AI 会话来恢复未知结果。

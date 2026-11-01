@@ -1,0 +1,38 @@
+{
+  "unit": {
+    "tests": 505,
+    "pass": 505,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "integration": {
+    "tests": 110,
+    "pass": 110,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "safety": {
+    "tests": 40,
+    "pass": 40,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "deploymentPython": {
+    "tests": 16,
+    "pass": 16
+  },
+  "specReview": "approved",
+  "qualityReview": "approved after stale-read fixes",
+  "hostedModelCalls": 0,
+  "liveServiceStopped": false,
+  "onlyPanelRestarted": true,
+  "managementTunnelRestored": true,
+  "liveAdmissionMutations": 0,
+  "visualPreviewData": "synthetic only",
+  "untrackedUserDocumentPreserved": "docs/other-ai-real-testing 2.md"
+}
