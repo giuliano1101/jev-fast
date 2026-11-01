@@ -58,7 +58,9 @@ await client.close();
 
 本轮 Mac 连接器的私有配置：
 `/Users/yubinai/Documents/jev/.runtime/public-connector/connector.json`。
-状态和 journal 留在同目录，未上传 GitHub。连接器使用 `/private/tmp/jev-501/client-a.json`，与面板的 `/tmp/jev-501` 是同一运行目录。服务尚未启动时没有该凭据，连接器仍可登记为待开启，但不会就绪或执行。
+状态和 journal 留在同目录，未上传 GitHub。连接器使用 `/tmp/jev-501/client-a.json`，与面板和协调器 socket 记录的路径文本保持一致。macOS 的 `/tmp` 与 `/private/tmp` 虽指向同一目录，凭据安全校验仍要求直接父目录字符串与 socket 路径一致，不能混用这两个别名。服务尚未启动时没有该凭据，连接器仍可登记为待开启，但不会就绪或执行。
+
+首次开启时已修正本机私有配置中的旧别名，保留原 journal，并为新连接使用独立的 `journal-runtime-tmp` 目录；没有删除审计、修改凭据验证规则或重启协调服务。已实际验证修正后的凭据读取和本机健康检查通过。
 
 需要重新启动连接器时，先确认原进程已经正常停止，再运行：
 
