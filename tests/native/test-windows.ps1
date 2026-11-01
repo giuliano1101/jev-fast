@@ -7,10 +7,10 @@ $parseErrors = $null
 [void][System.Management.Automation.Language.Parser]::ParseFile($driver, [ref]$tokens, [ref]$parseErrors)
 if ($parseErrors.Count) { throw ($parseErrors | Out-String) }
 function Assert-True($condition, $message) { if (-not $condition) { throw $message } }
-function Invoke-Probe([string[]]$lines, [string]$parentPid = '') {
+function Invoke-Probe([string[]]$lines, [string]$parentPid = '', [string]$scriptPath = $driver) {
     $info = New-Object System.Diagnostics.ProcessStartInfo
     $info.FileName = Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
-    $info.Arguments = '-NoProfile -NonInteractive -STA -File "' + (Resolve-Path -LiteralPath $driver).Path + '"'
+    $info.Arguments = '-NoProfile -NonInteractive -STA -File "' + (Resolve-Path -LiteralPath $scriptPath).Path + '"'
     $info.UseShellExecute = $false
     $info.RedirectStandardInput = $true
     $info.RedirectStandardOutput = $true
@@ -99,9 +99,29 @@ $requests = @(
 foreach ($method in @('click','type_text','press_key','set_value','scroll','drag','perform_action')) {
     $requests += Request $method $method @{app=2147483647;observation_id='missing'}
 }
+# Trace only the synthetic status boundary, never request text or real app content.
+$statusSelfCheck = ConvertFrom-Json -InputObject $requests[0]
+Assert-True ($statusSelfCheck.id -eq 'status' -and $statusSelfCheck.method -eq 'status') 'The synthetic status request must parse before transport'
+$diagnosticPath = Join-Path ([IO.Path]::GetTempPath()) (([guid]::NewGuid().ToString()) + '.ps1')
+$diagnosticCode = @'
+[Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+$line = [Console]::ReadLine()
+$parsed = $false
+$objectKind = $null
+$parseErrorKind = $null
+$firstCode = if ($line.Length) { [int][char]$line[0] } else { -1 }
+try { $value=ConvertFrom-Json -InputObject $line -ErrorAction Stop; $parsed=$true; $objectKind=$value.GetType().FullName } catch { $parseErrorKind=$_.Exception.GetType().FullName }
+[Console]::WriteLine((ConvertTo-Json -InputObject @{first_code=$firstCode;length=$line.Length;parsed=$parsed;object_kind=$objectKind;parse_error_kind=$parseErrorKind} -Compress))
+'@
+try {
+    [IO.File]::WriteAllText($diagnosticPath, $diagnosticCode, (New-Object System.Text.UTF8Encoding($false)))
+    $transportBoundary = Invoke-Probe @($requests[0]) '' $diagnosticPath
+    Write-Host ('Synthetic status stdin boundary: ' + (ConvertTo-Json -InputObject $transportBoundary[0] -Compress))
+} finally { Remove-Item -LiteralPath $diagnosticPath -ErrorAction SilentlyContinue }
 $replies = Invoke-Probe $requests
 Assert-True ($replies.Count -eq $requests.Count) 'Expected one response per JSON line'
-Assert-True ($replies[0].ok -and $replies[0].result.platform -eq 'windows') ('Status must identify the actual Windows driver; read-only status reply: ' + (ConvertTo-Json -InputObject $replies[0] -Depth 8 -Compress))
+Assert-True ($replies[0].ok -and $replies[0].result.platform -eq 'windows') ('Status must identify the actual Windows driver; safe protocol summary: ' + (ConvertTo-Json -InputObject @($replies | ForEach-Object { @{id=$_.id;ok=$_.ok;code=$_.error.code;platform=$_.result.platform} }) -Depth 8 -Compress))
 Assert-True ($replies[0].result.app_inventory_scope -eq 'running') 'Inventory scope must be explicit'
 Assert-True ($replies[0].result.input_requires_observation -eq $true) 'Input must require a grounded observation'
 Assert-True ($replies[1].error.code -eq 'METHOD_NOT_FOUND') 'Unknown methods must be rejected'
