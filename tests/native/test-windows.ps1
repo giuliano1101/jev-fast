@@ -1,5 +1,8 @@
 # Read-only protocol probes. Never launch an app, inspect app content, or submit input.
 $ErrorActionPreference = 'Stop'
+# .NET Framework Process.Start creates an AutoFlush stdin writer from Console.InputEncoding.
+# Set a BOM-free parent encoding before Start, even when writing the underlying byte stream.
+[Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
 $driver = Join-Path $PSScriptRoot '../../native/desktop-windows.ps1'
 if (-not (Test-Path -LiteralPath $driver)) { throw 'Native Windows driver is not implemented' }
 $tokens = $null
@@ -20,6 +23,7 @@ function Invoke-Probe([string[]]$lines, [string]$parentPid = '', [bool]$emitBom 
     $process = New-Object System.Diagnostics.Process
     $process.StartInfo = $info
     [void]$process.Start()
+    Assert-True ($process.StandardInput.Encoding.GetPreamble().Length -eq 0) 'The protocol harness must not implicitly emit a stdin BOM'
     $outTask = $process.StandardOutput.ReadToEndAsync()
     $errTask = $process.StandardError.ReadToEndAsync()
     # Write explicit wire bytes, avoiding .NET Framework StreamWriter's implicit BOM.
@@ -126,9 +130,14 @@ $bomReplies = Invoke-Probe @(
     ([string][char]0xFEFF + (Request 'bom-middle' 'status' @{})),
     (Request 'after-bom' 'status' @{})
 ) '' $true
-Assert-True ($bomReplies.Count -eq 3 -and $bomReplies[0].ok -and $bomReplies[0].result.platform -eq 'windows') 'A UTF-8 stream BOM must not break the first status request'
+Assert-True ($bomReplies.Count -eq 3 -and $bomReplies[0].ok -and $bomReplies[0].result.platform -eq 'windows') ('A UTF-8 stream BOM must not break the first status request; safe replies: ' + (ConvertTo-Json -InputObject @($bomReplies | ForEach-Object { @{id=$_.id;ok=$_.ok;code=$_.error.code;platform=$_.result.platform} }) -Depth 8 -Compress))
 Assert-True ($bomReplies[1].error.code -eq 'INVALID_REQUEST') 'A BOM after the first stream line must be rejected'
 Assert-True ($bomReplies[2].ok -and $bomReplies[2].id -eq 'after-bom') 'A malformed middle BOM must not break the following request'
+$doubleBomReplies = Invoke-Probe @(
+    ([string][char]0xFEFF + (Request 'double-bom' 'status' @{})),
+    (Request 'after-double-bom' 'status' @{})
+) '' $true
+Assert-True ($doubleBomReplies.Count -eq 2 -and $doubleBomReplies[0].error.code -eq 'INVALID_REQUEST' -and $doubleBomReplies[1].ok) 'Only one stream-start BOM may be consumed'
 $fenced = Invoke-Probe @((Request 'fenced' 'launch_app' @{app='JEV_NONEXISTENT_APP_FOR_READONLY_TEST'})) '2147483647'
 Assert-True ($fenced[0].error.code -eq 'PARENT_GONE') 'Dead parent must fence launch before resolving any application'
 Write-Output 'Windows native syntax and read-only protocol probes passed. Physical desktop acceptance was not performed.'
