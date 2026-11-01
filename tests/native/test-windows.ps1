@@ -101,7 +101,7 @@ foreach ($method in @('click','type_text','press_key','set_value','scroll','drag
 }
 $replies = Invoke-Probe $requests
 Assert-True ($replies.Count -eq $requests.Count) 'Expected one response per JSON line'
-Assert-True ($replies[0].ok -and $replies[0].result.platform -eq 'windows') 'Status must identify the actual Windows driver'
+Assert-True ($replies[0].ok -and $replies[0].result.platform -eq 'windows') ('Status must identify the actual Windows driver; read-only status reply: ' + (ConvertTo-Json -InputObject $replies[0] -Depth 8 -Compress))
 Assert-True ($replies[0].result.app_inventory_scope -eq 'running') 'Inventory scope must be explicit'
 Assert-True ($replies[0].result.input_requires_observation -eq $true) 'Input must require a grounded observation'
 Assert-True ($replies[1].error.code -eq 'METHOD_NOT_FOUND') 'Unknown methods must be rejected'
