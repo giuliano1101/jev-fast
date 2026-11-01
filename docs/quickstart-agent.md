@@ -1,5 +1,7 @@
 # 让另一个 AI 接入 Jev
 
+**使用已经部署的共享服务：先读[给其他 AI 的接入与真实测试说明](other-ai-real-testing.md)。** 其中有无需 Key 的公网调用全过程、可运行 SDK、BUSY 和未接入真实网站的解释。下面第1–3节是新机器的离线开发安装流程；已连接在线服务的 AI 不要照做另起 mock，也不要替换当前服务。
+
 可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。当前部署已由操作员启用自动接入 AI，会话初始化后等待 `jev.network_status.enabled`；新安装仍默认待开启。当前真实部署已由用户明确改为[只计费](metered-service.md)，不设金额/累计次数/预算有效期拦截，无需 AI 再索取额度。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
 
 当前正式 CLI/MCP 只执行 `standard` 本地模拟页面上的十二类固定任务。默认离线 mock；它可验证接线，不代表已经使用真实 Jev 模型。既有真实网页、抖音和 Android 测试工具仍是独立研究适配器。双实体电脑和任意真实应用接入尚未验收。
@@ -86,7 +88,7 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-demo --json
 
 ## 5. 把这段发给另一个 AI
 
-> 阅读仓库根目录 AGENTS.md 和 docs/quickstart-agent.md。先报告当前能力范围与缺少的本机配置。按 operator 已提供的 runtime 接入，先检查 doctor/policy/schemas，再使用 CLI 或 MCP 的六个工具。不要直接请求 hosted API，不新增付费授权，不操作任意真实 URL。成功以本地账本 SUCCEEDED 和后验为准；通信不确定先 status，UNKNOWN 停止、不换键重放。不要把凭据内容发到聊天或 Git。
+> 阅读 docs/other-ai-real-testing.md 和 AGENTS.md。连接已部署公网 MCP，等待自动接入，按该说明书执行 standard/cancel 的真实 Jev 验收并检查动作 route。当前共享服务已配置模型与只计费策略，不向用户索取 Key/profile/新额度，不另起 mock，不停止共享服务。网络请求保留 request_id，UNKNOWN 停止，不换键重放。BUSY 等待已有会话释放，不关别人的会话。若任务需要任意真实网站/App，应如实报告执行适配器尚未接入正式 MCP。
 
 常见故障：找不到 Node/入口说明宿主绝对路径不对；本地服务不可达先检查相同 runtime 和是否已启动；MCP 初始化失败可能是未启动、凭据轮换或 stdout 混入日志；`SERVICE_PROFILE_MISMATCH` 需操作员核对并停止后重新配置，不自动切换到 mock；锁或 UNKNOWN 的处理见[运维手册](cross-machine-operations.md)，不要清空账本。
 

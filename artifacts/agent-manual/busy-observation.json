@@ -1,0 +1,9 @@
+{
+  "phase": "jev.open_session",
+  "code": "BUSY",
+  "businessSessionOpenedByThisAttempt": false,
+  "goalSubmitted": false,
+  "hostedDecisions": 0,
+  "otherSessionsClosed": false,
+  "meaning": "single global business session is occupied at dispatch; readiness is not an idle reservation"
+}

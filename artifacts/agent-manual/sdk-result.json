@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-11-01T13:07:50.600Z",
+  "source": "exact code block in docs/other-ai-real-testing.md",
+  "codeSha256": "87cca681a0f0fd358dc3b0271d18a486d0884fd830880b2a3cc524af501def64",
+  "goalId": "9fba713d-f5a3-4e0d-b79b-918c177bd025",
+  "goalStatus": "SUCCEEDED",
+  "reason": null,
+  "actions": [
+    {
+      "status": "SUCCEEDED",
+      "route": "jev"
+    }
+  ],
+  "verified": true,
+  "ownSessionClosed": true,
+  "otherSessionsClosed": false,
+  "schemaExamplesValidated": 4
+}

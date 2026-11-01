@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-11-01T13:00:05.089Z",
+  "operations": [
+    "initialize",
+    "tools/list",
+    "jev.network_status",
+    "terminateSession"
+  ],
+  "toolNames": [
+    "jev.open_session",
+    "jev.observe",
+    "jev.run_goal",
+    "jev.cancel",
+    "jev.status",
+    "jev.close_session",
+    "jev.network_status",
+    "jev.request_status"
+  ],
+  "network": {
+    "enabled": true,
+    "admission": "enabled",
+    "connector_online": true,
+    "local_ready": true
+  },
+  "businessSessionsOpened": 0,
+  "hostedDecisions": 0
+}

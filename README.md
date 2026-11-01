@@ -1,5 +1,7 @@
 # jev-fast · Jev 电脑操控加速层
 
+**给接入的其他 AI：** 先读[接入与真实模型测试说明书](docs/other-ai-real-testing.md)，包含可直接转发的指令、八个工具、完整 SDK 示例和报错处理。真实 Jev + 内置测试页面已接通；任意真实网站/App 尚未接入正式 MCP。单浏览器业务会话是本项目当前限制，多 AI 同时打开会返回 BUSY。
+
 **S18 只计费服务（2026-11-01）：** 按操作员最新要求，当前真实服务不再设置金额封顶、累计调用次数上限或预算到期拦截，逐 HTTP 尝试记录 token 和已知费用，缺失用量单独标为未知。其他 AI 继续使用同一公网 MCP、自动接入，无需提供模型 Key。[查看费用及配置说明](docs/metered-service.md) · [实测报告](artifacts/metered-service/report.md)。旧阶段的“剩余 2 次”已被此策略替代，历史账本保留。
 
 **S17 真实服务已接通（2026-11-01）：** 公网 MCP → Mac 连接器 → `remote · Jev` 已完成一次真实签名决策验收，结果 `SUCCEEDED`、动作路由 `jev`，没有 mock 回退。按操作员最新要求，本机自动接入程序会开启新 AI 实例；AI 不需要提供模型 Key/profile。服务保持后台运行；该阶段使用的限额策略已由后续 S18 只计费模式替代。[接入说明](docs/public-service-quickstart.md) · [实测和运行报告](artifacts/live-service/report.md)。新安装的代码默认仍为离线 mock。
