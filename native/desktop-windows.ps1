@@ -76,7 +76,11 @@ public static class Driver {
     static readonly BlockingCollection<string> inputLines=new BlockingCollection<string>();
     public static void StartInput() {
         var reader=new Thread(delegate() {
-            try { string line;while((line=Console.ReadLine())!=null)inputLines.Add(line); }
+            try { string line;bool firstLine=true;while((line=Console.ReadLine())!=null) {
+                // Console.In does not consume UTF-8 BOMs. Accept one only at the stream start.
+                if(firstLine){firstLine=false;if(line.Length>0&&line[0]=='\uFEFF')line=line.Substring(1);}
+                inputLines.Add(line);
+            } }
             catch(IOException){} catch(ObjectDisposedException){}
             finally { RequestStop();inputLines.CompleteAdding(); }
         });reader.IsBackground=true;reader.Start();

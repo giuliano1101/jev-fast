@@ -7,10 +7,10 @@ $parseErrors = $null
 [void][System.Management.Automation.Language.Parser]::ParseFile($driver, [ref]$tokens, [ref]$parseErrors)
 if ($parseErrors.Count) { throw ($parseErrors | Out-String) }
 function Assert-True($condition, $message) { if (-not $condition) { throw $message } }
-function Invoke-Probe([string[]]$lines, [string]$parentPid = '', [string]$scriptPath = $driver) {
+function Invoke-Probe([string[]]$lines, [string]$parentPid = '', [bool]$emitBom = $false) {
     $info = New-Object System.Diagnostics.ProcessStartInfo
     $info.FileName = Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
-    $info.Arguments = '-NoProfile -NonInteractive -STA -File "' + (Resolve-Path -LiteralPath $scriptPath).Path + '"'
+    $info.Arguments = '-NoProfile -NonInteractive -STA -File "' + (Resolve-Path -LiteralPath $driver).Path + '"'
     $info.UseShellExecute = $false
     $info.RedirectStandardInput = $true
     $info.RedirectStandardOutput = $true
@@ -22,8 +22,15 @@ function Invoke-Probe([string[]]$lines, [string]$parentPid = '', [string]$script
     [void]$process.Start()
     $outTask = $process.StandardOutput.ReadToEndAsync()
     $errTask = $process.StandardError.ReadToEndAsync()
-    foreach ($line in $lines) { $process.StandardInput.WriteLine($line) }
-    $process.StandardInput.Close()
+    # Write explicit wire bytes, avoiding .NET Framework StreamWriter's implicit BOM.
+    $wire = (New-Object System.Text.UTF8Encoding($false)).GetBytes(($lines -join "`n") + "`n")
+    $stdin = $process.StandardInput.BaseStream
+    if ($emitBom) { $bom=[byte[]]@(0xEF,0xBB,0xBF); $stdin.Write($bom,0,$bom.Length) }
+    $stdin.Write($wire,0,$wire.Length)
+    $stdin.Flush()
+    $stdin.Close()
+    # The unused text writer must not add its own preamble after the byte stream.
+    try { $process.StandardInput.Close() } catch [ObjectDisposedException] { }
     if (-not $process.WaitForExit(60000)) { $process.Kill(); throw 'Read-only protocol probe did not terminate on stdin EOF' }
     $output = $outTask.Result
     $errors = $errTask.Result
@@ -99,26 +106,9 @@ $requests = @(
 foreach ($method in @('click','type_text','press_key','set_value','scroll','drag','perform_action')) {
     $requests += Request $method $method @{app=2147483647;observation_id='missing'}
 }
-# Trace only the synthetic status boundary, never request text or real app content.
+# The normal protocol path explicitly sends UTF-8 without a BOM, like Node.
 $statusSelfCheck = ConvertFrom-Json -InputObject $requests[0]
 Assert-True ($statusSelfCheck.id -eq 'status' -and $statusSelfCheck.method -eq 'status') 'The synthetic status request must parse before transport'
-$diagnosticPath = Join-Path ([IO.Path]::GetTempPath()) (([guid]::NewGuid().ToString()) + '.ps1')
-$diagnosticCode = @'
-[Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
-[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
-$line = [Console]::ReadLine()
-$parsed = $false
-$objectKind = $null
-$parseErrorKind = $null
-$firstCode = if ($line.Length) { [int][char]$line[0] } else { -1 }
-try { $value=ConvertFrom-Json -InputObject $line -ErrorAction Stop; $parsed=$true; $objectKind=$value.GetType().FullName } catch { $parseErrorKind=$_.Exception.GetType().FullName }
-[Console]::WriteLine((ConvertTo-Json -InputObject @{first_code=$firstCode;length=$line.Length;parsed=$parsed;object_kind=$objectKind;parse_error_kind=$parseErrorKind} -Compress))
-'@
-try {
-    [IO.File]::WriteAllText($diagnosticPath, $diagnosticCode, (New-Object System.Text.UTF8Encoding($false)))
-    $transportBoundary = Invoke-Probe @($requests[0]) '' $diagnosticPath
-    Write-Host ('Synthetic status stdin boundary: ' + (ConvertTo-Json -InputObject $transportBoundary[0] -Compress))
-} finally { Remove-Item -LiteralPath $diagnosticPath -ErrorAction SilentlyContinue }
 $replies = Invoke-Probe $requests
 Assert-True ($replies.Count -eq $requests.Count) 'Expected one response per JSON line'
 Assert-True ($replies[0].ok -and $replies[0].result.platform -eq 'windows') ('Status must identify the actual Windows driver; safe protocol summary: ' + (ConvertTo-Json -InputObject @($replies | ForEach-Object { @{id=$_.id;ok=$_.ok;code=$_.error.code;platform=$_.result.platform} }) -Depth 8 -Compress))
@@ -129,6 +119,16 @@ Assert-True ($replies[2].error.code -eq 'INVALID_REQUEST') 'Malformed JSON must 
 Assert-True ($replies[3].id -eq 'after-malformed' -and $replies[3].ok) 'Malformed JSON must not break following requests'
 foreach ($reply in $replies[4..10]) { Assert-True ($reply.error.code -eq 'STALE_OBSERVATION') 'Missing observations must fail before app lookup or input' }
 Assert-True (($replies | ConvertTo-Json -Depth 20) -notmatch 'PRIVATE_MARKER_MUST_NOT_ECHO') 'Private arguments must not be echoed'
+# A Windows text writer may emit a stream BOM. Accept exactly one first-line BOM;
+# a BOM on a later JSON line remains invalid rather than being silently trimmed.
+$bomReplies = Invoke-Probe @(
+    (Request 'bom-first' 'status' @{}),
+    ([string][char]0xFEFF + (Request 'bom-middle' 'status' @{})),
+    (Request 'after-bom' 'status' @{})
+) '' $true
+Assert-True ($bomReplies.Count -eq 3 -and $bomReplies[0].ok -and $bomReplies[0].result.platform -eq 'windows') 'A UTF-8 stream BOM must not break the first status request'
+Assert-True ($bomReplies[1].error.code -eq 'INVALID_REQUEST') 'A BOM after the first stream line must be rejected'
+Assert-True ($bomReplies[2].ok -and $bomReplies[2].id -eq 'after-bom') 'A malformed middle BOM must not break the following request'
 $fenced = Invoke-Probe @((Request 'fenced' 'launch_app' @{app='JEV_NONEXISTENT_APP_FOR_READONLY_TEST'})) '2147483647'
 Assert-True ($fenced[0].error.code -eq 'PARENT_GONE') 'Dead parent must fence launch before resolving any application'
 Write-Output 'Windows native syntax and read-only protocol probes passed. Physical desktop acceptance was not performed.'
