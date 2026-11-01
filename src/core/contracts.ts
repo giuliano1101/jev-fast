@@ -14,7 +14,7 @@ export const predicateSchema = z.discriminatedUnion('kind', [
 export const schemas = {
     open_session: z.strictObject({ fixture_id: z.literal('standard') }),
     observe: z.strictObject({ session_id: idSchema }),
-    run_goal: z.strictObject({ session_id: idSchema, goal_id: idSchema, idempotency_key: idSchema, goal: goalSchema, success: predicateSchema, max_steps: z.number().int().min(1).max(8).default(8), time_budget_ms: z.number().int().min(10).max(60000).default(60000) }),
+    run_goal: z.strictObject({ session_id: idSchema, goal_id: idSchema, idempotency_key: idSchema, goal: goalSchema, success: predicateSchema, max_steps: z.number().int().positive().safe().optional(), time_budget_ms: z.number().int().positive().safe().optional() }),
     cancel: z.strictObject({ session_id: idSchema, goal_id: idSchema }),
     status: z.strictObject({ session_id: idSchema, goal_id: idSchema.optional(), action_id: idSchema.optional() }).refine(x => !(x.goal_id && x.action_id)),
     close_session: z.strictObject({ session_id: idSchema })

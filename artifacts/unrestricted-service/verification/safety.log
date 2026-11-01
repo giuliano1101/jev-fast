@@ -1,0 +1,56 @@
+
+> jev-p0@0.2.0 test:safety
+> npm run build && node --test dist/tests/safety/*.test.js
+
+
+> jev-p0@0.2.0 build
+> node scripts/build.mjs
+
+✔ snapshot state and revision are captured in the same browser turn (834.820083ms)
+✔ invalid frame at final validation is known not started and performs no input (886.099125ms)
+✔ S01/S02 untrusted content, hidden passwords, URL secrets never enter candidates or snapshots (905.456083ms)
+✔ S04 node replacement and mutation reject previously selected actions (882.896541ms)
+✔ S11 external navigation, redirect, popup and resources cannot reach outside origin (918.42775ms)
+✔ S12 visible credential page and unapproved values stop observation (820.510208ms)
+✔ S11 observed second-origin sink stays empty across redirect, popup, fetch, image and navigation (1049.005542ms)
+✔ F02 visible duplicate target is rejected, hidden and disabled duplicates never selected (766.149084ms)
+✔ S04 changing input property invalidates snapshot even without DOM mutation (779.151209ms)
+✔ S02 poisoned fixture state is rejected before serialization (748.477125ms)
+✔ S04 expired and navigated snapshots cannot execute (778.056833ms)
+✔ S12 payment inputs stop observation and arbitrary risk buttons are never candidates (709.631375ms)
+✔ S02 provider input, durable ledger and telemetry contain no canary secrets (1109.190208ms)
+✔ S04 programmatic input value without event invalidates bound node (722.383417ms)
+✔ snapshot TTL uses one clock sample even when the clock ticks between field assignments (783.709542ms)
+✔ idempotent result survives restart; different request conflicts; unauthorized observers fail (107.377083ms)
+✔ stale validation prevents physical action (40.705166ms)
+✔ two no-op actions stop loop (117.999ms)
+✔ execution timeout is UNKNOWN and quarantines new work (1030.915167ms)
+✔ kill prevents decisions and future actions (24.105375ms)
+✔ cancel an in-flight action preserves UNKNOWN and cannot overlap (53.227875ms)
+✔ low confidence, invalid choice, malformed probabilities never execute (210.558583ms)
+✔ decision budget expires and late response never executes (181.361375ms)
+✔ step cap stops a progressing but unfinished goal (74.255209ms)
+✔ empty candidates and unsafe summary abort before provider (78.475584ms)
+✔ cancellation during provider selection fences its late answer (142.83775ms)
+✔ a true goal cannot override a failed action postcondition (100.625833ms)
+✔ shutdown waits for active goal terminal persistence (74.50525ms)
+✔ telemetry distinguishes every phase and counts provider requests without values (77.798792ms)
+✔ unknown execution records its attempted step and durable stage timestamps (117.674583ms)
+✔ immediate shutdown drains a goal whose initial ledger transaction is pending (33.592667ms)
+✔ closing session rejects a new goal before browser close completes (32.230125ms)
+✔ shutdown drains and cleans a pending browser open (24.437875ms)
+✔ immediate cancel works before initial goal persistence (37.249208ms)
+✔ cancelling completed goal does not borrow another active goal status (152.235709ms)
+✔ independent owners can open separate browser sessions (28.607916ms)
+✔ public observation reserves the session against goal execution (27.950667ms)
+✔ proven pre-execution stale rejection reobserves without UNKNOWN or replay (65.808ms)
+✔ failed public observation cannot prevent session cleanup (32.127166ms)
+✔ lost action response preserves committed side effect without replay (54.924791ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12936.25925

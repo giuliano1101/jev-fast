@@ -11,8 +11,12 @@ import {canonicalDigest,canonicalJson,parseDecisionRequest,signDecisionResponse,
 import {verifyAgentToken} from './credentials.js';
 import {GatewayStore,type GatewayApproval} from './store.js';
 import type {UsageLedger} from './usage.js';
+import {JevChoiceProvider,CHOICE_BODY_BYTES} from '../providers/choice.js';
+import {choiceRequestSchema,signChoiceResponse,type ChoiceOwner} from './choice.js';
+import type {ChoiceStore} from './choice-store.js';
+import {choiceSignal,choiceWithin} from '../choice/timing.js';
 export interface DecisionGatewayOptions {
- tls:{cert:string|Buffer;key:string|Buffer;ca:string|Buffer};store:GatewayStore;
+ tls:{cert:string|Buffer;key:string|Buffer;ca:string|Buffer};store:GatewayStore;choiceStore?:ChoiceStore;
  receiptPrivateKey:KeyObject;tokenPublicKey:KeyObject;issuer:string;audience:string;
  /** Trusted test profile only. Its output must still validate as a mock decision. */
  mockProvider?:DecisionProvider;
@@ -29,12 +33,12 @@ async function within<T>(operation:Promise<T>,signal:AbortSignal):Promise<T>{
   const abort=()=>reject(new Fault('STALE_SNAPSHOT'));signal.addEventListener('abort',abort,{once:true});operation.then(resolve,reject).finally(()=>signal.removeEventListener('abort',abort));
  });
 }
-async function readBody(req:HttpRequest,signal:AbortSignal):Promise<unknown>{
+async function readBody(req:HttpRequest,signal:AbortSignal,limit=24000):Promise<unknown>{
  if(req.headers['content-type']!=='application/json'||req.headers['content-encoding'])throw new Fault('INVALID_PROTOCOL');
- if(Number(req.headers['content-length']??0)>24000)throw new Fault('REQUEST_TOO_LARGE');
+ if(Number(req.headers['content-length']??0)>limit)throw new Fault('REQUEST_TOO_LARGE');
  const data=await within(new Promise<Buffer>((resolve,reject)=>{
   const chunks:Buffer[]=[];let bytes=0;
-  req.on('data',(chunk:Buffer)=>{bytes+=chunk.length;if(bytes>24000){reject(new Fault('REQUEST_TOO_LARGE'));req.pause();}else chunks.push(chunk);});
+  req.on('data',(chunk:Buffer)=>{bytes+=chunk.length;if(bytes>limit){reject(new Fault('REQUEST_TOO_LARGE'));req.pause();}else chunks.push(chunk);});
   req.on('end',()=>resolve(Buffer.concat(chunks)));req.on('error',()=>reject(new Fault('INVALID_PROTOCOL')));req.on('aborted',()=>reject(new Fault('INVALID_PROTOCOL')));
  }),signal);
  try{return JSON.parse(data.toString('utf8'));}catch{throw new Fault('INVALID_PROTOCOL');}
@@ -55,30 +59,41 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
   }
  }
  const route=options.live?'jev':'mock';const mock=options.mockProvider??new MockProvider();
- let active=0;const principals=new Set<string>();const rates=new Map<string,{start:number;count:number}>();
- function rateLimit(principal:string){
-  const now=performance.now();let entry=rates.get(principal);
-  if(!entry||now-entry.start>=60000){
-   for(const [key,value] of rates)if(now-value.start>=60000)rates.delete(key);
-   if(rates.size>=1024&&!rates.has(principal))throw new Fault('RATE_LIMITED');
-   entry={start:now,count:0};rates.set(principal,entry);
-  }
-  if(entry.count>=60)throw new Fault('RATE_LIMITED');entry.count++;
+ // TLS/header timeouts protect slow handshakes; admitted choice inference has no service time cap.
+ const connectionTimers=new WeakMap<object,ReturnType<typeof setTimeout>>();
+ async function handleChoice(req:HttpRequest,res:HttpResponse,identity:AuthenticatedIdentity,authenticate:()=>AuthenticatedIdentity,controller:AbortController){
+  let request:ReturnType<typeof choiceRequestSchema.parse>|undefined,scope:ChoiceOwner|undefined,started=false;let context:ReturnType<typeof choiceSignal>|undefined;
+  try{
+   const live=options.live,store=options.choiceStore;if(!live?.metering||!store)throw new Fault('LIVE_NOT_AUTHORIZED');
+   const parsed=choiceRequestSchema.safeParse(await readBody(req,controller.signal,CHOICE_BODY_BYTES));if(!parsed.success)throw new Fault('INVALID_PROTOCOL');request=parsed.data;
+   context=choiceSignal(controller.signal,request.args.timeout_ms);const signal=context.signal;
+   const recheck=()=>{context!.check();authenticate();};recheck();
+   scope={identity,caller_scope:request.caller_scope};const prior=store.begin(scope,request.args);
+   if(prior.status==='complete'){recheck();send(res,prior.response);return;}
+   if(prior.status==='unknown')throw new Fault('DECISION_UNKNOWN');started=true;
+   const provider=new JevChoiceProvider({key:live.key,transport:live.transport,recorder:live.metering.ledger.recorder({policy_id:live.metering.policy_id,identity,request_id:randomUUID()}),beforeAttempt:recheck});
+   const decision=await choiceWithin(provider.choose(request.args,signal),signal);recheck();
+   const response=signChoiceResponse(request.args,decision,{...scope,privateKey:options.receiptPrivateKey,issuer:options.issuer,audience:options.audience});
+   store.complete(scope,request.args,response);started=false;recheck();send(res,response);
+  }catch(error){let code=safeCode(error);if(started&&scope&&request){try{options.choiceStore!.markUnknown(scope,request.args);code='DECISION_UNKNOWN';}catch{code='PROVIDER_UNAVAILABLE';}}fail(res,code);}
+  finally{context?.close();}
  }
  async function handle(req:HttpRequest,res:HttpResponse){
-  const started=performance.now(),windowStartedWall=Date.now(),controller=new AbortController();let timer=setTimeout(()=>controller.abort(),2000);
+  clearTimeout(connectionTimers.get(req.socket));
+  const isChoice=req.method==='POST'&&req.url==='/v1/choices';
+  const started=performance.now(),windowStartedWall=Date.now(),controller=new AbortController();let timer:ReturnType<typeof setTimeout>|undefined=isChoice?undefined:setTimeout(()=>controller.abort(),2000);
   const onClose=()=>{if(!res.writableEnded)controller.abort();};res.once('close',onClose);req.once('aborted',()=>controller.abort());
-  let request:DecisionRequest|undefined,identity:AuthenticatedIdentity|undefined,principal:string|undefined,startedRecord=false,dispatched=false,admitted=false,principalHeld=false;
+  let request:DecisionRequest|undefined,identity:AuthenticatedIdentity|undefined,startedRecord=false,dispatched=false;
   try{
-   if(req.headers.origin!==undefined||!['GET /health','POST /v1/decisions'].includes(`${req.method} ${req.url}`))throw new Fault('INVALID_PROTOCOL');
+   if(req.headers.origin!==undefined||!['GET /health','POST /v1/decisions','POST /v1/choices'].includes(`${req.method} ${req.url}`))throw new Fault('INVALID_PROTOCOL');
    const socket=req.socket;if(!(socket instanceof TLSSocket)||!socket.authorized)throw new Fault('UNAUTHENTICATED');
    const certificate=socket.getPeerCertificate();if(!certificate.raw)throw new Fault('UNAUTHENTICATED');
    const certHash=createHash('sha256').update(certificate.raw).digest('hex');
    const authorizations=req.rawHeaders.filter((_,i)=>i%2===0&&req.rawHeaders[i]!.toLowerCase()==='authorization');
    const auth=req.headers.authorization;if(authorizations.length!==1||!auth?.startsWith('Bearer '))throw new Fault('UNAUTHENTICATED');
-   const authenticate=()=>options.store.authorize(verifyAgentToken(auth.slice(7),{publicKey:options.tokenPublicKey,issuer:options.issuer,audience:options.audience,certificateSha256:certHash}),certHash);
-   identity=authenticate();principal=canonicalDigest(identity);rateLimit(principal);
-   if(active>=4)throw new Fault('RATE_LIMITED');active++;admitted=true;
+   const authenticate=()=>options.store.authorize(verifyAgentToken(auth.slice(7),{publicKey:options.tokenPublicKey,issuer:options.issuer,audience:options.audience,certificateSha256:certHash,requiredScope:isChoice?'decide:actions':'decide:synthetic'}),certHash);
+   identity=authenticate();
+   if(isChoice){await handleChoice(req,res,identity,authenticate,controller);return;}
    if(req.method==='GET'){send(res,{mode:route,model:route==='jev'?'jev-1.14.0':'mock-v1',protocol:'decision-v1',policy:'p0-v1',identity});return;}
    request=parseDecisionRequest(await readBody(req,controller.signal));
    const ttl=Math.min(2000,request.deadline_ms,request.snapshot.valid_for_ms),remaining=ttl-(performance.now()-started);
@@ -92,7 +107,6 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
    if(prior.status==='unknown')throw new Fault('DECISION_UNKNOWN');
    if(prior.status==='rejected')throw new Fault(publicCodes.has(prior.code??'')?prior.code!:'PROVIDER_UNAVAILABLE');
    startedRecord=true;
-   if(principals.has(principal))throw new Fault('RATE_LIMITED');principals.add(principal);principalHeld=true;
    const dispatchRemaining=ttl-(performance.now()-started);
    if(controller.signal.aborted||dispatchRemaining<=0)throw new Fault('STALE_SNAPSHOT');
    const live=options.live;
@@ -117,12 +131,12 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
     }catch{code='PROVIDER_UNAVAILABLE';}
    }
    fail(res,code,request?.request_id);
-  }finally{clearTimeout(timer);controller.abort();res.removeListener('close',onClose);if(admitted)active--;if(principalHeld&&principal)principals.delete(principal);}
+  }finally{clearTimeout(timer);controller.abort();res.removeListener('close',onClose);}
  }
  const server=createServer({...options.tls,requestCert:true,rejectUnauthorized:true,minVersion:'TLSv1.2',handshakeTimeout:2000,maxHeaderSize:12000},(req,res)=>{void handle(req,res);});
- server.maxConnections=64;server.maxRequestsPerSocket=1;server.headersTimeout=2000;server.requestTimeout=2000;server.timeout=2000;server.keepAliveTimeout=1;
- // Absolute socket lifetime also bounds slow TLS/header senders before the request handler exists.
- server.on('connection',socket=>{const timer=setTimeout(()=>socket.destroy(),2000);socket.once('close',()=>clearTimeout(timer));});
+ server.maxRequestsPerSocket=1;server.headersTimeout=2000;server.requestTimeout=0;server.timeout=0;server.keepAliveTimeout=1;
+ // Absolute handshake/header lifetime ends as soon as a request is admitted.
+ server.on('secureConnection',socket=>{const timer=setTimeout(()=>socket.destroy(),2000);connectionTimers.set(socket,timer);socket.once('close',()=>clearTimeout(timer));});
  server.on('checkContinue',(req,res)=>{fail(res,'INVALID_PROTOCOL');req.resume();});
  return server;
 }

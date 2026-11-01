@@ -1,0 +1,10 @@
+✔ CLI help and generated schemas advertise only the same six tools (679.812917ms)
+✔ CLI starts one daemon, reports readiness, executes a mock demo and stops via operator auth (3263.587208ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3984.443875

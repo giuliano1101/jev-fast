@@ -12,7 +12,7 @@ interface Session {context:BrowserContext;page:Page;goalKey?:string;goal?:Goal;s
 export interface BrowserOptions {projection?:'legacy'|'rich';executablePath?:string;onPage?:(id:string,page:Page)=>void;}
 export class BrowserAdapter implements BrowserPort {
  readonly blockedRequests:string[]=[];
- private browser?:Browser;private sessions=new Map<string,Session>();
+ private browser?:Browser;private launchPromise?:Promise<Browser>;private sessions=new Map<string,Session>();
  private contexts=new Map<string,BrowserContext>();
  constructor(readonly origin:string,private options:BrowserOptions={}){
   const u=new URL(origin);if(u.hostname!=='127.0.0.1'||u.protocol!=='http:')throw new Fault('OUT_OF_SCOPE');
@@ -20,7 +20,8 @@ export class BrowserAdapter implements BrowserPort {
  async open(id:string,_fixture:'standard'){
   if(this.contexts.has(id))throw new Fault('SESSION_UNAVAILABLE');
   if(!this.browser){
-   this.browser=await chromium.launch({headless:true,executablePath:chromiumExecutable(this.options.executablePath)});
+   this.launchPromise??=chromium.launch({headless:true,executablePath:chromiumExecutable(this.options.executablePath)});
+   try{this.browser=await this.launchPromise;}finally{this.launchPromise=undefined;}
   }
   const context=await this.browser.newContext({acceptDownloads:false,serviceWorkers:'block'});
   this.contexts.set(id,context);

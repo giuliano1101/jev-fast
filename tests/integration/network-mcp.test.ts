@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {networkToolDefinitions,MAX_BODY} from '../../src/network/protocol.js';
+import {toolDefinitions} from '../../src/service/contracts.js';
 import {readFile} from 'node:fs/promises';
 import {join,resolve} from 'node:path';
 import {Client} from '@modelcontextprotocol/sdk/client/index.js';
@@ -10,18 +12,18 @@ test('actual HTTPS SDK MCP and outbound connector execute one browser goal and r
  const f=await networkFixture();let local:Client|undefined;
  try{
   const client=await f.client();await f.ready(client);const listed=(await client.listTools()).tools;
-  assert.deepEqual(listed.map(t=>t.name).sort(),['jev.open_session','jev.observe','jev.run_goal','jev.cancel','jev.status','jev.close_session','jev.network_status','jev.request_status'].sort());
+  assert.deepEqual(listed.map(t=>t.name).sort(),networkToolDefinitions.map(t=>t.name).sort());
   assert.equal((await f.tool(client,'jev.open_session',{fixture_id:'standard'})).code,'INVALID_ARGUMENTS');
   const open=result(await f.request(client,'jev.open_session','open-one',{fixture_id:'standard'})),session_id=String(open.session_id);assert.ok(session_id&&session_id!=='undefined');
   const goal={session_id,goal_id:'network-goal',idempotency_key:'network-key',goal:{task:'form',language:'zh',seed:121},success:{kind:'task_complete'}};
   const goalResult=result(await f.request(client,'jev.run_goal','goal-one',goal));assert.equal(goalResult.status,'SUCCEEDED');
   const before=await f.ledger(),physical=f.browser.physical;assert.ok(physical>=3);assert.equal(Object.keys(before.actions).length,physical);
   await client.close();const reconnected=await f.client();
-  const duplicate=result(await f.request(reconnected,'jev.run_goal','goal-one',{...goal,max_steps:8,time_budget_ms:60000}));assert.deepEqual(duplicate,goalResult);assert.equal(f.browser.physical,physical);assert.equal(Object.keys((await f.ledger()).actions).length,Object.keys(before.actions).length);
+  const duplicate=result(await f.request(reconnected,'jev.run_goal','goal-one',goal));assert.deepEqual(duplicate,goalResult);assert.equal(f.browser.physical,physical);assert.equal(Object.keys((await f.ledger()).actions).length,Object.keys(before.actions).length);
   const conflict=await f.tool(reconnected,'jev.run_goal',{request_id:'goal-one',params:{...goal,goal:{task:'form',language:'zh',seed:122}}});assert.equal(conflict.code,'IDEMPOTENCY_CONFLICT');
   const inspected=result(await f.request(reconnected,'jev.status','read-one',{session_id,goal_id:'network-goal'}));assert.equal(inspected.status,'SUCCEEDED');
   const cli=await runLocalCli(f.runtime,['service','health']);assert.equal(cli.code,0);assert.equal(JSON.parse(cli.stdout).ready,true);
-  local=new Client({name:'local-compatibility',version:'1.0.0'});await local.connect(new StdioClientTransport({command:process.execPath,args:[resolve('dist/src/mcp/index.js'),'--credential',join(f.runtime,'client-a.json')],stderr:'pipe'}));assert.equal((await local.listTools()).tools.length,6);
+  local=new Client({name:'local-compatibility',version:'1.0.0'});await local.connect(new StdioClientTransport({command:process.execPath,args:[resolve('dist/src/mcp/index.js'),'--credential',join(f.runtime,'client-a.json')],stderr:'pipe'}));assert.equal((await local.listTools()).tools.length,toolDefinitions.length);
   assert.equal(result(await f.request(reconnected,'jev.close_session','close-one',{session_id})).closed,true);
   const credential=JSON.parse(await readFile(join(f.runtime,'client-a.json'),'utf8')) as {token:string};assert.ok(!JSON.stringify([listed,open,goalResult,duplicate,inspected]).includes(credential.token));
  }finally{await local?.close().catch(()=>{});await f.close();}
@@ -37,7 +39,7 @@ test('network endpoint rejects unauthenticated/wrong-role/origin/oversize and no
   assert.equal((await raw('/connector/sync',JSON.stringify({}),{authorization:'Bearer '+f.tokens.mcp})).status,401);
   assert.equal((await raw('/mcp',rpc,{origin:'https://evil.example'})).status,403);
   assert.equal((await raw('/mcp',rpc,{host:'evil.example'})).status,403);
-  assert.equal((await raw('/mcp','x'.repeat(65537))).status,413);
+  assert.equal((await raw('/mcp','x'.repeat(MAX_BODY+1))).status,413);
   const client=await f.client();assert.equal((await f.tool(client,'jev.network_status')).connector_online,false);
   const goal={session_id:'synthetic-session',goal_id:'g',idempotency_key:'k',goal:{task:'form',language:'en',seed:2,values:{email:'real@example.com'}},success:{kind:'task_complete'}};
   const denied=await f.tool(client,'jev.run_goal',{request_id:'unsafe-value',params:goal});assert.equal(denied.code,'NONCANONICAL_SYNTHETIC_VALUE');

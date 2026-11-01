@@ -1,14 +1,24 @@
 # 让另一个 AI 接入 Jev
 
-**使用已经部署的共享服务：先读[给其他 AI 的接入与真实测试说明](other-ai-real-testing.md)。** 其中有无需 Key 的公网调用全过程、可运行 SDK、BUSY 和未接入真实网站的解释。下面第1–3节是新机器的离线开发安装流程；已连接在线服务的 AI 不要照做另起 mock，也不要替换当前服务。
+## 已部署共享服务：直接连接
 
-可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。当前部署已由操作员启用自动接入 AI，会话初始化后等待 `jev.network_status.enabled`；新安装仍默认待开启。当前真实部署已由用户明确改为[只计费](metered-service.md)，不设金额/累计次数/预算有效期拦截，无需 AI 再索取额度。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
+先读[其他 AI 接入与真实任务手册](other-ai-real-testing.md)。使用 Streamable HTTP：
 
-当前正式 CLI/MCP 只执行 `standard` 本地模拟页面上的十二类固定任务。默认离线 mock；它可验证接线，不代表已经使用真实 Jev 模型。既有真实网页、抖音和 Android 测试工具仍是独立研究适配器。双实体电脑和任意真实应用接入尚未验收。
+```text
+https://jev.43-160-233-161.sslip.io/mcp
+```
 
-## 1. 在执行机器安装
+无需 Authorization、模型 Key、profile、证书或新额度审批。当前共享部署已经配置 remote Jev/usage-only、自动 AI 即时准入和 continuation；其他 AI 不另起 mock、不停止或重启共享服务。
 
-需要 Node.js 24.19+、npm、Git 和独立 Chromium。当前主要验证 macOS。
+先 tools/list，再 network_status。就绪后自动私密缓存返回的 `continuation_token`，在业务 wrapper、request_status 和 release_connection 中传回，跨 DELETE/短连接恢复原 owner；不要要求用户手填或把 token 贴到聊天。全部调用、可运行 SDK 和错误处理见[接入手册](other-ai-real-testing.md)。正常结束释放自己的逻辑连接；UNKNOWN 保留原编号并停止重放。
+
+本地有 13 个业务工具，公网为 16 个：六个兼容 fixture 工具、choose_action、browser_open/observe/act/close、host_tools/act，以及网络专用 network_status/request_status/release_connection。真实网页在隔离无头 Chromium 中执行任意 HTTP/HTTPS URL，独立于用户 Chrome。手机使用配置的 android host，先 host_tools 再按返回 schema 调用 host_act。
+
+当前已验证的公网真实网页、短连接与手机操作见[本轮报告](reports/2026-11-02-unrestricted-service.md)。同一页面/实体手机的动作需要顺序协调；独立浏览器会话不再受全局单会话限制。无固定步骤/队列/会话数和默认业务 TTL，显式调用者预算、资源边界、TLS/owner/UNKNOWN 规则仍保留。
+
+## 新机器：离线开发安装
+
+下面仅用于新安装，不用于替换当前运行中的共享服务。需要 Node24.19+、npm、Git、执行机上的独立 Chromium。
 
 ```sh
 git clone https://github.com/giuliano1101/jev-fast.git
@@ -17,81 +27,39 @@ npm ci --ignore-scripts
 npx playwright install chromium
 npm run build
 node -p process.execPath
-```
-
-保存最后一行的 Node 绝对路径。不要在其他机器套用 `scripts/env.sh` 的原开发机器路径。安装依赖需要联网；下面的 mock 测试不调用付费模型。
-
-## 2. 启动和检查同一个协调服务
-
-可以使用[操作面板](control-panel.md)，或直接运行：
-
-```sh
 node dist/src/cli/index.js service start --runtime /tmp/jev-agent-demo --json
 node dist/src/cli/index.js doctor --runtime /tmp/jev-agent-demo --json
 node dist/src/cli/index.js policy status --runtime /tmp/jev-agent-demo --json
 node dist/src/cli/index.js schemas --json
-```
-
-确认 `ready: true`、当前 provider、构建和执行模式。默认应为 `mock` / `test_mock`。`ready` 只证明本地协调服务运行；remote 模式还需检查 `remoteReachable`、`identityMatches` 和 `routeCompatible`。`enforcement: advisory-only` 表示不限制 AI 的其他宿主工具。
-
-## 3. 任选 CLI 或 MCP
-
-CLI 烟测直接执行：
-
-```sh
 node dist/src/cli/index.js demo --runtime /tmp/jev-agent-demo --json
 ```
 
-应返回经执行器后验确认的 `SUCCEEDED`。演示会打开独立模拟浏览器并关闭会话。详细参数用 `schemas --json` 获取，不自行发明 URL、selector、脚本、坐标或身份字段。
+保存实际 Node 绝对路径；不要在其他机器套用 scripts/env.sh 的原开发 Mac 路径。新安装默认 `mock/test_mock`，上述 fixture 演示不调用付费模型，也不能证明已使用真实 Jev。tools/list/schema 发现工具不代表当前 profile 配置了所有 backend；健康信息可查看 `general_choice_available`、`real_browser_available`、`configured_hosts`。ready 仅表示本地协调器运行，远程状态还需核对身份/路由与可达性。
 
-支持 stdio MCP 的 AI 宿主可采用下面的连接格式；具体配置文件位置由宿主决定。把两个 `/absolute/...` 换成上一步得到的 Node 路径和当前 checkout 的绝对路径：
+## 本地 CLI/stdio MCP
+
+先运行同一个 coordinator，再配置宿主（替换绝对路径）：
 
 ```json
-{
-  "mcpServers": {
-    "jev": {
-      "command": "/absolute/path/to/node",
-      "args": [
-        "/absolute/checkout/dist/src/mcp/index.js",
-        "--credential",
-        "/tmp/jev-agent-demo/client-a.json"
-      ]
-    }
-  }
-}
+{"mcpServers":{"jev":{"command":"/absolute/path/to/node","args":["/absolute/checkout/dist/src/mcp/index.js","--credential","/tmp/jev-agent-demo/client-a.json"]}}}
 ```
 
-面板的接入信息会显示当前安装的实际路径。配置仅含凭据文件位置，不包含 token 内容。不要把 npm 的 build 输出串到 MCP stdout。连接后应发现以下六工具：
+本机工具直接传业务 params，不加网络 request_id/continuation 外层。schema 由 `schemas --json` 给出；13 个工具的范围见[主手册](other-ai-real-testing.md)。例如配置真实 remote profile 后，CLI `browser_open` 可使用 `--args '{"url":"https://example.com"}'`；新安装 mock 未配置真实决策/host 时，相关工具会如实返回不可用，不自动连接未知 backend。
 
-| 工具 | 用途 |
-| --- | --- |
-| `jev.open_session` | `{"fixture_id":"standard"}` 打开隔离模拟会话 |
-| `jev.observe` | 获取脱敏观察 |
-| `jev.run_goal` | 提交固定任务、goal_id、idempotency_key 和成功条件 |
-| `jev.status` | 查询会话、目标或动作的持久结果 |
-| `jev.cancel` | 取消目标后续动作 |
-| `jev.close_session` | 释放自己的会话 |
+fixture 兼容任务仍为 form/filter/detail/back/cancel/correction/duplicate/async/scroll/select/wait/navigation；`run_goal` 的 max_steps/time_budget_ms 可选，不强加旧 8 步/60 秒。多个独立 session 可以并行，同 session 的活动目标和观察/关闭仍受一致性仲裁。
 
-可用任务为 `form/filter/detail/back/cancel/correction/duplicate/async/scroll/select/wait/navigation`。`run_goal` 示例见 [CLI/MCP 基础说明](mcp.md)。服务同一时刻只接受一个浏览器会话，冲突返回 `BUSY`。
-
-关闭再启动服务会生成新凭据；旧 MCP 进程需断开并重连，不能继续持有旧 token。停止由操作员执行：
+关闭自己创建的开发服务由操作员执行：
 
 ```sh
 node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-demo --json
 ```
 
-## 4. 需要真实 Jev 时
+该命令不用于当前共享 `/tmp/jev-501`。服务重启会轮换本地凭据，旧 MCP 进程需重连；锁和 UNKNOWN 不能通过清账本处理。
 
-由操作员按[跨机器手册](cross-machine-cli-mcp.md)部署或连接受信网关、登记设备与 agent、签发 token，提供 0600 私有 remote profile，并明确选择有上限审批或只计费策略。当前已部署 Mac 按用户指令使用只计费模式，其他 AI 复用即可，不再向用户申请额度。远程网关提供模型决策，本机协调服务执行动作；网关不是允许外部 AI 随意操作这台 Mac 的接口。
+## 新安装接入真实 Jev
 
-面板启动时显式传 `--config /absolute/private/profile.json`。普通 AI 工具不能上传 API key、修改 provider、登记身份或扩大预算。以前的测试额度不能因读取文档或点击开启而自动续期。
+操作员按[跨机器手册](cross-machine-cli-mcp.md)准备受信网关、私有证书/身份与 remote profile，显式选择 usage-only 或可选有上限策略。当前共享服务已有用户授权的 usage-only，AI 无需再申请付费次数/额度。provider、host backend、设备和密钥不是普通 MCP 参数。
 
-## 5. 把这段发给另一个 AI
+可选 hostConfigs 仅由操作员绑定已知 MCP backend；AI 不能传任意 serverCommand 或设备标识创建主机。新部署手动接入默认关闭；autoAdmitAi/allowContinuations 是私有服务端可选策略，当前公网已开启。完整接入语义见[手动接入](manual-admission.md)，旧 Bearer 接线见[网络手册](network-mcp.md)。
 
-> 阅读 docs/other-ai-real-testing.md 和 AGENTS.md。连接已部署公网 MCP，等待自动接入，按该说明书执行 standard/cancel 的真实 Jev 验收并检查动作 route。当前共享服务已配置模型与只计费策略，不向用户索取 Key/profile/新额度，不另起 mock，不停止共享服务。网络请求保留 request_id，UNKNOWN 停止，不换键重放。BUSY 等待已有会话释放，不关别人的会话。若任务需要任意真实网站/App，应如实报告执行适配器尚未接入正式 MCP。
-
-常见故障：找不到 Node/入口说明宿主绝对路径不对；本地服务不可达先检查相同 runtime 和是否已启动；MCP 初始化失败可能是未启动、凭据轮换或 stdout 混入日志；`SERVICE_PROFILE_MISMATCH` 需操作员核对并停止后重新配置，不自动切换到 mock；锁或 UNKNOWN 的处理见[运维手册](cross-machine-operations.md)，不要清空账本。
-
-## 网络接入的区别
-
-协议基础为[手动接入](manual-admission.md)，当前部署额外启用了操作员自动接入程序，详见[实时接入状态](public-service-quickstart.md)。协议本身为：使用 HTTPS Streamable HTTP，无需 Authorization，初始化clientInfo.name后出现在控制台待启用。名称不是身份验证，只有操作员允许的连接实例可以执行。六个原有操作及 `jev.network_status`、`jev.request_status` 两个网络状态工具继续提供；操作 arguments 为 `{request_id, params}`，收到 QUEUED 后用原 request_id 查询。网络 COMPLETED 后还需检查 reply/goal.status。同名新session、长失联及实例变更需要重新核对/开启；不同AI不能读彼此结果。本地未封装参数不能直接传网络版。旧预配Bearer方式保留在[旧网络手册](network-mcp.md)，具体AI宿主仍需部署时验证。
+找不到 Node/入口时检查宿主绝对路径；本地不可达检查实际 runtime/服务，不直接重启共享服务。`SERVICE_PROFILE_MISMATCH`、`CONTINUATION_INVALID`、资源/上游错误应按实际层报告，不索取已配置的模型 Key、不自动切换 mock。宿主根本没有远程 MCP/Node 能力时，报告宿主缺少入口，而非 Jev 未授权。

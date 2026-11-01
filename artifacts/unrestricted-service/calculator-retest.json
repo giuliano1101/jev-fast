@@ -1,0 +1,58 @@
+{
+  "startedAt": "2026-11-01T17:02:07.344Z",
+  "task": "Calculate 17.5 percent of 240",
+  "cases": [
+    {
+      "name": "fill-percent",
+      "execution": "executed",
+      "provider": "jev",
+      "reason": null,
+      "navigation_pending": false,
+      "immediate_postcondition_met": null
+    },
+    {
+      "name": "fill-amount",
+      "execution": "executed",
+      "provider": "jev",
+      "reason": null,
+      "navigation_pending": false,
+      "immediate_postcondition_met": null
+    },
+    {
+      "name": "calculate-once",
+      "execution": "executed",
+      "provider": "jev",
+      "reason": null,
+      "navigation_pending": true,
+      "immediate_postcondition_met": false
+    }
+  ],
+  "usage": [
+    {
+      "input_tokens": 4475,
+      "output_tokens": 26
+    },
+    {
+      "input_tokens": 4469,
+      "output_tokens": 28
+    },
+    {
+      "input_tokens": 4474,
+      "output_tokens": 28
+    }
+  ],
+  "final": {
+    "passed": true,
+    "url": "https://www.calculator.net/percent-calculator.html?cpar1=17.5&cpar2=240&cpar3=&ctype=1&x=Calculate",
+    "title": "Percentage Calculator",
+    "navigation_pending": false,
+    "polls": 1,
+    "resultEvidence": [
+      "Result: 42",
+      "17.5% of 240 =",
+      "42",
+      "17.5% of 240 = 0.175 × 240 = 42"
+    ]
+  },
+  "finishedAt": "2026-11-01T17:02:44.951Z"
+}

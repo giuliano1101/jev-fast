@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {networkToolDefinitions} from '../../src/network/protocol.js';
 import {mkdtemp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -15,7 +16,7 @@ test('manual MCP keeps stateful connections disabled by default, namespaces resu
  async function client(){const c=new Client({name:'same label',version:'1'});const transport=new StreamableHTTPClientTransport(new URL(net.url+'/mcp'),{fetch:fetcher});transports.push(transport);await c.connect(transport);clients.push(c);return c;}
  async function tool(c:Client,name:string,args:Record<string,unknown>={}){const result=await c.callTool({name,arguments:args});return JSON.parse((result.content as {text:string}[])[0]!.text);}
  try{
-  const a=await client(),b=await client();assert.equal((await a.listTools()).tools.length,8);
+  const a=await client(),b=await client();assert.equal((await a.listTools()).tools.length,networkToolDefinitions.length);
   assert.equal((await tool(a,'jev.open_session',{request_id:'same',params:{fixture_id:'standard'}})).code,'ADMISSION_REQUIRED');
   assert.equal((await tool(a,'jev.network_status')).admission,'pending');
   const device=net.registry.register('device','Mac');net.registry.updateDeviceInstance(device.id,'11111111-1111-4111-8111-111111111111');net.registry.setEnabled(device.id,true);

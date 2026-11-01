@@ -6,9 +6,8 @@ import {StreamableHTTPServerTransport} from '@modelcontextprotocol/sdk/server/st
 import {CallToolRequestSchema,ListToolsRequestSchema} from '@modelcontextprotocol/sdk/types.js';
 import {z} from 'zod';
 import {Fault} from '../core/errors.js';
-import {idSchema} from '../core/contracts.js';
 import {safeCode} from '../service/ipc.js';
-import {MAX_BODY,networkToolDefinitions,syncSchema} from './protocol.js';
+import {MAX_BODY,networkToolDefinitions,syncSchema,networkStatusArgsSchema,requestStatusArgsSchema,releaseConnectionArgsSchema} from './protocol.js';
 import {RelayStore} from './store.js';
 import {startManualNetworkServer,type ManualNetworkServerOptions} from './manual-server.js';
 export const tokenSchema=z.strictObject({token:z.string().regex(/^[a-f0-9]{64}$/),expiresAt:z.number().int().positive()});
@@ -16,7 +15,7 @@ export type NetworkToken=z.infer<typeof tokenSchema>;
 export interface NetworkServerOptions {
  accessMode?:'bearer';
  host?:string;port?:number;publicHost?:string;allowedOrigins:string[];deviceId:string;agentId:string;storeDir:string;
- tls:{key:Buffer;cert:Buffer};mcpToken:NetworkToken;connectorToken:NetworkToken;leaseMs?:number;queueTtlMs?:number;responseTtlMs?:number;
+ tls:{key:Buffer;cert:Buffer};mcpToken:NetworkToken;connectorToken:NetworkToken;leaseMs?:number;queueTtlMs?:number|null;responseTtlMs?:number|null;
 }
 function headerCount(req:IncomingMessage,name:string){return req.rawHeaders.filter((value,index)=>index%2===0&&value.toLowerCase()===name).length;}
 function authorized(req:IncomingMessage,credential:NetworkToken){if(headerCount(req,'authorization')!==1)return false;const value=req.headers.authorization;if(credential.expiresAt<=Date.now()||typeof value!=='string'||!/^Bearer [a-f0-9]{64}$/.test(value))return false;return timingSafeEqual(Buffer.from(value.slice(7)),Buffer.from(credential.token));}
@@ -46,9 +45,8 @@ export async function startNetworkServer(options:NetworkServerOptions|(ManualNet
  if(options.allowedOrigins.length>16||options.allowedOrigins.some(v=>{try{const u=new URL(v);return u.protocol!=='https:'||u.origin!==v;}catch{return true;}}))throw new Fault('INVALID_ORIGIN');
  if(options.port!==undefined&&(!Number.isInteger(options.port)||options.port<0||options.port>65535))throw new Fault('INVALID_PORT');
  const store=new RelayStore({directory:options.storeDir,deviceId:options.deviceId,agentId:options.agentId,leaseMs:options.leaseMs,queueTtlMs:options.queueTtlMs,responseTtlMs:options.responseTtlMs});
- let expectedHost=options.publicHost??'',active=0;
+ let expectedHost=options.publicHost??'';
  const handle=async(req:IncomingMessage,res:ServerResponse)=>{
-  if(active>=32){json(res,503,{code:'NETWORK_BUSY'});return;}active++;res.once('close',()=>active--);
   if(headerCount(req,'host')!==1||headerCount(req,'origin')>1||req.headers.host!==expectedHost||(req.headers.origin!==undefined&&!options.allowedOrigins.includes(req.headers.origin))){json(res,403,{code:'FORBIDDEN'});req.resume();return;}
   if(req.url==='/health'&&req.method==='GET'){json(res,200,{ok:true});return;}
   const role=req.url==='/mcp'?options.mcpToken:req.url==='/connector/sync'?options.connectorToken:null;
@@ -67,11 +65,12 @@ export async function startNetworkServer(options:NetworkServerOptions|(ManualNet
    mcp.setRequestHandler(CallToolRequestSchema,async request=>{
     try{
      const name=request.params.name,args=request.params.arguments??{};let result:unknown;
-     if(name==='jev.network_status'){z.strictObject({}).parse(args);result=store.status();}
-     else if(name==='jev.request_status'){const arg=z.strictObject({request_id:idSchema}).parse(args);result=store.get(arg.request_id);}
+     if(name==='jev.network_status'){const arg=networkStatusArgsSchema.parse(args);if(arg.continuation_token)throw new Fault('CONTINUATION_INVALID');result={...store.status(),continuation_supported:false};}
+     else if(name==='jev.request_status'){const arg=requestStatusArgsSchema.parse(args);if(arg.continuation_token)throw new Fault('CONTINUATION_INVALID');result=store.get(arg.request_id);}
+     else if(name==='jev.release_connection'){releaseConnectionArgsSchema.parse(args);throw new Fault('CONTINUATION_UNAVAILABLE');}
      else result=store.submit(name,args);
      const text=JSON.stringify(result);
-     if(Buffer.byteLength(JSON.stringify({content:[{type:'text',text}]}))>60000)throw new Fault('RESPONSE_TOO_LARGE');
+     if(Buffer.byteLength(JSON.stringify({content:[{type:'text',text}]}))>MAX_BODY)throw new Fault('RESPONSE_TOO_LARGE');
      return {content:[{type:'text',text}]};
     }catch(error){return {isError:true,content:[{type:'text',text:JSON.stringify({code:error instanceof z.ZodError?'INVALID_ARGUMENTS':safeCode(error)})}]};}
    });
@@ -82,7 +81,7 @@ export async function startNetworkServer(options:NetworkServerOptions|(ManualNet
  let server:HttpsServer|undefined;
  try{
   const listener=server=createServer({...options.tls,minVersion:'TLSv1.2'},(req,res)=>{void handle(req,res);});
-  listener.maxConnections=64;listener.maxRequestsPerSocket=100;listener.headersTimeout=5000;listener.requestTimeout=5000;listener.keepAliveTimeout=1000;listener.setTimeout(10000,socket=>socket.destroy());
+  listener.headersTimeout=5000;listener.requestTimeout=5000;listener.keepAliveTimeout=1000;
   await new Promise<void>((resolve,reject)=>{listener.once('error',reject);listener.listen(options.port??0,host,resolve);});
   const address=listener.address();if(!address||typeof address==='string')throw new Fault('LISTEN_FAILED');
   if(!expectedHost)expectedHost=`${host.includes(':')?'['+host+']':host}:${address.port}`;

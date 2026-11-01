@@ -46,12 +46,12 @@ export async function startManualConnector(options:ManualConnectorOptions):Promi
  async function reconcile(next:string[]){const credential=await readCredential(options.credentialFile);await ipcCall(credential,'service.network_reconcile',{owners:next});owners=next;}
  async function execute(job:Delivery){let outcome:Outcome={kind:'unknown'};
   try{
-   if(stopping||!job.network_owner||!owners.includes(job.network_owner)||Date.now()>=job.expires_at)throw new Fault('STALE_DELIVERY');
+   if(stopping||!job.network_owner||!owners.includes(job.network_owner)||(job.expires_at!==null&&Date.now()>=job.expires_at))throw new Fault('STALE_DELIVERY');
    const credential=await readCredential(options.credentialFile),preflight=healthSchema.parse(await ipcCall(credential,'service.local_health',{}));
-   if(!preflight.ready||preflight.instance_id!==job.local_instance_id||Date.now()>=job.expires_at||stopping||!owners.includes(job.network_owner))throw new Fault('STALE_DELIVERY');
+   if(!preflight.ready||preflight.instance_id!==job.local_instance_id||(job.expires_at!==null&&Date.now()>=job.expires_at)||stopping||!owners.includes(job.network_owner))throw new Fault('STALE_DELIVERY');
    try{const result=await ipcCall(credential,'service.network_dispatch',{owner:job.network_owner,method:job.method,params:job.params});outcome={kind:'reply',reply:replySchema.parse({ok:true,result})};}
    catch(error){const code=safeCode(error);if(code==='OWNER_REVOKED')invalidated.add(job.network_owner);outcome=!(error instanceof Fault)||ambiguous.has(code)?{kind:'unknown'}:{kind:'reply',reply:{ok:false,error:{code}}};}
-   if(Buffer.byteLength(canonicalJson(outcome))>24000)outcome={kind:'unknown'};
+   if(Buffer.byteLength(canonicalJson(outcome))>MAX_BODY)outcome={kind:'unknown'};
   }catch{/* A stale or uncertain job never receives a new dispatch key. */}
   journal.finish(job.request_id,outcome);
  }
@@ -59,7 +59,7 @@ export async function startManualConnector(options:ManualConnectorOptions):Promi
   const current=await health();
   if(current?.ready&&localInstance!==current.instance_id){await reconcile([]);localInstance=current.instance_id;}
   if(!handle){const registered=await post(options,'/connector/register',{name:options.name,...binding},z.strictObject({handle:z.uuid(),enabled:z.literal(false)}));handle=registered.handle;}
-  const pending=journal.pending(),sentRevoked=[...ackedRevocations].slice(0,128),sentInvalidated=[...invalidated].slice(0,128);
+  const pending=journal.pending(),sentRevoked=[...ackedRevocations],sentInvalidated=[...invalidated];
   const response=await post(options,'/connector/sync',{handle,sync:{connector_id:handle,ready:current?.ready??false,local_instance_id:current?.instance_id??null,capacity,results:pending?[pending]:[]},revoked:sentRevoked,invalidated:sentInvalidated},manualSyncReplySchema);
   for(const owner of sentRevoked)ackedRevocations.delete(owner);for(const owner of sentInvalidated)invalidated.delete(owner);
   for(const ack of response.acks){if(!pending||ack.request_id!==pending.request_id||ack.delivery_nonce!==pending.delivery_nonce)throw new Fault('NETWORK_INVALID_RESPONSE');journal.ack(ack.request_id,ack.delivery_nonce);}
@@ -75,7 +75,7 @@ export async function startManualConnector(options:ManualConnectorOptions):Promi
    if(journal.claim(job)){const task=execute(job);inflight.add(task);void task.finally(()=>inflight.delete(task)).catch(()=>{failure='JOURNAL_WRITE_FAILED';stopping=true;wake?.();});}
   }
  }
- const loop=(async()=>{let backoff=pollMs;while(!stopping){try{await exchange(Math.max(0,4-inflight.size));backoff=pollMs;}catch(error){const code=safeCode(error);if(code==='HANDLE_EXPIRED'){for(const owner of owners)invalidated.add(owner);await reconcile([]).catch(()=>{});handle=undefined;}else if(['CONNECTOR_FENCED','NETWORK_BODY_LIMIT','NETWORK_INVALID_RESPONSE','JOURNAL_CONFLICT','DELIVERY_CONFLICT','STORAGE_CLOSED'].includes(code)){failure=code;stopping=true;break;}backoff=Math.min(backoff*2,1000);}if(!stopping)await sleep(backoff);}})();
- const stop=()=>stopPromise??=(async()=>{stopping=true;wake?.();for(const owner of owners)invalidated.add(owner);await reconcile([]).catch(()=>{});await loop;await reconcile([]).catch(()=>{});await Promise.allSettled([...inflight]);try{for(let count=0;count<4&&(journal.pending()||invalidated.size||ackedRevocations.size);count++)await exchange(0);}catch{/* Preserve exact journal receipts for next approved process. */}finally{try{journal.close();}finally{await releaseRuntimeLock();}}})();
+ const loop=(async()=>{let backoff=pollMs;while(!stopping){try{await exchange(1);backoff=pollMs;}catch(error){const code=safeCode(error);if(code==='HANDLE_EXPIRED'){for(const owner of owners)invalidated.add(owner);await reconcile([]).catch(()=>{});handle=undefined;}else if(['CONNECTOR_FENCED','NETWORK_BODY_LIMIT','NETWORK_INVALID_RESPONSE','JOURNAL_CONFLICT','DELIVERY_CONFLICT','STORAGE_CLOSED'].includes(code)){failure=code;stopping=true;break;}backoff=Math.min(backoff*2,1000);}if(!stopping)await sleep(backoff);}})();
+ const stop=()=>stopPromise??=(async()=>{stopping=true;wake?.();for(const owner of owners)invalidated.add(owner);await reconcile([]).catch(()=>{});await loop;await reconcile([]).catch(()=>{});await Promise.allSettled([...inflight]);try{while(journal.pending()||invalidated.size||ackedRevocations.size){const before=canonicalJson({pending:journal.pending()??null,invalidated:[...invalidated],revoked:[...ackedRevocations]});await exchange(0);if(before===canonicalJson({pending:journal.pending()??null,invalidated:[...invalidated],revoked:[...ackedRevocations]}))break;}}catch{/* Preserve exact journal receipts for next approved process. */}finally{try{journal.close();}finally{await releaseRuntimeLock();}}})();
  const done=loop.then(()=>stop());return {stop,done,failureCode:()=>failure,registrationId:()=>handle};
 }

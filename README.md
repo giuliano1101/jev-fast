@@ -1,36 +1,44 @@
 # jev-fast · Jev 电脑操控加速层
 
-**给接入的其他 AI：** 先读[接入与真实模型测试说明书](docs/other-ai-real-testing.md)，包含可直接转发的指令、八个工具、完整 SDK 示例和报错处理。真实 Jev + 内置测试页面已接通；任意真实网站/App 尚未接入正式 MCP。单浏览器业务会话是本项目当前限制，多 AI 同时打开会返回 BUSY。
+**给接入的 AI：先读[真实任务接入手册](docs/other-ai-real-testing.md)。** 当前公网 MCP 为 [`https://jev.43-160-233-161.sslip.io/mcp`](https://jev.43-160-233-161.sslip.io/mcp)，使用 Streamable HTTP，无需用户提供模型 Key、Authorization 或新额度审批。
 
-**S18 只计费服务（2026-11-01）：** 按操作员最新要求，当前真实服务不再设置金额封顶、累计调用次数上限或预算到期拦截，逐 HTTP 尝试记录 token 和已知费用，缺失用量单独标为未知。其他 AI 继续使用同一公网 MCP、自动接入，无需提供模型 Key。[查看费用及配置说明](docs/metered-service.md) · [实测报告](artifacts/metered-service/report.md)。旧阶段的“剩余 2 次”已被此策略替代，历史账本保留。
+当前共享部署使用 **真实 remote Jev / usage-only**，已启用 AI 即时准入和短连接 continuation。网页在隔离无头 Chromium 中打开任意 HTTP/HTTPS URL，独立于日常 Chrome；已配置 Android MCP host。公网实测包括独立 Example 网站会话、真实 Jev 导航、短连接恢复、手机 HOME 和前台应用回读。能力、失败和验证见[2026-11-02 服务报告](docs/reports/2026-11-02-unrestricted-service.md)，不据此承诺所有网站/应用稳定成功。
 
-**S17 真实服务已接通（2026-11-01）：** 公网 MCP → Mac 连接器 → `remote · Jev` 已完成一次真实签名决策验收，结果 `SUCCEEDED`、动作路由 `jev`，没有 mock 回退。按操作员最新要求，本机自动接入程序会开启新 AI 实例；AI 不需要提供模型 Key/profile。服务保持后台运行；该阶段使用的限额策略已由后续 S18 只计费模式替代。[接入说明](docs/public-service-quickstart.md) · [实测和运行报告](artifacts/live-service/report.md)。新安装的代码默认仍为离线 mock。
+| 使用目标 | 入口 |
+| --- | --- |
+| 另一个 AI 连接当前共享服务 | [接入/真实网页与手机示例/SDK](docs/other-ai-real-testing.md) |
+| 部署状态、continuation 与共享服务规则 | [公网快速开始](docs/public-service-quickstart.md) |
+| 新机器的离线 mock 安装 | [Agent 快速开始](docs/quickstart-agent.md) |
+| 操作员开关/私有配置 | [控制面板](docs/control-panel.md) · [CLI/MCP](docs/cross-machine-cli-mcp.md) |
+| 默认手动准入与可选自动策略 | [手动接入](docs/manual-admission.md) · [旧 Bearer 网络模式](docs/network-mcp.md) |
+| 计量与工程约束 | [usage-only](docs/metered-service.md) · [AGENTS.md](AGENTS.md) |
 
-**S16 公网部署（历史阶段）：** 已在指定 Ubuntu 24.04 服务器部署免 Key 网络 MCP，公网地址为 [`https://jev.43-160-233-161.sslip.io/mcp`](https://jev.43-160-233-161.sslip.io/mcp)。免费 IP 映射域名、Let's Encrypt HTTPS、私有 SSH 管理台和待开启 Mac 连接器已实测；该阶段没有自动批准设备或 AI；当前部署策略见 S17。见[接入与开关使用说明](docs/public-service-quickstart.md)和[部署报告](artifacts/public-deployment/report.md)。本轮使用真实 Jev 选择固定的脱敏部署步骤，仍未新增通用网页/桌面执行能力。
+修复后另验证了真实维基百科搜索、百分比计算（240 的 17.5% = 42），以及连接器中断 7 秒后的自动恢复。搜索的英文 URL 断言与中文词条结果存在本地化差异，原断言失败记录保留在报告中。
 
-**S15 手动接入：** 新增[免 Key 接入控制台](docs/manual-admission.md)。设备和 AI 按自报名称登记，默认待启用，由操作员逐项开启/关闭；同名新连接不继承权限。执行会话与请求按 AI 实例隔离，关闭会取消并收尾，旧 Bearer 模式保留。见[报告](artifacts/manual-admission/report.md)及[更新后的部署准备](docs/server-deployment.md)。管理入口仍只对本机操作员开放。
+其他 AI 复用共享 `/tmp/jev-501`，不重启、停服、切换 provider 或启动替代 mock。操作员仍可关闭单个 owner、设备或本地总开关。
 
-**S14 网络接入记录：** 实现 HTTPS Streamable HTTP MCP + Mac 主动连接器、持久交付账本和断线结果恢复。本机开关继续控制实际执行。见[网络使用说明](docs/network-mcp.md)、[服务器部署准备](docs/server-deployment.md)和[验收报告](artifacts/network-mcp/report.md)。该阶段是单设备/agent 私有 Bearer 初版；后续 S15/S16 增加免 Key 手动接入和实际公网部署，执行范围仍为合成 fixture。
+## 当前工具
 
-**接入与操作入口：** [其他 AI 快速接入](docs/quickstart-agent.md) · [本机服务开关面板](docs/control-panel.md) · [agent 工程与接入规则](AGENTS.md)。macOS 可双击根目录 `打开Jev控制面板.command`；也可用 `npm run control -- --runtime /tmp/jev-operator` 启动（先安装依赖并 build）。面板可开启、关闭共用协调服务并查看实际 MCP 配置，默认离线 mock。当前主接口仅支持本地合成任务，真实网站和手机研究工具尚未接入通用 CLI/MCP。
+本地 CLI/stdio 共 **13 个业务工具**：
 
-**S12 扩样结果：正常任务108/108完成，direct/CLI/MCP各36/36；48/48异常目标符合安全预期。** [完整稳定性与速度报告](artifacts/stability/report.md)。本机合成范围内MCP耗时接近直接调用，CLI工作流存在额外开销；不外推真实应用或长期稳定率。
+- `jev.browser_open/observe/act/close`：真实网页观察、Jev 选择、执行与后验；动作使用当前 snapshot/control，不接受任意脚本。
+- `jev.host_tools/act`：发现并调用操作员配置的 MCP host；当前包括 android，设备由服务注入。
+- `jev.choose_action`：宿主提供真实观察和候选，Jev 返回签名选择；宿主负责执行与验证。
+- `jev.open_session/observe/run_goal/cancel/status/close_session`：保留 standard 合成 fixture 的十二类任务。
 
-[S11 同条件入口对照与优化迁移](artifacts/parity/report.md)：离线三入口语义一致；有限实测中等题 CLI/MCP 完成，直接调用暴露共用恢复计步缺陷，已修复。追加批准后的完整同题对照：旧投影2/9，新投影9/9，均为本机合成小样本。
+网络 MCP 共 **16 个工具**，另有 network_status、request_status、release_connection。网络业务参数为 `{request_id, params, continuation_token?}`；本地参数直接使用业务 schema。以 tools/list 或 `schemas --json` 为准。
 
-前期记录：**S10 跨机器 CLI/MCP 接线及 C 本机 hosted 合成实测**。A/B 离线验收已完成；C 正式题 3/9 成功，仍未达到稳定日常使用要求。已修复实测发现的许可重复扣时问题并完成离线回归，未重新付费替换原成绩。真实应用和实体双机阶段留待以后。
+当前服务不设付费金额/累计次数/到期封顶、固定步骤、全局会话总数、队列长度或默认 AI/业务交付 TTL。独立浏览器会话可以并行；同会话动作租约与实体手机顺序执行负责一致性。调用者仍可指定 timeout/step budget，TLS/owner/幂等、UNKNOWN、16 MiB JSON/IPC 资源边界和上游实际资源限制仍存在。
 
-[C 实测报告：题目、失败、耗时和费用](artifacts/cross-machine/pilot/report.md)
+## 短连接也保留上下文
 
-[S10 完成报告](artifacts/cross-machine/report.md) · [中文 CLI/MCP 使用手册](docs/cross-machine-cli-mcp.md) · [架构、发布与后续验收](docs/cross-machine-operations.md) · [agent 接入指南](docs/agent-integration-guide.md)
+初次调用 network_status，私密缓存服务生成的 `continuation_token`，后续业务、request_status 和 release 全部带上。它允许跨 DELETE/新 transport 恢复同一个逻辑 owner 和浏览器，不按展示名合并身份；无需用户手填。正常工作结束先清理自己的浏览器再 release_connection。token 不进 Git、聊天或公共报告。
 
-[S9 安卓题目与实测报告](artifacts/mobile/report.md) · [手机研究工具使用说明](docs/mobile-testing.md) · [S7 真实网站与抖音报告](artifacts/real/report.md) · [六道测试题](artifacts/real/tasks.json) · [S7 复现说明](docs/real-testing.md) · [S6 合成环境对比报告](artifacts/live/report/summary.md) · [原始逐项结果](artifacts/live/report/rows.csv) · [S7 检查记录](artifacts/real/verification/checks.json) · [S6 检查记录](artifacts/live/offline-verification/final/checks.json) · [阶段变更](CHANGELOG.md)
+QUEUED/DISPATCHED 查原 request_id；COMPLETED 仍检查 reply 和实际后验。UNKNOWN 保留原编号，不换键重放。release、手动 off、owner 代次变化和 relay 重启会使旧 continuation 失效，失效不证明旧动作没有发生。
 
-根据 `docs/handoff/` 的交接包实现。P0 核心是**隔离浏览器 + 本地模拟页面**的工程版本：主流程给出有界任务，provider 只选择合法完整动作，执行器逐步执行并独立验证。默认 mock，不读取已有 API key、不调用 Jev 正式服务。
+## 新安装与离线测试
 
-## 本机启动与测试
-
-推荐在 macOS 使用 Node.js 24.19+ 与 npm：
+需要 Node24.19+ 和执行机上的独立 Chromium。新安装默认 mock；安装不会自动获得当前共享部署的私有 remote profile 或付费授权。
 
 ```sh
 git clone https://github.com/giuliano1101/jev-fast.git
@@ -44,73 +52,21 @@ npm run test:integration
 npm run test:safety
 ```
 
-这些测试不需要 API key，不调用付费服务。GitHub Actions 运行同样的离线检查，并运行部署脚本的 Python 离线测试。Ubuntu 24.04 已完成网络 relay 部署验收；完整浏览器执行器跨平台适配仍未完成，S6 密钥保护测试使用 macOS `/private/tmp` 路径。
+测试不需要模型 Key，不调用付费 API。安装依赖/Chromium 需要联网；mock 和集成测试使用本机回环与隔离浏览器。原开发 Mac 可使用 `. scripts/env.sh`，其他机器使用自己的 Node 路径。Chromium 优先取 Playwright 匹配版本，或显式设置独立 `JEV_CHROMIUM_PATH`；不接管日常 Chrome profile。
 
-原开发机器的系统 node/npm wrapper 不可用，可在该机器的项目根目录使用已有环境配置（不改全局设置；其他机器不要使用这段专用路径）：
+本地开发可使用[面板](docs/control-panel.md)或 `service start`，先启动 coordinator 再连接 stdio facade；它们共用同一个协调服务、身份和审计。配置真实 Jev、host backend、证书与计费策略仅由操作员完成，普通工具参数不能修改它们。
 
-```sh
-cd /Users/yubinai/Documents/jev
-source scripts/env.sh
-npm ci --ignore-scripts
-npm run typecheck
-npm run lint
-npm test
-npm run test:integration
-npm run test:safety
-npm run bench:mock
-```
+## 结果、停止与恢复
 
-在其他已配置 Node/npm 的机器上无需 `source scripts/env.sh`。`npm ci` 需要联网安装锁定依赖；mock 测试仅访问 loopback。浏览器优先使用 Playwright 匹配的 Chromium；本机可回退到现有独立测试 Chromium 缓存，不接管日常 Chrome profile。若没有测试浏览器，运行 `npx playwright install chromium`，或通过 `JEV_CHROMIUM_PATH` 指定独立 Chromium 可执行文件。
+Jev 决策来源与实际执行效果分开报告。真实浏览器返回 execution/after/postcondition；导航期间若有 navigation_pending，先重新 observe。host_act 返回的 MCP 调用结果不自动证明整项任务完成，应回读前台/页面状态。不要公开原始账号页面、手机截图或设备标识。
 
-测试覆盖表见 [验收索引](docs/acceptance.md)，实际完整结果见 [验收报告](artifacts/acceptance/summary.md)。全套离线基准结果见 [mock 报告](artifacts/mock/summary.md)；`manifest.json` 记录实际硬件、浏览器、版本、锁文件 hash、任务 seed 与模式。
+账本先写后执行，同键同参数返回已有结果，改参数冲突。未知动作隔离且不重放；正常停止取消/收尾，不能回滚已完成点击。崩溃恢复须确认旧进程已退出并保留审计，不清账本或删除仍存活进程的锁。共享服务由操作员维护，其他 AI 不以清理为由停服。
 
-已完成 [官方与 GitHub 同类项目对照及优化](docs/optimization-review.md)：合并浏览器状态读取、复用校验 schema，并为较大的 API 请求加入 zstd 压缩。优化后的完整复测见 [优化验收报告](artifacts/optimization/summary.md)。
+## 历史实验与证据
 
-已完成 [S6 真实浏览器对比](artifacts/live/report/summary.md)：Jev 25/30 成功，普通 computer use 18/18；双方成功的 16 项配对耗时比中位数 5.49×。困难组 Jev 仅 5/10 成功，5 次低置信度停止，不能作为稳定替代方案。包含两轮校准的已知 API 费用约 $0.00305，另有一次认证失败用量未知。
+以下报告保留各阶段原结果，不代表当前接口仍只有 fixture 或受当时预算/步骤限制：
 
-S7 在真实 Wikipedia、日期计算网站及本机抖音 App 上完成六道题的分档对比。原 Jev 基线 6/12，最终修复版 8/12，普通 computer use 12/12；8 组双方成功配对的完整工作流耗时比中位数为 3.72×。搜索与复杂组合筛选仍有低置信度停止，当前不能稳定替代普通 computer use。题目、失败、优化消融和费用均在 [S7 报告](artifacts/real/report.md) 中。
-
-已实现 [S8 有界混合执行研究接口](docs/hybrid-implementation.md)：自动请求 teacher、流程证据验证、Jev/确定性执行、共享预算和跨重启 UNKNOWN 隔离。真实主机必须提供可信观察器、持久账本和 teacher 回调；目前不是独立运行的通用智能体。离线故障测试和真实本地浏览器重绘/重置回归见 [S8 验证报告](artifacts/hybrid/report.md)。S7 实测成绩不变，手机实测另行记录。
-
-S9 在实体安卓手机上完成六题、每题两轮对照：普通 Mobile MCP 12/12，Jev 初版 10/12，绑定加固后 12/12；最终 12 组配对工作流耗时比中位数 2.97×。这是单台手机固定题目的小样本，不能作为通用稳定性保证。题目、原失败、诊断和费用见 [S9 报告](artifacts/mobile/report.md)。
-
-## 使用接口
-
-目录索引：`src/` 为执行核心与接口，`fixtures/` 为合成页面，`tests/` 为回归测试，`bench/` 为基准工具，`docs/` 为交接与设计记录，`artifacts/` 为已归档证据。运行状态和密钥不入库；大体积重复 ZIP 留在本机，GitHub 直接保存展开后的源码与结果。
-
-本地 stdio MCP 和 CLI 共享同一 coordinator 与安全核心。本地基础操作见 [MCP/CLI 说明](docs/mcp.md)，新增远程决策模式、诊断与运维见 [S10 使用手册](docs/cross-machine-cli-mcp.md)。新增[网络 MCP](docs/network-mcp.md)经连接器调用同一核心，使用带 request_id 的封装及两个额外状态工具。本地提供六个工具：
-
-- `jev.open_session`：打开固定 fixture，身份来自已鉴权传输。
-- `jev.observe`：读取脱敏状态；活动任务期间返回 BUSY。
-- `jev.run_goal`：执行批准的 fixture 任务，最多 8 步 / 60 秒。
-- `jev.cancel`：停止新动作，保留在途动作的真实状态。
-- `jev.status`：查账本，不重放动作。
-- `jev.close_session`：清理浏览器，同时保留审计结果。
-
-任务名：`form`、`filter`、`detail`、`back`、`cancel`、`correction`、`duplicate`、`async`、`scroll`、`select`、`wait`、`navigation`。支持 `en` / `zh` 与固定 seed。输入值只允许相应 seed 的合成名称、模拟邮箱、筛选条件和枚举分类。任意真实姓名、URL、selector、脚本及伪造身份都会被拒绝。
-
-## 关键行为
-
-同一 coordinator 只允许一个活动浏览器 session；一个 session 同时只有一个目标持有动作租约。观察、关闭与目标执行也参与仲裁。一次动作由服务端绑定参数，provider 无法发明动作或自由文本。
-
-Snapshot 绑定文档、变更版本、节点身份与输入属性，默认有效 2 秒。只有执行器能证明**物理操作尚未开始**的过期拒绝才可重新观察，最多两次；不会把旧候选套到新页面。真正的超时、崩溃、执行结果不明仍记为 `UNKNOWN`，隔离会话，禁止重放。
-
-账本先持久化后执行，使用独占 owner lock、原子替换及 fsync；同键同参数返回原记录，不同参数冲突。原始 DOM、输入值和密钥不入账本。P0 日志和模型输入仅含合成白名单状态；S7 独立桥接仅发送固定公开控件与测试值。
-
-## 停止、恢复与回滚
-
-正常终止 coordinator 会先停止新动作、取消目标、等待终态写入，再关闭浏览器和账本。实际进程崩溃后，只有确认旧 PID 不存在才可回收 owner lock；未决动作恢复为 UNKNOWN。重启后旧会话仅可查询/返回幂等结果，需要新会话执行新任务。
-
-若回收锁的过程中再次崩溃，`recovery.lock` 会保守阻止启动；先确认相关 coordinator 进程均已停止并备份账本，再人工移除该恢复标记。不要删除 owner lock 来绕过仍活着的进程。UNKNOWN 不能通过清空账本或重试来“修复”。
-
-本项目未修改全局 agent 配置、系统权限或用户浏览器资料。回滚应先停止本项目进程并保留账本审计。S10 会将旧账本升级为 v2，不能将 v2 交给仅支持 v1 的旧程序；具体兼容规则见 [回滚说明](docs/cross-machine-operations.md)。不需要撤销系统辅助功能/屏幕录制权限。
-
-## 已知限制与真实测试
-
-P0 MCP/CLI 核心仍只支持本地 fixture。S7 的独立研究适配器额外支持固定的 Wikipedia、日期计算与抖音创作者筛选题；它依赖 Codex CUA，尚未并入通用 MCP 执行能力。上传、付款、删除、登录等不属于本轮题库。
-
-两个 MCP 测试客户端证明本地协议接入和仲裁，不能据此声称已接入任意商业 agent。身份凭据的隔离是同一 macOS 用户下的逻辑隔离，不抵御拥有同一用户文件权限的恶意进程。
-
-`scripted` 与 `mock` 都是确定性工程基线。真实 TypeSafe 服务已通过普通/zstd 烟测与正式浏览器实验；真实实验是独立的 12 步研究工具，不是 P0 8 步引擎验收。两种浏览器和候选空间不同，不能将操作路径比值解释为纯模型速度差。
-
-测试范围、预算与复现方式见 [S6 记录](docs/live-testing.md)。不要把密钥粘贴到聊天或写入源码。固定模型与接口依据见 [设计决策](docs/decisions.md)。
+- [S17 真实服务接通](artifacts/live-service/report.md) · [S18 usage-only](artifacts/metered-service/report.md) · [初期公网部署](artifacts/public-deployment/report.md)。
+- [S12 合成稳定性](artifacts/stability/report.md) · [同条件入口对照](artifacts/parity/report.md) · [早期跨机器小测](artifacts/cross-machine/pilot/report.md)。
+- [S7 真实网站实验](artifacts/real/report.md) · [S8 混合执行研究](artifacts/hybrid/report.md) · [S9 单手机固定题实验](artifacts/mobile/report.md)。历史固定题的速度/成功率不外推为当前通用网站或手机稳定率。
+- [验收索引](docs/acceptance.md) · [阶段变更](CHANGELOG.md) · [架构与恢复](docs/cross-machine-operations.md)。

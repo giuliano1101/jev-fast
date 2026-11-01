@@ -34,7 +34,7 @@
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.4"
   },
-  "description": "Bounded Jev browser execution MVP and graded computer-use comparison",
+  "description": "Jev action execution through browser, configured MCP hosts, CLI and network MCP",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",

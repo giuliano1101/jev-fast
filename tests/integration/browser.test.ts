@@ -51,3 +51,18 @@ test('terminal race handling preserves validation failures for other tasks and u
  t.mock.method(browser,'check',async()=>false);
  await assert.rejects(validatedOrCompleted(browser,'test',snapshot,choice,{task:'async',language:'zh',seed:1}),/async\/zh: synthetic action became stale/);
 });
+
+test('parallel real browser contexts keep isolated state and close independently',{timeout:30000},async()=>{
+ const fixture=await FixtureServer.start(),pages=new Map<string,import('playwright').Page>();
+ const browser=new BrowserAdapter(fixture.origin,{onPage:(id,page)=>{pages.set(id,page);}}),goal:Goal={task:'form',language:'en',seed:9};
+ try{
+  await Promise.all([browser.open('parallel-a','standard'),browser.open('parallel-b','standard')]);
+  assert.notEqual(pages.get('parallel-a')!.context(),pages.get('parallel-b')!.context());
+  const [a,b]=await Promise.all([browser.observe('parallel-a',goal),browser.observe('parallel-b',goal)]);
+  await Promise.all([browser.execute('parallel-a',a.candidates[0]!,goal,signal),browser.execute('parallel-b',b.candidates[0]!,goal,signal)]);
+  await browser.close('parallel-a');assert.equal(pages.get('parallel-a')!.isClosed(),true);assert.equal(pages.get('parallel-b')!.isClosed(),false);
+  assert.equal(await browser.check('parallel-b',{kind:'field',field:'name',value:'Synthetic-9'}),true);
+  const next=await browser.observe('parallel-b',goal);assert.equal(next.candidates[0]!.target_ref,'next');
+  await browser.execute('parallel-b',next.candidates[0]!,goal,signal);assert.equal(await browser.check('parallel-b',{kind:'step',value:1}),true);
+ }finally{await browser.shutdown();await fixture.close();}
+});

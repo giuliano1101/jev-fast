@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {networkToolDefinitions,MAX_BODY} from '../../src/network/protocol.js';
 import {mkdtempSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -16,12 +17,12 @@ test('HTTPS relay uses actual stateless MCP with strict host, origin, roles, exp
  });
  try{
   const init=await post({jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-03-26',capabilities:{},clientInfo:{name:'test',version:'1'}}});assert.equal(init.status,200);
-  const listed=await post({jsonrpc:'2.0',id:2,method:'tools/list',params:{}});assert.equal(listed.status,200);assert.equal(JSON.parse(listed.body).result.tools.length,8);
+  const listed=await post({jsonrpc:'2.0',id:2,method:'tools/list',params:{}});assert.equal(listed.status,200);assert.equal(JSON.parse(listed.body).result.tools.length,networkToolDefinitions.length);
   assert.equal((await post({}, {authorization:'Bearer '+connector.token})).status,401);
   assert.equal((await post({}, {},'/connector/sync')).status,401);
   assert.equal((await post({}, {origin:'https://evil.invalid'})).status,403);
   assert.equal((await post({}, {host:'evil.invalid'})).status,403);
-  assert.equal((await post('x'.repeat(65537))).status,413);
+  assert.equal((await post('x'.repeat(MAX_BODY+1))).status,413);
   const duplicateAuth=await new Promise<number>((done,fail)=>{const req=request(relay.url+'/mcp',{method:'POST',servername:'localhost',ca:certs.ca,headers:['Host',new URL(relay.url).host,'Authorization','Bearer '+token.token,'Authorization','Bearer '+connector.token,'Content-Type','application/json','Accept','application/json, text/event-stream']},res=>{res.resume();res.once('end',()=>done(res.statusCode!));});req.on('error',fail);req.end(JSON.stringify({jsonrpc:'2.0',id:3,method:'tools/list',params:{}}));});
   assert.equal(duplicateAuth,401,'duplicate authorization headers must not choose the first credential');
   token.expiresAt=Date.now()-1;assert.equal((await post({})).status,401);

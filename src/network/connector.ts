@@ -45,13 +45,13 @@ export async function startConnector(input:ConnectorOptions|(ManualConnectorOpti
  async function execute(job:Delivery){
   let outcome:Outcome={kind:'unknown'};
   try{
-   if(stopping||Date.now()>=job.expires_at)throw new Fault('STALE_DELIVERY');
+   if(stopping||(job.expires_at!==null&&Date.now()>=job.expires_at))throw new Fault('STALE_DELIVERY');
    // This fresh credential is used for BOTH preflight and execution. Never reread after ambiguity.
    const credential=await readCredential(options.credentialFile),preflight=healthSchema.parse(await ipcCall(credential,'service.local_health',{}));
-   if(!preflight.ready||preflight.instance_id!==job.local_instance_id||Date.now()>=job.expires_at||stopping)throw new Fault('STALE_DELIVERY');
+   if(!preflight.ready||preflight.instance_id!==job.local_instance_id||(job.expires_at!==null&&Date.now()>=job.expires_at)||stopping)throw new Fault('STALE_DELIVERY');
    try{const result=await ipcCall(credential,job.method,job.params);outcome={kind:'reply',reply:replySchema.parse({ok:true,result})};}
    catch(error){const code=safeCode(error);if(!(error instanceof Fault)||ambiguous.has(code))outcome={kind:'unknown'};else outcome={kind:'reply',reply:{ok:false,error:{code}}};}
-   if(Buffer.byteLength(canonicalJson(outcome))>24000)outcome={kind:'unknown'};
+   if(Buffer.byteLength(canonicalJson(outcome))>MAX_BODY)outcome={kind:'unknown'};
   }catch{/* Preflight/credential failures cannot prove that the requested operation executed. */}
   journal.finish(job.request_id,outcome);
  }
@@ -68,13 +68,13 @@ export async function startConnector(input:ConnectorOptions|(ManualConnectorOpti
  }
  const loop=(async()=>{
   let backoff=pollMs;
-  while(!stopping){try{await exchange(Math.max(0,4-inflight.size));backoff=pollMs;}catch(error){if(error instanceof Fault&&['CONNECTOR_FENCED','NETWORK_UNAUTHORIZED','NETWORK_BODY_LIMIT','NETWORK_INVALID_RESPONSE','JOURNAL_CONFLICT','DELIVERY_CONFLICT','STORAGE_CLOSED'].includes(error.code)){failure=error.code;stopping=true;break;}backoff=Math.min(backoff*2,1000);}
+  while(!stopping){try{await exchange(1);backoff=pollMs;}catch(error){if(error instanceof Fault&&['CONNECTOR_FENCED','NETWORK_UNAUTHORIZED','NETWORK_BODY_LIMIT','NETWORK_INVALID_RESPONSE','JOURNAL_CONFLICT','DELIVERY_CONFLICT','STORAGE_CLOSED'].includes(error.code)){failure=error.code;stopping=true;break;}backoff=Math.min(backoff*2,1000);}
    if(!stopping)await sleep(backoff);
   }
  })();
  const stop=()=>stopPromise??=(async()=>{stopping=true;wake?.();await loop;await Promise.allSettled([...inflight]);
-  // Graceful stop saves all replies first, then attempts bounded reconciliation. Failure keeps the audit pending.
-  try{for(let count=0;count<4&&journal.pending();count++)await exchange(0);}catch{/* Reconnect will resend the exact persisted outcome. */}finally{journal.close();}
+  // Graceful stop saves all replies first, then reconciles until drained or the peer makes no progress. Failure keeps the audit pending.
+  try{for(let pending=journal.pending();pending;pending=journal.pending()){await exchange(0);if(journal.pending()?.request_id===pending.request_id)break;}}catch{/* Reconnect will resend the exact persisted outcome. */}finally{journal.close();}
  })();
  // Automatic fatal fencing drains without requiring the embedding process to notice.
  const done=loop.then(()=>stop());

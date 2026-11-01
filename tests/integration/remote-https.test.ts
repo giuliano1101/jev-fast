@@ -4,7 +4,6 @@ import {setTimeout as delay} from 'node:timers/promises';
 import {performance} from 'node:perf_hooks';
 import {createServer as createHttpsServer,request as httpsRequest} from 'node:https';
 import {once} from 'node:events';
-import {certificateSha256} from '../../src/remote/credentials.js';
 import {MockProvider} from '../../src/providers/mock.js';
 import {RemoteDecisionProvider} from '../../src/remote/client.js';
 import {verifyDecisionResponse} from '../../src/remote/protocol.js';
@@ -67,26 +66,18 @@ test('live gateway reserves every provider attempt and shares persisted approval
  }finally{await f.close();}
 });
 
-test('per-principal and global admission stay bounded with four pending decision calls',async()=>{
+test('distinct pending decisions have no per-principal or four-call product quota',async()=>{
  const mock=new MockProvider();let calls=0;const releases:(()=>void)[]=[];
- const f=await remoteFixture(certs,{mockProvider:{decide:async(input,ctx)=>{calls++;await new Promise<void>(r=>releases.push(r));return mock.decide(input,ctx);}}});
+ const f=await remoteFixture(certs,{mockProvider:{decide:async(input,ctx)=>{calls++;await new Promise<void>(resolve=>releases.push(resolve));return mock.decide(input,ctx);}}});
  try{
-  const pending:Promise<Awaited<ReturnType<typeof f.raw>>>[]=[];
-  for(let i=0;i<4;i++){
-   const identity={...f.identities.a,agent_id:'agent-'+i};
-   f.store.enroll({...identity,certificate_sha256:certificateSha256(certs.a.cert),expires_at:Date.now()+60000});
-   pending.push(f.raw(remoteRequest(String(i)),{token:f.token('a',identity)}));
-   for(let n=0;calls<=i&&n<100;n++)await delay(5);
-  }
-  assert.equal(calls,4);assert.equal((await f.raw(remoteRequest('fifth'),{id:'b'})).body.code,'RATE_LIMITED');
-  releases.forEach(release=>release());assert.ok((await Promise.all(pending)).every(r=>r.status===200));
-  const first=f.raw(remoteRequest('held'));for(let n=0;calls<5&&n<100;n++)await delay(5);
-  assert.equal((await f.raw(remoteRequest('samePrincipal'))).body.code,'RATE_LIMITED');assert.equal(calls,5);releases.at(-1)!();assert.equal((await first).status,200);
+  const pending=Array.from({length:8},(_,i)=>f.raw(remoteRequest('parallel-'+i)));
+  for(let n=0;calls<8&&n<100;n++)await delay(5);
+  assert.equal(calls,8);releases.forEach(release=>release());assert.ok((await Promise.all(pending)).every(result=>result.status===200));
  }finally{releases.forEach(release=>release());await f.close();}
 });
 
-test('bounded rate limiter includes authenticated health traffic',async()=>{
- const f=await remoteFixture(certs);try{for(let n=0;n<60;n++)assert.equal((await f.raw('',{method:'GET',path:'/health'})).status,200);assert.equal((await f.raw('',{method:'GET',path:'/health'})).body.code,'RATE_LIMITED');}finally{await f.close();}
+test('authenticated health traffic has no sixty-per-minute product quota',async()=>{
+ const f=await remoteFixture(certs);try{for(let n=0;n<65;n++)assert.equal((await f.raw('',{method:'GET',path:'/health'})).status,200);}finally{await f.close();}
 });
 
 test('missing or untrusted client certificate fails the TLS handshake',async()=>{

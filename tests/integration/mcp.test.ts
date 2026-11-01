@@ -30,9 +30,9 @@ async function setup(options:{shared?:boolean;provider?:DecisionProvider;fault?:
 }
 test('two real MCP stdio clients share one local coordinator while keeping default identities isolated',{timeout:30000},async()=>{
  const f=await setup();try{
-  const listed=await f.a.listTools();assert.equal(listed.tools.length,6);for(const tool of listed.tools)assert.equal(tool.inputSchema.additionalProperties,false);
+  const listed=await f.a.listTools();assert.equal(listed.tools.length,13);for(const tool of listed.tools)assert.equal(tool.inputSchema.additionalProperties,false);
   const opened=await call(f.a,'jev.open_session',{fixture_id:'standard'});assert.equal(opened.error,false);const session_id=String(opened.data.session_id);
-  assert.equal((await call(f.b,'jev.open_session',{fixture_id:'standard'})).data.code,'BUSY');
+  const second=await call(f.b,'jev.open_session',{fixture_id:'standard'});assert.equal(second.error,false);assert.notEqual(second.data.session_id,session_id);await call(f.b,'jev.close_session',{session_id:second.data.session_id});
   for(const name of ['jev.observe','jev.status','jev.close_session'])assert.equal((await call(f.b,name,{session_id})).data.code,'UNAUTHORIZED');
   assert.equal((await call(f.b,'jev.cancel',{session_id,goal_id:'goal'})).data.code,'UNAUTHORIZED');
   assert.equal((await call(f.a,'jev.observe',{session_id,client_id:'b'})).data.code,'INVALID_ARGUMENTS');

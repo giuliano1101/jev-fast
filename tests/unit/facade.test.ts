@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {toolDefinitions,parseTool} from '../../src/service/contracts.js';
 
-test('facade publishes exactly six strict JSON schemas derived from core',()=>{
- assert.deepEqual(toolDefinitions.map(t=>t.name),['jev.open_session','jev.observe','jev.run_goal','jev.cancel','jev.status','jev.close_session']);
+test('facade publishes strict fixture, general choice, real browser and configured-host schemas',()=>{
+ assert.deepEqual(toolDefinitions.map(t=>t.name),['jev.open_session','jev.observe','jev.run_goal','jev.cancel','jev.status','jev.close_session','jev.choose_action','jev.browser_open','jev.browser_observe','jev.browser_act','jev.browser_close','jev.host_tools','jev.host_act']);
  for(const t of toolDefinitions)assert.equal(t.inputSchema.additionalProperties,false);
  assert.deepEqual(parseTool('jev.open_session',{fixture_id:'standard'}),{fixture_id:'standard'});
 });

@@ -1,0 +1,12 @@
+{
+  "observedAt": "2026-11-01T17:07:47Z",
+  "localCoordinatorReady": true,
+  "device": {
+    "generation": 1,
+    "enabled": false,
+    "state": "pending"
+  },
+  "failure": "A previously approved same-handle device stayed disabled after a transient heartbeat lease expiry.",
+  "cause": "Expiry revoked active grants; later touch restored pending presence but retained no distinct operator intent for automatic recovery.",
+  "manualOffMustRemainEffective": true
+}

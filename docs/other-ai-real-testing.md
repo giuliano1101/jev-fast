@@ -1,45 +1,38 @@
-# 给其他 AI：接入 Jev 与进行真实模型测试
+# 给其他 AI：接入 Jev 与执行真实任务
 
-更新：2026-11-01。适用于已经部署的共享 Mac 服务。先读这一份，不要套用新安装 mock、旧实验审批或旧阶段剩余额度。
+更新：2026-11-02。本文适用于已部署的共享服务；新安装默认 mock 的流程见[新机器快速开始](quickstart-agent.md)。当前能力与实测见[本轮服务报告](reports/2026-11-02-unrestricted-service.md)，旧 S14–S18 报告仅描述当时版本。
 
-## 先判断你想测什么
+## 直接接入
 
-| 目标 | 当前正式 MCP 能力 |
-| --- | --- |
-| 调用真实 Jev 模型，驱动真实 Chromium 中的内置测试页面 | **支持，已实测成功**；页面是合成 fixture，不是生产网站 |
-| 用多个 AI 客户端连接服务 | 支持多个连接；浏览器业务会话目前只能同时存在一个 |
-| 打开任意 URL、控制用户日常 Chrome、抖音 App 或安卓手机 | **正式 MCP 尚未接入这些执行适配器** |
-| 将截图、坐标、selector、自然语言网页任务直接提交给本服务 | 当前工具 schema 不接受这些参数 |
-
-因此，“无法用正式 MCP 测试真实网站/App”可能是准确的能力判断。仓库以前确实做过真实网站、抖音和安卓研究实验，但它们是独立研究适配器，不会因为服务开启就自动成为公网 MCP 工具。不要把缺少适配器说成用户没给 Key，也不要把普通 computer use 执行的成绩冒充 Jev MCP 成绩。
-
-本说明书给出**目前可以完成的真实 Jev 模型验收**。它不新增通用网页/桌面能力。研究工具细节见[真实网站实验](real-testing.md)和[安卓实验](mobile-testing.md)；其中旧入口仍有历史实验参数/预算要求，不是当前共享服务的接入流程，不要让用户重复提供这些文件。
-
-## 可以直接转发给 AI 的指令
-
-> 请阅读 docs/other-ai-real-testing.md。使用 Streamable HTTP 连接 https://jev.43-160-233-161.sslip.io/mcp，无需 Authorization。服务已经配置真实 Jev 和只计费策略，新 AI 自动接入；不要向用户索取 API key、profile、证书或新额度审批，不要另起 mock，不要重启/停止共享服务。先 tools/list，再轮询 jev.network_status，等 enabled、connector_online、local_ready 都为 true。按文档用 standard/cancel/en/seed1 做一轮验收：open_session → run_goal → status 检查动作 receipt.route=jev → close_session。网络动作必须带 request_id 和 params 外层。QUEUED/DISPATCHED 查原 request_id；COMPLETED 仍需检查 reply.ok 和业务 status。UNKNOWN 停止并保留原编号。BUSY 表示共享执行器已被占用，不要关别人的会话；最终只关自己的会话。报告实际错误码、目标状态和路由。若用户要求任意真实网站/App，请明确报告该执行适配器尚未接入，不能用文档或换参数补足。
-
-## 1. 连接地址和宿主条件
+使用 **Streamable HTTP** 连接：
 
 ```text
 https://jev.43-160-233-161.sslip.io/mcp
 ```
 
-传输选择 **Streamable HTTP**，不是旧式 SSE。无需模型 API key、Authorization 或 OAuth。AI 展示名使用标准 initialize 的 `clientInfo.name`。
+无需 Authorization、OAuth、模型 Key、profile 或新额度审批。当前服务已配置真实 remote Jev 和 usage-only 计费。复用共享服务；不要启动替代 mock、停止/重启协调器、切换 provider 或清理别人的会话。
 
-宿主必须实际支持并启用远程 MCP。仅在聊天里看到网址或读取 GitHub，并不等于该宿主已经有 MCP 工具。若工具列表中没有 Jev，先使用宿主的远程 MCP 设置添加上面地址；若宿主不支持远程 MCP，但允许执行 Node，可以使用第 6 节 SDK。宿主自身没有工具/网络权限时，报告缺的是宿主能力，不要要求用户重新提供 Jev 模型 Key。
+当前部署启用操作员策略 `autoAdmitAi: true`、`allowContinuations: true`。执行设备就绪时，AI 在 initialize 返回前即获准接入；不再依赖外部轮询程序抢在短连接结束前审批。名称只是展示标签，不是身份。操作员手动关闭仍然有效，AI 不调用管理 API 自行开启。
 
-本地 `127.0.0.1:47831` 是 Mac 控制面板；`47832` 是私有管理台，两者均不是外部 AI 的 MCP 地址。公网 `/` 返回404正常，使用 `/mcp`。`/health` 返回成功只证明 relay 存活。
+> 给另一个 AI 的指令：连接上面的 MCP，先 tools/list 和 jev.network_status。把返回的 continuation_token 私密缓存，在所有后续网络调用中自动带上；不要让用户提供这个 token。确认 enabled、connector_online、local_ready。真实网页使用 browser_open/observe/act/close；手机先 host_tools(host=android)，再按实际 schema 构造 host_act。QUEUED/DISPATCHED 查原 request_id，跨短连接仍带同一 continuation_token。UNKNOWN 停止并保留编号。按实际页面/设备后验报告结果，结束时 release_connection；不要停止共享服务或请求模型 Key。
 
-## 2. 确认可用
+## 当前 16 个网络工具
 
-发现的工具应有八个：
+本地 CLI/stdio 有 13 个业务工具，网络版增加 3 个连接/交付工具：
 
-```text
-jev.open_session  jev.observe  jev.run_goal  jev.cancel
-jev.status        jev.close_session
-jev.network_status  jev.request_status
-```
+| 范围 | 工具 |
+| --- | --- |
+| 真实网页 | `jev.browser_open`、`jev.browser_observe`、`jev.browser_act`、`jev.browser_close` |
+| 已配置的外部 MCP 主机 | `jev.host_tools`、`jev.host_act`；当前配置名称为 `android` |
+| 通用 Jev 选择 | `jev.choose_action`：宿主提供观察与候选，返回签名选择，不自行执行 |
+| 兼容合成 fixture | `jev.open_session`、`jev.observe`、`jev.run_goal`、`jev.cancel`、`jev.status`、`jev.close_session` |
+| 网络专用 | `jev.network_status`、`jev.request_status`、`jev.release_connection` |
+
+`browser_open` 接受任意 HTTP/HTTPS URL，运行在执行 Mac 的隔离、无头 Chromium 中，独立于用户日常 Chrome 的标签、登录态和 profile。它不是任意桌面应用控制器。`host_act` 仅访问操作员配置的 MCP backend；手机能力以 `host_tools` 实际返回为准，不假设支持所有应用或工具。
+
+当前公网已验证：两个独立真实 Example 网站会话、真实 Jev 导航、短连接恢复，以及配置安卓手机的 HOME 操作和前台应用回读。Wikipedia 搜索跳转曾暴露导航期间观察的问题，不能据此宣称所有网站流程稳定；检查 `navigation_pending`，必要时重新 observe，详见[当前报告](reports/2026-11-02-unrestricted-service.md)。
+
+## 私密缓存 continuation_token
 
 先调用：
 
@@ -47,121 +40,90 @@ jev.network_status  jev.request_status
 {"name":"jev.network_status","arguments":{}}
 ```
 
-等以下字段均为 true，再提交业务请求：
+就绪结果包含 `enabled: true`、`connector_online: true`、`local_ready: true`、`continuation_supported: true` 及 `continuation_token`。宿主自动将 token 保存到私有上下文，之后按下列结构调用。下文 `TOKEN`、`SESSION`、`SNAPSHOT` 都须替换为真实返回值，不能原样发送。
 
 ```json
-{"enabled":true,"connector_online":true,"local_ready":true}
+{"name":"jev.network_status","arguments":{"continuation_token":"TOKEN"}}
 ```
 
-新连接短时间返回 `admission: pending` / `enabled: false` 是自动接入轮询过程；可每500ms查询，先等待15秒。持续不就绪时保留实际状态，报告连接器/自动接入故障；不要据此索取用户 Key 或用管理接口自己开启。网络状态不包含模型 provider，不能凭这些字段声称已用到真实 Jev；后面还要检查动作路由。
+即使宿主每次调用都新建并 DELETE MCP session，也用同一 token 恢复原逻辑连接、执行 owner、浏览器上下文和请求记录。新连接名称可以不同，名称/CID 本身不能恢复权限。未带 token 的新连接拥有自己的独立范围；错误或被撤销的 token 返回 `CONTINUATION_INVALID`，不会泄露旧结果。
 
-## 3. 网络参数与异步结果
+token 是服务返回的上下文能力，不是用户需要购买/提供的 API key。不要打印到聊天、公共报告或 Git。它只在当前 relay 进程内有效；服务重启、release、操作员关闭、设备失联/关闭或 owner 代次变化会使它失效。失效不证明旧动作未发生：保留原编号和审计，不用新键重放。
 
-六个业务工具的参数外层必须是：
+工作结束后：
 
 ```json
-{"request_id":"你生成并保存的UUID","params":{"具体业务参数":"放在这里"}}
+{"name":"jev.release_connection","arguments":{"continuation_token":"TOKEN"}}
 ```
 
-上面是结构示意，中文占位文字不能原样提交。ID只允许1–100位英文字母、数字、下划线、短横线，推荐UUID。`session_id` 必须取 open 返回的真实值。
+这会释放原逻辑 owner，并触发其执行资源收尾；已完成的物理操作不会回滚。只 DELETE transport 不会释放已经签发 continuation 的逻辑上下文。若结果 UNKNOWN，先保留上下文调查，不能把 release 当作结果澄清。
 
-工具结果通常位于 MCP `content` 的 text 项中，是 JSON 字符串。先解析它；若 `isError: true`，读取其中的 `code`。业务工具返回的是交付信封，例如：
+设备短暂失联后，同一已允许设备会在恢复就绪、完成旧撤销确认后自动恢复。这不会复活旧 AI owner：旧 token 仍失效，需要新建逻辑连接。先保留旧业务编号和结果，不重放不确定动作。操作员手动关闭仍保持关闭。
+
+## 网络封装与结果
+
+13 个业务工具全部使用外层封装：
 
 ```json
-{"request_id":"原编号","delivery_status":"QUEUED"}
+{"request_id":"本次意图的稳定UUID","continuation_token":"TOKEN","params":{"具体字段":"按 tools/list schema"}}
 ```
 
-QUEUED 或 DISPATCHED 时，**不重复提交动作**，改查：
+业务 request_id 使用 1–100 位字母、数字、下划线或短横线，推荐 UUID。示例中的中文说明不是可提交值。`continuation_token` 在外层，不放进 params；它不改变业务参数指纹。本机 CLI/stdio 直接传 params 内容，不使用这层封装。
+
+MCP `content` 的 text 项是 JSON，先解析。`isError` 为 true 时读取 `code`。业务调用返回 `delivery_status`：
+
+- `QUEUED` / `DISPATCHED`：查询原编号，不重复发动作。
+- `COMPLETED`：检查 `reply.ok`，再检查业务 `execution`、后验、错误或目标状态。
+- `REJECTED`：请求被拒绝，先查明原因；不推定旧动作可重做。
+- `UNKNOWN`：停止，不换 request_id 或幂等键重放。后到的同 nonce 权威结果可能澄清交付状态。
+
+查询保留相同上下文：
 
 ```json
-{"name":"jev.request_status","arguments":{"request_id":"原编号"}}
+{"name":"jev.request_status","arguments":{"request_id":"原UUID","continuation_token":"TOKEN"}}
 ```
 
-COMPLETED 后检查：
+读取一次新的页面状态使用新 request_id；复用旧读取编号得到的是缓存的旧结果。响应不确定时，先用原编号查结果，保留 `idempotency_key`、fixture 的 `goal_id`。HTTP 200、QUEUED 和 `execution: executed` 都不等于用户任务已完成。
+
+## 真实网页示例
+
+打开 Example Domain：
 
 ```json
-{"delivery_status":"COMPLETED","reply":{"ok":true,"result":{"status":"SUCCEEDED"}}}
+{"name":"jev.browser_open","arguments":{"request_id":"browser-open-001","continuation_token":"TOKEN","params":{"url":"https://example.com"}}}
 ```
 
-`reply.ok: false` 时错误在 `reply.error.code`。`reply.ok: true` 也可能返回业务 FALLBACK/CANCELLED/UNKNOWN；HTTP200、工具发现成功和 QUEUED 都不算目标成功。网络 UNKNOWN 与业务 UNKNOWN 都不能通过换编号重做原动作。
+从 COMPLETED 的 `reply.result` 取 `session_id`；首次观察位于 `reply.result.observation`，其中有 `snapshot_id`、当前 URL、正文与 `controls`。`browser_observe` 的 params 为 `{"session_id":"SESSION"}`。观察若含 `navigation_pending: true`，先等待并以新读取编号重新 observe，再据稳定观察构造候选；不要把导航中的临时状态当成任务完成或盲目重做上一动作。
 
-本机 stdio/CLI 不使用网络 request_id/params 外层。不要混用两套 schema。
-
-## 4. 最短真实 Jev 验收
-
-每个新的业务调用使用自己的 request_id，并保存到日志。同一请求响应丢失时保留原编号查询。
-
-**A. 打开测试会话**
+让真实 Jev 在给定候选中选择导航：
 
 ```json
-{"name":"jev.open_session","arguments":{"request_id":"open-REPLACE_WITH_UUID","params":{"fixture_id":"standard"}}}
+{"name":"jev.browser_act","arguments":{"request_id":"browser-act-001","continuation_token":"TOKEN","params":{"session_id":"SESSION","snapshot_id":"SNAPSHOT","idempotency_key":"browser-step-001","task":"打开另一个 Example 网站并核验地址","actions":[{"id":"open-example-org","operation":"navigate","url":"https://example.org"}],"postcondition":{"urlContains":"example.org"}}}}
 ```
 
-取 COMPLETED → reply.result.session_id，后续示例中的 SESSION_ID_FROM_OPEN 全部替换为它。
+检查 `decision.provider: jev`、`decision.model`、`selected_id`、`execution`、`after` 和 `postcondition_met`；签名决策证明选择来源，页面后验才证明效果。动作可用 `click/fill/select/press/scroll/back/navigate`。控件动作须使用最新观察返回的 `control_id`；不提交 selector、任意 JS 或猜测坐标。
 
-**B. 提交一步取消题**
+`execution: unknown` 时保留原键并停止。`postcondition_met: false` 时任务尚未验证，先 observe 诊断，不能直接声称成功。确认任务完成后以 `jev.browser_close` 的 `{"session_id":"SESSION"}` 清理自己的浏览器，再 release_connection。
+
+## 配置安卓手机示例
+
+先取真实工具及参数 schema：
 
 ```json
-{
-  "name":"jev.run_goal",
-  "arguments":{
-    "request_id":"run-REPLACE_WITH_UUID",
-    "params":{
-      "session_id":"SESSION_ID_FROM_OPEN",
-      "goal_id":"goal-REPLACE_WITH_UUID",
-      "idempotency_key":"idem-REPLACE_WITH_UUID",
-      "goal":{"task":"cancel","language":"en","seed":1},
-      "success":{"kind":"task_complete"},
-      "max_steps":1,
-      "time_budget_ms":15000
-    }
-  }
-}
+{"name":"jev.host_tools","arguments":{"request_id":"android-tools-001","continuation_token":"TOKEN","params":{"host":"android"}}}
 ```
 
-等结果交付，成功标准为 result.status=SUCCEEDED。保存 result.action_ids。
-
-**C. 核对真实 Jev 路由**
-
-对属于这个目标的 action_id 调用：
+当前已实测的 HOME 操作如下；仍应先核对上述工具发现结果。`state` 填宿主实际观察，不把示例状态当成实时设备观察。
 
 ```json
-{"name":"jev.status","arguments":{"request_id":"action-status-REPLACE_WITH_UUID","params":{"session_id":"SESSION_ID_FROM_OPEN","action_id":"ACTION_ID_FROM_RESULT"}}}
+{"name":"jev.host_act","arguments":{"request_id":"android-home-001","continuation_token":"TOKEN","params":{"host":"android","idempotency_key":"android-home-step-001","task":"按 HOME 返回手机桌面","state":{"observation":"替换为宿主实际观察"},"actions":[{"id":"home","tool":"mobile_press_button","arguments":{"button":"HOME"},"description":"按 HOME 返回桌面"}]}}}
 ```
 
-确认 action 的 `status: SUCCEEDED` 和 `receipt.route: jev`。该 receipt 是协调器验签并消费后的账本元数据。仅声称“工具执行成功”不能区分 Jev 和 mock。需要重新查询目标可用同一工具的 `goal_id` 参数；不要同时传 goal_id 和 action_id，以免只取到目标结果。
+用新请求和幂等键再次调用 host_act，候选改为 `{"id":"foreground","tool":"mobile_get_foreground_app","arguments":{},"description":"读取当前前台应用以核验是否回到桌面"}`，task/state 同步更新。不要传 `device`，服务会注入操作员配置的设备。`host_act` 返回 `decision`、`selected_id`、`execution`、backend `result`；成功返回一个 MCP 调用不代表多步任务完成，必须读取实际前台/页面状态。原始截图、设备标识和账号内容留在私有上下文。
 
-**D. 释放自己的会话**
+## 宿主有 Node 时的 SDK 示例
 
-```json
-{"name":"jev.close_session","arguments":{"request_id":"close-REPLACE_WITH_UUID","params":{"session_id":"SESSION_ID_FROM_OPEN"}}}
-```
-
-确认 closed 后，结束自己的 MCP session。不要运行全局 service stop，不要关闭别人的业务会话。
-
-## 5. 更多内置题与当前限制
-
-任务枚举：`form/filter/detail/back/cancel/correction/duplicate/async/scroll/select/wait/navigation`。可以替换上面的 goal.task，使用 `max_steps: 8`、`time_budget_ms: 60000`；依然逐题打开、执行和关闭，不承诺每次一定成功。
-
-远程首测省略 `goal.values`，避免非规范测试值。确需传入时必须与seed一致：name=`Synthetic-${seed}`，email=`synthetic-${seed}@example.invalid`，category=`beta`，query=`item-${seed}`；不是任意真实姓名、邮件和搜索内容。
-
-| 当前工程事实 | 对 AI 的影响 |
-| --- | --- |
-| 多个 MCP 连接、全局仅一个已打开/正在打开的浏览器业务会话 | 第二个 open 返回 BUSY；不会自动等到空闲再执行 |
-| 一个业务会话内最多一个活动目标 | 不并发 run_goal/observe，按顺序调用 |
-| run_goal 最多8步、最长60秒 | 不要提交更大参数或长流程；这些是执行参数约束，不是付费封顶 |
-| 一个 relay 当前选择一台执行设备 | 不是多机器任务调度器 |
-| fixture_id 只允许 standard | 不传url、截图、坐标、selector或任意脚本 |
-
-**单会话是本项目 MVP 的硬限制，不是 Jev 官方 API 的限制。** 代码位置：`src/core/engine.ts` 的 openSession 全局判忙检查，健康接口也固定报告 active_session_limit=1。这次说明书没有修改该行为。
-
-BUSY 已确认 open 失败时，可先等待正在使用的 AI 正常 close，再用新的 open request_id 发起一次新的打开尝试；旧 request_id 已缓存 BUSY 时反复查询只会得到旧失败。若是原打开请求响应丢失且结果未明，应先查原编号，不能按BUSY处理。不得通过停止协调器、清锁、读取别人凭据或关别人会话解决占用。
-
-## 6. 宿主有 Node 时的完整 SDK 示例
-
-宿主已有 Jev 工具时无需跑此代码。没有原生远程 MCP 工具但允许 Node 的宿主，可以在有 `@modelcontextprotocol/sdk@1.32.2` 的目录把下面代码存为 `jev-smoke.mjs`，运行 `node jev-smoke.mjs`。仓库目录已有锁定依赖时直接可用；新 checkout 只需 `npm ci --ignore-scripts` 安装客户端依赖，无需在客户端启动协调器、安装 Chromium 或提供模型 Key。Node需24.19+。
-
-这会进行一次真实模型调用并入账。每次独立新测试的ID随机产生；执行中断后保留已打印的ID，查询原结果，不盲目重新运行。
+宿主已有远程 MCP 工具时无需另跑脚本。没有原生接入但允许 Node 的宿主，可在安装了 `@modelcontextprotocol/sdk@1.32.2` 的目录运行下面代码（Node 24.19+）。它会调用当前真实 Jev 并计量费用，不在客户端启动协调器、安装 Chromium或索取 Key。脚本在内存中跨 transport 缓存 token；需要跨进程恢复的宿主须自动存到私有持久上下文，不能公开打印。
 
 <!-- sdk-smoke:start -->
 ```js
@@ -169,96 +131,74 @@ import {randomUUID} from 'node:crypto';
 import {setTimeout as sleep} from 'node:timers/promises';
 import {Client} from '@modelcontextprotocol/sdk/client/index.js';
 import {StreamableHTTPClientTransport} from '@modelcontextprotocol/sdk/client/streamableHttp.js';
-
-const client = new Client({name:'Your AI Jev Test',version:'1.0.0'},{capabilities:{}});
-const transport = new StreamableHTTPClientTransport(
-  new URL('https://jev.43-160-233-161.sslip.io/mcp'),
-);
-const ids = Object.fromEntries(['open','run','goal','idem','close'].map(k=>[k,randomUUID()]));
-console.log(JSON.stringify({testIds:ids})); // 业务恢复编号；不打印网络 session header 或凭据
-function parse(reply) {
-  const value = JSON.parse(reply.content.find(x=>x.type==='text').text);
-  if(reply.isError) throw new Error(value.code);
-  return value;
-}
-async function action(name,request_id,params) {
-  let env = parse(await client.callTool({name,arguments:{request_id,params}}));
-  const deadline = Date.now()+90000;
-  while(['QUEUED','DISPATCHED'].includes(env.delivery_status)) {
-    if(Date.now()>=deadline) throw new Error(`RESULT_UNCONFIRMED_KEEP_REQUEST_ID:${request_id}`);
+let client, transport, session, uncertain=false;
+const context={}; // continuation_token 仅私密缓存，不输出
+const ids={open:randomUUID(),act:randomUUID(),idem:randomUUID(),close:randomUUID()};
+function parse(reply){const value=JSON.parse(reply.content.find(x=>x.type==='text').text);if(reply.isError)throw Error(value.code);return value;}
+async function connect(){client=new Client({name:'Your AI',version:'1.0.0'});transport=new StreamableHTTPClientTransport(new URL('https://jev.43-160-233-161.sslip.io/mcp'));await client.connect(transport);}
+async function call(name,args={}){return parse(await client.callTool({name,arguments:{...args,...context}}));}
+async function action(name,request_id,params){
+  let env;
+  try{env=await call(name,{request_id,params});}catch(error){uncertain=true;throw error;}
+  while(['QUEUED','DISPATCHED'].includes(env.delivery_status)){
     await sleep(250);
-    env = parse(await client.callTool({name:'jev.request_status',arguments:{request_id}}));
+    try{env=await call('jev.request_status',{request_id});}catch(error){uncertain=true;throw error;}
   }
-  if(env.delivery_status!=='COMPLETED') throw new Error(`KEEP_REQUEST_ID:${request_id}:${env.delivery_status}`);
-  if(!env.reply?.ok) throw new Error(env.reply?.error?.code??'INVALID_REPLY');
+  if(env.delivery_status!=='COMPLETED'){uncertain=true;throw Error(`KEEP_REQUEST_ID:${request_id}:${env.delivery_status}`);}
+  if(!env.reply?.ok)throw Error(env.reply?.error?.code??'INVALID_REPLY');
   return env.reply.result;
 }
-let session;
-try {
-  await client.connect(transport);
-  console.log(JSON.stringify({tools:(await client.listTools()).tools.map(x=>x.name)}));
-  let ready=false;
-  for(let n=0;n<30;n++) {
-    const s=parse(await client.callTool({name:'jev.network_status',arguments:{}}));
-    if(s.enabled&&s.connector_online&&s.local_ready) {ready=true;break;}
-    await sleep(500);
-  }
-  if(!ready) throw new Error('NETWORK_NOT_READY');
-  session=await action('jev.open_session',ids.open,{fixture_id:'standard'});
-  const result=await action('jev.run_goal',ids.run,{
-    session_id:session.session_id,goal_id:ids.goal,idempotency_key:ids.idem,
-    goal:{task:'cancel',language:'en',seed:1},success:{kind:'task_complete'},
-    max_steps:1,time_budget_ms:15000,
+try{
+  await connect();
+  const status=await call('jev.network_status');
+  if(!(status.enabled&&status.connector_online&&status.local_ready))throw Error('NETWORK_NOT_READY');
+  if(!status.continuation_supported||!status.continuation_token)throw Error('CONTINUATION_UNAVAILABLE');
+  context.continuation_token=status.continuation_token;
+  console.log(JSON.stringify({requestIds:ids})); // 只输出业务恢复编号
+  session=await action('jev.browser_open',ids.open,{url:'https://example.com'});
+  await transport.terminateSession();await client.close();await connect(); // 模拟短连接
+  let observed=session.observation;
+  while(observed.navigation_pending){await sleep(250);observed=await action('jev.browser_observe',randomUUID(),{session_id:session.session_id});}
+  const result=await action('jev.browser_act',ids.act,{
+    session_id:session.session_id,snapshot_id:observed.snapshot_id,idempotency_key:ids.idem,
+    task:'Navigate to example.org',actions:[{id:'navigate',operation:'navigate',url:'https://example.org'}],
+    postcondition:{urlContains:'example.org'},
   });
-  const actions=[];
-  for(const action_id of result.action_ids??[]) {
-    const row=await action('jev.status',randomUUID(),{session_id:session.session_id,action_id});
-    actions.push({status:row.status,route:row.receipt?.route??null});
+  if(result.execution==='unknown'){uncertain=true;throw Error('BROWSER_ACTION_UNKNOWN');}
+  let after=result.after;
+  while(after?.navigation_pending){await sleep(250);after=await action('jev.browser_observe',randomUUID(),{session_id:session.session_id});}
+  const verified=result.decision?.provider==='jev'&&result.execution==='executed'&&after?.url.includes('example.org');
+  console.log(JSON.stringify({provider:result.decision?.provider,model:result.decision?.model,execution:result.execution,url:after?.url,verified}));
+  if(!verified)process.exitCode=1;
+} catch(error){console.error(JSON.stringify({error:error.message,requestIds:ids}));process.exitCode=1;}
+finally{
+  if(!uncertain){
+    try{if(session)await action('jev.browser_close',ids.close,{session_id:session.session_id});if(context.continuation_token)await call('jev.release_connection');}
+    catch{console.error('CLEANUP_UNCONFIRMED_KEEP_IDS');process.exitCode=1;}
   }
-  const verified=result.status==='SUCCEEDED'&&actions.length>0&&
-    actions.every(x=>x.status==='SUCCEEDED'&&x.route==='jev');
-  console.log(JSON.stringify({goalStatus:result.status,reason:result.reason,actions,verified}));
-  if(!verified) process.exitCode=1;
-} catch(error) {
-  console.error(JSON.stringify({error:error.message,testIds:ids}));
-  process.exitCode=1;
-} finally {
-  if(session) {
-    try {await action('jev.close_session',ids.close,{session_id:session.session_id});}
-    catch {console.error(JSON.stringify({cleanup:'UNCONFIRMED',request_id:ids.close}));}
-  }
-  await transport.terminateSession().catch(()=>{});
-  await client.close();
+  await transport?.terminateSession().catch(()=>{});await client?.close();
 }
 ```
 <!-- sdk-smoke:end -->
 
-SDK脚本不自动重试业务提交，故障保留原ID。原请求查询属于原MCP网络会话；脚本不持久保存私有transport session handle，进程死亡或原会话失效后，新建客户端不能读取旧连接的请求。这时保留业务编号交给操作员核查，不能换编号重发。若进程被强制中断，finally不保证执行；不要据此推定原会话或动作未发生。
+脚本不自动重试业务提交，也不设服务端总耗时上限。宿主可以设置自己的等待/超时策略；停止等待不证明执行停止。进程被杀后 finally 不保证执行，先从私有上下文恢复 token 和原编号查结果。
 
-## 7. 报错时怎么判断
+## 限制、错误与报告
 
-| 现象/错误 | 含义与处理 |
+当前服务不设付费次数/金额/到期封顶、全局浏览器会话数、固定步骤数、队列长度或默认 AI/队列/业务结果 TTL。调用者仍可显式传 `timeout_ms`；fixture 的 `run_goal` 还可传 `max_steps`、`time_budget_ms`。这些参数省略时不强加旧的 8 步/60 秒。多个独立浏览器会话可并行；同一会话的动作租约、同一实体手机的顺序队列、心跳 fencing 属于一致性规则。
+
+16 MiB JSON/IPC 字节边界、JSON 深度、TLS、私有凭据、owner/代次、幂等与 UNKNOWN 规则仍存在。设备/owner 心跳失效会收尾，不能用“无默认业务 TTL”推断断网后授权永久有效。
+
+| 返回/现象 | 处理 |
 | --- | --- |
-| 宿主没有 Jev 工具 | 宿主尚未接入MCP；添加远程地址或使用SDK，不是模型Key缺失 |
-| ADMISSION_REQUIRED | 初次先等自动接入；持续不变时报告状态，不自己调用管理API |
-| connector_online=false / local_ready=false | Mac连接器或协调器未就绪，报告运维故障，勿另起mock |
-| BUSY | 共享业务会话/目标被占用，按第5节等待与释放自己的会话 |
-| INVALID_ARGUMENTS | 重新 tools/list 核对schema；常见为缺request_id/params、中文ID、传url/坐标、超8步/60秒 |
-| NONCANONICAL_SYNTHETIC_VALUE | 传了任意values；首测省略values，或使用seed对应规范值 |
-| SESSION_NOT_FOUND / HANDLE_EXPIRED | 网络会话已失效；旧请求先保留核对，新连接自动登记，别猜原动作没发生 |
-| REQUEST_NOT_FOUND | 检查是否原MCP连接和原request_id；其他AI不能读你的记录 |
-| FALLBACK | 目标未完成；读reason和status，不改用其他执行器后记作Jev成功 |
-| UNKNOWN / DECISION_UNKNOWN | 结果不确定，停止新动作并保留原编号/审计，不换键重放 |
-| RATE_LIMITED / 429 | 技术限流/上游配额，按错误处理；不是旧金额预算耗尽 |
-| BUDGET_EXHAUSTED / REQUEST_CAP / COST_CAP / LIVE_NOT_AUTHORIZED | 当前共享服务是无预算封顶的只计费模式；若出现这些旧费用错误，应报告可能连错实例/旧研究入口/配置回退，不能认定为用户未授权 |
-| 路由mock | 连到了模拟实例；不能作为真实Jev结果，也不要自行重启共享服务改provider |
+| 宿主没有 Jev 工具 | 配置远程 MCP 或 SDK；不是缺模型 Key |
+| `ADMISSION_REQUIRED`、设备未就绪 | 查看 network_status，报告实际状态；不自己开管理权限 |
+| `CONTINUATION_INVALID` / `REQUEST_NOT_FOUND` | 核对私密 token 和原编号；不猜旧动作未发生，不用新键重放 |
+| `BUSY` | 同一资源正被占用，顺序操作；不是全局只能开一个会话 |
+| `STALE_SNAPSHOT` / `navigation_pending` | 获取新的 browser_observe，重新判断当前状态；旧动作未明时先查原结果 |
+| `INVALID_ARGUMENTS` | 重新 tools/list；核对 wrapper、方法、最新观察字段及 backend schema |
+| `UNKNOWN` / `DECISION_UNKNOWN` / `HOST_ACTION_UNKNOWN` | 停止并保留原编号、上下文与审计 |
+| 上游 `429` 或资源错误 | 按真实上游/主机故障报告，不能说成旧产品配额耗尽 |
+| 旧 `BUDGET_EXHAUSTED` / `REQUEST_CAP` 等 | 当前只计费部署不应被旧审批限制；核对是否连错实例或历史入口 |
 
-明确区分宿主MCP接入、网络交付、Mac执行器、Jev决策和目标后验，报告实际返回的哪一层错误。遇到任意真实站点需求时，报告“真实站点执行适配器未接入正式MCP”，而不是继续试不存在的navigate/click工具。
-
-## 8. 费用与报告
-
-用户已明确取消共享服务的金额、累计次数和预算有效期拦截；[费用账本说明](metered-service.md)。不要复用旧文档里“剩余2次”或请求新付费批准。费用按返回usage记录，缺失用量单列未知；普通MCP不提供总费用查询工具，原Mac操作员可用 usage CLI。不要编造 jev.billing/jev.doctor 等不存在的工具。
-
-建议报告：测试目标、宿主/连接方式、时间、原request_id/goal_id、goal终态、action路由、失败码/原因和实际耗时。不要上传完整账号页面、凭据、网络session header或其他AI结果；未实际读取费用时标为未获取，不猜数值。
-
-已有真实证据：[S17接通](../artifacts/live-service/report.md)、[S18只计费](../artifacts/metered-service/report.md)。本说明书的只读在线契约核验见[核验记录](../artifacts/agent-manual/verification.json)，完整SDK示例已实测SUCCEEDED/route=jev并确认自己的会话已关闭，见[结果](../artifacts/agent-manual/sdk-result.json)。初次open遇到的BUSY也保留为[占用记录](../artifacts/agent-manual/busy-observation.json)；未关闭其他AI会话。
+报告目标、实际入口、时间、业务编号、决策 provider/model、执行/后验、错误与耗时；不要公开 token、签名身份材料、原始手机截图或其他 AI 的结果。未实际读取总费用就写未获取。[费用说明](metered-service.md)中的 usage 计量仍保留，普通 MCP 没有虚构的 `jev.billing` 工具。

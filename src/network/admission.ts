@@ -3,23 +3,22 @@ import {z} from 'zod';
 import {Fault} from '../core/errors.js';
 import {Audit} from './store.js';
 const nameSchema=z.string().min(1).max(96).refine(v=>!/[\p{Cc}\p{Cf}]/u.test(v));
-const rowSchema=z.strictObject({request_id:z.uuid(),id:z.uuid(),type:z.enum(['ai','device']),name:nameSchema,firstSeen:z.number(),lastSeen:z.number(),generation:z.number().int().nonnegative(),enabled:z.boolean(),owner:z.string().nullable(),revocations:z.array(z.string()).max(10000),state:z.enum(['pending','enabled','stopping','offline']),localInstance:z.uuid().nullable().default(null),grantDevice:z.uuid().nullable().default(null),grantInstance:z.uuid().nullable().default(null)});
+const rowSchema=z.strictObject({request_id:z.uuid(),id:z.uuid(),type:z.enum(['ai','device']),name:nameSchema,firstSeen:z.number(),lastSeen:z.number(),generation:z.number().int().nonnegative(),enabled:z.boolean(),desiredEnabled:z.boolean().optional(),owner:z.string().nullable(),revocations:z.array(z.string()),state:z.enum(['pending','enabled','stopping','offline']),localInstance:z.uuid().nullable().default(null),grantDevice:z.uuid().nullable().default(null),grantInstance:z.uuid().nullable().default(null)}).transform(row=>({...row,desiredEnabled:row.desiredEnabled??(row.type==='device'&&row.enabled)}));
 export type AdmissionRecord=z.infer<typeof rowSchema>;
 /** Names are labels. Only random connection instances in this runtime can be admitted. */
 export class AdmissionRegistry {
  private audit:Audit<AdmissionRecord>;private live=new Set<string>();private runtime=randomUUID();private closed=false;
- constructor(directory:string,readonly sessionTtlMs=1800000,readonly deviceTtlMs=3000){
-  if(!Number.isInteger(sessionTtlMs)||sessionTtlMs<100||sessionTtlMs>86400000||!Number.isInteger(deviceTtlMs)||deviceTtlMs<100||deviceTtlMs>30000)throw new Fault('INVALID_NETWORK_LIMIT');
+ constructor(directory:string,readonly sessionTtlMs:number|null=null,readonly deviceTtlMs=3000){
+  if((sessionTtlMs!==null&&(!Number.isSafeInteger(sessionTtlMs)||sessionTtlMs<100))||!Number.isInteger(deviceTtlMs)||deviceTtlMs<100||deviceTtlMs>30000)throw new Fault('INVALID_NETWORK_LIMIT');
   this.audit=new Audit(directory,{kind:'manual-admission-v1'},rowSchema);
   for(const row of this.audit.all())this.audit.put(row.id,{...row,enabled:false,owner:null,state:'offline',revocations:[...row.revocations,...(row.owner?[row.owner]:[])]});
  }
  register(type:'ai'|'device',name:string){
   if(!nameSchema.safeParse(name).success)throw new Fault('INVALID_NAME');
-  if(this.live.size>=128||this.audit.all().length>=10000)throw new Fault('CONNECTION_CAPACITY');
-  const id=randomUUID(),now=Date.now();const row:AdmissionRecord={request_id:id,id,type,name,firstSeen:now,lastSeen:now,generation:0,enabled:false,owner:null,revocations:[],state:'pending',localInstance:null,grantDevice:null,grantInstance:null};
+  const id=randomUUID(),now=Date.now();const row:AdmissionRecord={request_id:id,id,type,name,firstSeen:now,lastSeen:now,generation:0,enabled:false,desiredEnabled:false,owner:null,revocations:[],state:'pending',localInstance:null,grantDevice:null,grantInstance:null};
   this.audit.put(id,row);this.live.add(id);return row;
  }
- private expire(){for(const row of this.audit.all())if(this.live.has(row.id)&&Date.now()-row.lastSeen>=(row.type==='ai'?this.sessionTtlMs:this.deviceTtlMs)){
+ private expire(){for(const row of this.audit.all())if(this.live.has(row.id)&&(row.type!=='ai'||this.sessionTtlMs!==null)&&Date.now()-row.lastSeen>=(row.type==='ai'?this.sessionTtlMs!:this.deviceTtlMs)){
   if(row.type==='ai')this.disconnect(row.id);
   else if(row.state!=='offline'){this.disable(row);this.audit.put(row.id,{...this.audit.get(row.id)!,state:'offline'});for(const ai of this.audit.all())if(ai.type==='ai'&&ai.enabled&&ai.grantDevice===row.id)this.disable(ai);}
  }}
@@ -35,15 +34,30 @@ export class AdmissionRegistry {
  touch(id:string){if(!this.isLive(id))throw new Fault('HANDLE_EXPIRED');const row=this.audit.get(id)!;this.audit.put(id,{...row,lastSeen:Date.now(),state:row.state==='offline'?'pending':row.state});return this.get(id);}
  setEnabled(id:string,enabled:boolean){
   const row=this.get(id);if(!this.live.has(id))throw new Fault('CONNECTION_OFFLINE');
-  if(enabled===row.enabled)return row;
-  if(!enabled){this.disable(row);if(row.type==='device')for(const ai of this.audit.all())if(ai.type==='ai'&&ai.enabled)this.disable(ai);return this.get(id);}
+  if(!enabled){
+   // Manual off changes durable intent even if heartbeat expiry already removed the active grant.
+   const disabled=row.type==='device'?{...row,desiredEnabled:false}:row;
+   if(row.type==='device')this.audit.put(id,disabled);
+   if(row.enabled)this.disable(disabled);
+   if(row.type==='device')for(const ai of this.audit.all())if(ai.type==='ai'&&ai.enabled&&ai.grantDevice===id)this.disable(ai);
+   return this.get(id);
+  }
+  if(row.enabled){if(row.type==='device'&&!row.desiredEnabled)this.audit.put(id,{...row,desiredEnabled:true});return this.get(id);}
   if(row.revocations.length||row.state==='stopping')throw new Fault('REVOCATION_PENDING');
   const active=this.audit.all().find(r=>r.type==='device'&&r.enabled&&this.live.has(r.id));
   if(row.type==='device'&&active)throw new Fault('DEVICE_ALREADY_ENABLED');
   if(row.type==='ai'&&!active)throw new Fault('DEVICE_NOT_ENABLED');
   if(row.type==='ai'&&!active!.localInstance)throw new Fault('DEVICE_NOT_READY');
   const generation=row.generation+1,owner=row.type==='ai'?'network-'+createHash('sha256').update(`${this.runtime}:${id}:${generation}:${active!.id}`).digest('hex'):null;
-  this.audit.put(id,{...row,generation,enabled:true,owner,state:'enabled',grantDevice:row.type==='ai'?active!.id:null,grantInstance:row.type==='ai'?active!.localInstance:null});return this.get(id);
+  this.audit.put(id,{...row,generation,enabled:true,desiredEnabled:row.type==='device'?true:row.desiredEnabled,owner,state:'enabled',grantDevice:row.type==='ai'?active!.id:null,grantInstance:row.type==='ai'?active!.localInstance:null});return this.get(id);
+ }
+ /** Restore only the operator's desired device after a fresh same-registration ready heartbeat.
+  * This never re-enables an AI owner, moves another selected device, or skips revocation drain. */
+ resumeDevice(id:string,ready:boolean){
+  const row=this.get(id);if(row.type!=='device')throw new Fault('INVALID_REQUEST');
+  if(row.enabled||!row.desiredEnabled||!ready||!row.localInstance||!this.live.has(id)||row.state==='stopping'||row.revocations.length)return row;
+  if(this.audit.all().some(other=>other.type==='device'&&other.enabled&&this.live.has(other.id)))return row;
+  return this.setEnabled(id,true);
  }
  private disable(row:AdmissionRecord){this.audit.put(row.id,{...row,enabled:false,owner:null,revocations:[...row.revocations,...(row.owner?[row.owner]:[])],state:row.owner||row.revocations.length?'stopping':'pending'});}
  disconnect(id:string){const row=this.audit.get(id);if(!row||!this.live.has(id))return;this.live.delete(id);this.disable(row);const updated=this.audit.get(id)!;this.audit.put(id,{...updated,state:updated.revocations.length?'stopping':'offline'});if(row.type==='device')for(const ai of this.audit.all())if(ai.type==='ai'&&ai.enabled)this.disable(ai);}

@@ -13,7 +13,6 @@ const enrollmentSchema=identitySchema.extend({certificate_sha256:hash,expires_at
 const storedDecisionSchema=z.strictObject({id:z.string().regex(/^[a-zA-Z0-9_-]{1,100}:[a-zA-Z0-9_-]{1,100}:[a-zA-Z0-9_-]{1,100}:[a-zA-Z0-9_-]{1,100}$/),digest:hash,status:z.enum(['pending','complete','unknown','rejected']),owner:z.uuid(),reservations:z.number().int().min(0).max(2),response:z.string().max(64000).nullable(),code:idSchema.nullable(),cost:z.number().finite().min(0)}).superRefine((row,ctx)=>{
  if((row.status==='complete')!==(row.response!==null)||(row.status==='pending'||row.status==='complete')!==(row.code===null)||(row.status!=='complete'&&row.cost!==0))ctx.addIssue({code:'custom',message:'Invalid persisted decision state'});
 });
-const MAX_RECORDS=100000;
 const tableSql=[
  "CREATE TABLE budgets(id TEXT PRIMARY KEY, config TEXT NOT NULL, requests INTEGER NOT NULL CHECK(requests>=0), reserved INTEGER NOT NULL CHECK(reserved>=0))",
  "CREATE TABLE principals(id TEXT PRIMARY KEY, enrollment TEXT NOT NULL, revoked INTEGER NOT NULL CHECK(revoked IN (0,1)))",
@@ -47,7 +46,7 @@ export class GatewayStore {
    if(this.db.prepare('PRAGMA quick_check').get()?.quick_check!=='ok')throw new Fault('GATEWAY_STORAGE_CORRUPT');
    for(const row of this.db.prepare('SELECT * FROM budgets').all()){const a=approvalSchema.parse(JSON.parse(String(row.config)));if(row.id!==a.approval_id||typeof row.requests!=='number'||!Number.isSafeInteger(row.requests)||row.requests<0||row.requests>a.max_requests||typeof row.reserved!=='number'||!Number.isSafeInteger(row.reserved)||row.reserved!==row.requests*units(a.reservation_usd)||row.reserved>units(a.max_cost_usd))throw new Fault('GATEWAY_STORAGE_CORRUPT');}
    for(const row of this.db.prepare('SELECT * FROM principals').all()){const e=enrollmentSchema.parse(JSON.parse(String(row.enrollment)));if(row.id!==identityKey({owner_id:e.owner_id,device_id:e.device_id,agent_id:e.agent_id})||![0,1].includes(Number(row.revoked)))throw new Fault('GATEWAY_STORAGE_CORRUPT');}
-   const decisions=this.db.prepare('SELECT * FROM decisions').all();if(decisions.length>MAX_RECORDS)throw new Fault('GATEWAY_STORAGE_CORRUPT');
+   const decisions=this.db.prepare('SELECT * FROM decisions').all();
    for(const value of decisions){const row=storedDecisionSchema.parse(value);if(row.status==='complete')responseSchema.parse(JSON.parse(row.response!));}
   }catch{this.db.close();throw new Fault('GATEWAY_STORAGE_CORRUPT');}
  }
@@ -57,7 +56,6 @@ export class GatewayStore {
  begin(identity:AuthenticatedIdentity,key:string,digest:string):{status:'started'|'unknown'|'complete'|'rejected';response?:DecisionResponse;code?:string}{const id=decisionKey(identity,key);hash.parse(digest);return this.transaction(()=>{
   const prior=this.db.prepare('SELECT * FROM decisions WHERE id=?').get(id);
   if(prior){if(prior.digest!==digest)throw new Fault('IDEMPOTENCY_CONFLICT');if(prior.status==='complete')return {status:'complete',response:responseSchema.parse(JSON.parse(String(prior.response)))};if(prior.status==='rejected')return {status:'rejected',code:String(prior.code)};return {status:'unknown'};}
-  if(Number(this.db.prepare('SELECT count(*) AS n FROM decisions').get()!.n)>=MAX_RECORDS)throw new Fault('STORAGE_CAPACITY');
   this.db.prepare("INSERT INTO decisions(id,digest,status,owner,reservations) VALUES(?,?,'pending',?,0)").run(id,digest,this.instance);return {status:'started'};
  });}
  reserve(identity:AuthenticatedIdentity,key:string,approvalId:string){return this.transaction(()=>{

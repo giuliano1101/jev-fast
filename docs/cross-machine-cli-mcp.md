@@ -1,10 +1,12 @@
-> 当前已部署 Mac 使用操作员明确授权的[只计费模式](metered-service.md)：无金额、累计次数、预算有效期拦截，按 usage 记录费用。本文原有 caps/approval 流程用于有上限安装；新配置可使用私有 `{"metering":{"policy_id":"operator-usage-only"}}`，与旧审批互斥。CLI 增加 `usage --config FILE` 查看本地统计，无 hosted 调用。
+# 跨机器 CLI / MCP：当前工具与操作员配置
 
-# 跨机器 CLI / MCP：合成任务原型
+更新：2026-11-02。[当前共享公网](public-service-quickstart.md)已经配置真实 remote Jev/usage-only，已启用 autoAdmitAi、allowContinuations 和 android host。其他 AI 直接使用[接入手册](other-ai-real-testing.md)，不索取用户 Key/profile/新审批，不在共享 `/tmp/jev-501` 停服或另起 mock。下文安装、证书和网关命令用于操作员的新部署。
 
-本地协调服务负责浏览器、会话、持久账本和执行前校验。远程网关只返回带签名的决策，不能操作浏览器或 Shell。现有六工具保持不变：`open_session`、`observe`、`run_goal`、`cancel`、`status`、`close_session`；MCP 工具名增加 `jev.` 前缀。
+本地 coordinator 执行真实浏览器与已配置 MCP host 操作，远程网关返回验签的 Jev 决策。CLI/stdio 提供 13 个工具：六个兼容 fixture、choose_action、browser_open/observe/act/close、host_tools/act；网络版另有 network_status/request_status/release_connection，共16个。browser_* 在隔离无头 Chromium 中访问任意 HTTP/HTTPS URL，独立于日常 Chrome；host_* 仅访问操作员绑定的 backend，不提供任意 Shell/桌面接管。
 
-当前实现**仅支持合成任务（synthetic-only）**，整体约束等级为 **advisory-only**。它不会限制宿主上的其他工具，也不构成操作系统级安全边界。`required_jev` 配置要求本 Engine 管理的动作持有有效的 Jev 路由回执，但不代表电脑上的所有操作都经过 Jev。真实应用执行、生产部署、多设备迁移及 D/E 阶段验收仍未支持或未验证。下文的 mock 示例无需调用付费托管模型。
+当前部署不设置付费次数/金额/到期封顶、固定步骤、全局会话总数、队列长度或默认 AI/业务交付 TTL。显式调用者预算、同会话动作租约、实体 host 顺序执行、TLS/owner/代次/幂等和 UNKNOWN 仍有效。整体为 advisory-only，不限制宿主的其他工具，也不是操作系统级安全边界。
+
+网络工具使用 `{request_id, params, continuation_token?}`；状态/释放也支持 token。宿主自动私密缓存 network_status 返回的 continuation_token，跨短连接保持同一 owner/结果；不按名称恢复身份。正常结束 release_connection，UNKNOWN 保留原键。实际网页/手机调用与已验证范围见[当前服务报告](reports/2026-11-02-unrestricted-service.md)。
 
 ## 离线 mock 快速开始
 
@@ -26,7 +28,7 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-s10-demo --json
 
 不传配置文件时，服务使用本地 mock 决策。显式的私有 JSON 配置可只包含 `{"mode":"mock"}`，通过 `service start --config /absolute/mock.json` 选择。Mock 模式保留本地客户端 `a`、`b`；可选 `--share-a-with-b` 开启测试用的显式共享访问规则。远程模式拒绝这个参数。
 
-`schemas --json` 输出六工具定义。工具调用接受 `--args` JSON、可选 `--credential FILE` 和 `--json`；默认凭据为 `RUNTIME/client-a.json`。未知参数及不适用于当前命令的参数会被拒绝。错误以非零退出码结束；使用 `--json` 时，错误格式为稳定的 `{ "error": { "code": "..." } }`。
+`schemas --json` 输出当前13个本地工具定义。工具调用接受 `--args` JSON、可选 `--credential FILE` 和 `--json`；默认凭据为 `RUNTIME/client-a.json`。未知参数及不适用于当前命令的参数会被拒绝。错误以非零退出码结束；使用 `--json` 时，错误格式为稳定的 `{ "error": { "code": "..." } }`。
 
 ## 私有文件与本地身份
 
@@ -81,7 +83,7 @@ node dist/src/remote/main.js revoke --config /absolute/gateway.json --spec /abso
 }
 ```
 
-使用前，必须把 `expiresAt: 0` 替换为预期的未来 Unix 时间，单位为**毫秒**；保留占位值会被拒绝。这里的 `certFile` 相对于说明文件所在目录解析，不是相对于网关配置文件。登记有效期不能超过证书有效期。签发 token 要求身份已经登记、尚未吊销且证书匹配；所请求的到期时间必须晚于当前时间、不超过一小时，并且处于证书有效期内。Token 只具有 `decide:synthetic` 权限范围，并与证书绑定。如果登记更早到期或被吊销，token 即使尚未到期也不能通过认证。
+使用前，必须把 `expiresAt: 0` 替换为预期的未来 Unix 时间，单位为**毫秒**；保留占位值会被拒绝。这里的 `certFile` 相对于说明文件所在目录解析，不是相对于网关配置文件。登记有效期不能超过证书有效期。签发 token 要求身份已经登记、尚未吊销且证书匹配；所请求的到期时间必须晚于当前时间、不超过一小时，并且处于证书有效期内。Token 与证书绑定；签发 spec 可设置 `scope: "decide:actions"` 以访问通用 choice 路由，省略时仍为兼容 fixture 的 `decide:synthetic`。两种 scope 不互相冒用，browser/host 通用决策需要 actions scope。如果登记更早到期或被吊销，token 即使尚未到期也不能通过认证。
 
 签发命令只写入独占新建、权限为 0600 的输出文件，不打印 token，也不覆盖已有路径。它还会验证配置中的 token 私钥、公钥是否匹配。网关运行期间可以执行登记或吊销命令，使用同一 SQLite 存储目录。
 
@@ -91,7 +93,7 @@ node dist/src/remote/main.js revoke --config /absolute/gateway.json --spec /abso
 {"identity":{"owner_id":"owner","device_id":"device-a","agent_id":"agent-a"}}
 ```
 
-网关没有 HTTP 登记、签发 token、浏览器或 Shell 接口。需要认证的接口只有 `GET /health` 和 `POST /v1/decisions`。吊销会阻止后续请求通过认证；已经签发的短期执行回执仍按本地期限到期。这不等于瞬时全局撤回所有已签发回执。
+网关没有 HTTP 登记、签发 token、浏览器或 Shell 接口。模型网关的鉴权接口包括 `GET /health`、fixture 的 `POST /v1/decisions` 及通用 `POST /v1/choices`，它们不是公网 MCP 地址。吊销会阻止后续请求通过认证；已经签发的短期执行回执仍按本地期限到期。这不等于瞬时全局撤回所有已签发回执。
 
 ## 本地服务的远程配置
 
@@ -131,6 +133,14 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-a --json
 
 `tokenReload` 不会签发或续期 token。操作员需使用既有签发权限，将短期证书绑定 token 原子替换到配置路径；不扩大权限或预算。S17 私有 runner 原先受预算到期日约束；S18 只计费 runner 每 20 分钟刷新一次、单个 token 最长 55 分钟，仅遵循现有客户端证书有效期，不再绑定旧预算到期日。静态配置仍可按旧方式签发新文件并安全停启；两种方式均不得删除账本或重放历史动作。
 
+## 真实浏览器与配置 host
+
+remote profile 的 actions-scope 决策提供 choose_action 与真实浏览器服务；健康信息含 general_choice_available、real_browser_available、configured_hosts。这些字段加实际工具结果用于确认能力，ready 本身只证明 coordinator 运行。
+
+操作员可在私有 remote profile 设置 `"hostConfigs":{"android":"/absolute/private/android-host.json"}`，该私有文件使用 `{serverCommand, serverArgs, serverEnv?, device?}` schema 指向已知 MCP backend。AI 不传 serverCommand、私有路径或 device；host_tools 会隐藏 device 参数，host_act 在服务端注入配置设备。共享部署已有 android，不要求 AI 再安装/选设备。host 操作以真实观察构造候选、真实 Jev 选择、backend 执行后回读验证；同一个实体 host 串行，独立浏览器可以并行。
+
+browser_open 返回 `{session_id, browser, observation}`，后续 act 的 snapshot_id/control_id 来自最新 observation。若 navigation_pending，先 observe；执行回执并不证明页面目标已达成。通用图像/状态经过16 MiB技术 transport 边界，不能据此公开原始设备/账号数据。
+
 ## MCP
 
 先启动同一个本地协调服务，再将宿主配置为运行：
@@ -139,7 +149,7 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-a --json
 node /absolute/checkout/dist/src/mcp/index.js --credential /tmp/jev-agent-a/client-a.json
 ```
 
-MCP 服务名为 `jev-local`，只提供现有六工具，与 CLI 共用同一套本地协调服务和 Engine。连接时会查询健康状态；远程不可达会通过本地健康信息报告，不会阻止连接或查询本地状态。登记、吊销、签发 token 和停止服务属于操作员 CLI 功能，不是新增的 MCP 工具。
+MCP 服务名为 `jev-local`，提供当前13个业务工具，与 CLI 共用同一个 coordinator、身份和执行审计；具体 backend 是否可用由实际 profile 决定。连接时会查询健康状态；远程不可达会通过本地健康信息报告，不会阻止连接或查询本地状态。登记、吊销、签发 token 和停止服务属于操作员 CLI 功能，不是新增的 MCP 工具。
 
 ## 诊断与当前限制
 
@@ -151,17 +161,19 @@ MCP 服务名为 `jev-local`，只提供现有六工具，与 CLI 共用同一�
 
 ## 显式托管模型配置：本文不会执行
 
-托管模型网关需要 `mode: "live"`，同时提供 `live: {"keyFile":"hosted-key","approvalFile":"approval.json"}`。Mock 模式拒绝 `live` 配置块；live 模式缺少该配置块也会被拒绝。托管模型密钥只从指定私有文件读取，不读取环境变量中的隐式凭据。
+当前共享部署已经由操作员配置，不要求其他 AI 再次审批。新部署的托管模型网关需要 `mode: "live"`，同时提供 `live: {"keyFile":"hosted-key","approvalFile":"approval.json"}`。Mock 模式拒绝 `live` 配置块；live 模式缺少该配置块也会被拒绝。托管模型密钥只从指定私有文件读取，不读取环境变量中的隐式凭据。
 
-批准文件恰好包含两个对象：
+usage-only 策略文件可以仅为 `{"metering":{"policy_id":"operator-usage-only"}}`，不含金额/累计次数/预算到期拦截；每次 HTTP 尝试的 usage/已知费用仍持久计量。该策略与下述可选 capped approval 互斥，不应把旧实验 caps 恢复到当前共享服务。操作员可用 `node dist/src/remote/main.js usage --config /absolute/gateway.json` 查询，不调用 hosted API。
+
+若新安装明确采用有上限策略，其历史兼容审批文件包含两个对象：
 
 - `authorization`：`approval_id`（字符串）、`expires_at`（未来 Unix 毫秒时间）、`synthetic_only: true`、`max_requests`（1–1000 的整数）、`max_cost_usd`（大于 0 且不超过 10）。
 - `approval`：相同的 `approval_id`、`expires_at`、`max_requests`、`max_cost_usd`，另加 `reservation_usd`（大于 0、不超过 1，且足以覆盖 provider 每次尝试的预留金额）。
 
-两个对象的对应值必须一致。网关持久存储会在每次托管请求尝试前预留预算，重试也计入。只有用户明确批准设备、期限、请求上限和成本上限后，才能配置这些文件。需要强制 Jev 路由时，本地配置必须使用 `required_jev`。具备这项配置能力，不表示已经完成 live 验收、付费调用或部署。
+两个对象的对应值必须一致。网关持久存储会在每次托管请求尝试前预留预算，重试也计入。这些 capped 字段只适用于操作员明确选择的有上限部署；usage-only 不要求额外创建限额审批。需要强制 Jev 路由时，本地配置必须使用 `required_jev`。共享公网的当前 live 验收见本轮报告，新安装不能凭示例假设自己已经完成该配置。
 
-## 本机 hosted 小测结果与范围
+## 历史 S10 hosted 小测（不是当前能力清单）
 
-用户批准后的 C 阶段测试见 [实测报告](../artifacts/cross-machine/pilot/report.md)：正式题 3/9 成功，低置信度仍会停止。网关许可计时已修复重复扣减模型耗时的问题，并通过离线回归；实测成绩未用修复后的离线结果替换。真实应用、第二台机器和宿主权限隔离仍待以后验收。
+用户批准后的 C 阶段测试见 [实测报告](../artifacts/cross-machine/pilot/report.md)：正式题 3/9 成功，低置信度仍会停止。网关许可计时已修复重复扣减模型耗时的问题，并通过离线回归；实测成绩未用修复后的离线结果替换。这是当时的合成任务成绩；当前真实网页与配置 Android 的验证见本轮服务报告，任意桌面 App 和所有宿主兼容性不在当前保证范围。
 
-`bench/remote/pilot.ts` 是受批准的试验工具，不属于六个 MCP 工具。它要求已存在的私有审批文件、固定同目录预算、独占输出和单次标记；不自动创建新批准或重置预算。`--continue-unstarted` 只允许旧正式题全未开始、失败预热零动作且账本已安全关闭的情形，最多一次，另存结果。本轮已经完成正式题，不能用此入口再次执行。`bench/remote/diagnose.ts` 只做一次不执行动作的模型耗时诊断，同样使用原预算，其 10 秒诊断超时不会改变执行器的许可。
+`bench/remote/pilot.ts` 是受批准的试验工具，不属于当前13个 MCP 业务工具。它要求已存在的私有审批文件、固定同目录预算、独占输出和单次标记；不自动创建新批准或重置预算。`--continue-unstarted` 只允许旧正式题全未开始、失败预热零动作且账本已安全关闭的情形，最多一次，另存结果。该历史轮次已经完成正式题，不能用此入口重放它。`bench/remote/diagnose.ts` 只做一次不执行动作的模型耗时诊断，同样使用原预算，其 10 秒诊断超时不会改变执行器的许可。

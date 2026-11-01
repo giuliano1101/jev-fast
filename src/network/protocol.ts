@@ -1,13 +1,18 @@
 import {z} from 'zod';
 import {idSchema,schemas} from '../core/contracts.js';
 import {Fault} from '../core/errors.js';
-import {parseTool,toolDefinitions,type ToolName} from '../service/contracts.js';
+import {MAX_FRAME_BYTES} from '../service/ipc.js';
+import {parseTool,toolDefinitions,schemaForTool,type ToolName} from '../service/contracts.js';
 import {canonicalDigest,canonicalJson} from '../remote/protocol.js';
 export {canonicalJson,canonicalDigest};
-export const MAX_BODY=65536;
+export const MAX_BODY=MAX_FRAME_BYTES;
 export const bindingSchema=z.strictObject({device_id:idSchema,agent_id:idSchema});
 export type Binding=z.infer<typeof bindingSchema>;
 export const nonceSchema=z.string().regex(/^[a-f0-9]{64}$/);
+export const continuationTokenSchema=nonceSchema;
+export const networkStatusArgsSchema=z.strictObject({continuation_token:continuationTokenSchema.optional()});
+export const requestStatusArgsSchema=networkStatusArgsSchema.extend({request_id:idSchema});
+export const releaseConnectionArgsSchema=networkStatusArgsSchema;
 export const methodSchema=z.enum(toolDefinitions.map(t=>t.name) as [ToolName,...ToolName[]]);
 export const replySchema=z.discriminatedUnion('ok',[
  z.strictObject({ok:z.literal(true),result:z.json()}),
@@ -20,16 +25,16 @@ export const outcomeSchema=z.discriminatedUnion('kind',[
 export type Outcome=z.infer<typeof outcomeSchema>;
 export const receiptSchema=z.strictObject({request_id:idSchema,delivery_nonce:nonceSchema,outcome:outcomeSchema});
 export type Receipt=z.infer<typeof receiptSchema>;
-export const deliverySchema=bindingSchema.extend({network_owner:z.string().regex(/^network-[a-f0-9]{64}$/).optional(),request_id:idSchema,method:methodSchema,params:z.json(),delivery_nonce:nonceSchema,expires_at:z.number().int().positive(),local_instance_id:z.uuid()});
+export const deliverySchema=bindingSchema.extend({network_owner:z.string().regex(/^network-[a-f0-9]{64}$/).optional(),request_id:idSchema,method:methodSchema,params:z.json(),delivery_nonce:nonceSchema,expires_at:z.number().int().positive().nullable(),local_instance_id:z.uuid()});
 export type Delivery=z.infer<typeof deliverySchema>;
-export const syncSchema=z.strictObject({connector_id:z.uuid(),ready:z.boolean(),local_instance_id:z.uuid().nullable(),capacity:z.number().int().min(0).max(4),results:z.array(receiptSchema).max(1)}).refine(v=>!v.ready||v.local_instance_id!==null);
+export const syncSchema=z.strictObject({connector_id:z.uuid(),ready:z.boolean(),local_instance_id:z.uuid().nullable(),capacity:z.number().int().nonnegative(),results:z.array(receiptSchema).max(1)}).refine(v=>!v.ready||v.local_instance_id!==null);
 export type Sync=z.infer<typeof syncSchema>;
 export const syncReplySchema=z.strictObject({acks:z.array(z.strictObject({request_id:idSchema,delivery_nonce:nonceSchema})).max(1),job:deliverySchema.nullable()});
 export const statuses=['QUEUED','DISPATCHED','COMPLETED','REJECTED','UNKNOWN'] as const;
 export interface Envelope {request_id:string;delivery_status:typeof statuses[number];reply?:LocalReply;}
 /** No caller identity, arbitrary synthetic text, or provider configuration is stored. */
 export function normalizeRequest(method:string,value:unknown):{request_id:string;params:Record<string,unknown>} {
- const wrapper=z.strictObject({request_id:idSchema,params:z.unknown()}).safeParse(value);
+ const wrapper=z.strictObject({request_id:idSchema,params:z.unknown(),continuation_token:continuationTokenSchema.optional()}).safeParse(value);
  if(!wrapper.success)throw new Fault('INVALID_ARGUMENTS');
  const params=parseTool(method,wrapper.data.params) as Record<string,unknown>;
  if(method==='jev.run_goal'){
@@ -39,9 +44,10 @@ export function normalizeRequest(method:string,value:unknown):{request_id:string
   const success=params.success as z.infer<typeof schemas.run_goal>['success'];
   if(success.kind==='field'&&success.value!==canonical[success.field])throw new Fault('NONCANONICAL_SYNTHETIC_VALUE');
  }
- if(Buffer.byteLength(canonicalJson(params))>48000)throw new Fault('REQUEST_TOO_LARGE');
+ if(Buffer.byteLength(canonicalJson(params))>MAX_BODY)throw new Fault('REQUEST_TOO_LARGE');
  return {request_id:wrapper.data.request_id,params};
 }
-export const networkToolDefinitions=[...toolDefinitions.map(t=>({...t,inputSchema:z.toJSONSchema(z.strictObject({request_id:idSchema,params:schemas[t.name.slice(4) as keyof typeof schemas]}),{io:'input'})})),
- {name:'jev.network_status',description:'Read connector readiness without dispatching.',inputSchema:z.toJSONSchema(z.strictObject({}))},
- {name:'jev.request_status',description:'Recover the durable delivery result by the original request_id. UNKNOWN never permits replay.',inputSchema:z.toJSONSchema(z.strictObject({request_id:idSchema}))}];
+export const networkToolDefinitions=[...toolDefinitions.map(t=>({...t,inputSchema:z.toJSONSchema(z.strictObject({request_id:idSchema,params:schemaForTool(t.name)!,continuation_token:continuationTokenSchema.optional()}),{io:'input'})})),
+ {name:'jev.network_status',description:'Read connector readiness. If continuation_supported, cache continuation_token and pass it on later calls across short MCP connections.',inputSchema:z.toJSONSchema(networkStatusArgsSchema)},
+ {name:'jev.request_status',description:'Recover the durable delivery result by the original request_id. UNKNOWN never permits replay.',inputSchema:z.toJSONSchema(requestStatusArgsSchema)},
+ {name:'jev.release_connection',description:'Release your logical connection and its retained browser/session context when work is done. Pass the cached continuation_token when reconnecting.',inputSchema:z.toJSONSchema(releaseConnectionArgsSchema)}];

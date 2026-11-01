@@ -13,12 +13,13 @@ import {certificateSha256,mintAgentToken} from './credentials.js';
 import {createDecisionGateway,type DecisionGatewayOptions} from './gateway.js';
 import {GatewayStore} from './store.js';
 import {UsageLedger} from './usage.js';
+import {ChoiceStore} from './choice-store.js';
 const pathSchema=z.string().min(1).max(4096);
 const configSchema=z.strictObject({mode:z.enum(['mock','live']).default('mock'),certFile:pathSchema,keyFile:pathSchema,caFile:pathSchema,receiptPrivateKeyFile:pathSchema,tokenPublicKeyFile:pathSchema,tokenPrivateKeyFile:pathSchema.optional(),storageDir:pathSchema,issuer:idSchema,audience:idSchema,bindHost:z.string().min(1).max(253).default('127.0.0.1'),port:z.number().int().min(0).max(65535).default(8443),live:z.strictObject({keyFile:pathSchema,approvalFile:pathSchema}).optional()}).refine(v=>(v.mode==='live')===Boolean(v.live));
 const authorizationSchema=z.strictObject({approval_id:idSchema,expires_at:z.number().int().positive(),synthetic_only:z.literal(true),max_requests:z.number().int().min(1).max(1000),max_cost_usd:z.number().positive().max(10)});
 const cappedApprovalSchema=z.strictObject({authorization:authorizationSchema,approval:z.strictObject({approval_id:idSchema,expires_at:z.number().int().positive(),max_requests:z.number().int().min(1).max(1000),max_cost_usd:z.number().positive().max(10),reservation_usd:z.number().positive().max(1)})});
 const approvalSchema=z.union([cappedApprovalSchema,z.strictObject({metering:z.strictObject({policy_id:idSchema})})]);
-const enrollmentSpec=z.strictObject({identity:identitySchema,certFile:pathSchema,expiresAt:z.number().int().positive()});
+const enrollmentSpec=z.strictObject({identity:identitySchema,certFile:pathSchema,expiresAt:z.number().int().positive(),scope:z.enum(['decide:synthetic','decide:actions']).optional()});
 export async function loadGatewayConfig(file:string){
  const parsed=configSchema.safeParse(await readPrivateJson(file));if(!parsed.success)throw new Fault('INVALID_GATEWAY_CONFIGURATION');
  const root=dirname(resolve(file));return {config:parsed.data,path:(name:string)=>resolve(root,name)};
@@ -29,25 +30,25 @@ async function publicKey(file:string):Promise<KeyObject>{const bytes=await readP
 export async function startGatewayFromConfig(file:string){
  const {config,path}=await loadGatewayConfig(file);
  const [cert,key,ca,receiptPrivateKey,tokenPublicKey]=await Promise.all([readPrivateFile(path(config.certFile)),readPrivateFile(path(config.keyFile)),readPrivateFile(path(config.caFile)),privateKey(path(config.receiptPrivateKeyFile)),publicKey(path(config.tokenPublicKeyFile))]);
- let live:DecisionGatewayOptions['live'];let usageLedger:UsageLedger|undefined;
+ let live:DecisionGatewayOptions['live'];let usageLedger:UsageLedger|undefined;let choiceStore:ChoiceStore|undefined;
  if(config.live){
   const parsed=approvalSchema.safeParse(await readPrivateJson(path(config.live.approvalFile)));if(!parsed.success)throw new Fault('LIVE_NOT_AUTHORIZED');
   const apiKey=(await readPrivateFile(path(config.live.keyFile),8192)).toString('utf8').trim();if(!apiKey||/[\r\n]/.test(apiKey))throw new Fault('LIVE_NOT_AUTHORIZED');
-  if('metering' in parsed.data){usageLedger=new UsageLedger(path(config.storageDir));live={key:apiKey,metering:{...parsed.data.metering,ledger:usageLedger}};}else live={key:apiKey,...parsed.data};
+  if('metering' in parsed.data){usageLedger=new UsageLedger(path(config.storageDir));choiceStore=new ChoiceStore(path(config.storageDir));live={key:apiKey,metering:{...parsed.data.metering,ledger:usageLedger}};}else live={key:apiKey,...parsed.data};
  }
- let store:GatewayStore;try{store=new GatewayStore(path(config.storageDir));}catch(error){usageLedger?.close();throw error;}
+ let store:GatewayStore;try{store=new GatewayStore(path(config.storageDir));}catch(error){choiceStore?.close();usageLedger?.close();throw error;}
  try{
-  const server=createDecisionGateway({tls:{cert,key,ca},store,receiptPrivateKey,tokenPublicKey,issuer:config.issuer,audience:config.audience,live});
+  const server=createDecisionGateway({tls:{cert,key,ca},store,receiptPrivateKey,tokenPublicKey,issuer:config.issuer,audience:config.audience,live,choiceStore});
   await new Promise<void>((done,fail)=>{server.once('error',fail);server.listen(config.port,config.bindHost,()=>{server.removeListener('error',fail);done();});});
   let closing:Promise<void>|undefined;
-  const close=()=>closing??=(async()=>{server.closeAllConnections();try{await new Promise<void>((done,fail)=>server.close(e=>e?fail(e):done()));}finally{store.close();usageLedger?.close();}})();
-  return {server,store,usageLedger,close,mode:config.mode};
- }catch(error){store.close();usageLedger?.close();throw error;}
+  const close=()=>closing??=(async()=>{server.closeAllConnections();try{await new Promise<void>((done,fail)=>server.close(e=>e?fail(e):done()));}finally{store.close();choiceStore?.close();usageLedger?.close();}})();
+  return {server,store,usageLedger,choiceStore,close,mode:config.mode};
+ }catch(error){store.close();choiceStore?.close();usageLedger?.close();throw error;}
 }
 export async function runOperator(argv:string[]):Promise<unknown>{
  let args;try{args=parseArgs({args:argv,options:{help:{type:'boolean',short:'h'},config:{type:'string'},spec:{type:'string'},out:{type:'string'}},strict:true,allowPositionals:true});}catch{throw new Fault('INVALID_ARGUMENTS');}
  const {values,positionals}=args;
- if(values.help){if(positionals.length||Object.keys(values).some(k=>k!=='help'))throw new Fault('INVALID_ARGUMENTS');return {help:'Jev operator: serve --config FILE | usage --config FILE | enroll --config FILE --spec FILE | revoke --config FILE --spec FILE | mint --config FILE --spec FILE --out FILE. Files must be private (0600). Default gateway mode is mock. Mint writes a certificate-bound decide:synthetic token only to an exclusive 0600 file; maximum lifetime is one hour.'};}
+ if(values.help){if(positionals.length||Object.keys(values).some(k=>k!=='help'))throw new Fault('INVALID_ARGUMENTS');return {help:'Jev operator: serve --config FILE | usage --config FILE | enroll --config FILE --spec FILE | revoke --config FILE --spec FILE | mint --config FILE --spec FILE --out FILE. Files must be private (0600). Default gateway mode is mock. Mint writes a certificate-bound synthetic or actions token only to an exclusive 0600 file; maximum lifetime is one hour.'};}
  const command=positionals[0];if(positionals.length!==1||!values.config||!['serve','usage','enroll','revoke','mint'].includes(command!))throw new Fault('INVALID_ARGUMENTS');
  if(command==='usage'){
   if(values.spec!==undefined||values.out!==undefined)throw new Fault('INVALID_ARGUMENTS');
@@ -81,10 +82,10 @@ export async function runOperator(argv:string[]):Promise<unknown>{
   store.authorize(spec.data.identity,certificateHash);
   const key=await privateKey(path(config.tokenPrivateKeyFile)),expected=await publicKey(path(config.tokenPublicKeyFile));
   if(!createPublicKey(key).equals(expected))throw new Fault('INVALID_CREDENTIAL_KEY');
-  const token=mintAgentToken({issuer:config.issuer,audience:config.audience,identity:spec.data.identity,certificate_sha256:certificateHash,scope:'decide:synthetic',issued_at_ms:now,expires_at_ms:expires},key);
+  const token=mintAgentToken({issuer:config.issuer,audience:config.audience,identity:spec.data.identity,certificate_sha256:certificateHash,scope:spec.data.scope??'decide:synthetic',issued_at_ms:now,expires_at_ms:expires},key);
   let output;try{output=await open(resolve(values.out!),'wx',0o600);}catch{throw new Fault('TOKEN_OUTPUT_UNAVAILABLE');}
   try{await output.writeFile(token+'\n');await output.sync();}finally{await output.close();}
-  return {tokenWritten:true,expiresAt:expires,scope:'decide:synthetic'};
+  return {tokenWritten:true,expiresAt:expires,scope:spec.data.scope??'decide:synthetic'};
  }finally{store.close();}
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url))void runOperator(process.argv.slice(2)).then(result=>process.stdout.write(JSON.stringify(result)+'\n'),error=>{process.stderr.write(safeCode(error)+'\n');process.exitCode=1;});

@@ -70,7 +70,7 @@ async function engineFixture(){
  return {dir,browser,engine,session_id,async cleanup(){browser.closeFailure=false;await engine.shutdown();await rm(dir,{recursive:true,force:true});}};
 }
 
-test('failed close shares in-flight cleanup, blocks actions, then retries and releases capacity',async()=>{
+test('failed close blocks its own session while independent contexts remain available',async()=>{
  const f=await engineFixture();let release!:()=>void;f.browser.gate=new Promise<void>(resolve=>{release=resolve;});
  try{
   const first=f.engine.closeSession('a',{session_id:f.session_id});const second=f.engine.closeSession('a',{session_id:f.session_id});
@@ -80,7 +80,7 @@ test('failed close shares in-flight cleanup, blocks actions, then retries and re
   assert.equal((await f.engine.status('a',{session_id:f.session_id}) as {closed:boolean}).closed,true);
   await assert.rejects(f.engine.observe('a',{session_id:f.session_id}),/SESSION_UNAVAILABLE/);
   await assert.rejects(f.engine.runGoal('a',{session_id:f.session_id,goal_id:'blocked',idempotency_key:'blocked',goal:{task:'form',language:'en',seed:1},success:{kind:'task_complete'}}),/SESSION_UNAVAILABLE/);
-  await assert.rejects(f.engine.openSession('a',{fixture_id:'standard'}),/BUSY/);
+  assert.notEqual((await f.engine.openSession('a',{fixture_id:'standard'})).session_id,f.session_id);
   const epoch=f.engine.ledger.state.sessions[f.session_id]!.epoch;f.browser.closeFailure=false;
   assert.equal((await f.engine.closeSession('a',{session_id:f.session_id})).closed,true);
   assert.equal(f.browser.closes,2);assert.equal(f.engine.ledger.state.sessions[f.session_id]!.epoch,epoch);
@@ -104,4 +104,13 @@ test('engine shutdown reports both independent cleanup failures',async t=>{
  try{
   await assert.rejects(f.engine.shutdown(),error=>error instanceof AggregateError&&error.errors.length===2&&error.errors.some(item=>/browser close failed/.test(String(item)))&&error.errors.some(item=>/ledger close failed/.test(String(item))));
  }finally{stub.mock.restore();f.browser.closeFailure=false;await close();await f.cleanup();}
+});
+
+test('concurrent context opens share a single browser launch and close every context',async t=>{
+ const boundary=browserBoundary();let launches=0;let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});
+ t.mock.method(chromium,'launch',async()=>{launches++;await gate;return boundary.browser;});
+ const adapter=new BrowserAdapter('http://127.0.0.1:7777');
+ const first=adapter.open('first','standard'),second=adapter.open('second','standard');release();
+ try{await Promise.all([first,second]);assert.equal(launches,1);await adapter.close('first');assert.equal(boundary.contextCloses,1);}finally{await adapter.shutdown();}
+ assert.equal(boundary.contextCloses,2);assert.equal(boundary.browserCloses,1);
 });

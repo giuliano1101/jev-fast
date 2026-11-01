@@ -1,0 +1,82 @@
+{
+  "unit": {
+    "tests": 499,
+    "pass": 499,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "integration": {
+    "tests": 102,
+    "pass": 102,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "safety": {
+    "tests": 40,
+    "pass": 40,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "console_after_display_update": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "deployment_python": {
+    "tests": 16,
+    "pass": 16
+  },
+  "independent_review": {
+    "browser_navigation": {
+      "approved": true,
+      "tests": 23
+    },
+    "general_choice_host": {
+      "approved": true,
+      "tests": 14
+    },
+    "continuation": {
+      "approved": true,
+      "tests": 5
+    },
+    "device_heartbeat_intent": {
+      "approved": true,
+      "tests": 6
+    }
+  },
+  "hostedCallsInOrdinaryTests": 0,
+  "publicEndpoint": "https://jev.43-160-233-161.sslip.io/mcp",
+  "billingPolicy": "usage-only, no cost/count/expiry cap",
+  "liveEvidence": {
+    "lifecycle": "passed",
+    "phone": "passed",
+    "calculator": "passed",
+    "firstSearch": "unknown retained",
+    "searchRetest": "semantic task verified; original English-URL assertion failed and retained",
+    "device_seven_second_gap": "4/4 passed, no model calls, same connector resumed and old owner token stayed invalid"
+  },
+  "knownEvidenceUsage": {
+    "input_tokens": 33072,
+    "output_tokens": 292,
+    "usd": 0.001389024
+  },
+  "scope": "Isolated main-frame browser and configured android MCP host; no native macOS app driver installed; not a success-rate or speed benchmark",
+  "userUntrackedDocumentPreserved": "docs/other-ai-real-testing 2.md",
+  "deploymentProvenance": "Runtime was built from the reviewed working tree before the final Git commit. Tool discovery, private doctor health and evidence describe the loaded capabilities; runtime base revision can predate the publication commit.",
+  "offlineRecheckNotes": "verification/offline-recheck.json",
+  "finalPublicHealth": {
+    "checkedAt": "2026-11-01T17:17:44.010Z",
+    "toolCount": 16,
+    "enabled": true,
+    "connectorOnline": true,
+    "localReady": true,
+    "continuationSupported": true
+  }
+}

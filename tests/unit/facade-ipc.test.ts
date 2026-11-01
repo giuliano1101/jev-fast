@@ -7,7 +7,7 @@ import {Engine} from '../../src/core/engine.js';
 import {MockProvider} from '../../src/providers/mock.js';
 import type {BrowserPort} from '../../src/core/contracts.js';
 import {Coordinator} from '../../src/service/coordinator.js';
-import {ipcCall,readCredential} from '../../src/service/ipc.js';
+import {ipcCall,readCredential,MAX_FRAME_BYTES} from '../../src/service/ipc.js';
 
 const browser:BrowserPort={async open(){return {allowed_origin:'http://127.0.0.1:9999'};},async observe(){throw new Error('SECRET_CANARY');},async validate(){return false;},async execute(){},async check(){return false;},async close(){}};
 async function fixture(options:{transportTimeoutMs?:number;onStop?:()=>Promise<void>}={}){
@@ -35,8 +35,8 @@ test('private IPC credentials bind identities and prevent cross-client reads and
 });
 test('oversized frames are rejected before JSON parsing and credential permissions are checked',async()=>{
  const f=await fixture();try{
-  await assert.rejects(ipcCall(f.a,'jev.open_session',{padding:'x'.repeat(65536)}),/FRAME_TOO_LARGE/);
-  const reply=await new Promise<string>((resolve,reject)=>{const socket=createConnection(f.a.socket);let text='';socket.setTimeout(2000,()=>socket.destroy(new Error('TIMEOUT')));socket.on('connect',()=>socket.write('x'.repeat(65537)));socket.on('data',chunk=>text+=chunk.toString());socket.on('end',()=>resolve(text));socket.on('error',reject);});
+  await assert.rejects(ipcCall(f.a,'jev.open_session',{padding:'x'.repeat(MAX_FRAME_BYTES+1)}),/FRAME_TOO_LARGE/);
+  const reply=await new Promise<string>((resolve,reject)=>{const socket=createConnection(f.a.socket);let text='';socket.setTimeout(2000,()=>socket.destroy(new Error('TIMEOUT')));socket.on('connect',()=>socket.write('x'.repeat(MAX_FRAME_BYTES+1)));socket.on('data',chunk=>text+=chunk.toString());socket.on('end',()=>resolve(text));socket.on('error',reject);});
   assert.equal(JSON.parse(reply).error.code,'FRAME_TOO_LARGE');
   await chmod(join(f.dir,'run/client-a.json'),0o644);await assert.rejects(readCredential(join(f.dir,'run/client-a.json')),/UNSAFE_CREDENTIAL/);
  }finally{await f.cleanup();}
@@ -58,8 +58,9 @@ test('an absolute connection deadline bounds slow incomplete frames',async()=>{
  const f=await fixture({transportTimeoutMs:100});try{
   const elapsed=await new Promise<number>((resolve,reject)=>{
    const start=Date.now();const socket=createConnection(f.a.socket);
-   const trickle=setInterval(()=>socket.write(' '),20);const watchdog=setTimeout(()=>socket.destroy(),450);
-   socket.on('error',reject);socket.on('close',()=>{clearInterval(trickle);clearTimeout(watchdog);resolve(Date.now()-start);});
+   let trickle:ReturnType<typeof setInterval>|undefined;const watchdog=setTimeout(()=>socket.destroy(),450);
+   socket.once('connect',()=>{trickle=setInterval(()=>socket.write(' '),20);});
+   socket.on('error',(error:NodeJS.ErrnoException)=>{if(!['EPIPE','ECONNRESET'].includes(error.code??''))reject(error);});socket.on('close',()=>{clearInterval(trickle);clearTimeout(watchdog);resolve(Date.now()-start);});
   });assert.ok(elapsed<350,`deadline exceeded: ${elapsed}ms`);
  }finally{await f.cleanup();}
 });

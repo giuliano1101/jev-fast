@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-11-01T16:35:12.119Z",
+  "cases": [
+    {
+      "name": "parallel-real-websites",
+      "status": "passed",
+      "independentSessions": true,
+      "sites": [
+        "www.wikipedia.org",
+        "example.org"
+      ]
+    }
+  ],
+  "error": "ACTION_NOT_EXECUTED_BY_JEV",
+  "finishedAt": "2026-11-01T16:35:42.167Z",
+  "diagnosis": {
+    "model_decisions": "Both fill and submit returned real Jev HTTP 200 with signed decisions.",
+    "physical_fill": "executed",
+    "physical_submit": "unknown",
+    "original_reason": "INTERNAL_FAILURE",
+    "cause": "Playwright navigation and DOM observation could wait on a pending main document; the old after-observation failed within the caller deadline.",
+    "recovery": "Original UNKNOWN idempotency key preserved and never replayed. Fix tested with hanging main requests and subresources; fresh requests used for retest.",
+    "usage": [
+      {
+        "action": "fill-search",
+        "input_tokens": 4339,
+        "output_tokens": 26
+      },
+      {
+        "action": "submit-search",
+        "input_tokens": 4403,
+        "output_tokens": 26
+      }
+    ]
+  }
+}

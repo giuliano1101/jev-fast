@@ -35,12 +35,12 @@ test('network grants are distinct owners, revoke drains pending opens and never 
   await api.revokeNetworkOwner(next);assert.equal((await engine.status('a',{session_id:own.session_id}) as {closed:boolean}).closed,false);
  }finally{await engine.shutdown();await rm(dir,{recursive:true,force:true});}
 });
-test('historical owner capacity never prevents revoking the last admitted generation',async()=>{
+test('historical owner count never prevents admitting a fresh owner or revoking an old generation',async()=>{
  const dir=await mkdtemp(join(tmpdir(),'jev-admission-cap-')),browser=new AdmissionBrowser();const engine=await Engine.create({storageDir:dir,browser,provider:new MockProvider(),clients:['a']});
  try{
   for(let index=0;index<9999;index++){const owner='network-'+index.toString(16).padStart(64,'0');engine.grantNetworkOwner(owner);await engine.revokeNetworkOwner(owner);}
   const last='network-'+'f'.repeat(64);engine.grantNetworkOwner(last);await engine.revokeNetworkOwner(last);
-  await assert.rejects(engine.openSession(last,{fixture_id:'standard'}),/UNAUTHORIZED/);assert.throws(()=>engine.grantNetworkOwner('network-'+'e'.repeat(64)),/OWNER_CAPACITY/);
+  await assert.rejects(engine.openSession(last,{fixture_id:'standard'}),/UNAUTHORIZED/);assert.doesNotThrow(()=>engine.grantNetworkOwner('network-'+'e'.repeat(64)));
  }finally{await engine.shutdown();await rm(dir,{recursive:true,force:true});}
 });
 test('reconciliation joins an already running lease revocation before acknowledging its drain',async()=>{
@@ -67,7 +67,7 @@ test('failed pre-ledger open cleanup remains owned and must drain before revocat
   const owner='network-'+'e'.repeat(64);engine.grantNetworkOwner(owner);browser.gate=new Promise<void>(done=>release=done);browser.closeError=true;
   const open=engine.openSession(owner,{fixture_id:'standard'}),openFailed=assert.rejects(open,/close failed|cleanup failed/);
   const revoke=engine.revokeNetworkOwner(owner),drainFailed=assert.rejects(revoke,/close failed/);release();await openFailed;await drainFailed;
-  assert.equal(Object.keys(engine.ledger.state.sessions).length,0);await assert.rejects(engine.openSession('a',{fixture_id:'standard'}),/BUSY/);
+  assert.equal(Object.keys(engine.ledger.state.sessions).length,0);assert.ok((await engine.openSession('a',{fixture_id:'standard'})).session_id);
   browser.closeError=false;await engine.reconcileNetworkOwners([]);assert.equal(browser.closes,3);
   browser.gate=undefined;await engine.openSession('a',{fixture_id:'standard'});
  }finally{release?.();browser.closeError=false;await engine.shutdown();await rm(dir,{recursive:true,force:true});}
@@ -82,4 +82,11 @@ test('allocated open cleanup retries physical close even after its ledger row wa
   assert.equal(Object.values(engine.ledger.state.sessions)[0]!.closed,true);
   await assert.rejects(engine.reconcileNetworkOwners([]),/close failed/);browser.closeError=false;await engine.reconcileNetworkOwners([]);assert.equal(browser.closes,4);
  }finally{release?.();browser.closeError=false;await engine.shutdown();await rm(dir,{recursive:true,force:true});}
+});
+
+test('owner revocation drains extension executors before acknowledging and retries failures',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'jev-owner-extension-'));let entered!:()=>void,release!:()=>void,calls=0;const enteredPromise=new Promise<void>(resolve=>{entered=resolve;}),gate=new Promise<void>(resolve=>{release=resolve;});
+ const options={storageDir:dir,browser:new AdmissionBrowser(),provider:new MockProvider(),clients:['a'],onOwnerRevoked:async(owner:string)=>{assert.equal(owner,'network-'+'a'.repeat(64));calls++;entered();await gate;if(calls===1)throw new Error('extension close failed');}};
+ const engine=await Engine.create(options),owner='network-'+'a'.repeat(64);engine.grantNetworkOwner(owner);
+ try{let settled=false;const revoking=engine.revokeNetworkOwner(owner);const failed=assert.rejects(revoking,/extension close failed/);void revoking.finally(()=>{settled=true;}).catch(()=>{});await enteredPromise;assert.equal(settled,false);await assert.rejects(engine.openSession(owner,{fixture_id:'standard'}),/UNAUTHORIZED/);release();await failed;await engine.reconcileNetworkOwners([]);assert.equal(calls,2);}finally{release();await engine.shutdown();await rm(dir,{recursive:true,force:true});}
 });

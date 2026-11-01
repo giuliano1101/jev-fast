@@ -101,3 +101,23 @@ test('stale validation retry limit still stops before physical execution',async(
   assert.equal(result.status,'FALLBACK');assert.equal(result.reason,'STALE_SNAPSHOT');assert.equal(result.steps,0);assert.equal(f.browser.executions,0);assert.equal(validations,3);assert.equal(result.action_ids.length,0);
  }finally{await f.cleanup();}
 });
+
+test('remote signed actions succeed when caller goal step and time limits are omitted',async()=>{
+ const f=await setup();try{
+  const unbounded={session_id:f.s,goal_id:'unbounded',idempotency_key:'unbounded',goal:{task:'form',language:'en',seed:1},success:{kind:'task_complete'}};
+  const result=await f.engine.runGoal('a',unbounded);
+  assert.equal(result.status,'SUCCEEDED',result.reason??undefined);assert.equal(result.steps,1);assert.equal(f.browser.executions,1);
+  const action=f.engine.ledger.state.actions[result.action_ids[0]!]!;
+  assert.equal(action.status,'SUCCEEDED');assert.match(action.receipt!.receipt_digest,/^sha256:[a-f0-9]{64}$/);assert.equal(action.receipt!.owner_id,identity.owner_id);
+  assert.deepEqual(await f.engine.runGoal('a',unbounded),result);assert.equal(f.browser.executions,1);
+ }finally{await f.cleanup();}
+});
+
+test('receipt binding clips an unbounded goal to the finite snapshot deadline and preserves shorter caller limits',async()=>{
+ const {prepareExecutionRequest}=await import('../../src/remote/execution.js'),{performance}=await import('node:perf_hooks');
+ const browser=new Browser(),snapshot=await browser.observe('s'),goal={task:'form' as const,language:'en' as const,seed:1},input={snapshot_id:snapshot.snapshot_id,synthetic:true as const,summary:snapshot.safe_summary,goal:{task:goal.task,language:goal.language},candidates:snapshot.candidates.map(candidate=>({candidate_id:candidate.candidate_id,description:candidate.description}))},started=performance.now(),signal=new AbortController().signal;
+ const unbounded=await prepareExecutionRequest(browser,snapshot,goal,'goal',1,input,started,Infinity,signal);
+ assert.ok(Number.isFinite(unbounded.goalDeadline));assert.equal(unbounded.goalDeadline,unbounded.snapshotDeadline);assert.ok(unbounded.request.deadline_ms<=2000);
+ const callerDeadline=performance.now()+500,bounded=await prepareExecutionRequest(browser,snapshot,goal,'goal',1,input,started,callerDeadline,signal);
+ assert.equal(bounded.goalDeadline,callerDeadline);assert.ok(bounded.request.deadline_ms<=500);
+});

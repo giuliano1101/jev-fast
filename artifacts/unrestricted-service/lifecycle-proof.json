@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-11-01T16:43:50.577Z",
+  "cases": [
+    {
+      "name": "two-AIs-two-real-browser-sessions",
+      "status": "passed",
+      "independent": true,
+      "sites": [
+        "https://example.org/",
+        "https://example.com/"
+      ]
+    },
+    {
+      "name": "short-MCP-delete-and-resume-original-browser",
+      "status": "passed",
+      "url": "https://example.org/"
+    },
+    {
+      "name": "real-Jev-external-website-navigation",
+      "status": "passed",
+      "execution": "executed",
+      "provider": "jev",
+      "url": "https://example.net/",
+      "usage": {
+        "input_tokens": 964,
+        "output_tokens": 26
+      },
+      "reason": null
+    },
+    {
+      "name": "close-one-browser-preserves-other",
+      "status": "passed"
+    }
+  ],
+  "finishedAt": "2026-11-01T16:44:23.836Z"
+}

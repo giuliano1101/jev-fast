@@ -1,0 +1,14 @@
+✔ no-key named MCP/device connections appear disabled in actual console; operator UI alone enables execution and reload keeps console access (3463.894375ms)
+✔ same-name AI instances require separate approval and have isolated request IDs and core session ownership (2217.114625ms)
+✔ per-AI console off cancels and drains only its owner; re-enable creates a fresh owner and never replays old request (2552.170833ms)
+✔ device off revokes AI grants; session deletion/new same-name connection never inherits permission; labels cannot execute HTML (2046.013083ms)
+✔ manual MCP lost reply recovers within the same connection without reapproval or repeated action (1672.280625ms)
+✔ manual connector network loss expires local grants and waits for original stop acknowledgement before reapproval (7972.235917ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20279.2095

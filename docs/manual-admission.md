@@ -1,71 +1,59 @@
-# 免 Key 接入与手动开关
+# 免 Key 接入、手动开关与 continuation
 
-本文描述默认接入协议。当前部署已由操作员启用自动 AI 接入和只计费，使用[其他 AI 测试说明](other-ai-real-testing.md)；不要求使用者逐次索取密钥或额度。下文的手动开启步骤用于默认/其他部署，不能据此推断当前共享服务未授权。
+本文描述手动接入的默认规则及可选部署策略。当前共享公网已启用 `autoAdmitAi: true`、`allowContinuations: true` 和真实 Jev 只计费；其他 AI 直接使用[接入手册](other-ai-real-testing.md)，不向用户索取 Key 或新审批。
 
-设备和 AI 不需要登录、OAuth 或预先配置网络 Key。接入后会出现在控制台，默认待启用；你核对名称和连接编号后，分别开启设备与 AI，才允许执行任务。
+设备/AI 不需要 OAuth 或预配网络 Key。名称来自连接方自报，不能证明身份；权限按随机连接实例、owner 和代次管理。管理 API 仅限操作员 loopback 入口，AI 工具不能自己开启。
 
-名称由连接方自报，不能证明“确实是我们自己的”。系统按独立连接实例管理权限；相同名称的新连接仍默认关闭。后台的随机 MCP session/设备 handle 是连接能力编号，持有者可使用该连接；它们不是实名认证，也不要公开分享。控制台的管理入口仍只绑定本机回环地址，外部连接不能自己开启。
+## 默认与当前策略
 
-## 配置与打开
+| 私有服务端配置 | 行为 |
+| --- | --- |
+| 省略 `autoAdmitAi` 或为 false | 新 AI 默认关闭，由操作员逐实例开启 |
+| `autoAdmitAi: true` | 已选择的设备就绪时，initialize 返回前自动完成 AI 首次准入；若当时设备未就绪，在后续工具调用重试首次准入 |
+| 省略 `allowContinuations` 或为 false | 显式 DELETE 撤销该逻辑连接；新 transport 不继承它的权限 |
+| `allowContinuations: true` | enabled 的 network_status 签发私密 continuation_token；此后 DELETE 仅移除 transport，原逻辑 owner 保留到 release、撤销或失效 |
 
-[部署模板](../deploy/network/)的默认 server.example.json 与 connector.example.json 已改成 `accessMode: "manual"`。旧 Bearer 方式保留在 `*.bearer.example.json`，已有旧配置不被静默改写。
+这两个字段只在操作员私有 server profile 中配置，不是 MCP 参数。自动策略不会重新开启已被手动关闭或撤销的原 owner 代次；设备 off、本机总开关和代次 fencing 继续有效。新独立实例仍按当前策略处理，关闭某个实例不是按名称建立永久封禁名单。
 
-服务端仍需 TLS 证书、私有配置和数据目录，但不再需要 mcpTokenFile/connectorTokenFile：
+## 操作员配置与控制台
+
+[部署模板](../deploy/network/)默认使用 `accessMode: "manual"`；旧 Bearer 示例另存于 `*.bearer.example.json`。服务端需 TLS、私有配置/数据目录，不需要 mcpTokenFile/connectorTokenFile。配置示意：
+
+```json
+{"accessMode":"manual","autoAdmitAi":true,"allowContinuations":true}
+```
+
+这里只展示策略字段，不是一份完整可启动配置。`sessionTtlMs` 可选，省略/null 表示不设置 AI 空闲到期；显式数值按操作员配置生效。
 
 ```sh
 node dist/src/network/main.js server --config /absolute/private/server.json
-```
-
-终端会输出本次启动的“接入控制台”本机链接。完整链接只给操作员使用，打开后页面会移除地址栏片段，并用本标签 sessionStorage 支持刷新。若部署在服务器，管理端口只监听127.0.0.1；通过已登录控制台的端口访问能力或操作员 SSH 隧道访问，不把管理端口转发成无保护公网网页。`adminPort` 可指定固定端口，例如47832。
-
-Mac connector 配置用 `name` 设置设备展示名，不需要 tokenFile。私有配置、CA/证书仍沿用0600、直接父目录0700的文件规则。连接器只主动发 HTTPS，不增加 Mac 入站端口：
-
-```sh
 node dist/src/network/main.js connector --config /absolute/private/connector.json
 ```
 
-同一本地 runtime 只运行一个手动连接器，替换进程前先退出旧进程；仅关闭它的接入开关不等于退出进程。连接器在 runtime 中持有独占 `network-connector.lock`，防止不同 journal 的第二进程撤销第一个进程的授权。异常退出后须确认旧进程已死亡、保留账本，再处理确认残留的 runtime 锁及 journal 的 owner.lock；不要删除仍存活 coordinator 的 service.lock。
+以上为操作员安装命令，其他 AI 不在共享 Mac 上重复启动。控制台完整私密链接由 relay 输出，只通过本机/操作员隧道访问，不公开管理 token。connector 的 `name` 为设备展示名；配置和 CA/凭据遵守 0600 文件、0700 直接父目录规则。一个 runtime 只运行一个手动 connector，其独占锁防止第二个进程撤销原进程 owner；不要删仍存活的锁。
 
-AI 使用普通 Streamable HTTP MCP 地址，例如 `https://jev.example.com/mcp`，无需 Authorization。AI 展示名来自标准 initialize 的 clientInfo.name；不同宿主如何填写由宿主配置决定。本地 stdio/CLI 不受影响。当前仍是一个 relay 选一个执行设备，可接入多个 AI；不会同时调度多台设备。
+控制台先开启自己的执行设备并等就绪。默认策略下再开启 AI；autoAdmitAi 策略下新 AI 首次准入自动完成。关闭 AI 会禁止新请求、拒绝其排队任务并发出取消/收尾；未收到执行器确认前显示正在停止。关闭设备同时撤销其 AI 授权。操作已完成的物理效果不能回滚，断网时关闭意图不等于已确认物理停止。
 
-## 控制台操作
+## 短连接恢复
 
-1. 启动 Mac 本地协调服务，保持与 connector 的 client-a.json 路径相同。
-2. 接入控制台会显示设备和 AI 的名称、类型、短连接编号、首次/最近连接时间及状态。
-3. 先开启自己的设备，等待执行器就绪，再开启自己的 AI。设备开关表示允许该连接接收任务，不替代 Mac 本机服务总开关。
-4. 未开启的连接可以登记、发现工具、查看自身接入状态，不能执行任务或读取其他连接的结果。
-5. 关闭一个 AI，立即禁止它的新请求并拒绝旧排队任务；已在执行的任务会取消并收尾，页面在收到执行器确认前显示“正在停止”。
-6. 关闭设备会同时撤销它的 AI 授权。重新开启设备后，AI 需要重新手动开启，不自动恢复旧任务。
+公网业务工具共 13 个，均使用 `{request_id, params, continuation_token?}`。网络专用工具为：
 
-已完成的点击不能撤销。云端断网时，逐连接关闭可能暂时等不到执行器确认；Mac 本机总开关仍可直接停止执行器。不要把“已保存关闭意图”解释为物理动作已经回滚。
+| 工具 | arguments |
+| --- | --- |
+| `jev.network_status` | `{continuation_token?}`；就绪且策略允许时返回 token |
+| `jev.request_status` | `{request_id, continuation_token?}` |
+| `jev.release_connection` | `{continuation_token?}`；释放当前或指定逻辑上下文 |
 
-## 同名、重连与重新开启
+宿主自动缓存 network_status 返回的 token，跨 DELETE、新建 transport 或不同名称时将它传回。它绑定原 CID、owner、generation，不授予任意身份；未携带 token 的新连接无法查询原请求。token 不进入业务参数指纹，不因 transport 变化重做物理动作。
 
-- 同名连接分别显示不同编号，逐个开关；允许一个名称不会允许所有同名连接。
-- 同一 MCP session 的短暂 HTTP 中断可继续使用原连接；正常 HTTP 请求结束不是退出 MCP。
-- 显式 DELETE/session 终止或默认30分钟无活动会撤销该 AI；新建 session 必须重新开启。部分 SDK 的 Client.close() 只关闭客户端 transport，并不发送 DELETE；及时退出需 terminateSession 或等会话过期。
-- 同一 connector 进程短时重连保留 handle。设备心跳超过默认3秒失联会关闭接入权限，重新连上后需要手动开启。
-- 本地网络 owner 采用5秒租约；没有成功续租会取消并收尾，过期授权不能自动复活。连接器会报告失效状态，等待手动重新开启。
-- 新 connector 进程和 relay 重启需要重新核对/开启。本地执行器实例变化会撤销 AI 授权，需重新开启 AI；设备连接本身是否仍允许，以控制台状态为准。名称不会恢复历史授权。
+持 token 的逻辑 owner 不因正常 DELETE 被撤销；临时 transport 自己的独立 owner 在未签发自身 continuation 时照常清理。结束后显式 release_connection。token 不公开打印，也不要求用户手填；relay 重启后内存 token 失效，业务审计仍保留，不能因此换键重放。
 
-重新开启产生新的执行授权代次和本地 owner。旧浏览器会话不能继续使用，需要新建会话。原请求结果仍保留在账本，旧 UNKNOWN 不重放。若停止还未确认，等待原设备或有资格的同执行器替代连接确认收尾；不同设备不能替旧设备证明它已经停止。
+## 断线、撤销与一致性
 
-## AI 工具调用
+- AI 默认无空闲过期；操作员显式 sessionTtlMs 仍有效。
+- 设备心跳默认约 3 秒失联会撤销活动权限；本地 owner 续租失效也会取消/收尾。设备持久保存操作员 desiredEnabled 意图：同一注册恢复就绪心跳、旧撤销确认完成后可自动恢复设备；旧 AI owner/token 不复活。手动关闭清除该意图，新同名注册不继承。这是失联 fencing，不是任务时长配额。
+- 手动 AI off、设备 off/失联、执行器实例变化和 release 会使原 continuation 失效。重新允许是新授权代次，不恢复旧物理任务。
+- 原 request_id、goal_id、idempotency_key 保持稳定。UNKNOWN 禁止重放；匹配的权威结果可澄清交付状态。
+- 一个 relay 选择一个执行设备，多个 AI/独立浏览器会话可以使用它；同一物理手机串行执行，同一会话有动作租约。
 
-工具仍为六个网络操作和两个只读状态工具，操作参数保持外层 `{request_id, params}`：
-
-```json
-{"request_id":"唯一的新请求编号","params":{"fixture_id":"standard"}}
-```
-
-示例中的请求编号应换成1–100位字母、数字、下划线或短横线（推荐 UUID）；不要原样提交中文占位文字。返回 QUEUED 后调用 `jev.request_status` 查原编号。网络 delivery_status 为 COMPLETED 后，还要检查 reply.ok 和实际 goal.status。
-
-不同 AI 可以使用相同业务编号，各自读取自己的记录。AI B 不能读取、取消或操作 AI A 的核心会话；名称相同也不会合并。短时重连仍保持原 request_id/goal_id/idempotency_key，不因丢响应换编号重做。
-
-当前主流程依旧只支持 standard 合成任务。免 Key 接入不会让已有真实站点/App/Android研究适配器自动成为通用能力，也不批准模型费用。
-
-## 验证与限制
-
-本机测试用实际 HTTPS SDK、无 Authorization 请求、隔离浏览器和控制台 UI 验证登记、待启用、开启后执行、同名连接隔离、关闭/重新开启与结果不重放。S16另在指定Ubuntu服务器验证公网TLS/SDK初始化、默认拒绝执行、私有管理台和未授权Mac连接器心跳恢复，见[报告](../artifacts/public-deployment/report.md)及[实际接入说明](public-service-quickstart.md)。目标商业AI宿主、已批准公网在途任务及实体第二电脑仍需后续验收。接入无身份验证，不能仅凭名称判断设备归属；管理边界、TLS、请求大小和连接数量限制继续保留。
-
-旧 S14 Bearer 网络协议的使用和恢复说明仍见[网络手册](network-mcp.md)。手动接入的长断线和重新审批策略比旧模式更保守，不能混用二者的恢复假设。
+当前正式工具已支持真实 HTTP/HTTPS 浏览器及配置的 Android host，不再只有 fixture。工具 schema、真实调用示例和后验规则见[其他 AI 手册](other-ai-real-testing.md)。离线 HTTPS 测试覆盖默认关闭、自动首次准入、跨短 transport continuation、错误 token、release/off 取消、幂等恢复与大状态传输；当前公网证据见[本轮报告](reports/2026-11-02-unrestricted-service.md)。

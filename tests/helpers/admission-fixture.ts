@@ -6,18 +6,18 @@ import {makeRemoteCertificates} from './remote-fixture.js';
 import {CountingBrowser,HoldingProvider,verifiedFetch,until,runLocalCli,faultProxy,type NetworkEnvelope} from './network-fixture.js';
 import {FixtureServer} from '../../fixtures/server.js';
 import {loadServiceProfile} from '../../src/service/config.js';
-import {Coordinator} from '../../src/service/coordinator.js';
+import {Coordinator,type CoordinatorOptions} from '../../src/service/coordinator.js';
 import {Engine} from '../../src/core/engine.js';
 export interface ConnectionRow {id:string;type:'ai'|'device';name:string;enabled:boolean;generation:number;state:string;firstSeen:number;lastSeen:number;}
-export async function admissionFixture(options:{local?:boolean;connector?:boolean;name?:string;sessionTtlMs?:number;proxy?:boolean}={}){
+export async function admissionFixture(options:{local?:boolean;connector?:boolean;name?:string;sessionTtlMs?:number;leaseMs?:number;autoAdmitAi?:boolean;allowContinuations?:boolean;chooseAction?:CoordinatorOptions['chooseAction'];proxy?:boolean}={}){
  const serverModule='../../src/network/manual-server.js',connectorModule='../../src/network/manual-connector.js';
  const {startManualNetworkServer}=await import(serverModule),{startManualConnector}=await import(connectorModule);
  const root=await mkdtemp('/tmp/jev-gate-'),runtime=join(root,'run'),certs=makeRemoteCertificates(),provider=new HoldingProvider();
- const net=await startManualNetworkServer({host:'127.0.0.1',port:0,allowedOrigins:[],deviceId:'mac-manual',agentId:'agent-manual',storeDir:join(root,'relay'),tls:certs.server,sessionTtlMs:options.sessionTtlMs??60000,adminPort:0});
+ const net=await startManualNetworkServer({host:'127.0.0.1',port:0,allowedOrigins:[],deviceId:'mac-manual',agentId:'agent-manual',storeDir:join(root,'relay'),tls:certs.server,sessionTtlMs:options.sessionTtlMs??60000,leaseMs:options.leaseMs,autoAdmitAi:options.autoAdmitAi,allowContinuations:options.allowContinuations,adminPort:0});
  const proxy=options.proxy?await faultProxy(net.url,certs):undefined;
  let connector:undefined|{stop():Promise<void>;registrationId():string|undefined},coordinator:Coordinator|undefined,engine:Engine|undefined,browser:CountingBrowser|undefined;
  const fetcher=verifiedFetch(certs.ca),clients=new Set<Client>();
- async function startLocal(){const fixture=await FixtureServer.start(),profile=await loadServiceProfile();browser=new CountingBrowser(fixture.origin);const ownedBrowser=browser;engine=await Engine.create({storageDir:join(runtime,'ledger'),browser,provider,clients:profile.clients});coordinator=await Coordinator.start({runtimeDir:runtime,engine,clients:profile.clients,health:profile.health,onStop:async()=>{await ownedBrowser.shutdown();await fixture.close();}});}
+ async function startLocal(){const fixture=await FixtureServer.start(),profile=await loadServiceProfile();browser=new CountingBrowser(fixture.origin);const ownedBrowser=browser;engine=await Engine.create({storageDir:join(runtime,'ledger'),browser,provider,clients:profile.clients});coordinator=await Coordinator.start({runtimeDir:runtime,engine,clients:profile.clients,health:profile.health,chooseAction:options.chooseAction,onStop:async()=>{await ownedBrowser.shutdown();await fixture.close();}});}
  async function startConnection(name=options.name??'Our Mac mini',journal='connector'){connector=await startManualConnector({url:proxy?.url??net.url,name,deviceId:'mac-manual',agentId:'agent-manual',journalDir:join(root,journal),credentialFile:join(runtime,'client-a.json'),ca:certs.ca,pollMs:50});}
  async function client(name='Our AI',customFetch=fetcher){const transport=new StreamableHTTPClientTransport(new URL(net.url+'/mcp'),{fetch:customFetch}),client=new Client({name,version:'1.0.0'});await client.connect(transport);clients.add(client);return {client,transport};}
  async function tool(client:Client,name:string,args:Record<string,unknown>={}):Promise<Record<string,unknown>>{const result=await client.callTool({name,arguments:args});const text=(result.content as {type:string;text:string}[]).find(block=>block.type==='text')?.text;if(!text)throw new Error('MISSING_GATE_TOOL_TEXT');return JSON.parse(text);}

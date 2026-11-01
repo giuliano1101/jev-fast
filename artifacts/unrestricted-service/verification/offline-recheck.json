@@ -1,0 +1,25 @@
+{
+  "retainedFailures": [
+    {
+      "test": "absolute connection deadline bounds slow incomplete frames",
+      "error": "EPIPE after expected server-side deadline close",
+      "resolution": "Test now starts trickle after connect and treats EPIPE/ECONNRESET as expected remote closure while preserving deadline assertion; production timeout unchanged."
+    },
+    {
+      "test": "CLI starts mock daemon, demo and operator stop",
+      "error": "SERVICE_STOP_TIMEOUT",
+      "run": {
+        "tests": 499,
+        "pass": 498,
+        "fail": 1
+      },
+      "context": "Occurred during concurrent live deployment and broad offline validation; resource contention suspected, not proven.",
+      "resolution": "No production stop condition changed; isolated CLI recheck 2/2 passed, followed by a full rerun."
+    },
+    {
+      "test": "old manual connector network-loss integration expectation",
+      "error": "expected device enabled=false, actual=true",
+      "resolution": "Updated the legacy expectation to the new durable operator-intent recovery requirement. The expired AI must remain disabled and physical input count must remain zero until a fresh grant; both checks retained."
+    }
+  ]
+}

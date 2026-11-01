@@ -38,6 +38,7 @@ export interface EngineOptions {
     sharedAccess?: Readonly<Record<string, readonly string[]>>;
     confidenceThreshold?: number;
     onEvent?: (event: EngineEvent) => void;
+    onOwnerRevoked?: (owner:string) => Promise<void>;
 }
 /** The transport supplies a configured identity; no public request accepts client_id. */
 export class Engine {
@@ -65,23 +66,24 @@ export class Engine {
         throw new Fault('UNAUTHORIZED'); if (!sessionId)
         return; const session = this.ledger.state.sessions[sessionId]; if (!session || (session.owner !== client && !this.options.sharedAccess?.[session.owner]?.includes(client)))
         throw new Fault('UNAUTHORIZED'); return session; }
+    /** Authorize coordinator extensions against the same configured identity boundary. */
+    authorizeClient(client:string):void {this.auth(client);}
     /** Trusted coordinator capability; never exposed as an MCP argument. */
     grantNetworkOwner(owner:string) {
         if(!/^network-[a-f0-9]{64}$/.test(owner))throw new Fault('INVALID_NETWORK_OWNER');
         if(this.revokedOwners.has(owner))throw new Fault('OWNER_REVOKED');
         this.live();
-        if(!this.networkOwners.has(owner)&&this.networkOwners.size+this.revokedOwners.size>=10000)throw new Fault('OWNER_CAPACITY');
         clearTimeout(this.networkOwners.get(owner));
         const timer=setTimeout(()=>{void this.revokeNetworkOwner(owner).catch(()=>{});},5000);timer.unref();this.networkOwners.set(owner,timer);
     }
     async revokeNetworkOwner(owner:string) {
         if(!/^network-[a-f0-9]{64}$/.test(owner))throw new Fault('INVALID_NETWORK_OWNER');
-        if(!this.networkOwners.has(owner)&&!this.revokedOwners.has(owner)&&this.networkOwners.size+this.revokedOwners.size>=10000)throw new Fault('OWNER_CAPACITY');
         const existing=this.revokingOwners.get(owner);if(existing)return existing;
         clearTimeout(this.networkOwners.get(owner));this.networkOwners.delete(owner);this.revokedOwners.add(owner);this.pendingOwnerRevocations.add(owner);
         const pending=(async()=>{
         const sessions=Object.entries(this.ledger.state.sessions).filter(([,s])=>s.owner===owner).map(([id])=>id);
         for(const id of sessions)this.leases.get(id)?.controller.abort();
+        await this.options.onOwnerRevoked?.(owner);
         await Promise.allSettled([...this.ownerOpens].filter(([,o])=>o===owner).map(([p])=>p));
         for(const [id,allocatedOwner] of this.failedOpenCloses)if(allocatedOwner===owner)await this.retryOpenCleanup(id);
         for(const [id,session] of Object.entries(this.ledger.state.sessions))if(session.owner===owner)await this.closeOwnedSession(id);
@@ -89,7 +91,7 @@ export class Engine {
         try{await pending;this.pendingOwnerRevocations.delete(owner);}finally{if(this.revokingOwners.get(owner)===pending)this.revokingOwners.delete(owner);}
     }
     async reconcileNetworkOwners(owners:readonly string[]) {
-        if(owners.length>128||new Set(owners).size!==owners.length)throw new Fault('OWNER_CAPACITY');
+        if(new Set(owners).size!==owners.length)throw new Fault('OWNER_CAPACITY');
         for(const owner of owners)if(!/^network-[a-f0-9]{64}$/.test(owner)||this.revokedOwners.has(owner))throw new Fault('OWNER_REVOKED');
         // Revoke admission synchronously, then drain every removed owner's work before granting.
         await Promise.all([...new Set([...this.networkOwners.keys()].filter(owner=>!owners.includes(owner)).concat([...this.pendingOwnerRevocations]))].map(owner=>this.revokeNetworkOwner(owner)));
@@ -107,7 +109,6 @@ export class Engine {
         this.auth(client);
         this.live();
         const request=schemas.open_session.parse(input);
-        if(this.opened.size||this.pendingOpens.size||this.failedOpenCloses.size)throw new Fault('BUSY');
         const session_id=randomUUID();
         const pending=(async()=>{
             let allocated=false;
@@ -149,8 +150,7 @@ export class Engine {
     catch {
         throw new Fault('OUT_OF_SCOPE');
     } if (!snapshot.synthetic || snapshot.session_id !== sessionId || snapshot.origin !== session?.allowed_origin || url.origin !== snapshot.origin || url.search || url.hash)
-        throw new Fault('UNSAFE_OBSERVATION'); if (snapshot.candidates.length > 64)
-        throw new Fault('TOO_MANY_CANDIDATES'); if (!Number.isFinite(snapshot.created_at) || !Number.isFinite(snapshot.expires_at) || snapshot.expires_at - snapshot.created_at > 2000 || snapshot.created_at > Date.now() + 10)
+        throw new Fault('UNSAFE_OBSERVATION'); if (!Number.isFinite(snapshot.created_at) || !Number.isFinite(snapshot.expires_at) || snapshot.expires_at - snapshot.created_at > 2000 || snapshot.created_at > Date.now() + 10)
         throw new Fault('STALE_SNAPSHOT'); const ids = new Set<string>(); for (const c of snapshot.candidates) {
         if (!candidateSchema.safeParse(c).success || c.snapshot_id !== snapshot.snapshot_id || ids.has(c.candidate_id))
             throw new Fault('INVALID_CANDIDATE');
@@ -162,17 +162,23 @@ export class Engine {
         throw new Fault('FENCED'); if (session.quarantined || session.closed)
         throw new Fault('QUARANTINED'); }
     private async bounded<T>(promise:Promise<T>,lease:Lease):Promise<T> {
-        const remaining=lease.deadline-performance.now();
-        if(remaining<=0)throw new Fault('TIME_BUDGET');
+        if(lease.deadline<=performance.now())throw new Fault('TIME_BUDGET');
         return new Promise<T>((resolve,reject)=>{
+            let timer:ReturnType<typeof setTimeout>|undefined;
             const cleanup=()=>{
                 clearTimeout(timer);
                 lease.controller.signal.removeEventListener('abort',abort);
             };
             const abort=()=>{cleanup();reject(new Fault('CANCELLED'));};
-            const timer=setTimeout(()=>{cleanup();reject(new Fault('TIME_BUDGET'));},remaining);
+            // Node clamps overflowed delays to 1 ms. Schedule long caller limits in
+            // chunks and leave an omitted deadline unscheduled, with abort active.
+            const schedule=()=>{
+                const remaining=lease.deadline-performance.now();
+                if(remaining<=0){cleanup();reject(new Fault('TIME_BUDGET'));}
+                else if(Number.isFinite(remaining))timer=setTimeout(schedule,Math.min(remaining,2147483647));
+            };
             lease.controller.signal.addEventListener('abort',abort,{once:true});
-            if(lease.controller.signal.aborted)abort();
+            if(lease.controller.signal.aborted)abort();else schedule();
             promise.then(value=>{cleanup();resolve(value);},error=>{cleanup();reject(error);});
         });
     }
@@ -200,7 +206,7 @@ export class Engine {
         const start = performance.now();
         let resolveDone!: () => void;
         const done = new Promise<void>(resolve => { resolveDone = resolve; });
-        const lease: Lease = { epoch: session.epoch + 1, goal_id: request.goal_id, controller: new AbortController(), deadline: start + request.time_budget_ms, inFlight: false, done, resolveDone };
+        const lease: Lease = { epoch: session.epoch + 1, goal_id: request.goal_id, controller: new AbortController(), deadline: request.time_budget_ms === undefined ? Infinity : start + request.time_budget_ms, inFlight: false, done, resolveDone };
         this.leases.set(request.session_id, lease);
         try {
             await this.ledger.transaction(s => { s.sessions[request.session_id]!.epoch = lease.epoch; s.goals[key] = { session_id: request.session_id, goal_id: request.goal_id, idempotency_key: request.idempotency_key, request_hash: hash, status: 'RUNNING', steps: 0, elapsed_ms: 0, reason: null, evidence: [], action_ids: [] }; });
@@ -236,7 +242,7 @@ export class Engine {
     private async run(req: RunGoalRequest, lease: Lease, key: string, start: number) {
         let noops = 0;let staleRetries=0;
         const signal = lease.controller.signal;
-        for (let step = 0; step < req.max_steps; step++) {
+        for (let step = 0; step < (req.max_steps ?? Infinity); step++) {
             this.fence(req.session_id, lease);
             const before = performance.now();
             const snapshotStarted=performance.now();
@@ -255,7 +261,7 @@ export class Engine {
             const decidedAt = performance.now();
             const input={snapshot_id:snapshot.snapshot_id,synthetic:true as const,summary:snapshot.safe_summary,goal:{task:req.goal.task,language:req.goal.language},candidates:snapshot.candidates.map(c=>({candidate_id:c.candidate_id,description:c.description}))};
             const remote=this.options.remotePolicy?await this.bounded(prepareExecutionRequest(this.options.browser,snapshot,req.goal,req.goal_id,lease.epoch,input,snapshotStarted,lease.deadline,signal),lease):undefined;
-            const raw=await this.bounded(this.options.provider.decide(structuredClone(input),{signal,deadline:Date.now()+Math.max(0,lease.deadline-performance.now()),...(remote?{remoteRequest:structuredClone(remote.request)}:{})}),lease);
+            const raw=await this.bounded(this.options.provider.decide(structuredClone(input),{signal,deadline:Math.min(snapshot.expires_at,Date.now()+Math.max(0,lease.deadline-performance.now())),...(remote?{remoteRequest:structuredClone(remote.request)}:{})}),lease);
             const response=remote?structuredClone(raw):raw;
             const permission=remote?verifyExecutionReceipt(response,remote,this.options.remotePolicy!):undefined;
             const decision=validateDecision(permission?.decision??response,snapshot.snapshot_id,snapshot.candidates.map(c=>c.candidate_id));

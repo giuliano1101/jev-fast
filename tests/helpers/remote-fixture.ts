@@ -24,7 +24,7 @@ export function makeRemoteCertificates(){
  return {ca:read('ca.pem'),server:{cert:read('server.pem'),key:read('server.key')},a:{cert:read('a.pem'),key:read('a.key')},b:{cert:read('b.pem'),key:read('b.key')},close:()=>rmSync(dir,{recursive:true,force:true})};
 }
 export type RemoteCertificates=ReturnType<typeof makeRemoteCertificates>;
-export async function remoteFixture(certs:RemoteCertificates,extra:Partial<Pick<DecisionGatewayOptions,'mockProvider'|'live'>>={}){
+export async function remoteFixture(certs:RemoteCertificates,extra:Partial<Pick<DecisionGatewayOptions,'mockProvider'|'live'|'choiceStore'>>={}){
  const dir=mkdtempSync(join(tmpdir(),'jev-gateway-'));const store=new GatewayStore(dir);const keys=generateKeyPairSync('ed25519');
  const identities={a:{owner_id:'owner',device_id:'device-a',agent_id:'agent'},b:{owner_id:'owner',device_id:'device-b',agent_id:'agent'}};
  for(const id of ['a','b'] as const)store.enroll({...identities[id],certificate_sha256:certificateSha256(certs[id].cert),expires_at:Date.now()+3600000});

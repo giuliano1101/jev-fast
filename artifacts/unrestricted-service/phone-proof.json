@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-11-01T16:41:10.663Z",
+  "cases": [
+    {
+      "tool": "mobile_list_available_devices",
+      "execution": "executed",
+      "provider": "jev",
+      "usage": {
+        "input_tokens": 413,
+        "output_tokens": 26
+      }
+    },
+    {
+      "tool": "mobile_press_button",
+      "execution": "executed",
+      "provider": "jev",
+      "usage": {
+        "input_tokens": 395,
+        "output_tokens": 26
+      }
+    },
+    {
+      "tool": "mobile_get_foreground_app",
+      "execution": "executed",
+      "provider": "jev",
+      "usage": {
+        "input_tokens": 422,
+        "output_tokens": 26
+      }
+    }
+  ],
+  "toolCount": 33,
+  "deviceConnected": true,
+  "homeVerified": true,
+  "finishedAt": "2026-11-01T16:41:42.472Z"
+}

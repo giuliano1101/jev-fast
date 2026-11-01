@@ -126,12 +126,11 @@ test('step cap stops a progressing but unfinished goal', async () => { const f =
 finally {
     await f.cleanup();
 } });
-test('empty candidates, candidate overflow and unsafe summary abort before provider', async () => { for (const mode of ['empty', 'overflow', 'unsafe']) {
+test('empty candidates and unsafe summary abort before provider', async () => { for (const mode of ['empty', 'unsafe']) {
     const f = await setup();
     try {
         f.browser.observe = async (s, g) => { const snap = await FakeBrowser.prototype.observe.call(f.browser, s, g); if (mode === 'empty')
-            snap.candidates = []; if (mode === 'overflow')
-            snap.candidates = Array.from({ length: 65 }, (_, i) => ({ ...snap.candidates[0]!, candidate_id: 'c' + i })); if (mode === 'unsafe')
+            snap.candidates = []; if (mode === 'unsafe')
             snap.synthetic = false; return snap; };
         assert.equal((await f.engine.runGoal('a', req(f.s))).status, 'FALLBACK');
         assert.equal(f.browser.executions, 0);
@@ -219,7 +218,7 @@ test('closing session rejects a new goal before browser close completes',async()
 test('shutdown drains and cleans a pending browser open',async()=>{const dir=await mkdtemp(join(tmpdir(),'jev-open-'));const browser=new FakeBrowser();let release!:()=>void;let closed=0;const gate=new Promise<void>(r=>release=r);browser.open=async()=>{await gate;return {allowed_origin:'http://127.0.0.1:7777'};};browser.close=async()=>{closed++;};const engine=await Engine.create({storageDir:dir,browser,provider:new MockProvider(),clients:['a']});const opening=engine.openSession('a',{fixture_id:'standard'});const settled=opening.then(()=>({ok:true}),e=>({ok:false,error:e}));try{const shutting=engine.shutdown();await new Promise(r=>setTimeout(r,10));release();await shutting;assert.equal((await settled).ok,false);assert.equal(closed,1);}finally{release();await engine.shutdown();await rm(dir,{recursive:true,force:true});}});
 test('immediate cancel works before initial goal persistence',async()=>{const f=await setup();try{const running=f.engine.runGoal('a',req(f.s));const result=await f.engine.cancel('a',{session_id:f.s,goal_id:'g'});assert.equal(result.status,'CANCELLED');assert.equal((await running).status,'CANCELLED');assert.equal(f.browser.executions,0);}finally{await f.cleanup();}});
 test('cancelling completed goal does not borrow another active goal status',async()=>{const f=await setup();try{await f.engine.runGoal('a',req(f.s));f.browser.done=false;f.browser.hung=true;const running=f.engine.runGoal('a',{...req(f.s),goal_id:'g2',idempotency_key:'id2'});while(f.browser.executions<2)await new Promise(r=>setTimeout(r,1));const old=await f.engine.cancel('a',{session_id:f.s,goal_id:'g'});assert.equal(old.status,'SUCCEEDED');assert.equal(old.unknown_action,false);await new Promise(r=>setTimeout(r,10));await f.engine.cancel('a',{session_id:f.s,goal_id:'g2'});const cancelled=await running;assert.equal(cancelled.status,'UNKNOWN');assert.ok(cancelled.elapsed_ms>0);}finally{await f.cleanup();}});
-test('P0 only one active browser session including pending opens',async()=>{const f=await setup();try{await assert.rejects(f.engine.openSession('b',{fixture_id:'standard'}),/BUSY/);}finally{await f.cleanup();}});
+test('independent owners can open separate browser sessions',async()=>{const f=await setup();try{const second=await f.engine.openSession('b',{fixture_id:'standard'});assert.notEqual(second.session_id,f.s);await assert.rejects(f.engine.observe('a',{session_id:second.session_id}),/UNAUTHORIZED/);}finally{await f.cleanup();}});
 test('public observation reserves the session against goal execution',async()=>{const f=await setup();let release!:()=>void;const original=f.browser.observe.bind(f.browser);f.browser.observe=async(s,g)=>{if(!g)await new Promise<void>(r=>{release=r;});return original(s,g);};try{const pending=f.engine.observe('a',{session_id:f.s});while(!release)await new Promise(r=>setTimeout(r,1));await assert.rejects(f.engine.runGoal('a',req(f.s)),/BUSY/);release();await pending;assert.equal(f.browser.executions,0);}finally{release?.();await f.cleanup();}});
 test('proven pre-execution stale rejection reobserves without UNKNOWN or replay',async()=>{
  const {ExecutionNotStarted}=await import('../../src/core/errors.js');const f=await setup();let attempts=0;

@@ -1,4 +1,5 @@
 import {randomBytes} from 'node:crypto';
+import {MAX_BODY} from '../../src/network/protocol.js';
 import {mkdtemp,rm,readFile} from 'node:fs/promises';
 import {join,resolve} from 'node:path';
 import {request as httpsRequest,createServer as createHttpsServer,type Server as HttpsServer} from 'node:https';
@@ -12,7 +13,7 @@ import {BrowserAdapter} from '../../src/browser/adapter.js';
 import {Engine} from '../../src/core/engine.js';
 import type {Candidate,Goal,ExecutionAuthorization,DecisionProvider,DecisionInput,DecisionContext} from '../../src/core/contracts.js';
 import {MockProvider} from '../../src/providers/mock.js';
-import {Coordinator} from '../../src/service/coordinator.js';
+import {Coordinator,type CoordinatorOptions} from '../../src/service/coordinator.js';
 import {loadServiceProfile} from '../../src/service/config.js';
 import {executeBounded} from '../../src/control/server.js';
 export interface NetworkEnvelope {request_id:string;delivery_status:'QUEUED'|'DISPATCHED'|'COMPLETED'|'REJECTED'|'UNKNOWN';reply?:{ok:boolean;result?:unknown;error?:{code:string}}}
@@ -27,7 +28,7 @@ export function verifiedFetch(ca:Buffer):typeof fetch {
   const signal=init?.signal??requestInput?.signal;
   return new Promise<Response>((done,fail)=>{
    const req=httpsRequest(url,{method,headers:Object.fromEntries(headers),ca,agent:false,checkServerIdentity:(_host,cert)=>checkServerIdentity(url.hostname,cert),signal:signal??undefined},res=>{
-    const chunks:Buffer[]=[];let size=0;res.on('data',(chunk:Buffer)=>{size+=chunk.length;if(size>65536)req.destroy(new Error('TEST_RESPONSE_LIMIT'));else chunks.push(chunk);});
+    const chunks:Buffer[]=[];let size=0;res.on('data',(chunk:Buffer)=>{size+=chunk.length;if(size>MAX_BODY)req.destroy(new Error('TEST_RESPONSE_LIMIT'));else chunks.push(chunk);});
     res.on('error',fail);res.on('end',()=>{const responseHeaders=new Headers();for(const [key,value]of Object.entries(res.headers))if(value!==undefined)responseHeaders.set(key,Array.isArray(value)?value.join(', '):value);const status=res.statusCode!;done(new Response([101,204,205,304].includes(status)?null:Buffer.concat(chunks),{status,headers:responseHeaders}));});
    });req.setTimeout(15000,()=>req.destroy(new Error('TEST_HTTPS_TIMEOUT')));req.on('error',fail);req.end(body);
   });
@@ -44,7 +45,7 @@ export class CountingBrowser extends BrowserAdapter {
  override async execute(session:string,candidate:Candidate,goal:Goal,signal:AbortSignal,authorization?:ExecutionAuthorization){await super.execute(session,candidate,goal,signal,authorization);this.physical++;if(this.loseNextResponse){this.loseNextResponse=false;throw new Error('simulated response loss after physical action');}}
 }
 export async function runLocalCli(runtime:string,args:string[]){return executeBounded(process.execPath,[resolve('dist/src/cli/index.js'),...args,'--runtime',runtime,'--json'],{timeoutMs:20000});}
-export async function networkFixture(options:{connector?:boolean;local?:boolean;proxy?:boolean}={}){
+export async function networkFixture(options:{connector?:boolean;local?:boolean;proxy?:boolean;chooseAction?:CoordinatorOptions['chooseAction']}={}){
  const serverModule='../../src/network/server.js',connectorModule='../../src/network/connector.js';
  const {startNetworkServer}=await import(serverModule),{startConnector}=await import(connectorModule);
  const root=await mkdtemp('/tmp/jev-net-'),runtime=join(root,'run'),certs=makeRemoteCertificates(),provider=new HoldingProvider();
@@ -55,7 +56,7 @@ export async function networkFixture(options:{connector?:boolean;local?:boolean;
  async function startLocal(){
   const fixture=await FixtureServer.start(),profile=await loadServiceProfile();browser=new CountingBrowser(fixture.origin);const currentBrowser=browser;
   engine=await Engine.create({storageDir:join(runtime,'ledger'),browser,provider,clients:profile.clients});
-  coordinator=await Coordinator.start({runtimeDir:runtime,engine,clients:profile.clients,health:profile.health,onStop:async()=>{await currentBrowser.shutdown();await fixture.close();}});
+  coordinator=await Coordinator.start({runtimeDir:runtime,engine,clients:profile.clients,health:profile.health,chooseAction:options.chooseAction,onStop:async()=>{await currentBrowser.shutdown();await fixture.close();}});
  }
  async function startConnection(){connector=await startConnector({url:proxy?.url??net.url,deviceId:fixed.deviceId,agentId:fixed.agentId,journalDir:join(root,'connector'),credentialFile:join(runtime,'client-a.json'),token:{token:tokens.connector,expiresAt},ca:certs.ca,pollMs:50});}
  async function client(token=tokens.mcp,customFetch=fetcher){const transport=new StreamableHTTPClientTransport(new URL(net.url+'/mcp'),{fetch:customFetch,requestInit:{headers:{authorization:'Bearer '+token}}}),client=new Client({name:'network-acceptance',version:'1.0.0'});await client.connect(transport);clients.add(client);return client;}

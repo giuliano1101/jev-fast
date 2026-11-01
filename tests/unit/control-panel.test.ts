@@ -25,7 +25,7 @@ if(panel){
   try{
    assert.equal(calls.length,0);assert.match(server.url,/^http:\/\/127\.0\.0\.1:\d+\/#/);
    const origin=new URL(server.url).origin,token=new URL(server.url).hash.slice(1),auth={'x-jev-control-token':token,origin};
-   const root=await http(origin+'/');assert.equal(root.status,200);assert.match(root.body,/启动服务/);assert.match(root.body,/本地合成测试页面/);assert.match(root.body,/MCP/);const script=await http(origin+'/app.js');assert.match(script.body,/sessionStorage/);assert.match(script.body,/history.replaceState/);assert.match(root.headers['content-security-policy'] as string,/default-src 'none'/);assert.equal(root.headers['cache-control'],'no-store');assert.equal(root.headers['referrer-policy'],'no-referrer');
+   const root=await http(origin+'/');assert.equal(root.status,200);assert.match(root.body,/启动服务/);assert.match(root.body,/运行能力以实际服务检查为准/);assert.match(root.body,/MCP/);const script=await http(origin+'/app.js');assert.match(script.body,/sessionStorage/);assert.match(script.body,/history.replaceState/);assert.match(root.headers['content-security-policy'] as string,/default-src 'none'/);assert.equal(root.headers['cache-control'],'no-store');assert.equal(root.headers['referrer-policy'],'no-referrer');
    assert.equal((await http(origin+'/api/status')).status,403);
    assert.equal((await http(origin+'/api/status','GET',{'x-jev-control-token':token})).status,403);
    assert.equal((await http(origin+'/api/status','GET',{...auth,origin:'http://evil.example'})).status,403);

@@ -7,7 +7,7 @@ const cli=resolve('dist/src/cli/index.js');
 async function run(args:string[]){return new Promise<{code:number|null;stdout:string;stderr:string}>((resolve,reject)=>{const child=spawn(process.execPath,[cli,...args],{stdio:['ignore','pipe','pipe']});let stdout='',stderr='';child.stdout.on('data',d=>stdout+=d);child.stderr.on('data',d=>stderr+=d);child.on('error',reject);child.on('exit',code=>resolve({code,stdout,stderr}));});}
 test('CLI help and generated schemas advertise only the same six tools',{timeout:10000},async()=>{
  const help=await run(['--help']);assert.equal(help.code,0);assert.match(help.stdout,/service start/);assert.match(help.stdout,/run_goal/);
- const schemas=await run(['schemas','--json']);assert.equal(schemas.code,0);assert.equal(JSON.parse(schemas.stdout).length,6);
+ const schemas=await run(['schemas','--json']);assert.equal(schemas.code,0);assert.equal(JSON.parse(schemas.stdout).length,13);
  const rejected=await run(['open_session','--args','{"fixture_id":"standard","client_id":"b"}','--json']);assert.equal(rejected.code,1);assert.deepEqual(JSON.parse(rejected.stdout),{error:{code:'INVALID_ARGUMENTS'}});
 });
 test('CLI starts one daemon, reports readiness, executes a mock demo and stops via operator auth',{timeout:30000},async()=>{

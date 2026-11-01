@@ -1,8 +1,8 @@
 # Jev 本机服务开关面板
 
-2026-11-01 当前部署：操作员已启动固定私有 remote profile 的后台面板，显示 `运行中 / remote · Jev / 已连通`，无需 AI 提供密钥。请复用已打开的最新标签页；下面的默认 mock 流程用于新安装。[当前部署与预算边界](public-service-quickstart.md)。
+2026-11-02 当前部署：操作员已启动固定私有 remote profile 的后台面板，显示 `运行中 / remote · Jev / 已连通`，无需 AI 提供密钥。请复用已打开的最新标签页；下面的默认 mock 流程用于新安装。[当前部署与预算边界](public-service-quickstart.md)。
 
-这个面板用于开启、关闭和检查 **CLI/MCP 共用的本地协调服务**。它不需要托管 API key，默认使用离线 mock。开启不会自动执行任务或消耗模型额度；remote 模式的健康检查只查询网关健康状态。remote 调用遵循操作员私有付费策略；当前部署已明确改为[只计费](metered-service.md)，不设金额/累计次数/预算有效期上限。默认有上限安装仍保留原预算规则。
+这个面板用于开启、关闭和检查 **CLI/MCP 共用的本地协调服务**。它不需要托管 API key，默认使用离线 mock。开启不会自动执行任务或消耗模型额度；remote 模式的健康检查只查询网关健康状态。remote 调用遵循操作员私有付费策略；当前部署已明确改为[只计费](metered-service.md)，不设金额/累计次数/预算有效期上限。可选有上限安装仍保留其显式预算规则。
 
 ## 打开面板
 
@@ -31,7 +31,7 @@ runtime 必须与 AI 的 CLI 参数和 MCP 凭据路径一致。面板不会扫�
 
 使用[网络 MCP 连接器](network-mcp.md)时，其 credentialFile 也必须指向这个 runtime 的 client-a.json。面板停止同一个本地协调服务后，远程任务同样受阻；云端没有重新开启本机服务的工具。连接器和 relay 独立管理，面板不负责启动它们。
 
-逐个管理设备或AI使用新的[接入控制台](manual-admission.md)。它是 relay 启动时提供的本机管理入口，列出自报名称与独立编号，默认关闭，由操作员开启。这里的 Mac 面板仍是整个执行器总开关；接入开关表示允许该连接，不替代执行器进程的启动。服务器部署后，接入管理端口仍限loopback，通过操作员隧道/控制台访问。
+逐个管理设备或AI使用新的[接入控制台](manual-admission.md)。它是 relay 启动时提供的本机管理入口，列出自报名称与独立编号；新安装默认关闭，由操作员开启。当前共享公网由私有 autoAdmitAi 策略即时准入新 AI，手动关闭原 owner 仍有效。这里的 Mac 面板仍是整个执行器总开关；接入开关表示允许该连接，不替代执行器进程的启动。服务器部署后，接入管理端口仍限loopback，通过操作员隧道/控制台访问。
 
 ## 使用开关
 
@@ -40,7 +40,7 @@ runtime 必须与 AI 的 CLI 参数和 MCP 凭据路径一致。面板不会扫�
 - **刷新状态**：检查实际服务和安装环境。不可达或诊断失败不能证明进程已退出；残留锁、权限异常等需按运维手册处理。
 - **接入信息**：按当前 Node、checkout 和 runtime 显示 MCP 配置与 CLI 示例。先开启服务，再让宿主启动 MCP。服务重启会轮换凭据，宿主需要重新连接。
 
-面板会显示本地 `mock`，或远程 `remote · Jev` / `remote · 网关模拟` / `remote · provider 未知`，以及远程可达性和兼容状态。`ready` 仅代表本地协调服务可用；`remoteReachable: false` 或 `routeCompatible: false` 时应先解决远程配置问题。主接口仍只支持本地合成 fixture，无法在面板开启后直接控制任意网站或手机。
+面板会显示本地 `mock`，或远程 `remote · Jev` / `remote · 网关模拟` / `remote · provider 未知`，以及远程可达性和兼容状态。`ready` 仅代表本地协调服务可用；`remoteReachable: false` 或 `routeCompatible: false` 时应先解决远程配置问题。当前主接口包含真实网页 browser_* 和配置 MCP host 的 host_* 工具，以及兼容 fixture。真实网页使用独立无头 Chromium，不接管日常 Chrome；手机是否可用取决于实际 configured_hosts（当前共享部署有 android）。仅开启默认 mock 面板不会自动配置真实 Jev 或手机 backend，具体调用见[接入手册](other-ai-real-testing.md)。
 
 ## 使用已经配置的真实 Jev
 

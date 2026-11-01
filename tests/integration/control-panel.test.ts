@@ -16,13 +16,13 @@ test('real browser starts mock, shares healthy CLI/MCP coordinator, preserves se
  try{
   await assert.rejects(access(runtime));const page=await browser.newPage({viewport:{width:1100,height:1200}});const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto(panel.url);await page.waitForFunction(()=>document.getElementById('status')?.textContent==='未连接');assert.equal(new URL(page.url()).hash,'');await assert.rejects(access(runtime));
-  assert.match(await page.locator('h1').innerText(),/掌控服务/);assert.ok(await page.getByText('本地合成测试页面',{exact:false}).count());
+  assert.match(await page.locator('h1').innerText(),/掌控服务/);assert.ok(await page.getByText('运行能力以实际服务检查为准',{exact:false}).count());
   const mcp=JSON.parse(await page.getByLabel('MCP 配置').innerText());assert.equal(mcp.mcpServers.jev.command,process.execPath);assert.deepEqual(mcp.mcpServers.jev.args,[resolve('dist/src/mcp/index.js'),'--credential',join(runtime,'client-a.json')]);
   await page.getByRole('button',{name:'启动服务',exact:true}).click();await page.waitForFunction(()=>document.getElementById('status')?.textContent==='运行中');assert.match(await page.locator('#mode').innerText(),/mock/);assert.equal(await page.locator('#reachability').innerText(),'无需远程连接');
   const health=JSON.parse((await run(['service','health','--runtime',runtime,'--json'])).stdout);assert.equal(health.ready,true);assert.equal(health.provider,'mock');
   const credential=JSON.parse(await readFile(join(runtime,'client-a.json'),'utf8'));assert.ok(!await page.content().then(content=>content.includes(credential.token)));
   await page.reload();await page.waitForFunction(()=>document.getElementById('status')?.textContent==='运行中');assert.equal(await page.locator('#error').isVisible(),false);
-  client=new Client({name:'control-panel-integration',version:'1.0.0'});await client.connect(new StdioClientTransport({command:mcp.mcpServers.jev.command,args:mcp.mcpServers.jev.args,stderr:'pipe'}));assert.equal((await client.listTools()).tools.length,6);
+  client=new Client({name:'control-panel-integration',version:'1.0.0'});await client.connect(new StdioClientTransport({command:mcp.mcpServers.jev.command,args:mcp.mcpServers.jev.args,stderr:'pipe'}));assert.equal((await client.listTools()).tools.length,13);
   const opened=await client.callTool({name:'jev.open_session',arguments:{fixture_id:'standard'}});const text=(opened.content as {type:string;text:string}[])[0]!.text;const session_id=String(JSON.parse(text).session_id);assert.ok(session_id&&session_id!=='undefined');
   const status=await run(['status','--runtime',runtime,'--args',JSON.stringify({session_id}),'--json']);assert.equal(status.code,0,status.stdout);assert.equal(JSON.parse(status.stdout).busy,false);
   await panel.close();assert.equal(JSON.parse((await run(['service','health','--runtime',runtime,'--json'])).stdout).ready,true);

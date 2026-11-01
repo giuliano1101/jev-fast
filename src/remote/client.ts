@@ -64,3 +64,36 @@ export class RemoteDecisionProvider implements DecisionProvider {
   }).catch(error=>{throw error instanceof Fault?error:new Fault('PROVIDER_UNAVAILABLE');});
  }
 }
+
+import {choiceArgsSchema,type ChoiceArgs} from '../choice/contracts.js';
+import {choiceSignal,choiceWithin} from '../choice/timing.js';
+import {choiceRequestSchema,choiceResponseSchema,type ChoiceResponse} from './choice.js';
+import {CHOICE_BODY_BYTES} from '../providers/choice.js';
+/** Generic decision transport; caller_scope is supplied by the trusted host, never the public tool args. */
+export class RemoteChoiceClient {
+ private readonly url:URL;
+ constructor(private readonly options:RemoteDecisionOptions){
+  try{this.url=new URL(options.url);}catch{throw new Fault('INVALID_REMOTE_CONFIGURATION');}
+  if(this.url.protocol!=='https:'||this.url.username||this.url.password||this.url.pathname!=='/'||this.url.search||this.url.hash||!options.cert||!options.key||!options.ca||!options.token||/[\r\n]/.test(options.token))throw new Fault('INVALID_REMOTE_CONFIGURATION');
+ }
+ async choose(callerScope:string,value:ChoiceArgs,parent:AbortSignal):Promise<ChoiceResponse>{
+  const args=choiceArgsSchema.parse(value),request=choiceRequestSchema.parse({caller_scope:callerScope,args}),body=JSON.stringify(request);if(Buffer.byteLength(body)>CHOICE_BODY_BYTES)throw new Fault('REQUEST_TOO_LARGE');
+  const context=choiceSignal(parent,args.timeout_ms),signal=context.signal;let req:ReturnType<typeof httpsRequest>|undefined;
+  try{
+   const token=await choiceWithin(Promise.resolve().then(()=>this.options.tokenLoader?this.options.tokenLoader():this.options.token),signal);
+   if(typeof token!=='string'||token.length>8192||!/^[\x21-\x7e]+$/.test(token))throw new Fault('INVALID_REMOTE_CONFIGURATION');
+   context.check();return await new Promise<ChoiceResponse>((resolve,reject)=>{
+    let settled=false;const finish=(error?:Fault,result?:ChoiceResponse)=>{if(settled)return;settled=true;signal.removeEventListener('abort',abort);if(error)reject(error);else resolve(result!);};
+    const abort=()=>{finish(new Fault('CANCELLED'));req?.destroy();};signal.addEventListener('abort',abort,{once:true});if(signal.aborted){abort();return;}
+    req=httpsRequest(new URL('/v1/choices',this.url),{method:'POST',cert:this.options.cert,key:this.options.key,ca:this.options.ca,rejectUnauthorized:true,minVersion:'TLSv1.2',agent:false,headers:{authorization:`Bearer ${token}`,'content-type':'application/json','content-length':Buffer.byteLength(body)}},res=>{
+     const chunks:Buffer[]=[];let bytes=0;res.on('data',(chunk:Buffer)=>{bytes+=chunk.length;if(bytes>CHOICE_BODY_BYTES){finish(new Fault('RESPONSE_LIMIT'));res.destroy();req?.destroy();}else chunks.push(chunk);});
+     res.on('error',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));res.on('aborted',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));
+     res.on('end',()=>{if(settled)return;try{context.check();}catch{finish(new Fault('CANCELLED'));return;}let raw:unknown;try{raw=JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{finish(new Fault('INVALID_RESPONSE'));return;}
+      if(res.statusCode!==200){const code=raw&&typeof raw==='object'&&'code' in raw?String(raw.code):'';finish(new Fault(safeCodes.has(code)?code:'PROVIDER_UNAVAILABLE'));return;}
+      const response=choiceResponseSchema.safeParse(raw);if(!response.success){finish(new Fault('INVALID_RESPONSE'));return;}finish(undefined,response.data);
+     });
+    });req.on('error',()=>finish(new Fault('PROVIDER_UNAVAILABLE')));if(signal.aborted){abort();return;}req.end(body);
+   });
+  }finally{context.close();}
+ }
+}

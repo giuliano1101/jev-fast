@@ -4,8 +4,24 @@ import {constants} from 'node:fs';
 import {dirname} from 'node:path';
 import {z} from 'zod';
 import {Fault} from '../core/errors.js';
-export const MAX_FRAME_BYTES=65536;
+export const MAX_FRAME_BYTES=16*1024*1024;
+/** Diagnostic and incomplete-frame timeout; never a default business execution budget. */
 export const MAX_CALL_MS=65000;
+/** A small transport grace allows the caller's execution timeout to return its result. */
+export function requestedRpcTimeoutMs(method:string,params:unknown,diagnosticTimeoutMs=MAX_CALL_MS):number|null {
+ const args=params&&typeof params==='object'?params as Record<string,unknown>:{};
+ if(method==='service.network_dispatch')return typeof args.method==='string'?requestedRpcTimeoutMs(args.method,args.params,diagnosticTimeoutMs):diagnosticTimeoutMs;
+ if(!method.startsWith('jev.'))return diagnosticTimeoutMs;
+ const budget=args.time_budget_ms??args.timeout_ms;
+ return typeof budget==='number'&&Number.isSafeInteger(budget)&&budget>0?Math.min(Number.MAX_SAFE_INTEGER,budget+5000):null;
+}
+/** Node timers overflow above 2^31-1 ms, so long caller deadlines use successive chunks. */
+export function startRpcDeadline(timeoutMs:number|null,onDeadline:()=>void):()=>void {
+ if(timeoutMs===null)return ()=>{};
+ const end=Date.now()+timeoutMs;let timer:ReturnType<typeof setTimeout>|undefined,cancelled=false;
+ const next=()=>{if(cancelled)return;const remaining=end-Date.now();if(remaining<=0){onDeadline();return;}timer=setTimeout(next,Math.min(remaining,2147483647));};
+ next();return ()=>{cancelled=true;clearTimeout(timer);};
+}
 export const credentialSchema=z.strictObject({version:z.literal(1),socket:z.string().min(1).max(100),token:z.string().regex(/^[0-9a-f]{64}$/)});
 export type Credential=z.infer<typeof credentialSchema>;
 export type Reply={ok:true;result:unknown}|{ok:false;error:{code:string}};
@@ -24,8 +40,8 @@ export async function ipcCall(credential:Credential,method:string,params:unknown
  const frame=encodeFrame({token:credential.token,method,params});
  return new Promise((resolve,reject)=>{
   const socket=createConnection(credential.socket);let buffer=Buffer.alloc(0);let settled=false;
-  const finish=(error:Fault|null,value?:unknown)=>{if(settled)return;settled=true;clearTimeout(timer);socket.destroy();if(error)reject(error);else resolve(value);};
-  const timer=setTimeout(()=>finish(new Fault('TRANSPORT_TIMEOUT')),MAX_CALL_MS);
+  const finish=(error:Fault|null,value?:unknown)=>{if(settled)return;settled=true;cancelDeadline();socket.destroy();if(error)reject(error);else resolve(value);};
+  const cancelDeadline=startRpcDeadline(requestedRpcTimeoutMs(method,params),()=>finish(new Fault('TRANSPORT_TIMEOUT')));
   socket.on('connect',()=>socket.write(frame));
   socket.on('data',(chunk:Buffer)=>{
    if(buffer.length+chunk.length>MAX_FRAME_BYTES){finish(new Fault('FRAME_TOO_LARGE'));return;}
