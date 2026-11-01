@@ -1,0 +1,32 @@
+name: Windows native read-only verification
+
+on:
+  push:
+    branches: [main, codex/native-desktop]
+    paths:
+      - native/desktop-windows.ps1
+      - tests/native/test-windows.ps1
+      - .github/workflows/native-windows.yml
+  pull_request:
+    paths:
+      - native/desktop-windows.ps1
+      - tests/native/test-windows.ps1
+      - .github/workflows/native-windows.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-protocol:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Parse native source and probe read-only protocol
+        shell: powershell
+        run: ./tests/native/test-windows.ps1
+      # No app launch, UI inspection, screenshots, clicks, hosted calls, or credentials.
+      # A hosted runner is not physical Windows desktop acceptance.
