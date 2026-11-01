@@ -12,10 +12,12 @@ import {identitySchema} from './protocol.js';
 import {certificateSha256,mintAgentToken} from './credentials.js';
 import {createDecisionGateway,type DecisionGatewayOptions} from './gateway.js';
 import {GatewayStore} from './store.js';
+import {UsageLedger} from './usage.js';
 const pathSchema=z.string().min(1).max(4096);
 const configSchema=z.strictObject({mode:z.enum(['mock','live']).default('mock'),certFile:pathSchema,keyFile:pathSchema,caFile:pathSchema,receiptPrivateKeyFile:pathSchema,tokenPublicKeyFile:pathSchema,tokenPrivateKeyFile:pathSchema.optional(),storageDir:pathSchema,issuer:idSchema,audience:idSchema,bindHost:z.string().min(1).max(253).default('127.0.0.1'),port:z.number().int().min(0).max(65535).default(8443),live:z.strictObject({keyFile:pathSchema,approvalFile:pathSchema}).optional()}).refine(v=>(v.mode==='live')===Boolean(v.live));
 const authorizationSchema=z.strictObject({approval_id:idSchema,expires_at:z.number().int().positive(),synthetic_only:z.literal(true),max_requests:z.number().int().min(1).max(1000),max_cost_usd:z.number().positive().max(10)});
-const approvalSchema=z.strictObject({authorization:authorizationSchema,approval:z.strictObject({approval_id:idSchema,expires_at:z.number().int().positive(),max_requests:z.number().int().min(1).max(1000),max_cost_usd:z.number().positive().max(10),reservation_usd:z.number().positive().max(1)})});
+const cappedApprovalSchema=z.strictObject({authorization:authorizationSchema,approval:z.strictObject({approval_id:idSchema,expires_at:z.number().int().positive(),max_requests:z.number().int().min(1).max(1000),max_cost_usd:z.number().positive().max(10),reservation_usd:z.number().positive().max(1)})});
+const approvalSchema=z.union([cappedApprovalSchema,z.strictObject({metering:z.strictObject({policy_id:idSchema})})]);
 const enrollmentSpec=z.strictObject({identity:identitySchema,certFile:pathSchema,expiresAt:z.number().int().positive()});
 export async function loadGatewayConfig(file:string){
  const parsed=configSchema.safeParse(await readPrivateJson(file));if(!parsed.success)throw new Fault('INVALID_GATEWAY_CONFIGURATION');
@@ -27,26 +29,32 @@ async function publicKey(file:string):Promise<KeyObject>{const bytes=await readP
 export async function startGatewayFromConfig(file:string){
  const {config,path}=await loadGatewayConfig(file);
  const [cert,key,ca,receiptPrivateKey,tokenPublicKey]=await Promise.all([readPrivateFile(path(config.certFile)),readPrivateFile(path(config.keyFile)),readPrivateFile(path(config.caFile)),privateKey(path(config.receiptPrivateKeyFile)),publicKey(path(config.tokenPublicKeyFile))]);
- let live:DecisionGatewayOptions['live'];
+ let live:DecisionGatewayOptions['live'];let usageLedger:UsageLedger|undefined;
  if(config.live){
   const parsed=approvalSchema.safeParse(await readPrivateJson(path(config.live.approvalFile)));if(!parsed.success)throw new Fault('LIVE_NOT_AUTHORIZED');
   const apiKey=(await readPrivateFile(path(config.live.keyFile),8192)).toString('utf8').trim();if(!apiKey||/[\r\n]/.test(apiKey))throw new Fault('LIVE_NOT_AUTHORIZED');
-  live={key:apiKey,...parsed.data};
+  if('metering' in parsed.data){usageLedger=new UsageLedger(path(config.storageDir));live={key:apiKey,metering:{...parsed.data.metering,ledger:usageLedger}};}else live={key:apiKey,...parsed.data};
  }
- const store=new GatewayStore(path(config.storageDir));
+ let store:GatewayStore;try{store=new GatewayStore(path(config.storageDir));}catch(error){usageLedger?.close();throw error;}
  try{
   const server=createDecisionGateway({tls:{cert,key,ca},store,receiptPrivateKey,tokenPublicKey,issuer:config.issuer,audience:config.audience,live});
   await new Promise<void>((done,fail)=>{server.once('error',fail);server.listen(config.port,config.bindHost,()=>{server.removeListener('error',fail);done();});});
   let closing:Promise<void>|undefined;
-  const close=()=>closing??=(async()=>{server.closeAllConnections();try{await new Promise<void>((done,fail)=>server.close(e=>e?fail(e):done()));}finally{store.close();}})();
-  return {server,store,close,mode:config.mode};
- }catch(error){store.close();throw error;}
+  const close=()=>closing??=(async()=>{server.closeAllConnections();try{await new Promise<void>((done,fail)=>server.close(e=>e?fail(e):done()));}finally{store.close();usageLedger?.close();}})();
+  return {server,store,usageLedger,close,mode:config.mode};
+ }catch(error){store.close();usageLedger?.close();throw error;}
 }
 export async function runOperator(argv:string[]):Promise<unknown>{
  let args;try{args=parseArgs({args:argv,options:{help:{type:'boolean',short:'h'},config:{type:'string'},spec:{type:'string'},out:{type:'string'}},strict:true,allowPositionals:true});}catch{throw new Fault('INVALID_ARGUMENTS');}
  const {values,positionals}=args;
- if(values.help){if(positionals.length||Object.keys(values).some(k=>k!=='help'))throw new Fault('INVALID_ARGUMENTS');return {help:'Jev operator: serve --config FILE | enroll --config FILE --spec FILE | revoke --config FILE --spec FILE | mint --config FILE --spec FILE --out FILE. Files must be private (0600). Default gateway mode is mock. Mint writes a certificate-bound decide:synthetic token only to an exclusive 0600 file; maximum lifetime is one hour.'};}
- const command=positionals[0];if(positionals.length!==1||!values.config||!['serve','enroll','revoke','mint'].includes(command!))throw new Fault('INVALID_ARGUMENTS');
+ if(values.help){if(positionals.length||Object.keys(values).some(k=>k!=='help'))throw new Fault('INVALID_ARGUMENTS');return {help:'Jev operator: serve --config FILE | usage --config FILE | enroll --config FILE --spec FILE | revoke --config FILE --spec FILE | mint --config FILE --spec FILE --out FILE. Files must be private (0600). Default gateway mode is mock. Mint writes a certificate-bound decide:synthetic token only to an exclusive 0600 file; maximum lifetime is one hour.'};}
+ const command=positionals[0];if(positionals.length!==1||!values.config||!['serve','usage','enroll','revoke','mint'].includes(command!))throw new Fault('INVALID_ARGUMENTS');
+ if(command==='usage'){
+  if(values.spec!==undefined||values.out!==undefined)throw new Fault('INVALID_ARGUMENTS');
+  const {config,path}=await loadGatewayConfig(values.config);if(!config.live)throw new Fault('LIVE_NOT_AUTHORIZED');
+  const policy=approvalSchema.safeParse(await readPrivateJson(path(config.live.approvalFile)));if(!policy.success||!('metering' in policy.data))throw new Fault('LIVE_NOT_AUTHORIZED');
+  const ledger=new UsageLedger(path(config.storageDir));try{return ledger.summary();}finally{ledger.close();}
+ }
  if(command==='serve'){
   if(values.spec!==undefined||values.out!==undefined)throw new Fault('INVALID_ARGUMENTS');
   const service=await startGatewayFromConfig(values.config);

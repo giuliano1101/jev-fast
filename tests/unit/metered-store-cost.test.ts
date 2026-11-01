@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,rmSync} from 'node:fs';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {generateKeyPairSync} from 'node:crypto';
+import {DatabaseSync} from 'node:sqlite';
+import {GatewayStore} from '../../src/remote/store.js';
+import {MockProvider} from '../../src/providers/mock.js';
+import {signDecisionResponse} from '../../src/remote/protocol.js';
+import {remoteRequest} from '../helpers/remote-fixture.js';
+test('decision accounting preserves a known cost above old paid allowance without granting a budget',async()=>{const dir=mkdtempSync(join(tmpdir(),'jev-cost-'));let store=new GatewayStore(dir);try{const identity={owner_id:'o',device_id:'d',agent_id:'a'},keys=generateKeyPairSync('ed25519'),request=remoteRequest();const decision=await new MockProvider().decide(request.input,{signal:new AbortController().signal,deadline:Date.now()+2000});const response=signDecisionResponse(request,decision,{privateKey:keys.privateKey,issuer:'gateway',audience:'executor',identity,decisionId:'decision',issuedAtMs:Date.now(),validForMs:1000,route:'mock'});store.begin(identity,'key','a'.repeat(64));store.complete(identity,'key',response,42);store.close();store=new GatewayStore(dir);assert.equal(store.begin(identity,'key','a'.repeat(64)).status,'complete');const db=new DatabaseSync(join(dir,'gateway.sqlite'));try{assert.equal(db.prepare('SELECT cost FROM decisions').get()?.cost,42);assert.equal(db.prepare('SELECT count(*) AS n FROM budgets').get()?.n,0);}finally{db.close();}}finally{store.close();rmSync(dir,{recursive:true,force:true});}});

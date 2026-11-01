@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-11-01T12:42:15.871Z",
+  "billingMode": "metered",
+  "costLimit": null,
+  "cumulativeRequestLimit": null,
+  "budgetExpiry": null,
+  "oldBudgetUnchanged": true,
+  "oldBudgetSha256": "2846f62f371c5d713a252d4214b43ebe7a55ac3697d9d1bb87fbce33f21566bf",
+  "oldBudgetRequestCount": 8,
+  "upstreamHttpStatuses": [
+    {
+      "http_status": 200,
+      "count": 1
+    }
+  ],
+  "coordinatorRestarted": false,
+  "leftRunning": true
+}

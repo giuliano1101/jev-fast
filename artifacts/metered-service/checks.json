@@ -1,0 +1,45 @@
+{
+  "unit": {
+    "tests": 424,
+    "pass": 424,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "integration": {
+    "tests": 78,
+    "pass": 78,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "safety": {
+    "tests": 40,
+    "pass": 40,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheck": {
+    "exitCode": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "deployment": {
+    "tests": 16,
+    "exitCode": 0
+  },
+  "specReview": "APPROVED",
+  "qualityReview": "APPROVED",
+  "realMcpGoal": "SUCCEEDED",
+  "realSignedRoute": "jev",
+  "hostedProofRequests": 1,
+  "capsRemoved": [
+    "max_cost_usd",
+    "max_requests",
+    "budget_expiry"
+  ],
+  "historicalLedgersReset": false,
+  "leftRunning": true
+}

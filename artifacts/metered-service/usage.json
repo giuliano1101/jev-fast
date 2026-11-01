@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-11-01T12:42:15.869Z",
+  "billing_mode": "metered",
+  "policy_id": "operator-usage-only",
+  "attempts": 1,
+  "known_usage_attempts": 1,
+  "unknown_usage_attempts": 0,
+  "input_tokens": 521,
+  "output_tokens": 90,
+  "known_input_cost_usd": 0.000021882,
+  "input_price_usd_per_million_tokens": 0.042,
+  "output_cost_usd": 0
+}

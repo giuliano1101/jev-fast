@@ -10,12 +10,13 @@ import {JevProvider,type JevOptions,type LiveAuthorization} from '../providers/j
 import {canonicalDigest,canonicalJson,parseDecisionRequest,signDecisionResponse,type AuthenticatedIdentity,type DecisionRequest} from './protocol.js';
 import {verifyAgentToken} from './credentials.js';
 import {GatewayStore,type GatewayApproval} from './store.js';
+import type {UsageLedger} from './usage.js';
 export interface DecisionGatewayOptions {
  tls:{cert:string|Buffer;key:string|Buffer;ca:string|Buffer};store:GatewayStore;
  receiptPrivateKey:KeyObject;tokenPublicKey:KeyObject;issuer:string;audience:string;
  /** Trusted test profile only. Its output must still validate as a mock decision. */
  mockProvider?:DecisionProvider;
- live?:{key:string;authorization:LiveAuthorization;approval:GatewayApproval;transport?:JevOptions['transport']};
+ live?:{key:string;transport?:JevOptions['transport']} & ({authorization:LiveAuthorization;approval:GatewayApproval;metering?:never}|{metering:{policy_id:string;ledger:UsageLedger};authorization?:never;approval?:never});
 }
 const publicCodes=new Set(['UNAUTHENTICATED','FORBIDDEN','INVALID_PROTOCOL','REQUEST_TOO_LARGE','STALE_SNAPSHOT','BUDGET_EXHAUSTED','RATE_LIMITED','PROVIDER_UNAVAILABLE','IDEMPOTENCY_CONFLICT','DECISION_UNKNOWN','LIVE_NOT_AUTHORIZED','INVALID_DECISION']);
 const definiteRejections=new Set(['FORBIDDEN','UNAUTHENTICATED','STALE_SNAPSHOT','BUDGET_EXHAUSTED','LIVE_NOT_AUTHORIZED','INVALID_DECISION','INVALID_PROBABILITIES']);
@@ -43,10 +44,15 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
  if(!options.tls.cert||!options.tls.key||!options.tls.ca||options.receiptPrivateKey.type!=='private'||options.receiptPrivateKey.asymmetricKeyType!=='ed25519'||options.tokenPublicKey.type!=='public'||options.tokenPublicKey.asymmetricKeyType!=='ed25519')throw new Fault('INVALID_GATEWAY_CONFIGURATION');
  if(options.live){
   if(options.mockProvider)throw new Fault('INVALID_GATEWAY_CONFIGURATION');
-  const {approval,authorization}=options.live;
-  if(approval.approval_id!==authorization.approval_id||approval.expires_at!==authorization.expires_at||approval.max_requests!==authorization.max_requests||approval.max_cost_usd!==authorization.max_cost_usd||approval.reservation_usd<32768*.042/1e6)throw new Fault('LIVE_NOT_AUTHORIZED');
-  // Validate constructor authorization before opening the listener; requests use a fresh provider with a durable shared budget.
-  new JevProvider(options.live);options.store.configureBudget(approval);
+  const live=options.live;
+  if(live.metering){
+   if(live.authorization||live.approval)throw new Fault('LIVE_NOT_AUTHORIZED');
+   new JevProvider({key:live.key,metering:{policy_id:live.metering.policy_id,recorder:live.metering.ledger.recorder({policy_id:live.metering.policy_id,identity:{owner_id:'startup',device_id:'startup',agent_id:'startup'},request_id:'startup'})},transport:live.transport});
+  }else{
+   const {approval,authorization}=live;
+   if(approval.approval_id!==authorization.approval_id||approval.expires_at!==authorization.expires_at||approval.max_requests!==authorization.max_requests||approval.max_cost_usd!==authorization.max_cost_usd||approval.reservation_usd<32768*.042/1e6)throw new Fault('LIVE_NOT_AUTHORIZED');
+   new JevProvider(live);options.store.configureBudget(approval);
+  }
  }
  const route=options.live?'jev':'mock';const mock=options.mockProvider??new MockProvider();
  let active=0;const principals=new Set<string>();const rates=new Map<string,{start:number;count:number}>();
@@ -89,7 +95,9 @@ export function createDecisionGateway(options:DecisionGatewayOptions):Server {
    if(principals.has(principal))throw new Fault('RATE_LIMITED');principals.add(principal);principalHeld=true;
    const dispatchRemaining=ttl-(performance.now()-started);
    if(controller.signal.aborted||dispatchRemaining<=0)throw new Fault('STALE_SNAPSHOT');
-   const provider=options.live?new JevProvider({...options.live,beforeAttempt:()=>{if(controller.signal.aborted||performance.now()-started>=ttl)throw new Fault('STALE_SNAPSHOT');authenticate();options.store.reserve(identity!,request!.idempotency_key,options.live!.approval.approval_id);authenticate();if(controller.signal.aborted||performance.now()-started>=ttl)throw new Fault('STALE_SNAPSHOT');}}):mock;
+   const live=options.live;
+   const recheck=()=>{if(controller.signal.aborted||performance.now()-started>=ttl)throw new Fault('STALE_SNAPSHOT');authenticate();};
+   const provider=live?new JevProvider(live.metering?{key:live.key,transport:live.transport,metering:{policy_id:live.metering.policy_id,recorder:live.metering.ledger.recorder({policy_id:live.metering.policy_id,identity,request_id:request.request_id})},beforeAttempt:recheck}:{...live,beforeAttempt:()=>{recheck();options.store.reserve(identity!,request!.idempotency_key,live.approval.approval_id);recheck();}}):mock;
    dispatched=true;
    const decision=await within(provider.decide(request.input,{signal:controller.signal,deadline:Date.now()+dispatchRemaining}),controller.signal);
    const remainingAtIssue=ttl-(performance.now()-started);if(controller.signal.aborted||remainingAtIssue<=0)throw new Fault('STALE_SNAPSHOT');

@@ -1,6 +1,6 @@
 # 让另一个 AI 接入 Jev
 
-可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。当前部署已由操作员启用自动接入 AI，会话初始化后等待 `jev.network_status.enabled`；新安装仍默认待开启。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
+可以接入，但读取仓库只是获得代码和说明。仓库是私有的，另一个 AI 的宿主还需要仓库读取权限。以下本地流程需要执行机器权限；远程 AI 可使用已部署的 **`https://jev.43-160-233-161.sslip.io/mcp`**，选择 Streamable HTTP，不配置 Authorization。当前部署已由操作员启用自动接入 AI，会话初始化后等待 `jev.network_status.enabled`；新安装仍默认待开启。当前真实部署已由用户明确改为[只计费](metered-service.md)，不设金额/累计次数/预算有效期拦截，无需 AI 再索取额度。见[公网接入与开关说明](public-service-quickstart.md)和[免 Key 协议](manual-admission.md)。本机 Unix socket 或控制面板链接不能当作远程 MCP 地址。
 
 当前正式 CLI/MCP 只执行 `standard` 本地模拟页面上的十二类固定任务。默认离线 mock；它可验证接线，不代表已经使用真实 Jev 模型。既有真实网页、抖音和 Android 测试工具仍是独立研究适配器。双实体电脑和任意真实应用接入尚未验收。
 
@@ -80,7 +80,7 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-demo --json
 
 ## 4. 需要真实 Jev 时
 
-由操作员按[跨机器手册](cross-machine-cli-mcp.md)部署或连接受信网关、登记设备与 agent、签发 token，提供 0600 私有 remote profile，并审批当前期限/请求数/费用。远程网关提供模型决策，本机协调服务执行动作；网关不是允许外部 AI 随意操作这台 Mac 的接口。
+由操作员按[跨机器手册](cross-machine-cli-mcp.md)部署或连接受信网关、登记设备与 agent、签发 token，提供 0600 私有 remote profile，并明确选择有上限审批或只计费策略。当前已部署 Mac 按用户指令使用只计费模式，其他 AI 复用即可，不再向用户申请额度。远程网关提供模型决策，本机协调服务执行动作；网关不是允许外部 AI 随意操作这台 Mac 的接口。
 
 面板启动时显式传 `--config /absolute/private/profile.json`。普通 AI 工具不能上传 API key、修改 provider、登记身份或扩大预算。以前的测试额度不能因读取文档或点击开启而自动续期。
 

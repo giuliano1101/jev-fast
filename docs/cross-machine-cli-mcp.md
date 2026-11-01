@@ -1,3 +1,5 @@
+> 当前已部署 Mac 使用操作员明确授权的[只计费模式](metered-service.md)：无金额、累计次数、预算有效期拦截，按 usage 记录费用。本文原有 caps/approval 流程用于有上限安装；新配置可使用私有 `{"metering":{"policy_id":"operator-usage-only"}}`，与旧审批互斥。CLI 增加 `usage --config FILE` 查看本地统计，无 hosted 调用。
+
 # 跨机器 CLI / MCP：合成任务原型
 
 本地协调服务负责浏览器、会话、持久账本和执行前校验。远程网关只返回带签名的决策，不能操作浏览器或 Shell。现有六工具保持不变：`open_session`、`observe`、`run_goal`、`cancel`、`status`、`close_session`；MCP 工具名增加 `jev.` 前缀。
@@ -127,7 +129,7 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-a --json
 
 默认静态配置仍按上述规则固定 token。需要轮换时，可信私有 profile 可设置 `"tokenReload": true`：每次健康检查/决策请求前重新读取同一路径的 0600、当前用户所有的私有 token 文件；空值、格式错误、权限错误、读取失败均拒绝请求，不使用旧 token。文件读取计入原请求截止时间。此模式的指纹绑定绝对 profile 路径、完整配置与固定证书/密钥/回执材料，排除可替换 token 字节，因此原路径原身份的 token 轮换不要求重启。其他信任材料、身份或配置变化仍不匹配。
 
-`tokenReload` 不会签发或续期 token。操作员需使用既有签发权限，将短期证书绑定 token 原子替换到配置路径；不扩大权限或预算。S17 本机部署的私有 runner 每 20 分钟刷新一次、单个 token 最长 55 分钟且不超过原预算到期日。静态配置仍可按旧方式签发新文件并安全停启；两种方式均不得删除账本或重放历史动作。
+`tokenReload` 不会签发或续期 token。操作员需使用既有签发权限，将短期证书绑定 token 原子替换到配置路径；不扩大权限或预算。S17 私有 runner 原先受预算到期日约束；S18 只计费 runner 每 20 分钟刷新一次、单个 token 最长 55 分钟，仅遵循现有客户端证书有效期，不再绑定旧预算到期日。静态配置仍可按旧方式签发新文件并安全停启；两种方式均不得删除账本或重放历史动作。
 
 ## MCP
 
