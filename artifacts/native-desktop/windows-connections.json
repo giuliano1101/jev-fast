@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-11-01T22:41:23.647Z",
+  "connections": [
+    {
+      "prefix": "64d7b3b2",
+      "found": true,
+      "enabled": false,
+      "state": "pending",
+      "generation": 2
+    },
+    {
+      "prefix": "b4dbbc71",
+      "found": true,
+      "enabled": false,
+      "state": "pending",
+      "generation": 1
+    }
+  ],
+  "connector": [
+    {
+      "enabled": true,
+      "state": "enabled",
+      "generation": 98,
+      "heartbeatAgeMs": 3062
+    }
+  ],
+  "coordinatorPid": 85892,
+  "connectorPid": 85895,
+  "relayNotRestarted": true,
+  "profileKeyLedgersUnchanged": true,
+  "noWindowsHostAdded": true,
+  "originalRequest": {
+    "request_id": "c9ec927c-2c46-42d8-9557-3f35cfa89b6a-decision",
+    "replayed": false,
+    "found": true,
+    "results": [
+      {
+        "request_id": "c9ec927c-2c46-42d8-9557-3f35cfa89b6a-decision",
+        "delivery_status": "COMPLETED",
+        "method": "jev.choose_action",
+        "reply_ok": true,
+        "error_code": null,
+        "decision_produced": true,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "selected_id": "open",
+        "signed_decision": true,
+        "usage": {
+          "input_tokens": 478,
+          "output_tokens": 24
+        },
+        "connection_prefix": "b4dbbc71"
+      }
+    ]
+  }
+}

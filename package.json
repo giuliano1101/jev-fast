@@ -7,6 +7,8 @@
     "node": ">=24.19"
   },
   "scripts": {
+    "desktop:build": "node scripts/build-desktop.mjs",
+    "desktop:mcp": "node dist/src/desktop/main.js",
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

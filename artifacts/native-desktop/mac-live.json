@@ -1,0 +1,312 @@
+{
+  "platform": "macos",
+  "hosted_calls": 20,
+  "input_tokens": 9864,
+  "output_tokens": 618,
+  "attempts": [
+    {
+      "startedAt": "2026-11-01T22:34:26.566Z",
+      "cases": [
+        {
+          "task": "37 × 19",
+          "expected": "703",
+          "actual": "703",
+          "verified": true
+        },
+        {
+          "task": "native window screenshot",
+          "verified": true,
+          "width": 460,
+          "height": 816,
+          "scaleX": 2
+        },
+        {
+          "task": "TextEdit Unicode edit and Cmd+S",
+          "verified": true,
+          "bytes": 83,
+          "expectedBytes": 83
+        }
+      ],
+      "errors": [],
+      "ok": true,
+      "calls": [
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 541,
+            "output_tokens": 33
+          },
+          "ms": 1027
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 532,
+            "output_tokens": 33
+          },
+          "ms": 415
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 425
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 248
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 312
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 403
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 535,
+            "output_tokens": 33
+          },
+          "ms": 485
+        },
+        {
+          "tool": "desktop_open_document",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 387,
+            "output_tokens": 26
+          },
+          "ms": 720
+        },
+        {
+          "tool": "desktop_set_value",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 445,
+            "output_tokens": 26
+          },
+          "ms": 414
+        },
+        {
+          "tool": "desktop_press_key",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 387,
+            "output_tokens": 26
+          },
+          "ms": 485
+        }
+      ]
+    },
+    {
+      "startedAt": "2026-11-01T22:39:22.327Z",
+      "cases": [
+        {
+          "task": "TextEdit native Unicode key events and Cmd+S",
+          "verified": true,
+          "bytes": 45,
+          "expectedBytes": 45
+        }
+      ],
+      "errors": [],
+      "ok": true,
+      "calls": [
+        {
+          "tool": "desktop_open_document",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 388,
+            "output_tokens": 26
+          },
+          "ms": 1173
+        },
+        {
+          "tool": "desktop_type_text",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 421,
+            "output_tokens": 26
+          },
+          "ms": 394
+        },
+        {
+          "tool": "desktop_press_key",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 380,
+            "output_tokens": 26
+          },
+          "ms": 298
+        }
+      ]
+    },
+    {
+      "startedAt": "2026-11-01T22:31:26.431Z",
+      "cases": [
+        {
+          "task": "37 × 19",
+          "expected": "703",
+          "actual": "703",
+          "verified": true
+        }
+      ],
+      "errors": [
+        "DESKTOP_NATIVE_UNKNOWN"
+      ],
+      "ok": false,
+      "calls": [
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 541,
+            "output_tokens": 33
+          },
+          "ms": 971
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 532,
+            "output_tokens": 33
+          },
+          "ms": 469
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 395
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 311
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 286
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 530,
+            "output_tokens": 33
+          },
+          "ms": 504
+        },
+        {
+          "tool": "desktop_click",
+          "status": "executed",
+          "provider": "jev",
+          "model": "jev-1.14.0",
+          "selected": "intended",
+          "usage": {
+            "input_tokens": 535,
+            "output_tokens": 33
+          },
+          "ms": 335
+        }
+      ]
+    }
+  ],
+  "scope": "Local native MCP through HostService with original real Jev coordinator. Shared public profile unchanged; desktop host not enrolled.",
+  "known_cost_usd": 0.000414288,
+  "pricing_basis": "Existing service usage-only accounting: USD 0.042 per million input tokens; output USD 0. Not a new spending limit.",
+  "signed_decisions_verified": 20
+}

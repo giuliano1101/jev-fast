@@ -267,7 +267,7 @@ def nginx_common(host):
     return f'''    server_name {validate_hostname(host)};
     access_log off;
     error_log /var/log/jev-network/nginx-error.log crit;
-    client_max_body_size 65536;
+    client_max_body_size 16777216;
     client_header_buffer_size 1k;
     large_client_header_buffers 2 8k;
     client_header_timeout 5s;

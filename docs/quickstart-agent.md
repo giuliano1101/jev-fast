@@ -63,3 +63,5 @@ node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-demo --json
 可选 hostConfigs 仅由操作员绑定已知 MCP backend；AI 不能传任意 serverCommand 或设备标识创建主机。新部署手动接入默认关闭；autoAdmitAi/allowContinuations 是私有服务端可选策略，当前公网已开启。完整接入语义见[手动接入](manual-admission.md)，旧 Bearer 接线见[网络手册](network-mcp.md)。
 
 找不到 Node/入口时检查宿主绝对路径；本地不可达检查实际 runtime/服务，不直接重启共享服务。`SERVICE_PROFILE_MISMATCH`、`CONTINUATION_INVALID`、资源/上游错误应按实际层报告，不索取已配置的模型 Key、不自动切换 mock。宿主根本没有远程 MCP/Node 能力时，报告宿主缺少入口，而非 Jev 未授权。
+
+原生桌面 App 使用独立[原生 MCP](native-desktop.md)和已有真实 Jev 选择组合。原 Mac 的构建已实测；其他机器需构建自己的执行器。共享 profile 本轮未增加 desktop / Windows host，实时网络状态应再次核对。

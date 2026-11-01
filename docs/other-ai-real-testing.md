@@ -32,6 +32,12 @@ https://jev.43-160-233-161.sslip.io/mcp
 
 当前公网已验证：两个独立真实 Example 网站会话、真实 Jev 导航、短连接恢复，以及配置安卓手机的 HOME 操作和前台应用回读。Wikipedia 搜索跳转曾暴露导航期间观察的问题，不能据此宣称所有网站流程稳定；检查 `navigation_pending`，必要时重新 observe，详见[当前报告](reports/2026-11-02-unrestricted-service.md)。
 
+## 本机原生 App 执行器与 Windows 接入
+
+Mac 原生 App MCP 已实现并实测系统计算器、TextEdit Unicode 编辑与保存、真实窗口截图，使用方法见[原生桌面手册](native-desktop.md)。本机 AI 可将它作为执行器与本服务的 `jev.choose_action` 组合使用。当前公共 profile 按用户要求保持不变，host 仍为 `android`；不要假设公网已注册 `desktop`。Windows 本机执行器由 Windows 端安装与验证，无需给这台 Mac 新增 Windows host。
+
+2026-11-02 修复了代理遗留的 64 KB 请求限制；现在与现有 16 MiB 传输保护一致。旧代理会挡住 Android 较大的回传结果并中断连接器心跳，不能把这类交付失败当作模型没有产生决策。旧 owner 被撤销时保留原编号核查，不用新键重放。[本轮报告](reports/2026-11-02-native-desktop.md)记录了 Windows 原请求完成状态与实际部署范围。
+
 ## 私密缓存 continuation_token
 
 先调用：

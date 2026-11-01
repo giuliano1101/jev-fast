@@ -18,6 +18,7 @@ test('private operator profile preserves explicit auto AI admission policy and n
  try{const file=join(dir,'server.json'),key=join(dir,'key.pem'),cert=join(dir,'cert.pem');await writeFile(key,'operator key',{mode:0o600});await writeFile(cert,'operator cert',{mode:0o600});
   const config={accessMode:'manual',host:'127.0.0.1',port:8443,publicHost:'relay.invalid',allowedOrigins:[],deviceId:'d',agentId:'a',storeDir:join(dir,'store'),tlsKeyFile:key,tlsCertFile:cert,autoAdmitAi:true,allowContinuations:true,sessionTtlMs:null};
   await writeFile(file,JSON.stringify(config),{mode:0o600});const loaded=loadNetworkConfig('server',file);assert.ok('autoAdmitAi' in loaded);assert.equal(loaded.autoAdmitAi,true);assert.equal(loaded.allowContinuations,true);assert.equal(loaded.sessionTtlMs,null);
+  await writeFile(file,JSON.stringify({...config,leaseMs:30000}));const lease=loadNetworkConfig('server',file);assert.ok('leaseMs' in lease);assert.equal(lease.leaseMs,30000);
   await writeFile(file,JSON.stringify({...config,autoAdmitAi:'true'}));assert.throws(()=>loadNetworkConfig('server',file),/INVALID_NETWORK_CONFIG/);
  }finally{await rm(dir,{recursive:true,force:true});}
 });

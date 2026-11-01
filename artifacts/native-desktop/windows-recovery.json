@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-11-01T22:26:38.963Z",
+  "enabled": true,
+  "connector_online": true,
+  "local_ready": true,
+  "androidHostAvailable": false,
+  "androidToolCount": 0,
+  "coordinatorPid": 85892,
+  "connectorPid": 85895,
+  "noCoordinatorRestart": true,
+  "noConnectorRestart": true,
+  "profileKeyLedgerUnchanged": true,
+  "recheck": {
+    "at": "2026-11-01T22:33:28.990Z",
+    "enabled": true,
+    "connector_online": true,
+    "local_ready": true,
+    "delivery_status": "COMPLETED",
+    "reply_ok": true,
+    "androidToolCount": 33
+  }
+}

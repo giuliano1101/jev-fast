@@ -17,6 +17,8 @@
 
 其他 AI 复用共享 `/tmp/jev-501`，不重启、停服、切换 provider 或启动替代 mock。操作员仍可关闭单个 owner、设备或本地总开关。
 
+本机原生 Mac / Windows App 执行器已提供，接入与当前实测范围见[原生桌面手册](docs/native-desktop.md)。可与已有 `jev.choose_action` 配合使用；共享公网 profile 本轮仍保留 android，未新增 Windows host。
+
 ## 当前工具
 
 本地 CLI/stdio 共 **13 个业务工具**：

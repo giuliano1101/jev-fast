@@ -30,7 +30,7 @@ export async function createHostMcpClient(config:HostConfig,_host?:string,signal
  catch{unavailable();signal?.removeEventListener('abort',abort);await transport.close();throw new Fault('HOST_UNAVAILABLE');}
  return {listTools:async()=>{const tools:Tool[]=[],cursors=new Set<string>();let cursor:string|undefined;do{const result=ListToolsResultSchema.parse(await request('tools/list',cursor?{cursor}:{}));tools.push(...result.tools);cursor=result.nextCursor;if(cursor){if(cursors.has(cursor))throw new Fault('HOST_INVALID_RESPONSE');cursors.add(cursor);}}while(cursor);return {tools};},callTool:async params=>CallToolResultSchema.parse(await request('tools/call',params)),close:async()=>{unavailable();signal?.removeEventListener('abort',abort);await transport.close();}};
 }
-type Job={owner:string;args:HostActArgs;controller:AbortController;context:ReturnType<typeof choiceSignal>;decision?:ChoiceResponse;finished:boolean};
+type Job={owner:string;args:HostActArgs;controller:AbortController;context:ReturnType<typeof choiceSignal>;decision?:ChoiceResponse;physical?:Promise<CallToolResult>;finished:boolean};
 /** Operator-selected MCP backends only. Each successful call means one MCP tool returned, never that the user's task is complete.
  * Observation/state is supplied by the caller; this generic bridge promises no built-in UI grounding or verification. */
 export class HostService {
@@ -63,11 +63,11 @@ export class HostService {
    const definition=byName.get(selected.tool)!,parameters:Record<string,unknown>=jsonCopy(selected.arguments),needsDevice=definition.inputSchema.required?.includes('device')||Object.hasOwn(definition.inputSchema.properties??{},'device');if(needsDevice){if(!config.device)throw new Fault('HOST_DEVICE_REQUIRED');parameters.device=config.device;}
    // Intentionally do not abort this underlying MCP promise. Cancellation cannot prove a physical action stopped.
    // The caller may receive UNKNOWN immediately; this host's queue remains held until the backend settles.
-   check();const raw=await backend.callTool({name:selected.tool,arguments:parameters});check();const result=redact(CallToolResultSchema.parse(raw),config.device);
+   check();job.physical=backend.callTool({name:selected.tool,arguments:parameters});const raw=await job.physical;check();const result=redact(CallToolResultSchema.parse(raw),config.device);
    if(result.isError){this.markUnknown(job,result);return {...unknownHostResult(decision),result};}
    if(job.finished)return unknownHostResult(decision);const response:HostActionResult={decision,selected_id:selected.id,execution:'executed',result};this.journal.complete(owner,args,response);job.finished=true;check();return response;
   }catch(error){this.markUnknown(job);throw error;}
  }
- revokeOwner(owner:string){this.revoked.add(owner);for(const job of this.jobs)if(job.owner===owner){this.markUnknown(job);job.controller.abort();}}
- async shutdown(){if(this.closed)return;this.closed=true;for(const job of this.jobs){this.markUnknown(job);job.controller.abort();}for(const stop of this.clientStops.values())stop.abort();await Promise.allSettled([...this.clients.values()].map(async client=>(await client).close()));this.journal.close();}
+ async revokeOwner(owner:string){this.revoked.add(owner);const physical:Promise<CallToolResult>[]=[];for(const job of this.jobs)if(job.owner===owner){this.markUnknown(job);job.controller.abort();if(job.physical)physical.push(job.physical);}await Promise.allSettled(physical);}
+ async shutdown(){if(this.closed)return;this.closed=true;const physical:Promise<CallToolResult>[]=[];for(const job of this.jobs){this.markUnknown(job);job.controller.abort();if(job.physical)physical.push(job.physical);}for(const stop of this.clientStops.values())stop.abort();await Promise.allSettled([...this.clients.values()].map(async client=>(await client).close()));await Promise.allSettled(physical);this.journal.close();}
 }

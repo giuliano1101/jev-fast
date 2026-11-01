@@ -182,7 +182,7 @@ class DeploymentTests(unittest.TestCase):
             self.assertIn('error_log /var/log/jev-network/nginx-error.log crit;', content)
             self.assertIn('location / { return 404; }', content)
             self.assertNotIn('47832', content)
-        for directive in ['proxy_ssl_verify on;', 'proxy_ssl_name localhost;', 'proxy_set_header Host $host;', 'proxy_buffering off;', 'proxy_request_buffering off;', 'client_max_body_size 65536;', 'large_client_header_buffers 2 8k;', 'location = /mcp', 'location = /connector/register', 'location = /connector/sync', 'location = /health']:
+        for directive in ['proxy_ssl_verify on;', 'proxy_ssl_name localhost;', 'proxy_set_header Host $host;', 'proxy_buffering off;', 'proxy_request_buffering off;', 'client_max_body_size 16777216;', 'large_client_header_buffers 2 8k;', 'location = /mcp', 'location = /connector/register', 'location = /connector/sync', 'location = /health']:
             self.assertIn(directive, https)
         self.assertIn('https://127.0.0.1:8443', https)
 

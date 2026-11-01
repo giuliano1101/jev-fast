@@ -44,3 +44,12 @@ test('failed connector startup releases its own runtime lock and stale locks rem
   await writeFile(join(runtime,'network-connector.lock'),JSON.stringify({pid:999999999})+'\n',{mode:0o600});await assert.rejects(startManualConnector({...options,journalDir:join(root,'fresh')}),/CONNECTOR_ALREADY_RUNNING/);await access(join(runtime,'network-connector.lock'));
  }finally{await rm(root,{recursive:true,force:true});}
 });
+test('manual connector reuses its owned TLS connection for heartbeats instead of a fresh handshake for every poll',async()=>{
+ const {startManualConnector}=await import('../../src/network/manual-connector.js');
+ const root=await mkdtemp(join(tmpdir(),'jev-keepalive-')),certs=makeRemoteCertificates();await mkdir(join(root,'runtime'),{mode:0o700});
+ const relay=await startManualNetworkServer({host:'127.0.0.1',port:0,allowedOrigins:[],deviceId:'d',agentId:'a',storeDir:join(root,'relay'),tls:certs.server});
+ let connections=0,syncs=0;relay.server.on('secureConnection',()=>connections++);relay.server.on('request',req=>{if(req.url==='/connector/sync')syncs++;});
+ const connector=await startManualConnector({url:relay.url,name:'keepalive proof',deviceId:'d',agentId:'a',journalDir:join(root,'journal'),credentialFile:join(root,'runtime','client-a.json'),ca:certs.ca,pollMs:25});
+ try{await until(async()=>syncs,value=>value>=5);assert.equal(connections,1,'repeated heartbeat polls should share one verified TLS transport');}
+ finally{await connector.stop();await relay.close();certs.close();await rm(root,{recursive:true,force:true});}
+});
