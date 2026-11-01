@@ -86,3 +86,5 @@
 已在真实公网服务暂停连接器 7 秒再恢复：[4 项检查全部通过](../../artifacts/unrestricted-service/recovery-proof.json)：原接入被撤销、同连接器自动恢复、新 AI 可直接使用、旧 token 确认无效。模型调用 0 次。未修改原有 3 秒设备、5 秒本机 owner fencing；服务保持后台运行。
 
 全量离线测试扩展至 499 项单元测试。一次与部署重负载并行的运行出现 CLI mock 停止等待超时；保留失败诊断，单独 2/2 CLI 复查通过后重新运行全量。没有通过放宽生产停止条件或跳过测试掩盖它；这也不构成长期零故障承诺。
+
+第一次 GitHub CI 的单元测试通过，集成测试出现 1 项 `STALE_SNAPSHOT`：弹窗测试只等待 URL，未等 `navigation_pending` 结束就发出滚动。已用延迟 DOM-ready 的弹窗确定复现，再修正为只读轮询到就绪才继续，并验证模型选择次数不增加。生产保护保持不变；[首次远端失败记录](../../artifacts/unrestricted-service/verification/github-first-ci-failure.json)保留。

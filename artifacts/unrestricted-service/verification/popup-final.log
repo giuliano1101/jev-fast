@@ -1,0 +1,31 @@
+✔ click returns DOM-ready navigation without waiting for a hanging image (852.738417ms)
+✔ press returns DOM-ready navigation without waiting for a hanging image (727.072542ms)
+✔ click reports the actual current page while its main-document navigation is still pending (783.463375ms)
+✔ press reports the actual current page while its main-document navigation is still pending (997.807791ms)
+✔ hash navigation keeps the current DOM observable without another DOMContentLoaded (759.250958ms)
+✔ pushState navigation keeps the current DOM observable without another DOMContentLoaded (700.542208ms)
+✔ a pending external main-document navigation fences the old snapshot before choosing an input (680.949833ms)
+✔ real website observation grounds arbitrary values and executes only selected actions with durable replay protection (878.436291ms)
+✔ real browser sessions are independent and a revoked owner cannot continue (798.054958ms)
+✔ a stale snapshot after page changes cannot dispatch a physical action (674.950833ms)
+✔ a committed click whose after-state response is lost stays UNKNOWN and never resubmits (845.47325ms)
+✔ owner revocation cancels an outstanding choice before input and fences its late answer (742.980958ms)
+✔ real browser supports selection, key input, redirects, back, popups and viewport scrolling (1299.237792ms)
+✔ a real decision may take longer than fixture freshness windows without a hidden goal timeout (2838.951125ms)
+✔ a timed-out click cannot dispatch later when an overlay disappears (3545.486083ms)
+✔ a target-blank link intercepted by the website does not wait forever for a nonexistent popup (915.14225ms)
+✔ failed context cleanup cannot acknowledge cancellation before the input command drains (883.622834ms)
+✔ caller timeout covers initial browser validation before choosing or dispatching (625.052708ms)
+✔ password input remains on the host and never enters model choice descriptions (718.272708ms)
+✔ browser failures expose safe phase and error codes without raw website details (1328.376584ms)
+✔ pending physical execution survives process recovery as UNKNOWN without replay (66.52275ms)
+✔ real browser contract accepts arbitrary normal URLs and uncapped caller timeouts but never code/selector execution (0.735916ms)
+✔ revocation drains a context allocated before its first page exists (42.296875ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22833.760209

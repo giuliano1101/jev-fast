@@ -7,9 +7,9 @@ import {tmpdir} from 'node:os';
 import {RealBrowserService} from '../../src/browser/real.js';
 import type {ChoiceArgs,ChoiceResponse} from '../../src/choice/contracts.js';
 const fakeDecision=(args:ChoiceArgs)=>({provider:'jev',model:'jev-1.14.0',selected_id:args.actions[0]!.id,confidence:1,usage:null,proof:{payload:{},signature:'offline-test'}} as unknown as ChoiceResponse);
-async function setup(){
+async function setup({popupReadyDelayMs=0}:{popupReadyDelayMs?:number}={}){
  const dir=await mkdtemp(join(tmpdir(),'jev-real-browser-'));let submissions=0,calls=0;let lastChoice:ChoiceArgs|undefined;
- const server=createServer((req,res)=>{if(req.url==='/password'){res.setHeader('content-type','text/html');res.end('<label>Account password <input type="password" name="password"></label>');return;}if(req.url==='/suppressed-popup'){res.setHeader('content-type','text/html');res.end('<a href="/unused" target="_blank" onclick="event.preventDefault();this.textContent=String.fromCharCode(72,97,110,100,108,101,100)">Open intercepted link</a>');return;}if(req.url==='/overlay'){res.setHeader('content-type','text/html');res.end('<form action="/submit"><button>Send overlay</button></form><div id="cover" style="position:fixed;inset:0;background:white;z-index:99">Loading overlay</div><script>setTimeout(()=>document.getElementById("cover").remove(),1000)</script>');return;}if(req.url==='/redirect'){res.writeHead(302,{location:'/landing'});res.end();return;}if(req.url?.startsWith('/submit'))submissions++;res.setHeader('content-type','text/html');res.end(req.url?.startsWith('/submit')?'<h1>Order received</h1><a href="/unusual/path">Return</a>':'<h1>Independent public-style form</h1><form action="/submit"><label>Your custom note <input name="note"></label><button>Send note</button></form><a href="/redirect">Redirect elsewhere</a><a href="/popup" target="_blank">Open popup</a><label>Choose category <select><option value="a">Alpha</option><option value="z">Zeta</option></select></label><div style="height:1400px"></div>');});
+ const server=createServer((req,res)=>{if(req.url==='/popup-ready.js'){res.setHeader('content-type','application/javascript');setTimeout(()=>res.end('// delayed DOM readiness'),popupReadyDelayMs);return;}if(req.url==='/password'){res.setHeader('content-type','text/html');res.end('<label>Account password <input type="password" name="password"></label>');return;}if(req.url==='/suppressed-popup'){res.setHeader('content-type','text/html');res.end('<a href="/unused" target="_blank" onclick="event.preventDefault();this.textContent=String.fromCharCode(72,97,110,100,108,101,100)">Open intercepted link</a>');return;}if(req.url==='/overlay'){res.setHeader('content-type','text/html');res.end('<form action="/submit"><button>Send overlay</button></form><div id="cover" style="position:fixed;inset:0;background:white;z-index:99">Loading overlay</div><script>setTimeout(()=>document.getElementById("cover").remove(),1000)</script>');return;}if(req.url==='/redirect'){res.writeHead(302,{location:'/landing'});res.end();return;}if(req.url?.startsWith('/submit'))submissions++;res.setHeader('content-type','text/html');res.end((req.url==='/popup'&&popupReadyDelayMs>0?'<script src="/popup-ready.js"></script>':'')+(req.url?.startsWith('/submit')?'<h1>Order received</h1><a href="/unusual/path">Return</a>':'<h1>Independent public-style form</h1><form action="/submit"><label>Your custom note <input name="note"></label><button>Send note</button></form><a href="/redirect">Redirect elsewhere</a><a href="/popup" target="_blank">Open popup</a><label>Choose category <select><option value="a">Alpha</option><option value="z">Zeta</option></select></label><div style="height:1400px"></div>'));});
  await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));const address=server.address();assert.ok(address&&typeof address==='object');const url=`http://127.0.0.1:${address.port}/unusual/path`;
  const service=new RealBrowserService({storageDir:dir,chooseAction:async(_client:string,args:ChoiceArgs)=>{calls++;lastChoice=args;return fakeDecision(args);}});
  return {dir,url,service,get submissions(){return submissions;},get calls(){return calls;},get lastChoice(){return lastChoice;},async cleanup(){await service.shutdown();await new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve()));await rm(dir,{recursive:true,force:true});}};
@@ -61,15 +61,20 @@ test('owner revocation cancels an outstanding choice before input and fences its
 });
 
 test('real browser supports selection, key input, redirects, back, popups and viewport scrolling',{timeout:30000},async()=>{
- const f=await setup();try{
+ const f=await setup({popupReadyDelayMs:250});try{
   const opened=await f.service.open('owner',{url:f.url});let after=opened.observation;let round=0;
   const act=async(action:Record<string,unknown>)=>{const result=await f.service.act('owner',{session_id:opened.session_id,snapshot_id:after.snapshot_id,idempotency_key:'round'+round++,task:'Exercise a real website control',actions:[{id:'chosen',...action}]});assert.equal(result.execution,'executed',result.reason);after=result.after!;};
   await act({operation:'select',control_id:after.controls.find(control=>control.tag==='select')!.control_id,value:'z'});
   await act({operation:'press',control_id:after.controls.find(control=>control.tag==='input')!.control_id,key:'Tab'});
   await act({operation:'navigate',url:new URL('/redirect',f.url).href});assert.match(after.url,/\/landing$/);
   await act({operation:'back'});assert.equal(after.url,f.url);
-  await act({operation:'click',control_id:after.controls.find(control=>control.label==='Open popup')!.control_id});for(let attempt=0;!after.url.endsWith('/popup')&&attempt<30;attempt++){await new Promise(resolve=>setTimeout(resolve,10));after=await f.service.observe('owner',{session_id:opened.session_id});}assert.match(after.url,/\/popup$/);
-  await act({operation:'scroll',dy:900});assert.ok(after.viewport.scrollY>0);
+  await act({operation:'click',control_id:after.controls.find(control=>control.label==='Open popup')!.control_id});
+  const popupReadyDeadline=Date.now()+5000;
+  while((!after.url.endsWith('/popup')||after.navigation_pending)&&Date.now()<popupReadyDeadline){
+   await new Promise(resolve=>setTimeout(resolve,10));after=await f.service.observe('owner',{session_id:opened.session_id});
+  }
+  assert.match(after.url,/\/popup$/);assert.equal(after.navigation_pending??false,false,'scroll requires a DOM-ready popup snapshot');
+  await act({operation:'scroll',dy:900});assert.ok(after.viewport.scrollY>0);assert.equal(f.calls,6,'popup readiness polling must not repeat a selected input');
  }finally{await f.cleanup();}
 });
 

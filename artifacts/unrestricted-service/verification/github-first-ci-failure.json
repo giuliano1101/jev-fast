@@ -1,0 +1,14 @@
+{
+  "run": "https://github.com/giuliano1101/jev-fast/actions/runs/41331264290",
+  "commit": "8ce27ca22190d4104e98319b846975c1dd834b6c",
+  "unit": "passed",
+  "integration": {
+    "tests": 102,
+    "pass": 101,
+    "fail": 1
+  },
+  "failingCase": "real browser supports selection, key input, redirects, back, popups and viewport scrolling",
+  "error": "STALE_SNAPSHOT",
+  "cause": "Test polled only the popup URL and attempted scroll while navigation_pending remained true. The executor correctly fenced the not-ready snapshot.",
+  "fix": "Use a deterministic delayed DOM-readiness fixture, poll observations until URL and DOM are ready, then submit the next input exactly once. No production guard removed and no hosted test repeated."
+}
