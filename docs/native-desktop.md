@@ -2,6 +2,10 @@
 
 原生执行器处理真实 App 的窗口、辅助功能控件、鼠标和键盘，不使用浏览器 fixture。没有 App 白名单、调用次数、费用或步骤配额。模型决策仍使用已有真实 Jev；执行器和模型是两个可以组合的 MCP 服务。
 
+## 同一公网 MCP 的 Mac 接线
+
+现在原公网 `/mcp` 已增加独立 Mac 桥：`jev.host_tools/host_act` 使用 `host=mac`（别名 `desktop`），实际操作日常 Chrome 与原生 App。原协调器、Android profile 和账本未重启或替换。先检查后台 `desktop_status` 的真实权限；下面“公共 profile 仅 Android”的描述属于原生执行器早期阶段，不能据此否定新增桥。详见[公网 Mac / Cursor / Grok 手册](mac-public-automation.md)。
+
 ## 当前这台 Mac
 
 已构建 `dist/native/jev-desktop-macos` 和 `dist/src/desktop/main.js`，实际辅助功能、屏幕录制状态均可读取。真实 Jev 已选择并执行系统计算器 `37 × 19 = 703`，并在 TextEdit 中修改本次测试专属临时文本、按 Cmd+S 保存后独立核对文件。窗口截图实测为 460 × 816，缩放为 2。

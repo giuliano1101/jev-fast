@@ -78,3 +78,7 @@ Jev 决策来源与实际执行效果分开报告。真实浏览器返回 execut
 - [S12 合成稳定性](artifacts/stability/report.md) · [同条件入口对照](artifacts/parity/report.md) · [早期跨机器小测](artifacts/cross-machine/pilot/report.md)。
 - [S7 真实网站实验](artifacts/real/report.md) · [S8 混合执行研究](artifacts/hybrid/report.md) · [S9 单手机固定题实验](artifacts/mobile/report.md)。历史固定题的速度/成功率不外推为当前通用网站或手机稳定率。
 - [验收索引](docs/acceptance.md) · [阶段变更](CHANGELOG.md) · [架构与恢复](docs/cross-machine-operations.md)。
+
+## 日常 Chrome 与 Mac 原生 App（原公网 MCP）
+
+Cursor / Grok Bot 继续连接现有 `/mcp`，用 `jev.host_tools/host_act` 的 `host=mac` 操作日常 Chrome 和 Mac GUI，复用原登录态；`desktop` 是同机别名。旧 browser_* 继续提供隔离无头浏览器。先检查后台实际 OS 权限，完整配置与示例见 [Mac 公网操作手册](docs/mac-public-automation.md)。

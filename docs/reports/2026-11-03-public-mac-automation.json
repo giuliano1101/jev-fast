@@ -1,0 +1,195 @@
+{
+  "report_date": "2026-11-03",
+  "tested_revision": "73bb25804f05215bade04274ded32aa10cfadd4b",
+  "endpoint": "https://jev.43-160-233-161.sslip.io/mcp",
+  "deployment": {
+    "front_revision": "f6510f814629ab21453e35cc3904ec35162719b3",
+    "mac_revision": "73bb25804f05215bade04274ded32aa10cfadd4b",
+    "original_local": {
+      "original_profile_unchanged": true,
+      "original_local_pids_preserved": true,
+      "ready": true,
+      "provider": "jev",
+      "transport": "remote",
+      "configured_hosts": [
+        "android"
+      ]
+    },
+    "original_vps": {
+      "original_relay_pid_preserved": true,
+      "original_relay_active": true,
+      "front_active": true,
+      "nginx_config_valid": true
+    },
+    "supervision": {
+      "native_backend_crash_recovered": true,
+      "seconds": 2.3,
+      "replayed": false,
+      "original_services_signalled": false
+    }
+  },
+  "offline_commands": [
+    {
+      "command": "npm run typecheck",
+      "exit": 0,
+      "seconds": 2.8
+    },
+    {
+      "command": "npm run lint",
+      "exit": 0,
+      "seconds": 2.65
+    },
+    {
+      "command": "npm run test",
+      "exit": 0,
+      "seconds": 23.51
+    },
+    {
+      "command": "npm run test:integration",
+      "exit": 0,
+      "seconds": 191.26
+    },
+    {
+      "command": "npm run test:safety",
+      "exit": 0,
+      "seconds": 18.95
+    }
+  ],
+  "offline_counts": {
+    "unit_pass": 556,
+    "integration_pass": 119,
+    "integration_skip": 1,
+    "safety_pass": 40
+  },
+  "acceptance": {
+    "daily_chrome_and_textedit": [
+      {
+        "name": "daily_chrome_real_page",
+        "passed": true,
+        "pid": 12145,
+        "same_daily_pid": true
+      },
+      {
+        "name": "observed_reload_button",
+        "passed": true
+      },
+      {
+        "name": "native_click_page_postcondition",
+        "passed": true
+      },
+      {
+        "name": "owned_chrome_tab_closed",
+        "passed": true
+      },
+      {
+        "name": "owned_document_window",
+        "passed": true
+      },
+      {
+        "name": "native_editable_control",
+        "passed": true
+      },
+      {
+        "name": "native_gui_saved_file_readback",
+        "passed": true
+      },
+      {
+        "name": "still_owned_document_before_close",
+        "passed": true
+      },
+      {
+        "name": "all_resume_choices_real_jev",
+        "passed": true
+      }
+    ],
+    "single_window_and_continuation": [
+      {
+        "name": "native_permissions",
+        "passed": true
+      },
+      {
+        "name": "daily_chrome_same_pid",
+        "passed": true,
+        "pid": 12145
+      },
+      {
+        "name": "actual_example_page",
+        "passed": true
+      },
+      {
+        "name": "chrome_window_capture",
+        "passed": true,
+        "width": 4092,
+        "height": 2430,
+        "scale_x": 2,
+        "scale_y": 2
+      },
+      {
+        "name": "native_png_valid",
+        "passed": true
+      },
+      {
+        "name": "owned_window_test_tab_closed",
+        "passed": true
+      },
+      {
+        "name": "original_predeployment_browser_continues",
+        "passed": true
+      },
+      {
+        "name": "owned_transport_deleted",
+        "passed": true
+      },
+      {
+        "name": "mac_completed_request_after_short_transport",
+        "passed": true
+      },
+      {
+        "name": "all_final_ready",
+        "passed": true
+      },
+      {
+        "name": "all_choices_real_jev",
+        "passed": true
+      }
+    ],
+    "fresh_external_client": {
+      "fresh_identity_admitted": true,
+      "connector_online": true,
+      "local_ready": true,
+      "mac_available": true,
+      "tools": 14,
+      "provider": "jev",
+      "model": "jev-1.14.0",
+      "execution": "executed",
+      "accessibility": true,
+      "screen_capture": true,
+      "request_id": "ed137c3d-3614-4dd3-bd12-9e1c10ac9e1e",
+      "passed": true
+    }
+  },
+  "metering": {
+    "host_act_requests": 40,
+    "returned_real_jev_decisions": 40,
+    "all_decisions_jev": true,
+    "input_tokens": 15477,
+    "output_tokens": 1108,
+    "actual_usd": null,
+    "note": "API usage only; no USD amount inferred. Includes permission probes, failed preconditions, cleanup and retests."
+  },
+  "diagnostic_latency": {
+    "samples": 39,
+    "min_ms": 14990,
+    "median_ms": 19328,
+    "max_ms": 23207,
+    "note": "Heterogeneous native steps with real network/authorization; not a paired speed benchmark. Removing duplicate health probes did not demonstrate a clear end-to-end improvement."
+  },
+  "preserved_unknown_requests": [
+    "14a3cd13-f0a8-44c6-acf3-d2a737e15d5c",
+    "cde9005e-f82b-4460-a908-f4f55f29c519"
+  ],
+  "whole_display_capture": {
+    "performed": false,
+    "reason": "Automatic approval review rejected broader whole-display disclosure; acceptance used the narrower owned Chrome window."
+  }
+}
