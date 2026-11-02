@@ -12,7 +12,7 @@ export interface ValidationSession{status(token:string):Promise<Record<string,un
 async function connectValidator(endpoint:string):Promise<ValidationSession>{
  const transport=new StreamableHTTPClientTransport(new URL(endpoint),{fetch:(url,init)=>fetch(url,{...init,signal:AbortSignal.any([...(init?.signal?[init.signal]:[]),AbortSignal.timeout(5000)])}),reconnectionOptions:{maxRetries:0,initialReconnectionDelay:1000,maxReconnectionDelay:1000,reconnectionDelayGrowFactor:1}}),client=new Client({name:'jev-mac-owner-validator',version:'1.0.0'});
  try{await client.connect(transport,{timeout:5000});}catch{await client.close().catch(()=>{});throw new Fault('AUTHORIZATION_UNAVAILABLE');}
- return {status:async token=>parseTool(await client.callTool({name:'jev.network_status',arguments:{continuation_token:token}},undefined,{timeout:5000})),close:async()=>{await transport.terminateSession().catch(()=>{});await client.close().catch(()=>{});}};
+ return {status:async token=>parseTool(await client.callTool({name:'jev.network_status',arguments:{continuation_token:token},_meta:{'io.jev.mac-public.authorization-only':true}},undefined,{timeout:5000})),close:async()=>{await transport.terminateSession().catch(()=>{});await client.close().catch(()=>{});}};
 }
 /** One owned diagnostic transport; each call carries its own immutable end-user token. Never releases an end-user owner. */
 export class OwnerValidator{
