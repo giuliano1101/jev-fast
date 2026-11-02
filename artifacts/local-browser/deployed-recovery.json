@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-11-02T07:18:03.909Z",
+  "provider": "jev",
+  "transport": "remote",
+  "ready": true,
+  "configured_hosts": [
+    "android"
+  ],
+  "enabled": true,
+  "connector_online": true,
+  "local_ready": true,
+  "watchdog_running": true,
+  "watchdog_jobs": [
+    {
+      "id": "coordinator",
+      "state": "running"
+    },
+    {
+      "id": "gateway",
+      "state": "running"
+    },
+    {
+      "id": "connector",
+      "state": "running"
+    },
+    {
+      "id": "panel",
+      "state": "running"
+    },
+    {
+      "id": "tunnel",
+      "state": "running"
+    }
+  ],
+  "mac_idle_sleep_prevented": true,
+  "relay_restart": "always",
+  "relay_restart_seconds": 3,
+  "originalDeviceRegistrationPreserved": true,
+  "originalPanelCapabilityPreserved": true,
+  "privateKeyProfileUsagePolicyConnectorConfigUnchanged": true,
+  "coordinatorUnchanged": true,
+  "gatewayUnchanged": true,
+  "oldWindowsCompletedDecisionUnchanged": true,
+  "oldRequestReplayed": false,
+  "usageOnlyUnchanged": true,
+  "paidCallsInVerification": 0,
+  "manualOffCrashTests": "isolated fixtures only",
+  "limits": "Requires powered-on Mac and user login; upstream/network/certificate outages remain possible."
+}

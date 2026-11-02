@@ -4,7 +4,7 @@
 
 ## 操作人员日常使用
 
-统一控制台仍是同一页。服务总开关通过 CLI 保存 `service-intent.json` 中的 running/stopped 意图：
+统一控制台仍是同一页。服务总开关通过 CLI 保存 running/stopped 意图。原共享服务已绑定到用户持久私有目录中的意图文件，`/tmp` 清理后仍保留；未配置持久绑定的新安装使用运行目录的 `service-intent.json`：
 
 - 开启：保存选定配置的绝对路径与 fingerprint，然后启动或复用原服务。
 - 关闭：先持久保存 stopped，再请求协调器停止。守护不会将其重新打开。
@@ -47,3 +47,11 @@ node /absolute/jev-fast/dist/src/service/supervisor.js --config /absolute/privat
 公网部署模板为 relay 设置 `Restart=always`、3秒重启间隔和三个 Audit 锁的 `ExecStartPre` 检查。显式 `systemctl stop jev-network` 仍会保持停止。请使用 `deploy/network` 中与实际 Node/存储路径匹配的模板；不能把 Mac 原服务私有路径复制到另一机器。
 
 控制台可指定 `--token-file`，relay 私有配置可指定 `adminTokenFile`，复用操作者提供的现有0600随机能力文件，使进程恢复后原管理链接仍可用。未配置时保留原来的每次随机能力行为。这些能力仅管理端使用，不能发布到 Git 或发给接入 AI。
+
+## 运行目录在 /tmp 时的持久绑定
+
+macOS 原部署已安装稳定私有登记 `~/Library/Application Support/Jev/service-intent-bindings.json`，将原 runtime 绑定到持久意图文件。绑定是唯一权威来源，不定期镜像；普通 CLI/面板停止会直接写入该文件，因此不存在“关闭后尚未同步就重启”的窗口。`/tmp` 与 `/private/tmp` 通过物理目录身份匹配；运行目录删除后仍识别同一绑定。缺失持久意图不会退回旧临时副本并意外开启。
+
+新部署由操作员在当前意图已存在时调用 `bindServiceIntent(runtime, absolutePersistentIntentFile)` 一次迁移；该 API 导出于 `dist/src/service/intent.js`。目标文件必须尚不存在，目录/文件需私有且不能经符号链接。迁移与 start/stop、其他绑定更新共享锁。`JEV_SERVICE_INTENT_BINDINGS` 可显式指定独立私有登记位置，常规原部署不设置此变量。正在运行的守护需要重新加载新意图代码；不必因此重启业务服务。
+
+持久绑定保存开关意图与 profile 选择；它不会将临时目录下的其他状态自动备份。计费账本、relay 审计和设备恢复文件应分别置于持久私有存储；原部署沿用既有持久文件。

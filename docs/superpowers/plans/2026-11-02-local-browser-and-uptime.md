@@ -12,34 +12,44 @@
 
 Files: src/local/{cloud,browser,main}.ts, scripts/setup-local-browser.mjs, tests/unit/local-browser*.test.ts, tests/integration/local-browser*.test.ts, .github/workflows/local-browser-windows.yml.
 
-- [ ] RED/GREEN cloud choice tests: no remote browser/host calls, automatic private continuation, original request polling, no uncertain resubmission, off/invalid owner fails closed without creating another identity.
-- [ ] Local tools local_status/local_tools/local_observe/local_act. Status clearly identifies actual local platform/browser mode. Observe permits actual read-only backend observation; acts reuse HostService and require stable idempotency keys. Caller controls observations/descriptions, arguments stay local.
-- [ ] Launch mode visible by default, Windows auto chooses installed Edge/Chrome. Attach maps to local Chrome/Edge CDP by channel or explicit local endpoint, extension mode uses official installed extension. No fixture/app allowlist, no cloud-model key/profile required, no silent fallback to remote Mac/headless.
-- [ ] Close only owned MCP process/context, preserve existing borrowed user browser in attach/extension mode; verify in actual local CDP fixture.
-- [ ] Setup command prints absolute MCP configuration for the actual machine, no Mac paths or execution policy bypass on Windows. Pin dependencies. Offline tests/CI never call hosted model.
-- [ ] Windows CI proves browser executes on Windows; physical user's Windows/profile acceptance is distinguished from hosted runner.
+- [x] RED/GREEN cloud choice tests: no remote browser/host calls, automatic private continuation, original request polling, no uncertain resubmission, off/invalid owner fails closed without creating another identity.
+- [x] Local tools local_status/local_tools/local_observe/local_act. Status clearly identifies actual local platform/browser mode. Observe permits actual read-only backend observation; acts reuse HostService and require stable idempotency keys. Caller controls observations/descriptions, arguments stay local.
+- [x] Launch mode visible by default, Windows auto chooses installed Edge/Chrome. Attach maps to local Chrome/Edge CDP by channel or explicit local endpoint, extension mode uses official installed extension. No fixture/app allowlist, no cloud-model key/profile required, no silent fallback to remote Mac/headless.
+- [x] Close only owned MCP process/context, preserve existing borrowed user browser in attach/extension mode; verify in actual local CDP fixture.
+- [x] Setup command prints absolute MCP configuration for the actual machine, no Mac paths or execution policy bypass on Windows. Pin dependencies. Offline tests/CI never call hosted model.
+- [x] Windows CI proves browser executes on Windows; physical user's Windows/profile acceptance is distinguished from hosted runner.
 
 ## Task 2: Device registration recovery (root)
 
 Files: src/network/{admission,manual-server,manual-connector}.ts, private registration store, corresponding tests.
 
-- [ ] RED/GREEN persisted resume handle scoped to exact URL/binding/runtime. Mode0600, atomic updates, no token printing. Backwards-compatible optional resume_handle at register.
-- [ ] Relay resumes only the exact device registration on possession of its opaque handle, never AI IDs. Preserve desiredEnabled/manual off across connector or relay restart, drain old owner revocations before readiness. No new identity on invalid resume; no audit/key reset.
-- [ ] Test connector restart, relay restart, manual device off stays off, stale local instance invalidates old AI, old request never replays.
+- [x] RED/GREEN persisted resume handle scoped to exact URL/binding/runtime. Mode0600, atomic updates, no token printing. Backwards-compatible optional resume_handle at register.
+- [x] Relay resumes only the exact device registration on possession of its opaque handle, never AI IDs. Preserve desiredEnabled/manual off across connector or relay restart, drain old owner revocations before readiness. No new identity on invalid resume; no audit/key reset.
+- [x] Test connector restart, relay restart, manual device off stays off, stale local instance invalidates old AI, old request never replays.
 
 ## Task 3: Always-on recovery that respects off (root)
 
 Files: src/service/{intent,recovery,supervisor}.ts, CLI lifecycle hooks, tests; optional daemon registration scripts.
 
-- [ ] RED/GREEN durable running/stopped intent: explicit stop records off before RPC; explicit start records on; watchdog never overrides off. Private profile remains selected and never falls back to mock.
-- [ ] Recover only proven-dead owned process markers/socket/credentials, identity-check paths/inodes and PID death. Keep all ledgers/counters and UNKNOWN. Reuse existing Ledger stale-lock behavior and verify Audit lock recovery.
-- [ ] Supervisor restarts dead coordinator/connector/gateway/panel/admin tunnel using fixed private operator configuration, no healthy-process restarts or arbitrary public commands. launchd owns watchdog, systemd relay on-failure restart; manual systemctl stop remains respected.
-- [ ] Failure-injection tests run on isolated local fixture services; do not kill the shared live service for a test. Provision original private config without exposing it in Git.
+- [x] RED/GREEN durable running/stopped intent: explicit stop records off before RPC; explicit start records on; watchdog never overrides off. Private profile remains selected and never falls back to mock.
+- [x] Recover only proven-dead owned process markers/socket/credentials, identity-check paths/inodes and PID death. Keep all ledgers/counters and UNKNOWN. Reuse existing Ledger stale-lock behavior and verify Audit lock recovery.
+- [x] Supervisor restarts dead coordinator/connector/gateway/panel/admin tunnel using fixed private operator configuration, no healthy-process restarts or arbitrary public commands. launchd owns watchdog, systemd relay on-failure restart; manual systemctl stop remains respected.
+- [x] Failure-injection tests run on isolated local fixture services; do not kill the shared live service for a test. Provision original private config without exposing it in Git.
 
 ## Task 4: Reviews, live proof and delivery
 
-- [ ] Independent spec then quality review; fix findings. Run required typecheck/lint/unit/integration/safety plus Windows browser CI.
-- [ ] Verify current shared readiness first, deploy only necessary tested recovery updates in one drained maintenance, preserve original keys/usage-only/ledgers/android. Persist current device handle privately under operator authorization before first upgraded connector restart.
-- [ ] Real Jev local-browser acceptance executes in this Mac's visible browser, independent effect verified; Windows hosted runner tests local Windows execution; Windows physical machine still requires its own installed local MCP, not a Mac test substitute.
-- [ ] Install self-recovery through launchd/systemd without overriding manual off. Validate original service healthy, no global/device-off experiment on shared users.
-- [ ] Docs give exact Windows one-command setup + MCP local tool examples and explicit distinction from public Mac browser tools. Publish report/evidence/code to GitHub and verify CI. Preserve user docs/other-ai-real-testing 2.md.
+- [x] Independent spec then quality review; fix findings. Run required typecheck/lint/unit/integration/safety plus Windows browser CI.
+- [x] Verify current shared readiness first, deploy only necessary tested recovery updates in one drained maintenance, preserve original keys/usage-only/ledgers/android. Persist current device handle privately under operator authorization before first upgraded connector restart.
+- [x] Real Jev local-browser acceptance executes in this Mac's visible browser, independent effect verified; Windows hosted runner tests local Windows execution; Windows physical machine still requires its own installed local MCP, not a Mac test substitute.
+- [x] Install self-recovery through launchd/systemd without overriding manual off. Validate original service healthy, no global/device-off experiment on shared users.
+- [x] Docs give exact Windows one-command setup + MCP local tool examples and explicit distinction from public Mac browser tools. Publish report/evidence/code to GitHub and verify CI. Preserve user docs/other-ai-real-testing 2.md.
+
+## Completion evidence
+
+- Task1 spec and quality approved; delayed initialize and durable moved-directory owner regressions fixed.
+- Windows actual CI run 41404309094: 12 unit checks and 2 real browser integration checks pass. Earlier failures retained; module autoload removed from private ACL helper.
+- Task2 spec/quality approved; exact TLS relay restart/manual-off/proxy-error tests pass.
+- Task3 spec/quality approved, including persistent intent outside /tmp and canonical runtime aliases. Global/per-runtime locks protect migration and manual off.
+- Full final local checks: typecheck/lint pass, unit541, integration116 pass+1 opt-in skip, safety40, Pythondeployment16. Both opt-in browser tests separately passed.
+- Original coordinator/gateway retained. Same device registration, private profile/Key/usage-only and ledger kept. launchd watchdog running and relay Restart=always deployed. Windows physical login-profile/extension acceptance remains with Windows client installation.
+- See docs/reports/2026-11-02-local-browser-uptime.md and artifacts/local-browser/*.json.

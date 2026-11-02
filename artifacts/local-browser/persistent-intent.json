@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-02T07:14:10.459Z",
+  "persistentIntentBound": true,
+  "desired": "running",
+  "sameIntentThroughRuntimeAliases": true,
+  "reloadedOwnWatchdogOnly": true,
+  "coordinatorUnchanged": true,
+  "profileSelectionPreserved": true,
+  "registryPrivate": true
+}

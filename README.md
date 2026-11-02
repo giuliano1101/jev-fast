@@ -21,6 +21,8 @@
 
 心跳稳定性维护已完成：连接器复用 TLS，relay 设备宽限为 30 秒；Windows 可建立新的独立连接，步骤及实测见[维护报告](docs/reports/2026-11-02-heartbeat-maintenance.md)。
 
+本轮新增 [Windows 本地浏览器 MCP 与常驻恢复](docs/reports/2026-11-02-local-browser-uptime.md)：Windows 本地可见输入与已有 CDP 浏览器验收已在 runner 通过，原 Mac 已由 launchd 守护，手动关闭意图持久保存。
+
 本机原生 Mac / Windows App 执行器已提供，接入与当前实测范围见[原生桌面手册](docs/native-desktop.md)。可与已有 `jev.choose_action` 配合使用；共享公网 profile 本轮仍保留 android，未新增 Windows host。
 
 ## 当前工具

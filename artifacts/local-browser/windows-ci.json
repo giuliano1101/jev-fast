@@ -1,0 +1,18 @@
+{
+  "conclusion": "success",
+  "databaseId": 41404309094,
+  "headSha": "9998070cd1853a62cde30d4b99479c6e243d34aa",
+  "url": "https://github.com/giuliano1101/jev-fast/actions/runs/41404309094",
+  "platform": "win32",
+  "offline": true,
+  "hostedModelCalls": 0,
+  "unit": {
+    "passed": 12,
+    "failed": 0
+  },
+  "integration": {
+    "passed": 2,
+    "failed": 0
+  },
+  "physicalUserWindowsAccepted": false
+}

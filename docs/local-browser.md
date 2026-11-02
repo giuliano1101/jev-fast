@@ -11,8 +11,8 @@
 ```powershell
 git clone https://github.com/giuliano1101/jev-fast.git
 Set-Location jev-fast
-npm ci --ignore-scripts
-npm run local-browser:setup -- --mode launch
+npm.cmd ci --ignore-scripts
+npm.cmd run local-browser:setup -- --mode launch
 ```
 
 已有本地仓库时，在仓库中先执行 `git pull --ff-only`，再执行后两条命令。安装命令会编译并输出适用于**当前 Windows 机器实际绝对路径**的 MCP JSON。把输出中的 `mcpServers.jev-local-browser` 加入 AI 客户端的 MCP 配置，重新连接该 MCP。不要使用其他机器输出的路径，也不要把这里的 stdio 服务配置成公网 URL。
@@ -22,7 +22,7 @@ npm run local-browser:setup -- --mode launch
 如果 AI 客户端使用 Codex CLI，可用配置中显示的实际 Node 与入口路径：
 
 ```powershell
-codex mcp add jev-local-browser -- "C:\实际路径\node.exe" "C:\实际路径\jev-fast\dist\src\local\main.js" --mode launch
+codex mcp add jev-local-browser -- "C:\实际路径\node.exe" "C:\实际路径\jev-fast\dist\src\local\main.js" --mode launch --browser msedge
 ```
 
 ## 控制已经打开、已经登录的浏览器
@@ -32,7 +32,7 @@ codex mcp add jev-local-browser -- "C:\实际路径\node.exe" "C:\实际路径\j
 **浏览器原生远程调试**：在本机 Edge 的 `edge://inspect/#remote-debugging` 或 Chrome 的 `chrome://inspect/#remote-debugging` 开启浏览器提供的远程调试许可，然后执行：
 
 ```powershell
-npm run local-browser:setup -- --mode attach --browser msedge
+npm.cmd run local-browser:setup -- --mode attach --browser msedge
 # Chrome 改为 --browser chrome
 ```
 
@@ -41,7 +41,7 @@ npm run local-browser:setup -- --mode attach --browser msedge
 **官方 Playwright 扩展**：按[官方扩展说明](https://playwright.dev/mcp/configuration/browser-extension)安装对应浏览器扩展，然后执行：
 
 ```powershell
-npm run local-browser:setup -- --mode extension --browser msedge
+npm.cmd run local-browser:setup -- --mode extension --browser msedge
 ```
 
 首次连接时按浏览器自身的提示授权。关闭本地 MCP 不会主动关闭借用的现有浏览器；操作中明确选择关闭页面等动作仍会产生对应效果。扩展接入需要在目标 Windows 上验证，Mac 验证不能代替这一步。
