@@ -1,14 +1,16 @@
 {
   "conclusion": "success",
-  "databaseId": 41404309094,
-  "headSha": "9998070cd1853a62cde30d4b99479c6e243d34aa",
-  "url": "https://github.com/giuliano1101/jev-fast/actions/runs/41404309094",
+  "databaseId": 41407017995,
+  "headSha": "8c4272367483861680f8f5caabddac1e34d7ffd5",
+  "url": "https://github.com/giuliano1101/jev-fast/actions/runs/41407017995",
   "platform": "win32",
   "offline": true,
   "hostedModelCalls": 0,
   "unit": {
     "passed": 12,
-    "failed": 0
+    "failed": 0,
+    "freshSdkChildProcesses": 5,
+    "unicodeAndMetacharacterPaths": true
   },
   "integration": {
     "passed": 2,
