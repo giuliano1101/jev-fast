@@ -1,0 +1,68 @@
+{
+  "base_revision": "56d4cd5e8fc80064aa112b11cf6abe2c2cc0524b",
+  "tested_revision": "952b7c758aee80e17ee982b9ec2fdffa6bbb0c62",
+  "branch": "handoff/mac-windows-regression-20261102",
+  "finished_at": "2026-11-02T14:17:03.652383+00:00",
+  "platform": "darwin",
+  "node_version": "v24.22.1",
+  "scope": "isolated offline source regression; no hosted Jev calls",
+  "setup": {
+    "node_version": {
+      "exit_code": 0
+    },
+    "npm_ci": {
+      "exit_code": 0
+    },
+    "chromium": {
+      "exit_code": 0
+    },
+    "desktop_build": {
+      "exit_code": 0
+    },
+    "artifact_parser": {
+      "exit_code": 0
+    }
+  },
+  "checks": {
+    "typecheck": {
+      "exit_code": 0
+    },
+    "lint": {
+      "exit_code": 0
+    },
+    "unit": {
+      "exit_code": 0,
+      "tests": 560,
+      "passed": 560,
+      "failed": 0,
+      "skipped": 0
+    },
+    "integration": {
+      "exit_code": 1,
+      "tests": 126,
+      "passed": 122,
+      "failed": 0,
+      "skipped": 3
+    },
+    "safety": {
+      "exit_code": 0,
+      "tests": 40,
+      "passed": 40,
+      "failed": 0,
+      "skipped": 0
+    },
+    "deployment": {
+      "exit_code": 0,
+      "tests": 16
+    },
+    "native_protocol": {
+      "exit_code": 0,
+      "tests": 7
+    }
+  },
+  "not_run": [],
+  "exit_code": 1,
+  "all_required_checks_passed": false,
+  "raw_logs_uploaded": false,
+  "shared_service_changed": false
+}
