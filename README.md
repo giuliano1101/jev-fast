@@ -6,6 +6,8 @@
 
 | 使用目标 | 入口 |
 | --- | --- |
+| Windows 本机可见/已有登录浏览器 | [本地浏览器 MCP 安装与使用](docs/local-browser.md) |
+| 服务常驻、异常恢复与保留手动关闭 | [守护运维说明](docs/service-recovery.md) |
 | 另一个 AI 连接当前共享服务 | [接入/真实网页与手机示例/SDK](docs/other-ai-real-testing.md) |
 | 部署状态、continuation 与共享服务规则 | [公网快速开始](docs/public-service-quickstart.md) |
 | 新机器的离线 mock 安装 | [Agent 快速开始](docs/quickstart-agent.md) |

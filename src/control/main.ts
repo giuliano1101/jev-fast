@@ -1,6 +1,6 @@
 import {spawn} from 'node:child_process';
 import {parseControlArgs,startControlPanel,browserLaunch} from './server.js';
-const help=`Jev 统一控制台\n\nUsage: npm run control -- [--runtime DIR] [--config FILE] [--admission-config FILE] [--port PORT] [--open]\n\n仅绑定 127.0.0.1；默认端口 47831（--port 0 自动分配）。\n服务总开关、AI/设备接入、历史连接和使用配置集中在同一页。\n--config 固定协调服务启动配置；--admission-config 固定私有接入管理配置。\n打开输出的含 # 令牌网址。打开或关闭控制台不会启动或停止协调服务。\n`;
+const help=`Jev 统一控制台\n\nUsage: npm run control -- [--runtime DIR] [--config FILE] [--admission-config FILE] [--token-file FILE] [--port PORT] [--open]\n\n仅绑定 127.0.0.1；默认端口 47831（--port 0 自动分配）。\n服务总开关、AI/设备接入、历史连接和使用配置集中在同一页。\n--config 固定协调服务启动配置；--admission-config 固定私有接入管理配置。\n打开输出的含 # 令牌网址。打开或关闭控制台不会启动或停止协调服务。\n`;
 async function main(){
  const options=parseControlArgs(process.argv.slice(2));if(options.help){process.stdout.write(help);return;}
  const panel=await startControlPanel(options);process.stdout.write(`Jev 本地控制面板：${panel.url}\n关闭面板不会停止协调服务。请妥善保管此本地访问链接。\n`);

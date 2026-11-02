@@ -17,7 +17,7 @@ if(panel){
   assert.deepEqual(panel.browserLaunch('darwin','http://127.0.0.1:47831/#token'),{file:'/usr/bin/open',args:['http://127.0.0.1:47831/#token']});
   assert.throws(()=>panel.browserLaunch('win32','http://127.0.0.1:47831'),/CONTROL_BROWSER_OPEN_UNSUPPORTED/);
   assert.equal(panel.parseControlArgs(['--port','0','--runtime','/tmp/one','--config','/tmp/profile']).port,0);
-  for(const args of [['--port','-1'],['--port','65536'],['--port','1.2'],['--host','0.0.0.0'],['--runtime'],['--config',''],['extra'],['--help','--port','1']])assert.throws(()=>panel.parseControlArgs(args),/INVALID_ARGUMENTS/);
+  for(const args of [['--port','-1'],['--port','65536'],['--port','1.2'],['--host','0.0.0.0'],['--runtime'],['--config',''],['--token-file',''],['extra'],['--help','--port','1']])assert.throws(()=>panel.parseControlArgs(args),/INVALID_ARGUMENTS/);
  });
  test('server serves a Chinese scoped UI without invoking lifecycle and requires exact host origin token',async()=>{
   const calls:string[]=[];const adapter={status:async()=>{calls.push('status');return {state:'unavailable',mode:'unknown',remoteReachable:null};},start:async()=>{calls.push('start');},stop:async()=>{calls.push('stop');}};
@@ -123,3 +123,5 @@ if(panel)test('unconfigured admission and configured-unavailable admission are d
   finally{await server.close();}
  }
 });
+
+if(panel)test('fixed private panel token keeps the same console capability across restart',async()=>{const root=await mkdtemp('/tmp/jev-panel-token-'),tokenFile=join(root,'token');await writeFile(tokenFile,'a'.repeat(64),{mode:0o600});const adapter={status:async()=>({state:'unavailable',mode:'unknown',decisionProvider:'unknown',remoteReachable:null}),start:async()=>{},stop:async()=>{}};let server=await panel.startControlPanel({runtime:root,port:0,tokenFile,adapter});try{const token=new URL(server.url).hash;await server.close();server=await panel.startControlPanel({runtime:root,port:0,tokenFile,adapter});assert.equal(new URL(server.url).hash,token);const origin=new URL(server.url).origin;assert.equal((await http(origin+'/api/status','POST',{origin,'x-jev-control-token':token.slice(1)})).status,200);}finally{await server.close();await rm(root,{recursive:true,force:true});}});

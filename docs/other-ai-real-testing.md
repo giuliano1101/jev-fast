@@ -2,6 +2,10 @@
 
 更新：2026-11-02。本文适用于已部署的共享服务；新安装默认 mock 的流程见[新机器快速开始](quickstart-agent.md)。当前能力与实测见[本轮服务报告](reports/2026-11-02-unrestricted-service.md)，旧 S14–S18 报告仅描述当时版本。
 
+## Windows 本机浏览器
+
+公网 `jev.browser_*` 在服务 Mac 的无头浏览器执行；Windows 调用方不会自动改变执行位置。控制 Windows 本机可见 Edge/Chrome 或已有登录标签时，请在 **Windows 本机**安装独立的 [jev-local-browser MCP](local-browser.md)。该入口暴露 local_status/local_tools/local_observe/local_act，由现有真实公网 Jev 选动作，Windows 本地执行。无需模型 Key 或新的额度审批；工具参数直接传入，不加公网 wrapper。先确认 platform=win32、execution_host=local，再观察实际页面。
+
 ## 直接接入
 
 使用 **Streamable HTTP** 连接：

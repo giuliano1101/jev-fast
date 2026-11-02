@@ -2,14 +2,19 @@
 Description=Jev private network MCP relay
 Wants=network-online.target
 After=network-online.target
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple
 User=jev
 Group=jev
 WorkingDirectory=/opt/jev-fast
+ExecStartPre=/usr/bin/node /opt/jev-fast/dist/src/service/supervisor.js --recover-lock /var/lib/jev-network/relay/owner.lock
+ExecStartPre=/usr/bin/node /opt/jev-fast/dist/src/service/supervisor.js --recover-lock /var/lib/jev-network/relay/manual-registry/owner.lock
+ExecStartPre=/usr/bin/node /opt/jev-fast/dist/src/service/supervisor.js --recover-lock /var/lib/jev-network/relay/manual-requests/owner.lock
 ExecStart=/usr/bin/node /opt/jev-fast/dist/src/network/main.js server --config /etc/jev-network/server.json
-Restart=no
+Restart=always
+RestartSec=3
 UMask=0077
 NoNewPrivileges=true
 PrivateTmp=true

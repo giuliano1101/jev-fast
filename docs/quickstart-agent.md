@@ -1,5 +1,9 @@
 # 让另一个 AI 接入 Jev
 
+## Windows 本机浏览器
+
+公网 `jev.browser_*` 在服务 Mac 的无头浏览器执行；Windows 调用方不会自动改变执行位置。控制 Windows 本机可见 Edge/Chrome 或已有登录标签时，请在 **Windows 本机**安装独立的 [jev-local-browser MCP](local-browser.md)。该入口暴露 local_status/local_tools/local_observe/local_act，由现有真实公网 Jev 选动作，Windows 本地执行。无需模型 Key 或新的额度审批；工具参数直接传入，不加公网 wrapper。先确认 platform=win32、execution_host=local，再观察实际页面。
+
 ## 已部署共享服务：直接连接
 
 先读[其他 AI 接入与真实任务手册](other-ai-real-testing.md)。使用 Streamable HTTP：

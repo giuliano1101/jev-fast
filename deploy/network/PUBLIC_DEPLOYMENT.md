@@ -47,7 +47,7 @@ state and logs are jev-owned 0700. A localhost-only self-signed certificate is
 pinned by a root-owned public certificate in Nginx's trust path. The root-owned
 read-only preparation receipt lives in `/opt/jev-fast/prepared.json`.
 
-The systemd unit runs nonroot, with `Restart=no`, private stdout/stderr logs,
+The systemd unit runs nonroot, with `Restart=always` (3-second recovery; explicit `systemctl stop` remains stopped), private stdout/stderr logs,
 empty capabilities, filesystem protections and 0077 umask. Prepare starts only
 this service, then verifies `/health` using the backend certificate and the
 external Host header. HTTP/HTTPS templates are staged privately. It never

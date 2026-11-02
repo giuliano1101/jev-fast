@@ -12,7 +12,9 @@ import {Fault} from '../core/errors.js';
 import {parseTool,toolDefinitions} from '../service/contracts.js';
 import {readCredential,ipcCall,safeCode,type Credential} from '../service/ipc.js';
 import {defaultRuntime,privateRuntime} from '../service/runtime.js';
-const help=`Jev local coordinator CLI\n\nCommands:\n  service start | health | stop [--runtime DIR]\n  service start [--config FILE]\n  doctor | policy status [--runtime DIR]\n  schemas [--json]\n  demo [--runtime DIR] [--credential FILE] [--json]\n  open_session | observe | run_goal | cancel | status | close_session\n    --args '{"session_id":"..."}' [--credential FILE] [--json]\n\nAll tools share the coordinator safety gate. Real profiles additionally expose browser_* for arbitrary HTTP/HTTPS websites, choose_action for host actions, and host_* for operator-configured MCP devices. Independent browser sessions may run concurrently; goal budgets are caller options. The private service configuration selects offline mock (default) or authenticated remote decisions. Each remote profile binds local client a to one configured agent.\nservice start --share-a-with-b enables an explicit a-to-b session ACL for local contention testing.\n`;
+import {readServiceIntent,writeServiceIntent} from '../service/intent.js';
+import {lifecycleLock,recoverCoordinatorFiles} from '../service/recovery.js';
+const help=`Jev local coordinator CLI\n\nCommands:\n  service start | health | stop [--runtime DIR]\n  service start [--config FILE] | service start --recover\n  doctor | policy status [--runtime DIR]\n  schemas [--json]\n  demo [--runtime DIR] [--credential FILE] [--json]\n  open_session | observe | run_goal | cancel | status | close_session\n    --args '{"session_id":"..."}' [--credential FILE] [--json]\n\nAll tools share the coordinator safety gate. Real profiles additionally expose browser_* for arbitrary HTTP/HTTPS websites, choose_action for host actions, and host_* for operator-configured MCP devices. Independent browser sessions may run concurrently; goal budgets are caller options. The private service configuration selects offline mock (default) or authenticated remote decisions. Each remote profile binds local client a to one configured agent.\nservice start --share-a-with-b enables an explicit a-to-b session ACL for local contention testing.\n`;
 const delay=(ms:number)=>new Promise(resolve=>setTimeout(resolve,ms));
 function summary(value:unknown):string{
  if(typeof value!=='object'||value===null)return JSON.stringify(value);const row=value as Record<string,unknown>;
@@ -23,10 +25,19 @@ function summary(value:unknown):string{
  return JSON.stringify(value);
 }
 async function health(runtime:string){return ipcCall(await readCredential(join(runtime,'client-a.json')),'service.health',{});}
-async function start(runtime:string,shared:boolean,configFile?:string):Promise<unknown>{
+async function start(runtime:string,shared?:boolean,configFile?:string,recover=false):Promise<unknown>{
+ return lifecycleLock(runtime,async()=>{
+ const intent=await readServiceIntent(runtime);
+ if(recover&&intent?.desired!=='running')return {stopped:true,recovery_skipped:true};
+ if(recover&&!intent?.selection)throw new Fault('SERVICE_INTENT_INVALID');
+ configFile=configFile??intent?.selection?.configFile??undefined;shared=recover?intent!.selection!.shared:shared??false;
  const profile=await loadServiceProfile(configFile,shared);
+ if(recover&&profile.fingerprint!==intent!.selection!.fingerprint)throw new Fault('SERVICE_PROFILE_MISMATCH');
  let existing:unknown;try{existing=await health(runtime);}catch{/* The exclusive lock arbitrates unavailable coordinators. */}
- if(existing){if((existing as Record<string,unknown>).profileFingerprint!==profile.fingerprint)throw new Fault('SERVICE_PROFILE_MISMATCH');return {...existing as object,already_running:true};}
+ if(existing&&(existing as Record<string,unknown>).profileFingerprint!==profile.fingerprint)throw new Fault('SERVICE_PROFILE_MISMATCH');
+ if(!recover)await writeServiceIntent(runtime,{version:1,desired:'running',selection:{configFile:configFile?resolve(configFile):null,shared,fingerprint:profile.fingerprint}});
+ if(existing)return {...existing as object,already_running:true};
+ await recoverCoordinatorFiles(runtime,profile.clients);
  await privateRuntime(runtime);
  const log=await open(join(runtime,'service.log'),constants.O_CREAT|constants.O_APPEND|constants.O_WRONLY|constants.O_NOFOLLOW,0o600);
  try{const info=await log.stat();if(!info.isFile()||(info.mode&0o777)!==0o600||info.uid!==process.getuid?.())throw new Fault('UNSAFE_RUNTIME');
@@ -35,14 +46,18 @@ async function start(runtime:string,shared:boolean,configFile?:string):Promise<u
   for(let attempt=0;attempt<100;attempt++){try{const ready=await health(runtime) as Record<string,unknown>;if(ready.profileFingerprint!==profile.fingerprint)throw new Fault('SERVICE_PROFILE_MISMATCH');return ready;}catch(error){if(error instanceof Fault&&error.code==='SERVICE_PROFILE_MISMATCH')throw error;if(exited)throw new Fault('SERVICE_START_FAILED');await delay(100);}}
   throw new Fault('SERVICE_START_TIMEOUT');
  }finally{await log.close();}
+ });
 }
 async function stop(runtime:string):Promise<unknown>{
+ return lifecycleLock(runtime,async()=>{
+ const intent=await readServiceIntent(runtime);await writeServiceIntent(runtime,{version:1,desired:'stopped',selection:intent?.selection??null});
  const credential=await readCredential(join(runtime,'operator.json'));await ipcCall(credential,'service.stop',{});
  for(let attempt=0;attempt<100;attempt++){
   try{await lstat(join(runtime,'service.lock'));}catch{return {stopped:true};}
   await delay(50);
  }
  throw new Fault('SERVICE_STOP_TIMEOUT');
+ });
 }
 async function demo(credential:Credential):Promise<unknown>{
  const opened=await ipcCall(credential,'jev.open_session',parseTool('jev.open_session',{fixture_id:'standard'})) as {session_id:string};
@@ -50,12 +65,13 @@ async function demo(credential:Credential):Promise<unknown>{
  finally{await ipcCall(credential,'jev.close_session',parseTool('jev.close_session',{session_id:opened.session_id}));}
 }
 async function main(){
- let args;try{args=parseArgs({options:{help:{type:'boolean',short:'h'},json:{type:'boolean'},runtime:{type:'string'},config:{type:'string'},credential:{type:'string'},args:{type:'string'},'share-a-with-b':{type:'boolean'}},strict:true,allowPositionals:true});}catch{throw new Fault('INVALID_ARGUMENTS');}
+ let args;try{args=parseArgs({options:{help:{type:'boolean',short:'h'},json:{type:'boolean'},runtime:{type:'string'},config:{type:'string'},credential:{type:'string'},args:{type:'string'},'share-a-with-b':{type:'boolean'},recover:{type:'boolean'}},strict:true,allowPositionals:true});}catch{throw new Fault('INVALID_ARGUMENTS');}
  const {values,positionals}=args;if(values.help){if(positionals.length||Object.keys(values).some(key=>key!=='help'))throw new Fault('INVALID_ARGUMENTS');process.stdout.write(help);return;}
  const command=positionals.join(' ');
- const allowed=command==='schemas'?['json']:command==='service start'?['json','runtime','config','share-a-with-b']:['service health','service stop','doctor','policy status'].includes(command)?['json','runtime']:command==='demo'?['json','runtime','credential']:['json','runtime','credential','args'];
+ const allowed=command==='schemas'?['json']:command==='service start'?['json','runtime','config','share-a-with-b','recover']:['service health','service stop','doctor','policy status'].includes(command)?['json','runtime']:command==='demo'?['json','runtime','credential']:['json','runtime','credential','args'];
  if(Object.keys(values).some(key=>!allowed.includes(key)))throw new Fault('INVALID_ARGUMENTS');
  if((values.config!==undefined||values['share-a-with-b']!==undefined)&&!(positionals[0]==='service'&&positionals[1]==='start'&&positionals.length===2))throw new Fault('INVALID_ARGUMENTS');
+ if(values.recover&&(values.config!==undefined||values['share-a-with-b']!==undefined))throw new Fault('INVALID_ARGUMENTS');
  const runtime=resolve(values.runtime??defaultRuntime());let result:unknown;
  if(positionals.length===1&&positionals[0]==='schemas')result=toolDefinitions;
  else if(positionals.length===1&&positionals[0]==='doctor'){
@@ -65,7 +81,7 @@ async function main(){
  }
  else if(positionals.length===2&&positionals[0]==='policy'&&positionals[1]==='status')result=await health(runtime);
  else if(positionals[0]==='service'&&positionals.length===2){
-  switch(positionals[1]){case 'start':result=await start(runtime,values['share-a-with-b']??false,values.config);break;case 'health':result=await health(runtime);break;case 'stop':result=await stop(runtime);break;default:throw new Fault('UNKNOWN_METHOD');}
+  switch(positionals[1]){case 'start':result=await start(runtime,values['share-a-with-b'],values.config,values.recover);break;case 'health':result=await health(runtime);break;case 'stop':result=await stop(runtime);break;default:throw new Fault('UNKNOWN_METHOD');}
  }else if(positionals.length===1&&positionals[0]==='demo')result=await demo(await readCredential(values.credential??join(runtime,'client-a.json')));
  else if(positionals.length===1){
   let input:unknown;try{input=JSON.parse(values.args??'{}');}catch{throw new Fault('INVALID_ARGUMENTS');}

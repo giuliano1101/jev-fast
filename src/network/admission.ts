@@ -18,6 +18,9 @@ export class AdmissionRegistry {
   const id=randomUUID(),now=Date.now();const row:AdmissionRecord={request_id:id,id,type,name,firstSeen:now,lastSeen:now,generation:0,enabled:false,desiredEnabled:false,owner:null,revocations:[],state:'pending',localInstance:null,grantDevice:null,grantInstance:null};
   this.audit.put(id,row);this.live.add(id);return row;
  }
+ /** Possession of the private device handle can restore its registration after relay restart.
+  * It preserves manual off and generation; it never resurrects any AI owner. */
+ resumeRegistration(id:string){const row=this.audit.get(id);if(!row||row.type!=='device')throw new Fault('DEVICE_RESUME_INVALID');if(this.live.has(id))return this.get(id);this.audit.put(id,{...row,enabled:false,owner:null,state:'pending',lastSeen:Date.now(),localInstance:null});this.live.add(id);return this.get(id);}
  private expire(){for(const row of this.audit.all())if(this.live.has(row.id)&&(row.type!=='ai'||this.sessionTtlMs!==null)&&Date.now()-row.lastSeen>=(row.type==='ai'?this.sessionTtlMs!:this.deviceTtlMs)){
   if(row.type==='ai')this.disconnect(row.id);
   else if(row.state!=='offline'){this.disable(row);this.audit.put(row.id,{...this.audit.get(row.id)!,state:'offline'});for(const ai of this.audit.all())if(ai.type==='ai'&&ai.enabled&&ai.grantDevice===row.id)this.disable(ai);}

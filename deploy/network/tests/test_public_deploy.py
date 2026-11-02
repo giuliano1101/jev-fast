@@ -156,7 +156,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual(config['allowedOrigins'], [])
         self.assertEqual(config['accessMode'], 'manual')
         unit = self.d.service_unit()
-        for setting in ['User=jev', 'Group=jev', 'Restart=no', 'UMask=0077', 'ProtectSystem=strict', 'StandardOutput=append:/var/log/jev-network/service.log']:
+        for setting in ['User=jev', 'Group=jev', 'Restart=always', 'RestartSec=3', 'StartLimitIntervalSec=0', '--recover-lock /var/lib/jev-network/relay/owner.lock', '--recover-lock /var/lib/jev-network/relay/manual-registry/owner.lock', '--recover-lock /var/lib/jev-network/relay/manual-requests/owner.lock', 'UMask=0077', 'ProtectSystem=strict', 'StandardOutput=append:/var/log/jev-network/service.log']:
             self.assertIn(setting, unit)
         self.assertNotIn('0.0.0.0', unit)
         # Preparation is tested as an orchestration boundary, independent of root/Ubuntu.

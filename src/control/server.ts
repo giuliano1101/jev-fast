@@ -1,9 +1,10 @@
 import {createServer,type IncomingMessage,type ServerResponse} from 'node:http';
-import {randomBytes,timingSafeEqual} from 'node:crypto';
+import {timingSafeEqual} from 'node:crypto';
 import {spawn} from 'node:child_process';
 import {resolve,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {parseArgs} from 'node:util';
+import {operatorToken} from '../service/operator-token.js';
 import {defaultRuntime} from '../service/runtime.js';
 import {controlPage,controlScript,controlStyle} from './ui.js';
 import {admissionMutationSchema,loadAdmissionAdapter,type AdmissionAdapter} from './admission.js';
@@ -51,18 +52,18 @@ export class CliControlAdapter implements ControlAdapter {
 }
 export function parseControlArgs(args:string[]){
  try{
-  const {values}=parseArgs({args,strict:true,allowPositionals:false,options:{runtime:{type:'string'},config:{type:'string'},'admission-config':{type:'string'},port:{type:'string'},help:{type:'boolean',short:'h'},open:{type:'boolean'}}});
+  const {values}=parseArgs({args,strict:true,allowPositionals:false,options:{runtime:{type:'string'},config:{type:'string'},'admission-config':{type:'string'},'token-file':{type:'string'},port:{type:'string'},help:{type:'boolean',short:'h'},open:{type:'boolean'}}});
   if(values.help&&Object.keys(values).some(key=>key!=='help'))throw new Error();
   const port=values.port===undefined?47831:Number(values.port);
-  if(values.port!==undefined&&!/^\d+$/.test(values.port)||!Number.isInteger(port)||port<0||port>65535||values.runtime===''||values.config===''||values['admission-config']==='')throw new Error();
-  return {runtime:resolve(values.runtime??defaultRuntime()),...(values.config?{config:resolve(values.config)}:{}),...(values['admission-config']?{admissionConfig:resolve(values['admission-config'])}:{}),port,help:values.help??false,...(values.open?{open:true}:{})};
+  if(values.port!==undefined&&!/^\d+$/.test(values.port)||!Number.isInteger(port)||port<0||port>65535||values.runtime===''||values.config===''||values['admission-config']===''||values['token-file']==='')throw new Error();
+  return {runtime:resolve(values.runtime??defaultRuntime()),...(values.config?{config:resolve(values.config)}:{}),...(values['admission-config']?{admissionConfig:resolve(values['admission-config'])}:{}),port,help:values.help??false,...(values['token-file']?{tokenFile:resolve(values['token-file'])}:{}),...(values.open?{open:true}:{})};
  }catch{throw new Error('INVALID_ARGUMENTS');}
 }
-export async function startControlPanel(options:{runtime:string;config?:string;admissionConfig?:string;port?:number;adapter?:ControlAdapter;admissionAdapter?:AdmissionAdapter}){
+export async function startControlPanel(options:{runtime:string;config?:string;admissionConfig?:string;tokenFile?:string;port?:number;adapter?:ControlAdapter;admissionAdapter?:AdmissionAdapter}){
  const runtime=resolve(options.runtime),adapter=options.adapter??new CliControlAdapter({runtime,config:options.config});
  if(options.admissionAdapter&&options.admissionConfig)throw new Error('INVALID_ADMISSION_CONFIGURATION');
  const admission=options.admissionAdapter??(options.admissionConfig?await loadAdmissionAdapter(resolve(options.admissionConfig)):undefined);
- const token=randomBytes(32).toString('hex');let origin='',host='';let mutations:Promise<unknown>=Promise.resolve();
+ const token=operatorToken(options.tokenFile);let origin='',host='';let mutations:Promise<unknown>=Promise.resolve();
  function respond(res:ServerResponse,status:number,value:unknown,type='application/json; charset=utf-8'){
   const body=typeof value==='string'?value:JSON.stringify(value);res.writeHead(status,{'content-type':type,'cache-control':'no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','content-security-policy':"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",'content-length':Buffer.byteLength(body)});res.end(body);
  }

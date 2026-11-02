@@ -77,3 +77,5 @@ node dist/src/control/main.js \
 启动控制台不会启动 relay、网关或连接器，也不修改费用账本。维护这些后台进程见[运维手册](cross-machine-operations.md)；不要通过清锁、清审计或关闭其他 AI 会话来恢复未知结果。
 
 2026-11-02 已完成[心跳维护](reports/2026-11-02-heartbeat-maintenance.md)。原管理 SSH 隧道启用了压缩以传输完整历史列表，页面和开关保持统一；原列表未删除。日常 AI 使用新 continuation，不应自行重启共享服务或重新执行旧业务。
+
+服务常驻恢复与总开关的持久意图见[守护说明](service-recovery.md)。Windows 本地浏览器另见[本地浏览器 MCP](local-browser.md)，与公网 Mac 无头浏览器区分。

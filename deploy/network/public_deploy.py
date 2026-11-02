@@ -232,15 +232,20 @@ def server_config(host):
 
 def service_unit():
     return f'''[Unit]
-Description=Jev manual admission relay (bounded synthetic executor)
+Description=Jev network MCP relay
 After=network.target
+StartLimitIntervalSec=0
 [Service]
 Type=simple
 User=jev
 Group=jev
 WorkingDirectory=/opt/jev-fast
+ExecStartPre=/opt/jev-node-v{NODE_VERSION}/bin/node /opt/jev-fast/dist/src/service/supervisor.js --recover-lock /var/lib/jev-network/relay/owner.lock
+ExecStartPre=/opt/jev-node-v{NODE_VERSION}/bin/node /opt/jev-fast/dist/src/service/supervisor.js --recover-lock /var/lib/jev-network/relay/manual-registry/owner.lock
+ExecStartPre=/opt/jev-node-v{NODE_VERSION}/bin/node /opt/jev-fast/dist/src/service/supervisor.js --recover-lock /var/lib/jev-network/relay/manual-requests/owner.lock
 ExecStart=/opt/jev-node-v{NODE_VERSION}/bin/node /opt/jev-fast/dist/src/network/main.js server --config /etc/jev-network/server.json
-Restart=no
+Restart=always
+RestartSec=3
 UMask=0077
 NoNewPrivileges=true
 PrivateTmp=true

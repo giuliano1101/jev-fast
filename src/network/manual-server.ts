@@ -16,7 +16,7 @@ import {AdmissionRegistry} from './admission.js';
 import {startAdmissionConsole} from './admission-console.js';
 export interface ManualNetworkServerOptions {
  accessMode?:'manual';host?:string;port?:number;publicHost?:string;allowedOrigins:string[];deviceId:string;agentId:string;storeDir:string;
- tls:{key:Buffer;cert:Buffer};leaseMs?:number;queueTtlMs?:number|null;responseTtlMs?:number|null;sessionTtlMs?:number|null;autoAdmitAi?:boolean;allowContinuations?:boolean;adminPort?:number;
+ tls:{key:Buffer;cert:Buffer};leaseMs?:number;queueTtlMs?:number|null;responseTtlMs?:number|null;sessionTtlMs?:number|null;autoAdmitAi?:boolean;allowContinuations?:boolean;adminPort?:number;adminTokenFile?:string;
 }
 const mapSchema=z.strictObject({request_id:idSchema,connection:z.uuid(),external:idSchema,owner:z.string(),grantDevice:z.uuid().nullable().default(null),grantInstance:z.uuid().nullable().default(null)});
 const count=(req:IncomingMessage,name:string)=>req.rawHeaders.filter((v,i)=>i%2===0&&v.toLowerCase()===name).length;
@@ -92,9 +92,9 @@ export async function startManualNetworkServer(options:ManualNetworkServerOption
    try{
     const value=await body(req);rejectRevoked();
     if(req.url==='/connector/register'){
-     const input=z.strictObject({name:z.string(),device_id:idSchema,agent_id:idSchema}).parse(value);
+     const input=z.strictObject({name:z.string(),device_id:idSchema,agent_id:idSchema,resume_handle:z.uuid().optional()}).parse(value);
      if(input.device_id!==options.deviceId||input.agent_id!==options.agentId)throw new Fault('BINDING_MISMATCH');
-     const row=admissions.register('device',input.name);json(res,200,{handle:row.id,enabled:false});return;
+     const row=input.resume_handle?admissions.resumeRegistration(input.resume_handle):admissions.register('device',input.name);json(res,200,{handle:row.id,enabled:row.enabled});return;
     }
     if(req.url==='/connector/sync'){
      const input=manualSyncSchema.parse(value),record=admissions.touch(input.handle);if(record.type!=='device'||input.sync.connector_id!==record.id)throw new Fault('INVALID_REQUEST');
@@ -122,7 +122,7 @@ export async function startManualNetworkServer(options:ManualNetworkServerOption
   };
   server=createServer({...options.tls,minVersion:'TLSv1.2'},(req,res)=>{void handle(req,res).catch(()=>res.destroy());});server.headersTimeout=5000;server.requestTimeout=5000;server.keepAliveTimeout=1000;
   await new Promise<void>((done,fail)=>{server!.once('error',fail);server!.listen(options.port??0,host,done);});const address=server.address();if(!address||typeof address==='string')throw new Fault('LISTEN_FAILED');if(!expectedHost)expectedHost=`${host.includes(':')?'['+host+']':host}:${address.port}`;
-  admin=await startAdmissionConsole({registry:admissions,port:options.adminPort});
+  admin=await startAdmissionConsole({registry:admissions,port:options.adminPort,tokenFile:options.adminTokenFile});
   timer=setInterval(()=>{try{rejectRevoked();for(const [id,session] of sessions)if(!admissions.isLive(id)){sessions.delete(id);void session.mcp.close();}}catch{/* Storage errors fence requests on their next checked access. */}},Math.min(250,options.sessionTtlMs??250));timer.unref();
   const listener=server,panel=admin;let closing:Promise<void>|undefined;
   return {server:listener,store,registry:admissions,admin:panel,url:`https://${expectedHost}`,close:()=>closing??=(async()=>{clearInterval(timer);for(const session of sessions.values())await session.mcp.close();sessions.clear();await panel.close();listener.closeAllConnections();try{await new Promise<void>((done,fail)=>listener.close(error=>error?fail(error):done()));}finally{admissions.close();requests.close();store.close();}})()};

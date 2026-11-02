@@ -1,0 +1,3 @@
+import {randomBytes} from 'node:crypto';import {readFileSync} from 'node:fs';import {isAbsolute,dirname} from 'node:path';import {Fault} from '../core/errors.js';import {preparePrivateDirectory,assertPrivateFile} from './private-directory.js';
+/** Optional operator-provisioned capability. Never create, rotate or print an existing file. */
+export function operatorToken(file?:string):string{if(file===undefined)return randomBytes(32).toString('hex');if(!isAbsolute(file))throw new Fault('OPERATOR_TOKEN_INVALID');preparePrivateDirectory(dirname(file));assertPrivateFile(file);const token=readFileSync(file,'utf8').trim();if(!/^[a-f0-9]{64}$/.test(token))throw new Fault('OPERATOR_TOKEN_INVALID');return token;}
