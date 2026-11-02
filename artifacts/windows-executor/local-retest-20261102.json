@@ -1,0 +1,543 @@
+{
+  "date": "2026-11-02",
+  "base_revision": "56d4cd5e8fc80064aa112b11cf6abe2c2cc0524b",
+  "platform": "win32",
+  "scope": "Windows unified executor; dedicated local test pages and WPF window; real public Jev choices",
+  "windows_and_private_storage_suite": {
+    "tests": 32,
+    "passed": 32,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "final_cdp_recheck": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheck": {
+    "exit_code": 0
+  },
+  "lint": {
+    "exit_code": 0
+  },
+  "real_primary": {
+    "schema_version": 1,
+    "scenario_version": "windows-workbench-v1",
+    "environment": "win32",
+    "started": "2026-11-02T14:45:24.501Z",
+    "finished": "2026-11-02T14:54:29.670Z",
+    "executor": "real-jev-windows",
+    "passed": 28,
+    "failed": 0,
+    "not_run": 1,
+    "uncertain": false,
+    "transport_fault_injections": {
+      "dropped_completed_decision_replies": 1,
+      "original_status_queries": 35
+    },
+    "usage": {
+      "unique_decision_requests": 21,
+      "known_input_tokens": 36074,
+      "known_output_tokens": 511,
+      "requests_without_usage": 0,
+      "account_bill": null,
+      "main_codex_usage": null
+    },
+    "cases": [
+      {
+        "id": "real-service-ready",
+        "scope": "readiness",
+        "status": "passed",
+        "elapsed_ms": 7332
+      },
+      {
+        "id": "local-browser-open",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 30070,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "1fc8bb18-a57a-4383-ab3b-484cced1cdb6-decision",
+        "usage": {
+          "input_tokens": 558,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "grounded-choice-fill",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 20924,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "072d52cb-8c22-49da-ba6c-308f9a185858-decision",
+        "operation_id": "072d52cb-8c22-49da-ba6c-308f9a185858",
+        "usage": {
+          "input_tokens": 1922,
+          "output_tokens": 31
+        }
+      },
+      {
+        "id": "select-option",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 22973,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "8825094d-3f88-49cb-8dc1-d6d4531d14d6-decision",
+        "operation_id": "8825094d-3f88-49cb-8dc1-d6d4531d14d6",
+        "usage": {
+          "input_tokens": 1852,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "single-commit",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 25386,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "ec698c9e-97ea-414b-b1bd-000925d7b3f8-decision",
+        "operation_id": "ec698c9e-97ea-414b-b1bd-000925d7b3f8",
+        "usage": {
+          "input_tokens": 1860,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "same-id-no-replay",
+        "scope": "recovery",
+        "status": "passed",
+        "elapsed_ms": 6,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "ec698c9e-97ea-414b-b1bd-000925d7b3f8-decision",
+        "operation_id": "ec698c9e-97ea-414b-b1bd-000925d7b3f8",
+        "usage": {
+          "input_tokens": 1860,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "real-lost-decision-reply-recovery",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 24112,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "a206eb40-dc4b-4270-a6a1-ecfe4040d4d5-decision",
+        "operation_id": "a206eb40-dc4b-4270-a6a1-ecfe4040d4d5",
+        "usage": {
+          "input_tokens": 1875,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "local-file-upload",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 22514,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "e866d467-b729-4fe1-8c29-f1da54880213-decision",
+        "operation_id": "e866d467-b729-4fe1-8c29-f1da54880213",
+        "usage": {
+          "input_tokens": 1900,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "download-file",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 23732,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "2dbcbb55-ee05-4aaf-9941-be053c9b2b2e-decision",
+        "operation_id": "2dbcbb55-ee05-4aaf-9941-be053c9b2b2e",
+        "usage": {
+          "input_tokens": 1874,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "pdf-full-parse",
+        "scope": "local-artifact",
+        "status": "passed",
+        "elapsed_ms": 321
+      },
+      {
+        "id": "download-zip",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 18697,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "dbf9e4c9-311d-4864-ab6c-da99746d8f13-decision",
+        "operation_id": "dbf9e4c9-311d-4864-ab6c-da99746d8f13",
+        "usage": {
+          "input_tokens": 1969,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "zip-full-parse",
+        "scope": "local-artifact",
+        "status": "passed",
+        "elapsed_ms": 139
+      },
+      {
+        "id": "iframe-control",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 21169,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "0ccbb228-e9dc-4b42-b04e-7dc34654c815-decision",
+        "operation_id": "0ccbb228-e9dc-4b42-b04e-7dc34654c815",
+        "usage": {
+          "input_tokens": 2074,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "canvas-touch",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 24241,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "647bf623-9feb-4fb8-8a4f-d2804ba873b7-decision",
+        "operation_id": "647bf623-9feb-4fb8-8a4f-d2804ba873b7",
+        "usage": {
+          "input_tokens": 2080,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "canvas-replay",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 30977,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "6d5131c4-6f0c-4456-b83d-3c09a71b5132-decision",
+        "operation_id": "6d5131c4-6f0c-4456-b83d-3c09a71b5132",
+        "usage": {
+          "input_tokens": 2147,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "mobile-viewport",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 26671,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "bfe7ae55-4071-4eae-a48a-ccc136bafd0b-decision",
+        "operation_id": "bfe7ae55-4071-4eae-a48a-ccc136bafd0b",
+        "usage": {
+          "input_tokens": 2087,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "rendered-screenshot",
+        "scope": "local-render",
+        "status": "passed",
+        "elapsed_ms": 52
+      },
+      {
+        "id": "popup",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 20411,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "cc89858e-ad5d-4730-84f1-53fb3076d253-decision",
+        "operation_id": "cc89858e-ad5d-4730-84f1-53fb3076d253",
+        "usage": {
+          "input_tokens": 2034,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "test-login",
+        "scope": "local-test-page",
+        "status": "passed",
+        "elapsed_ms": 21905,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "d46d0819-e71d-4dd8-adb3-3b9acbd00944-decision",
+        "operation_id": "d46d0819-e71d-4dd8-adb3-3b9acbd00944",
+        "usage": {
+          "input_tokens": 814,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "persistent-test-login",
+        "scope": "local-session",
+        "status": "passed",
+        "elapsed_ms": 28409,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "6f90228b-7b23-4ea8-8cf6-f98724fb454b-decision",
+        "operation_id": "6f90228b-7b23-4ea8-8cf6-f98724fb454b",
+        "usage": {
+          "input_tokens": 561,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "panel-signed-action-and-receipt",
+        "scope": "local-test-panel",
+        "status": "passed",
+        "elapsed_ms": 20086,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "fdeb20c5-7e97-4147-ae21-3efa4f9ca55a-decision",
+        "operation_id": "fdeb20c5-7e97-4147-ae21-3efa4f9ca55a",
+        "usage": {
+          "input_tokens": 401,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "desktop-fill",
+        "scope": "native-test-window",
+        "status": "passed",
+        "elapsed_ms": 23075,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "81e67dbb-faa3-426b-b98a-90d19d6a2143-decision",
+        "operation_id": "81e67dbb-faa3-426b-b98a-90d19d6a2143",
+        "usage": {
+          "input_tokens": 2004,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "desktop-commit",
+        "scope": "native-test-window",
+        "status": "passed",
+        "elapsed_ms": 31134,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "345c54a3-54bb-4e74-8649-01639f86f088-decision",
+        "operation_id": "345c54a3-54bb-4e74-8649-01639f86f088",
+        "usage": {
+          "input_tokens": 1986,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "upstream-native-clear",
+        "scope": "native-test-window",
+        "status": "passed",
+        "elapsed_ms": 26241,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "51169cf5-07fd-4b5a-a646-5440d049b9a9-decision",
+        "operation_id": "51169cf5-07fd-4b5a-a646-5440d049b9a9",
+        "usage": {
+          "input_tokens": 2019,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "upstream-native-type",
+        "scope": "native-test-window",
+        "status": "passed",
+        "elapsed_ms": 24359,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "b33f0d84-9e13-429f-9544-736fecc4e7bf-decision",
+        "operation_id": "b33f0d84-9e13-429f-9544-736fecc4e7bf",
+        "usage": {
+          "input_tokens": 2033,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "upstream-native-invoke",
+        "scope": "native-test-window",
+        "status": "passed",
+        "elapsed_ms": 37953,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "223a5747-6beb-4fde-8ee1-eb41eb284b4b-decision",
+        "operation_id": "223a5747-6beb-4fde-8ee1-eb41eb284b4b",
+        "usage": {
+          "input_tokens": 2024,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "native-window-open",
+        "scope": "native-test-window",
+        "status": "passed",
+        "elapsed_ms": 147484
+      },
+      {
+        "id": "live-vidu-audio-video-rtc",
+        "scope": "production-stream",
+        "status": "not_run",
+        "elapsed_ms": 0,
+        "code": "NO_LIVE_SESSION_REQUESTED"
+      },
+      {
+        "id": "owned-resource-cleanup",
+        "scope": "cleanup",
+        "status": "passed",
+        "elapsed_ms": 0
+      }
+    ],
+    "limits": [
+      "Synthetic local workbench with real Jev is not a live bank/tax/stream/social test.",
+      "Account bill and main Codex token usage not retrieved.",
+      "No speedup claim without a matched baseline."
+    ]
+  },
+  "real_dual_facade": {
+    "schema_version": 1,
+    "executor": "real-jev-default-windows-mcp",
+    "uncertain": false,
+    "cases": [
+      {
+        "id": "actual-facade-tools",
+        "status": "passed",
+        "elapsed_ms": 31
+      },
+      {
+        "id": "first-client-local-browser",
+        "status": "passed",
+        "elapsed_ms": 32305,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "mcp-live-open-decision",
+        "usage": {
+          "input_tokens": 555,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "second-client-same-operation-id",
+        "status": "passed",
+        "elapsed_ms": 25900,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "mcp-live-open-decision",
+        "usage": {
+          "input_tokens": 555,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "cross-owner-observation-refused",
+        "status": "passed",
+        "elapsed_ms": 4
+      },
+      {
+        "id": "release-one-keeps-other",
+        "status": "passed",
+        "elapsed_ms": 4925
+      },
+      {
+        "id": "real-jev-through-default-facade",
+        "status": "passed",
+        "elapsed_ms": 21395,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "request_id": "mcp-live-fill-decision",
+        "usage": {
+          "input_tokens": 1859,
+          "output_tokens": 24
+        }
+      },
+      {
+        "id": "own-resources-released",
+        "status": "passed",
+        "elapsed_ms": 3837
+      }
+    ],
+    "passed": 7,
+    "failed": 0,
+    "notes": [
+      "No mock provider, no credential or raw page payload in this report.",
+      "Original request ids and private owner contexts are retained on uncertainty."
+    ]
+  },
+  "full_service_checks_on_windows": {
+    "unit": {
+      "tests": 562,
+      "passed": 325,
+      "failed": 237,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "integration": {
+      "completed": false,
+      "result": "failed before hanging in offline benchmark teardown; owned test processes stopped",
+      "failed_tests_observed": 8
+    },
+    "safety": {
+      "completed": false,
+      "result": "failed before hanging in teardown; owned test processes stopped",
+      "separate_force_exit_diagnostic": {
+        "tests": 40,
+        "passed": 14,
+        "failed": 26,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    "deployment": {
+      "tests_run": 0,
+      "result": "import error: Unix grp module is unavailable on Windows"
+    },
+    "not_a_whole_project_pass": true
+  },
+  "source_export": {
+    "files_checked": 905,
+    "candidate_files": 44,
+    "candidate_crlf_blobs": 0,
+    "default_clone_worktree_clean": true,
+    "mac_runtime_test": false
+  },
+  "mac_return": {
+    "commit": "fe712aafa7667b522f46a191518bf90ec252f9d9",
+    "tested_revision": "952b7c758aee80e17ee982b9ec2fdffa6bbb0c62",
+    "all_required_checks_passed": false,
+    "integration": {
+      "tests": 126,
+      "passed": 122,
+      "cancelled": 1,
+      "skipped": 3
+    },
+    "received_and_saved": true,
+    "raw_failure_logs_received": false
+  },
+  "changes_after_mac_return": [
+    "CDP fixture uses portable managed startup, explicit cookie posterior and registered cleanup on setup/assertion/abort failure",
+    "GitHub API delivery normalizes canonical LF instead of storing CRLF bytes verbatim",
+    "Mac CI installs hash-pinned artifact parser; Python bytecode stays out of source"
+  ],
+  "current_cdp_test_source_sha256": "197818598adce7eff197fd3455f23a47b5cf8b3a023fcfba1caf29a519c2b4a3",
+  "pending": [
+    "Mac and Windows CI against this corrected source",
+    "Global registration and policy activation after applicable checks pass"
+  ],
+  "global_policy_applied": false,
+  "main_updated": false,
+  "notes": [
+    "No mock substituted during real runs; mock-signing fixtures remain confined to offline tests.",
+    "28 primary and 7 facade checks are groups, not 35 independent business tasks.",
+    "No production portal, social post, real game completion, live audio/video/RTC or main-Codex cost claim."
+  ]
+}

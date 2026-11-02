@@ -12,6 +12,7 @@
 | 部署状态、continuation 与共享服务规则 | [公网快速开始](docs/public-service-quickstart.md) |
 | 新机器的离线 mock 安装 | [Agent 快速开始](docs/quickstart-agent.md) |
 | 一个页面管理服务、AI／设备、历史与接入配置 | [统一控制台](docs/control-panel.md) · [CLI/MCP](docs/cross-machine-cli-mcp.md) |
+| Windows 本机浏览器、桌面、流程恢复与验收 | [Windows 执行器](docs/windows-executor.md) |
 | 默认手动准入与可选自动策略 | [手动接入](docs/manual-admission.md) · [旧 Bearer 网络模式](docs/network-mcp.md) |
 | 计量与工程约束 | [usage-only](docs/metered-service.md) · [AGENTS.md](AGENTS.md) |
 
