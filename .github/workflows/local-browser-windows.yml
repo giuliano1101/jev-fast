@@ -33,6 +33,8 @@ jobs:
       - name: Install the official backend browser using its own resolved driver
         run: |
           node -e "const {createRequire}=require('node:module');const {join,dirname}=require('node:path');const nested=createRequire(require.resolve('@playwright/mcp/package.json'));const driver=join(dirname(nested.resolve('playwright/package.json')),'cli.js');require('node:child_process').execFileSync(process.execPath,[driver,'install','chromium'],{stdio:'inherit'});"
+      - name: Verify disposable Windows private-directory ACL
+        run: node scripts/diagnostics/windows-private-directory.mjs
       - run: npm run build
       - run: npm run typecheck
       - run: node --test dist/tests/unit/local-browser*.test.js dist/tests/unit/private-directory.test.js

@@ -1,0 +1,5 @@
+// Offline CI only: reproduces the helper's fixed ACL script on a disposable directory.
+import {readFileSync,mkdtempSync,mkdirSync,rmSync} from 'node:fs';import {join,win32} from 'node:path';import {tmpdir} from 'node:os';import {spawnSync} from 'node:child_process';
+if(process.platform!=='win32')process.exit(0);
+const source=readFileSync(new URL('../../src/service/private-directory.ts',import.meta.url),'utf8'),script=source.match(/const script=`([\s\S]*?)`;/)?.[1];if(!script)throw Error('FIXED_SCRIPT_MISSING');
+const root=mkdtempSync(join(tmpdir(),'jev-ci-acl-')),path=join(root,'state');mkdirSync(path);try{const result=spawnSync(win32.join(process.env.SystemRoot??'C:\\Windows','System32','WindowsPowerShell','v1.0','powershell.exe'),['-NoProfile','-NonInteractive','-Command',script],{input:JSON.stringify({path,create:true}),encoding:'utf8'});console.log(JSON.stringify({exitCode:result.status,stdout:result.stdout,stderr:result.stderr,error:result.error?.message}));if(result.status!==0)process.exitCode=1;}finally{rmSync(root,{recursive:true,force:true});}
