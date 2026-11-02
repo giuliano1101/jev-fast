@@ -1,0 +1,237 @@
+{
+  "sourceRevision": "02675590779fca04327a426d26f1f3f557c2c428",
+  "maintenanceAuthorized": true,
+  "deployment": {
+    "at": "2026-11-02T05:31:28.780Z",
+    "leaseMs": 30000,
+    "tlsKeyAndCertUnchanged": true,
+    "privatePolicyUnchangedExceptLease": true,
+    "oldCompletedDecisionUnchanged": true,
+    "oldRequestReplayed": false,
+    "ready": true,
+    "deviceEnabled": true,
+    "coordinatorAndGatewayUnchanged": true,
+    "privateMacProfileAndKeyUnchanged": true,
+    "connectorConfigurationUnchanged": true,
+    "provider": "jev",
+    "configuredHosts": [
+      "android"
+    ],
+    "adminCapabilityRefreshed": true,
+    "initialHealthProbeRaceRecoveredWithoutAnotherRestart": true
+  },
+  "verification": {
+    "startedAt": "2026-11-02T05:15:43.468Z",
+    "finishedAt": "2026-11-02T05:18:50.478Z",
+    "ok": true,
+    "cases": [
+      {
+        "name": "two-independent-fresh-connections",
+        "passed": true
+      },
+      {
+        "name": "original-android-host-catalog",
+        "passed": true
+      },
+      {
+        "name": "fresh-real-Jev-decision",
+        "passed": true,
+        "provider": "jev",
+        "model": "jev-1.14.0",
+        "usage": {
+          "input_tokens": 389,
+          "output_tokens": 33
+        }
+      },
+      {
+        "name": "original-android-device-readonly-query",
+        "passed": true,
+        "provider": "jev",
+        "usage": {
+          "input_tokens": 386,
+          "output_tokens": 24
+        }
+      },
+      {
+        "name": "short-transport-resume",
+        "passed": true
+      },
+      {
+        "name": "verified-TLS-reconnect-without-relay-restart",
+        "passed": true
+      },
+      {
+        "name": "two-minute-continuation-stability",
+        "passed": true
+      },
+      {
+        "name": "original-Mac-service-policy-and-key-preserved",
+        "passed": true
+      }
+    ],
+    "samples": [
+      {
+        "at": "2026-11-02T05:16:09.922Z",
+        "healthy": true,
+        "ms": 1685,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:16:17.527Z",
+        "healthy": true,
+        "ms": 1602,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:16:25.067Z",
+        "healthy": true,
+        "ms": 1536,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:16:32.774Z",
+        "healthy": true,
+        "ms": 1705,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:16:40.431Z",
+        "healthy": true,
+        "ms": 1655,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:16:52.335Z",
+        "healthy": true,
+        "ms": 1544,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:00.025Z",
+        "healthy": true,
+        "ms": 1687,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:07.862Z",
+        "healthy": true,
+        "ms": 1835,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:17.425Z",
+        "healthy": true,
+        "ms": 3561,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:28.973Z",
+        "healthy": true,
+        "ms": 1599,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:36.574Z",
+        "healthy": true,
+        "ms": 1599,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:44.303Z",
+        "healthy": true,
+        "ms": 1725,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:52.024Z",
+        "healthy": true,
+        "ms": 1718,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:17:59.623Z",
+        "healthy": true,
+        "ms": 1595,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:18:07.200Z",
+        "healthy": true,
+        "ms": 1574,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:18:14.971Z",
+        "healthy": true,
+        "ms": 1769,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:18:22.599Z",
+        "healthy": true,
+        "ms": 1626,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:18:30.935Z",
+        "healthy": true,
+        "ms": 2334,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:18:38.566Z",
+        "healthy": true,
+        "ms": 1627,
+        "sameLogicalConnections": true
+      },
+      {
+        "at": "2026-11-02T05:18:46.777Z",
+        "healthy": true,
+        "ms": 2208,
+        "sameLogicalConnections": true
+      }
+    ],
+    "modelCalls": 2,
+    "errors": []
+  },
+  "console": {
+    "at": "2026-11-02T05:36:59.918Z",
+    "cases": [
+      {
+        "name": "same-unified-console-real-Jev-health",
+        "passed": true,
+        "ms": 236
+      },
+      {
+        "name": "full-history-through-compressed-management-tunnel-1",
+        "passed": true,
+        "ms": 3499,
+        "connections": 799
+      },
+      {
+        "name": "full-history-through-compressed-management-tunnel-2",
+        "passed": true,
+        "ms": 4207,
+        "connections": 799
+      },
+      {
+        "name": "operator-off-own-probe-blocks-continuation-and-stays-off",
+        "passed": true
+      }
+    ],
+    "ok": true,
+    "changedOnlyOwnTestAi": true,
+    "noGlobalOrDeviceOffTest": true
+  },
+  "usage": {
+    "calls": 2,
+    "input_tokens": 775,
+    "output_tokens": 57,
+    "known_cost_usd": 3.255e-05,
+    "basis": "Existing usage-only accounting, not a new cap"
+  },
+  "noPhysicalWindowsAcceptanceClaim": true,
+  "oldWindowsRequestReplayed": false,
+  "totalVerificationDurationSeconds": 187.0,
+  "sampleWindowSeconds": 156.9
+}

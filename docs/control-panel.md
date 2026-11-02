@@ -75,3 +75,5 @@ node dist/src/control/main.js \
 控制台校验精确 Host、Origin 和启动时生成的本地能力，不启用跨域权限；使用 CSP、禁缓存和 no-referrer。不要把控制端口代理到公网或分享完整私有链接。它是同一操作系统用户下的操作员工具，不构成 OS 隔离边界。
 
 启动控制台不会启动 relay、网关或连接器，也不修改费用账本。维护这些后台进程见[运维手册](cross-machine-operations.md)；不要通过清锁、清审计或关闭其他 AI 会话来恢复未知结果。
+
+2026-11-02 已完成[心跳维护](reports/2026-11-02-heartbeat-maintenance.md)。原管理 SSH 隧道启用了压缩以传输完整历史列表，页面和开关保持统一；原列表未删除。日常 AI 使用新 continuation，不应自行重启共享服务或重新执行旧业务。

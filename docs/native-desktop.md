@@ -6,7 +6,7 @@
 
 已构建 `dist/native/jev-desktop-macos` 和 `dist/src/desktop/main.js`，实际辅助功能、屏幕录制状态均可读取。真实 Jev 已选择并执行系统计算器 `37 × 19 = 703`，并在 TextEdit 中修改本次测试专属临时文本、按 Cmd+S 保存后独立核对文件。窗口截图实测为 460 × 816，缩放为 2。
 
-本轮用户要求保持 `/tmp/jev-501` 的原 profile、Key、账本及现有连接不变。因此没有重启 coordinator/connector/relay，也没有给现有公共 profile 添加 `desktop` 或 Windows host。公共 profile 仍只配置 `android`，实时就绪以 `network_status` 为准；不要向尚未配置的公网 `host=desktop` 反复重试。
+原生桌面开发阶段按用户要求没有重启共享服务；随后用户批准了[心跳维护](reports/2026-11-02-heartbeat-maintenance.md)，已重启 relay / connector 并上线 30 秒设备宽限。本机 coordinator、网关、原 profile、Key 和历史账本保留，也没有给现有公共 profile 添加 `desktop` 或 Windows host。公共 profile 仍只配置 `android`，实时就绪以 `network_status` 为准；不要向尚未配置的公网 `host=desktop` 反复重试。
 
 本机 AI 可以直接启动新原生 MCP，配合已有公网 `jev.choose_action` 使用。当前机器的 MCP 配置如下，不需要提供模型 Key：
 

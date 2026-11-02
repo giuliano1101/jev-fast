@@ -16,6 +16,10 @@ https://jev.43-160-233-161.sslip.io/mcp
 
 > 给另一个 AI 的指令：连接上面的 MCP，先 tools/list 和 jev.network_status。把返回的 continuation_token 私密缓存，在所有后续网络调用中自动带上；不要让用户提供这个 token。确认 enabled、connector_online、local_ready。真实网页使用 browser_open/observe/act/close；手机先 host_tools(host=android)，再按实际 schema 构造 host_act。QUEUED/DISPATCHED 查原 request_id，跨短连接仍带同一 continuation_token。UNKNOWN 停止并保留编号。按实际页面/设备后验报告结果，结束时 release_connection；不要停止共享服务或请求模型 Key。
 
+## 2026-11-02 心跳维护已完成
+
+当前原连接器已上线 TLS 连接复用，relay 设备心跳宽限显式为 30 秒；新的独立连接与短 transport 续接已验收，原 Android host 保留。维护前的 continuation 已失效，Windows 两端应重新初始化、不带旧 token 调用 network_status，再私密缓存新 token。旧请求只查询既有状态，不换键重放；已完成的 Windows open 决策记录保留。无需重新申请 Key、profile 或付费额度。[维护报告与重新接入步骤](reports/2026-11-02-heartbeat-maintenance.md)。这不是所有 30 秒以内失联都保持 owner 的保证；本机原有失联保护仍有效。
+
 ## 当前 16 个网络工具
 
 本地 CLI/stdio 有 13 个业务工具，网络版增加 3 个连接/交付工具：

@@ -17,6 +17,8 @@
 
 其他 AI 复用共享 `/tmp/jev-501`，不重启、停服、切换 provider 或启动替代 mock。操作员仍可关闭单个 owner、设备或本地总开关。
 
+心跳稳定性维护已完成：连接器复用 TLS，relay 设备宽限为 30 秒；Windows 可建立新的独立连接，步骤及实测见[维护报告](docs/reports/2026-11-02-heartbeat-maintenance.md)。
+
 本机原生 Mac / Windows App 执行器已提供，接入与当前实测范围见[原生桌面手册](docs/native-desktop.md)。可与已有 `jev.choose_action` 配合使用；共享公网 profile 本轮仍保留 android，未新增 Windows host。
 
 ## 当前工具
