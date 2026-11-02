@@ -13,7 +13,7 @@ test('local browser defaults visible and selects installed Windows Edge before C
  assert.equal(selectBrowser('win32',{ProgramFiles:'C:\\Program Files'},p=>p.includes('Edge')),'msedge');
  assert.equal(selectBrowser('darwin',{},p=>p.includes('Google Chrome')),'chrome');
  const config=localBackendConfig({mode:'launch',browser:'msedge',stateDir:'/private/local'});
- assert.equal(config.serverCommand,process.execPath);assert.ok(config.serverArgs[0]?.endsWith('@playwright/mcp/cli.js'));
+ assert.equal(config.serverCommand,process.execPath);assert.ok(config.serverArgs[0]?.endsWith(join('@playwright','mcp','cli.js')));
  assert.equal(config.serverArgs.includes('--headless'),false);assert.ok(config.serverArgs.includes('--timeout-action=0'));assert.ok(config.serverArgs.includes('--timeout-navigation=0'));
  assert.ok(localBackendConfig({mode:'attach',browser:'chrome',stateDir:'/private/local'}).serverArgs.includes('--cdp-endpoint=chrome'));
  assert.ok(localBackendConfig({mode:'extension',browser:'chrome',stateDir:'/private/local'}).serverArgs.includes('--extension'));
