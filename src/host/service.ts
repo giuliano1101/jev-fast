@@ -9,7 +9,7 @@ import {hostSchemas,unknownHostResult,type HostActArgs,type HostActionResult} fr
 import {HostJournal} from './journal.js';
 export interface HostConfig {serverCommand:string;serverArgs:string[];serverEnv?:Record<string,string>;device?:string}
 export interface HostMcpClient {listTools():Promise<{tools:Tool[]}>;callTool(request:{name:string;arguments:Record<string,unknown>}):Promise<CallToolResult>;close():Promise<void>}
-export interface HostServiceOptions {storageDir:string;chooseAction:(client:string,args:ChoiceArgs,signal:AbortSignal)=>Promise<ChoiceResponse>;hosts:Record<string,HostConfig>;clientFactory?:(config:HostConfig,host:string,signal:AbortSignal)=>Promise<HostMcpClient>}
+export interface HostServiceOptions {storageDir:string;chooseAction:(client:string,args:ChoiceArgs,signal:AbortSignal)=>Promise<ChoiceResponse>;hosts:Record<string,HostConfig>;authorize?:(owner:string)=>Promise<void>;clientFactory?:(config:HostConfig,host:string,signal:AbortSignal)=>Promise<HostMcpClient>}
 /** Transport-only resource limits: 16 MiB JSON/messages and canonical JSON depth 32. */
 const HOST_BYTES=16*1024*1024;
 function jsonCopy<T>(value:T):T{const text=canonicalJson(value);if(Buffer.byteLength(text)>HOST_BYTES)throw new Fault('HOST_PAYLOAD_LIMIT');return JSON.parse(text) as T;}
@@ -17,7 +17,7 @@ function redact<T>(value:T,device?:string):T{const copy=jsonCopy(value);if(!devi
 /** SDK stdio transport and validators, without the high-level Client's unavoidable 60-second default timer.
  * There are no retries or implicit reconnects. initialize and every request use normal MCP JSON-RPC.
  */
-export async function createHostMcpClient(config:HostConfig,_host?:string,signal?:AbortSignal):Promise<HostMcpClient>{
+export async function createHostMcpClient(config:HostConfig,_host?:string,signal?:AbortSignal,onSpawn?:(pid:number)=>void):Promise<HostMcpClient>{
  if(signal?.aborted)throw new Fault('HOST_UNAVAILABLE');
  const transport=new StdioClientTransport({command:config.serverCommand,args:[...config.serverArgs],env:{...getDefaultEnvironment(),...config.serverEnv},stderr:'ignore',maxBufferSize:HOST_BYTES});
  const pending=new Map<string,{resolve:(value:unknown)=>void;reject:(error:Fault)=>void}>();let dead=false;
@@ -26,7 +26,7 @@ export async function createHostMcpClient(config:HostConfig,_host?:string,signal
  transport.onclose=unavailable;transport.onerror=unavailable;
  transport.onmessage=(message:JSONRPCMessage)=>{if('method' in message){if('id' in message)void transport.send({jsonrpc:'2.0',id:message.id,error:{code:-32601,message:'Unsupported host client method'}}).catch(unavailable);return;}if(!('id' in message)||typeof message.id!=='string')return;const request=pending.get(message.id);if(!request)return;pending.delete(message.id);if('error' in message)request.reject(new Fault('HOST_TOOL_ERROR'));else request.resolve(message.result);};
  const request=(method:string,params:Record<string,unknown>)=>new Promise<unknown>((resolve,reject)=>{if(dead){reject(new Fault('HOST_UNAVAILABLE'));return;}const id=randomUUID();pending.set(id,{resolve,reject});void transport.send({jsonrpc:'2.0',id,method,params}).catch(()=>{pending.delete(id);reject(new Fault('HOST_UNAVAILABLE'));});});
- try{await transport.start();if(signal?.aborted)throw new Fault('HOST_UNAVAILABLE');const initialized=InitializeResultSchema.parse(await request('initialize',{protocolVersion:LATEST_PROTOCOL_VERSION,capabilities:{},clientInfo:{name:'jev-host-bridge',version:'1.0.0'}}));if(!SUPPORTED_PROTOCOL_VERSIONS.includes(initialized.protocolVersion))throw new Fault('HOST_PROTOCOL_UNSUPPORTED');await transport.send({jsonrpc:'2.0',method:'notifications/initialized'});}
+ try{await transport.start();if(transport.pid)onSpawn?.(transport.pid);if(signal?.aborted)throw new Fault('HOST_UNAVAILABLE');const initialized=InitializeResultSchema.parse(await request('initialize',{protocolVersion:LATEST_PROTOCOL_VERSION,capabilities:{},clientInfo:{name:'jev-host-bridge',version:'1.0.0'}}));if(!SUPPORTED_PROTOCOL_VERSIONS.includes(initialized.protocolVersion))throw new Fault('HOST_PROTOCOL_UNSUPPORTED');await transport.send({jsonrpc:'2.0',method:'notifications/initialized'});}
  catch{unavailable();signal?.removeEventListener('abort',abort);await transport.close();throw new Fault('HOST_UNAVAILABLE');}
  return {listTools:async()=>{const tools:Tool[]=[],cursors=new Set<string>();let cursor:string|undefined;do{const result=ListToolsResultSchema.parse(await request('tools/list',cursor?{cursor}:{}));tools.push(...result.tools);cursor=result.nextCursor;if(cursor){if(cursors.has(cursor))throw new Fault('HOST_INVALID_RESPONSE');cursors.add(cursor);}}while(cursor);return {tools};},callTool:async params=>CallToolResultSchema.parse(await request('tools/call',params)),close:async()=>{unavailable();signal?.removeEventListener('abort',abort);await transport.close();}};
 }
@@ -59,11 +59,11 @@ export class HostService {
    check();const backend=await choiceWithin(this.client(args.host),context.signal);check();const listed=await choiceWithin(backend.listTools(),context.signal);check();const byName=new Map(listed.tools.map(tool=>[tool.name,tool]));
    for(const action of args.actions){const definition=byName.get(action.tool);if(!definition)throw new Fault('HOST_TOOL_UNAVAILABLE');if(Object.hasOwn(action.arguments,'device'))throw new Fault('HOST_ARGUMENTS_INVALID');if((definition.inputSchema.required?.includes('device')||Object.hasOwn(definition.inputSchema.properties??{},'device'))&&!config.device)throw new Fault('HOST_DEVICE_REQUIRED');}
    const choiceArgs:ChoiceArgs={idempotency_key:canonicalDigest({namespace:'host-decision-v1',host:args.host,key:args.idempotency_key}),task:args.task,state:args.state,actions:args.actions.map(action=>({id:action.id,description:action.description})),...(args.timeout_ms===undefined?{}:{timeout_ms:args.timeout_ms})};
-   const decision=await choiceWithin(this.options.chooseAction(owner,choiceArgs,context.signal),context.signal);check();const selected=args.actions.find(action=>action.id===decision.selected_id);if(!selected)throw new Fault('INVALID_RESPONSE');job.decision=decision;this.journal.selected(owner,args,decision);check();
+   await this.options.authorize?.(owner);check();const decision=await choiceWithin(this.options.chooseAction(owner,choiceArgs,context.signal),context.signal);check();const selected=args.actions.find(action=>action.id===decision.selected_id);if(!selected)throw new Fault('INVALID_RESPONSE');job.decision=decision;this.journal.selected(owner,args,decision);check();
    const definition=byName.get(selected.tool)!,parameters:Record<string,unknown>=jsonCopy(selected.arguments),needsDevice=definition.inputSchema.required?.includes('device')||Object.hasOwn(definition.inputSchema.properties??{},'device');if(needsDevice){if(!config.device)throw new Fault('HOST_DEVICE_REQUIRED');parameters.device=config.device;}
    // Intentionally do not abort this underlying MCP promise. Cancellation cannot prove a physical action stopped.
    // The caller may receive UNKNOWN immediately; this host's queue remains held until the backend settles.
-   check();job.physical=backend.callTool({name:selected.tool,arguments:parameters});const raw=await job.physical;check();const result=redact(CallToolResultSchema.parse(raw),config.device);
+   await this.options.authorize?.(owner);check();job.physical=backend.callTool({name:selected.tool,arguments:parameters});const raw=await job.physical;check();const result=redact(CallToolResultSchema.parse(raw),config.device);
    if(result.isError){this.markUnknown(job,result);return {...unknownHostResult(decision),result};}
    if(job.finished)return unknownHostResult(decision);const response:HostActionResult={decision,selected_id:selected.id,execution:'executed',result};this.journal.complete(owner,args,response);job.finished=true;check();return response;
   }catch(error){this.markUnknown(job);throw error;}
