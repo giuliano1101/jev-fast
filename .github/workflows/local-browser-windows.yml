@@ -28,8 +28,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --ignore-scripts
-      - name: Isolate Windows PowerShell startup environment
-        run: node scripts/diagnostics/windows-environment.mjs
       - name: Verify disposable Windows private-directory ACL
         run: node scripts/diagnostics/windows-private-directory.mjs
       - run: npm run build
