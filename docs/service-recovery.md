@@ -55,3 +55,5 @@ macOS 原部署已安装稳定私有登记 `~/Library/Application Support/Jev/se
 新部署由操作员在当前意图已存在时调用 `bindServiceIntent(runtime, absolutePersistentIntentFile)` 一次迁移；该 API 导出于 `dist/src/service/intent.js`。目标文件必须尚不存在，目录/文件需私有且不能经符号链接。迁移与 start/stop、其他绑定更新共享锁。`JEV_SERVICE_INTENT_BINDINGS` 可显式指定独立私有登记位置，常规原部署不设置此变量。正在运行的守护需要重新加载新意图代码；不必因此重启业务服务。
 
 持久绑定保存开关意图与 profile 选择；它不会将临时目录下的其他状态自动备份。计费账本、relay 审计和设备恢复文件应分别置于持久私有存储；原部署沿用既有持久文件。
+
+原 Mac 还将 API Key 和管理能力保存为值相同的私有持久副本，供后台进程未来启动使用；没有轮换 Key、改变计费策略或重置账本。不要依赖一次性 `/tmp` 密钥输入文件作为开机恢复的唯一凭据。

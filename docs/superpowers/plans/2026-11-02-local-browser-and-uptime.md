@@ -47,7 +47,7 @@ Files: src/service/{intent,recovery,supervisor}.ts, CLI lifecycle hooks, tests; 
 ## Completion evidence
 
 - Task1 spec and quality approved; delayed initialize and durable moved-directory owner regressions fixed.
-- Windows actual CI run 41404309094: 12 unit checks and 2 real browser integration checks pass. Earlier failures retained; module autoload removed from private ACL helper.
+- Windows actual CI run 41407017995: 12 unit checks and 2 real browser integration checks pass, including five fresh SDK child processes. Earlier failures retained; optional modules, JSON assembly and stdin dependencies removed from private ACL helper.
 - Task2 spec/quality approved; exact TLS relay restart/manual-off/proxy-error tests pass.
 - Task3 spec/quality approved, including persistent intent outside /tmp and canonical runtime aliases. Global/per-runtime locks protect migration and manual off.
 - Full final local checks: typecheck/lint pass, unit541, integration116 pass+1 opt-in skip, safety40, Pythondeployment16. Both opt-in browser tests separately passed.

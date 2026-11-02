@@ -42,9 +42,9 @@ Mac 已安装用户级 `com.jev.service-watchdog`，通过 launchd KeepAlive 运
 
 第一轮并发单元中有一个既有 continuation 用例失败；单独五项通过，完成修改后的完整538项重跑通过。CDP 初版用原始进程启动新版测试 Chromium，页面 load 超时；改为 Playwright 正式 persistent-context 启动后通过，未增加超时。旧 remote CLI 测试原先期望未传配置时报错；现在明确复用已选择的 remote profile，测试改为核对同 profile、身份和 PID，不回退 mock。
 
-Windows CI 已发现并修复两个真实平台问题：路径分隔符断言，以及 Windows PowerShell 5 在新版 PowerShell/SDK 最小子进程环境中的模块解析。权限校验改为 .NET ACL API，JSON 也改用 .NET Framework 序列化；阶段对照明确发现最小环境阻塞于 ConvertFrom-Json 模块自动加载。保留 SID/DACL 保护。失败轮次和后续通过轮次均保留在 GitHub Actions，未通过跳过 Windows 测试来掩盖问题。
+Windows CI 发现了路径分隔符、PowerShell 模块解析及冷启动问题。旧 JSON cmdlet 的阶段记录停在 ConvertFrom-Json；改成 .NET JSON 后曾整套通过，但主分支再跑仍有一次超时，没有将它归因到未经证明的唯一原因。最终助手只使用系统核心 ACL API：路径作为环境数据传入，输出只含已校验的 SID 字符及固定布尔值，去掉模块发现、额外 JSON 程序集和 stdin EOF 依赖。SID/DACL 保护与超时保持不变。新增五个全新 SDK 最小环境子进程，覆盖中文、&、$ 路径。失败和通过记录均保留，没有跳过测试。
 
-Windows runner 最终验收：[GitHub Actions 41404309094](https://github.com/giuliano1101/jev-fast/actions/runs/41404309094) 全部通过。12/12 单元检查含实际 SDK 最小环境子进程；2/2 真实浏览器集成检查含可见输入与 CDP 标签存活；Edge 扩展配置生成通过。此为 hosted Windows runner，尚非用户实体 Windows 的登录浏览器/扩展验收。
+Windows runner 最终验收：[GitHub Actions 41407017995](https://github.com/giuliano1101/jev-fast/actions/runs/41407017995) 全部通过。12/12 单元检查包含五个全新 SDK 最小环境子进程；2/2 真实浏览器集成检查包含可见输入与 CDP 标签存活；Edge 扩展配置生成通过。同一代码修订 `8c42723` 的 [Mac 完整 CI](https://github.com/giuliano1101/jev-fast/actions/runs/41407018028) 也通过。这是 hosted Windows runner，尚非用户实体 Windows 的登录浏览器/扩展验收。
 
 ## 真实 Jev 验收
 
@@ -59,4 +59,4 @@ Windows runner 最终验收：[GitHub Actions 41404309094](https://github.com/gi
 
 Windows 端仍需安装本地 MCP，服务端无法直接访问一台尚未安装执行器的 Windows 浏览器。请按[使用说明](../local-browser.md)生成本机绝对路径配置，再确认 platform=win32、execution_host=local 和页面实际后验。现有浏览器的调试许可/扩展首次授权由浏览器自身要求，仍需在目标 Windows 上完成。
 
-常驻并非断电或所有外部故障下可用的承诺：用户级 launchd 需要 Mac 开机并登录，上游网络和证书仍需运维；当前私有客户端证书有效期至2026-12-01。守护不会绕过证书校验、切换 mock 或删除历史来制造“在线”。[守护运维说明](../service-recovery.md)。
+常驻需要 Mac 开机并登录，上游网络和证书仍需运维；当前私有客户端证书有效期至2026-12-01。API Key 和管理能力已保存为0600的私有持久副本，值未改变；未来后台启动使用持久引用，避免临时文件清理后失联。[凭据持久化验收](../../artifacts/local-browser/persistent-credentials.json)。守护不会绕过证书校验、切换 mock 或删除历史。[守护运维说明](../service-recovery.md)。
