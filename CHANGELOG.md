@@ -1,3 +1,10 @@
+# usage router · 2026-11-02
+
+- 新增调用方本地运行的 usage router `scripts/usage-router.mjs`（零依赖，`npm run -s usage-router --` 或直接 `node`，也可在 SDK 宿主中 import `route`）：在 browser_open、重试失败步骤、追加 observe/调研前返回 proceed / reuse_cache / stop_retry / research_capped / ask_human 之一及置信度。
+- 规则：LOGIN_BLOCKER/创作者中心登录墙/扫码/验证码及发送、发布、付款、删除 → ask_human（优先级最高）；UNKNOWN、同一错误文本重复或超过 max_repeats → stop_retry；新鲜产物/observe → reuse_cache；observes 达 research_cap → research_capped。
+- `config/usage-router.json` 默认 enabled+shadow：只写 gitignored 的 `artifacts/usage-router/decisions.jsonl`，不改变调用方行为；改为 active 即生效。Kill switch：enabled:false、`JEV_USAGE_ROUTER=off`、人说 `bypass jev router` / `bypass usage router`。
+- 不改 MCP 契约与签名 `jev.choose_action`，不调用 Jev 或任何托管服务，不是 TypeSafe。手册新增“当前使用方式与 usage router”，详见 `docs/usage-router.md`；离线单元测试覆盖五个动作与开关。
+
 # S18 · 2026-11-01
 
 - 按操作员最新明确要求，新增可信只计费模式；当前服务取消金额封顶、累计请求数和预算有效期拦截，不使用巨大假限额。旧有上限安装继续兼容。

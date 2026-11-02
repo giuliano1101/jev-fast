@@ -13,6 +13,7 @@
 | 新机器的离线 mock 安装 | [Agent 快速开始](docs/quickstart-agent.md) |
 | 一个页面管理服务、AI／设备、历史与接入配置 | [统一控制台](docs/control-panel.md) · [CLI/MCP](docs/cross-machine-cli-mcp.md) |
 | 默认手动准入与可选自动策略 | [手动接入](docs/manual-admission.md) · [旧 Bearer 网络模式](docs/network-mcp.md) |
+| 调用前预检：是否打开/重试/再观察/问人 | [usage router](docs/usage-router.md)（默认 shadow，只记日志） · [手册小节](docs/other-ai-real-testing.md#当前使用方式与-usage-router) |
 | 计量与工程约束 | [usage-only](docs/metered-service.md) · [AGENTS.md](AGENTS.md) |
 
 修复后另验证了真实维基百科搜索、百分比计算（240 的 17.5% = 42），以及连接器中断 7 秒后的自动恢复。搜索的英文 URL 断言与中文词条结果存在本地化差异，原断言失败记录保留在报告中。
