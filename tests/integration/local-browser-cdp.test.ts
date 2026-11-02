@@ -9,10 +9,12 @@ import {generateKeyPairSync} from 'node:crypto';
 import {createServer} from 'node:http';
 import {chromium} from 'playwright';
 import {signChoiceResponse} from '../../src/remote/choice.js';
-import {createHostMcpClient,type HostMcpClient} from '../../src/host/service.js';
+import type {HostMcpClient} from '../../src/host/service.js';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';
+import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
 import {Server} from '@modelcontextprotocol/sdk/server/index.js';
 import {StreamableHTTPServerTransport} from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import {CallToolRequestSchema,ListToolsRequestSchema,type CallToolResult} from '@modelcontextprotocol/sdk/types.js';
+import {CallToolRequestSchema,ListToolsRequestSchema,CallToolResultSchema,type CallToolResult} from '@modelcontextprotocol/sdk/types.js';
 import {choiceArgsSchema} from '../../src/choice/contracts.js';
 /** The fixture owns this browser. Headless is explicit for CI; the product launch default is separately asserted headed. */
 test('official local MCP attaches to existing local tab, types via Jev stub, and leaves borrowed browser alive',{timeout:40000},async()=>{
@@ -40,7 +42,12 @@ test('official local MCP attaches to existing local tab, types via Jev stub, and
   let port:string|undefined;for(let attempts=0;attempts<200&&!port;attempts++){try{port=readFileSync(join(profile,'DevToolsActivePort'),'utf8').split('\n')[0];}catch{await sleep(50);}}
   assert.ok(port,'fixture browser must provide actual local CDP endpoint');const endpoint=`http://127.0.0.1:${port}`;
   const page=fixtureContext.pages()[0]!;await page.goto(`http://127.0.0.1:${address.port}`);
-  service=await createHostMcpClient({serverCommand:process.execPath,serverArgs:[resolve('dist/src/local/main.js'),'--mode','attach','--browser','chrome','--state-dir',join(directory,'state'),'--cdp-endpoint',endpoint,'--jev-endpoint',`http://127.0.0.1:${cloudAddress.port}/mcp`]});
+  // Use the SDK's real safe child environment, but retain only startup error codes from this offline fixture.
+  // Production HostService deliberately redacts child stderr; startup failures here must remain diagnosable in Windows CI.
+  const transport=new StdioClientTransport({command:process.execPath,args:[resolve('dist/src/local/main.js'),'--mode','attach','--browser','chrome','--state-dir',join(directory,'state'),'--cdp-endpoint',endpoint,'--jev-endpoint',`http://127.0.0.1:${cloudAddress.port}/mcp`],stderr:'pipe'}),client=new Client({name:'offline-local-browser-fixture',version:'1'});
+  let startupStderr='';transport.stderr?.on('data',(chunk:Buffer)=>{if(startupStderr.length<4096)startupStderr+=chunk.toString('utf8');});
+  try{await client.connect(transport);}catch{await client.close();const codes=startupStderr.split(/\r?\n/).filter(line=>/^[A-Z][A-Z0-9_]*$/.test(line));throw Error(`LOCAL_FIXTURE_STDIO_STARTUP:${codes.join(',')||'NO_STARTUP_CODE'}`);}
+  service={listTools:()=>client.listTools(),callTool:async request=>CallToolResultSchema.parse(await client.callTool(request)),close:()=>client.close()};
   const call=(name:string,args:Record<string,unknown>={})=>service!.callTool({name,arguments:args});
   assert.deepEqual((await service.listTools()).tools.map(tool=>tool.name),['jev.local_status','jev.local_tools','jev.local_observe','jev.local_act']);
   const status=result(await call('jev.local_status'));assert.equal(status.platform,process.platform);assert.equal(status.execution_host,'local');assert.equal((status.cloud as {ready:boolean}).ready,true);
