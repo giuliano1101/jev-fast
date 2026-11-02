@@ -1,6 +1,6 @@
 # Plan coverage and acceptance
 
-Current base: `56d4cd5e8fc80064aa112b11cf6abe2c2cc0524b`. Typecheck/lint, 32 Windows/private-storage checks and a workspace SDK recheck passed. Earlier real Jev primary checks passed 31/31; Android passed 8/8; dual-facade checks passed 7/7 after the upstream merge. The later local rerun passed 28 primary checks and seven facade checks without repeating H5 or phone workflows. One production-stream case remains not run. The first Mac return passed all groups except one cancelled CDP integration fixture; corrected-source CI is pending and rollout is incomplete.
+Current base: `56d4cd5e8fc80064aa112b11cf6abe2c2cc0524b`. Typecheck/lint, 32 Windows/private-storage checks and a workspace SDK recheck passed. Earlier real Jev primary checks passed 31/31; Android passed 8/8; dual-facade checks passed 7/7 after the upstream merge. The later local rerun passed 28 primary checks and seven facade checks without repeating H5 or phone workflows. One production-stream case remains not run. The first Mac return had one cancelled CDP fixture; the corrected candidate `a6bf883` passed full Mac CI (560 unit, 123 integration passed plus three skips, 40 safety, 16 deployment, seven native protocol). Final-head CI after improving Windows SDK cold-start diagnostics is pending; rollout is incomplete.
 
 | Original plan | Implemented and verified | Remaining acceptance |
 | --- | --- | --- |

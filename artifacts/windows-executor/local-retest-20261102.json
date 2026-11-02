@@ -504,8 +504,8 @@
     "not_a_whole_project_pass": true
   },
   "source_export": {
-    "files_checked": 905,
-    "candidate_files": 44,
+    "files_checked": 906,
+    "candidate_files": 46,
     "candidate_crlf_blobs": 0,
     "default_clone_worktree_clean": true,
     "mac_runtime_test": false
@@ -539,5 +539,95 @@
     "No mock substituted during real runs; mock-signing fixtures remain confined to offline tests.",
     "28 primary and 7 facade checks are groups, not 35 independent business tasks.",
     "No production portal, social post, real game completion, live audio/video/RTC or main-Codex cost claim."
-  ]
+  ],
+  "final_stdio_recheck": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "corrected_mac_ci": {
+    "head": "a6bf883e5a8a5897f1000a1194e11043b4b0e786",
+    "run_id": 41467430979,
+    "job_id": 125351902985,
+    "job_conclusion": "success",
+    "node_summaries": [
+      {
+        "label": "tests",
+        "value": 560
+      },
+      {
+        "label": "pass",
+        "value": 560
+      },
+      {
+        "label": "fail",
+        "value": 0
+      },
+      {
+        "label": "cancelled",
+        "value": 0
+      },
+      {
+        "label": "skipped",
+        "value": 0
+      },
+      {
+        "label": "tests",
+        "value": 126
+      },
+      {
+        "label": "pass",
+        "value": 123
+      },
+      {
+        "label": "fail",
+        "value": 0
+      },
+      {
+        "label": "cancelled",
+        "value": 0
+      },
+      {
+        "label": "skipped",
+        "value": 3
+      },
+      {
+        "label": "tests",
+        "value": 40
+      },
+      {
+        "label": "pass",
+        "value": 40
+      },
+      {
+        "label": "fail",
+        "value": 0
+      },
+      {
+        "label": "cancelled",
+        "value": 0
+      },
+      {
+        "label": "skipped",
+        "value": 0
+      }
+    ],
+    "python_counts": [
+      16,
+      7
+    ]
+  },
+  "ci_windows_initial_failure": {
+    "head": "a6bf883e5a8a5897f1000a1194e11043b4b0e786",
+    "tests": 28,
+    "passed": 25,
+    "failed": 0,
+    "cancelled": 1,
+    "skipped": 2,
+    "cause": "SDK metadata test reached its 15-second whole-test budget on the hosted Windows runner",
+    "change": "45-second finite test budget, per-stage timing and registered cleanup; production timeouts and logic unchanged",
+    "local_final_sdk_elapsed_ms": 2334.8836
+  }
 }
