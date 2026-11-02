@@ -87,6 +87,33 @@ func postPairedKeyInput(parentCheck: () throws -> Void, down: () -> Void, up: ()
         cleanup(); throw error
     }
 }
+// Match captured windows using metadata only; never choose another owner or an
+// arbitrary window when the observed identity is missing or ambiguous.
+struct CaptureWindowIdentity {
+    let owner: pid_t?
+    let bounds: CGRect
+    let title: String
+}
+func windowCaptureTitleMatches(_ axTitle: String, _ captureTitle: String, applicationName: String?) -> Bool {
+    if axTitle == captureTitle { return true }
+    guard let name=applicationName, !name.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty else { return false }
+    let suffix=" - "+name
+    func normalized(_ title: String) -> String {
+        guard title.hasSuffix(suffix) else { return title }
+        let prefix=String(title.dropLast(suffix.count))
+        // An app name alone is not evidence for an untitled window.
+        return prefix.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty ? title : prefix
+    }
+    return normalized(axTitle) == normalized(captureTitle)
+}
+func requireUniqueCaptureWindow(_ candidates: [CaptureWindowIdentity], owner: pid_t, bounds: CGRect, title: String, applicationName: String?) throws -> Int {
+    let matches=candidates.indices.filter { index in
+        let candidate=candidates[index]
+        return candidate.owner == owner && candidate.bounds == bounds && windowCaptureTitleMatches(title,candidate.title,applicationName:applicationName)
+    }
+    guard matches.count == 1, let index=matches.first else { throw DriverFailure("WINDOW_NOT_FOUND") }
+    return index
+}
 struct Identity: Equatable {
     let role: String
     let label: String
@@ -373,8 +400,9 @@ struct Observation {
         } else {
             guard let window=observation.window, let windowBounds=window.identity.bounds else { throw DriverFailure("WINDOW_NOT_FOUND") }
             b=windowBounds
-            let matches=content.windows.filter { w in w.owningApplication?.processID == observation.pid && w.frame == b && (w.title ?? "") == window.identity.label }
-            guard matches.count == 1, let target=matches.first else { throw DriverFailure("WINDOW_NOT_FOUND") }
+            let identities=content.windows.map { CaptureWindowIdentity(owner:$0.owningApplication?.processID,bounds:$0.frame,title:$0.title ?? "") }
+            let targetIndex=try requireUniqueCaptureWindow(identities,owner:observation.pid,bounds:b,title:window.identity.label,applicationName:NSRunningApplication(processIdentifier:observation.pid)?.localizedName)
+            let target=content.windows[targetIndex]
             filter=SCContentFilter(desktopIndependentWindow:target)
             metadata=["capture_scope":"window","window_server_id":target.windowID]
         }

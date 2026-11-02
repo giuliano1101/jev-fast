@@ -42,6 +42,13 @@ class MacDriverProtocolTests(unittest.TestCase):
         result = subprocess.run([str(binary)], check=True, capture_output=True, text=True)
         self.assertIn('regression checks passed', result.stdout)
 
+    def test_window_capture_identity_without_observing_ui(self):
+        binary = pathlib.Path(self.tmp.name) / 'capture-checks'
+        subprocess.run(['/usr/bin/swiftc', '-parse-as-library', '-D', 'NATIVE_DESKTOP_TESTING', '-module-cache-path', '/private/tmp/jev-swift-module-cache', str(ROOT/'native/desktop-macos.swift'), str(ROOT/'tests/native/macos_capture_tests.swift'), '-o', str(binary)], check=True, capture_output=True, text=True)
+        result = subprocess.run([str(binary)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('window capture regression checks passed', result.stdout)
+
     def test_idle_termination_exits_cooperatively(self):
         for termination_signal in (signal.SIGTERM, signal.SIGINT):
             process = subprocess.Popen([str(self.binary)], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
