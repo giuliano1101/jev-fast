@@ -1,6 +1,7 @@
 import {DatabaseSync} from 'node:sqlite';
-import {mkdirSync,lstatSync,chmodSync} from 'node:fs';
-import {join,resolve} from 'node:path';
+import {chmodSync} from 'node:fs';
+import {join} from 'node:path';
+import {preparePrivateDirectory,assertPrivateFile} from '../service/private-directory.js';
 import {randomUUID} from 'node:crypto';
 import {Fault} from '../core/errors.js';
 import {canonicalDigest,canonicalJson} from '../remote/protocol.js';
@@ -12,8 +13,8 @@ export type HostJournalPrior={status:'started'}|{status:'complete';response:Host
 export class HostJournal {
  private readonly db:DatabaseSync;private readonly writer=randomUUID();private closed=false;
  constructor(directory:string){
-  const root=resolve(directory);mkdirSync(root,{recursive:true,mode:0o700});const dir=lstatSync(root);if(!dir.isDirectory()||dir.isSymbolicLink()||(dir.mode&0o077)!==0||dir.uid!==process.getuid?.())throw new Fault('PRIVATE_STORAGE_REQUIRED');
-  const path=join(root,'host.sqlite');let existed=false;for(const suffix of ['','-wal','-shm'])try{const file=lstatSync(path+suffix);if(!suffix)existed=true;if(!file.isFile()||file.isSymbolicLink()||file.nlink!==1||(file.mode&0o077)!==0||file.uid!==process.getuid?.())throw new Fault('PRIVATE_STORAGE_REQUIRED');}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;}
+  const root=preparePrivateDirectory(directory);
+  const path=join(root,'host.sqlite');let existed=false;for(const suffix of ['','-wal','-shm'])try{assertPrivateFile(path+suffix);if(!suffix)existed=true;}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;}
   this.db=new DatabaseSync(path);chmodSync(path,0o600);
   try{this.db.exec('PRAGMA trusted_schema=OFF; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=1000;');const version=this.db.prepare('PRAGMA user_version').get()?.user_version;
    if(existed){const definitions=this.db.prepare("SELECT sql FROM sqlite_master WHERE type IN ('table','view','trigger') AND name NOT LIKE 'sqlite_%'").all();if(version!==1||definitions.length!==1||definitions[0]?.sql!==tableSql)throw new Error();}else{if(version!==0)throw new Error();this.db.exec('BEGIN IMMEDIATE;'+tableSql+';PRAGMA user_version=1;COMMIT;');}

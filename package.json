@@ -23,10 +23,13 @@
     "release": "node scripts/release.mjs",
     "control": "node dist/src/control/main.js",
     "network:server": "node dist/src/network/main.js server",
-    "network:connector": "node dist/src/network/main.js connector"
+    "network:connector": "node dist/src/network/main.js connector",
+    "local-browser:setup": "node scripts/setup-local-browser.mjs",
+    "local-browser:mcp": "node dist/src/local/main.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
+    "@playwright/mcp": "0.0.84",
     "playwright": "1.61.1",
     "zod": "4.6.7"
   },

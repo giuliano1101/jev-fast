@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-11-02T06:24:36.146Z",
+  "platform": "darwin",
+  "execution_host": "local",
+  "headed": true,
+  "provider": "jev",
+  "steps": [
+    {
+      "task": "open",
+      "elapsed_ms": 12672.419958999999,
+      "execution": "executed",
+      "provider": "jev",
+      "model": "jev-1.14.0",
+      "selected_id": "open",
+      "usage": {
+        "input_tokens": 376,
+        "output_tokens": 31
+      },
+      "decision_id": "6550857a-e851-4704-9262-403e06c53714"
+    },
+    {
+      "task": "type",
+      "elapsed_ms": 8870.037291,
+      "execution": "executed",
+      "provider": "jev",
+      "model": "jev-1.14.0",
+      "selected_id": "type",
+      "usage": {
+        "input_tokens": 390,
+        "output_tokens": 31
+      },
+      "decision_id": "17d29414-5f5a-4371-8ae1-d21f5ff6f693"
+    }
+  ],
+  "independent_input_event_verified": true,
+  "snapshot_verified": true,
+  "windows_physical_acceptance": false
+}
