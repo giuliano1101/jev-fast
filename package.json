@@ -25,7 +25,8 @@
     "network:server": "node dist/src/network/main.js server",
     "network:connector": "node dist/src/network/main.js connector",
     "local-browser:setup": "node scripts/setup-local-browser.mjs",
-    "local-browser:mcp": "node dist/src/local/main.js"
+    "local-browser:mcp": "node dist/src/local/main.js",
+    "usage-router": "node scripts/usage-router.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",

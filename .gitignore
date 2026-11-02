@@ -13,3 +13,6 @@ artifacts/live/report-output.json
 artifacts/repository-verification/
 *.zip
 *.zip.sha256
+# Usage-router runtime decisions stay local; only the placeholder and example are versioned.
+artifacts/usage-router/*.jsonl
+!artifacts/usage-router/decisions.example.jsonl

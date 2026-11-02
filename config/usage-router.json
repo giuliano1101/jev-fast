@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "mode": "shadow",
+  "max_repeats": 2,
+  "research_cap": 3,
+  "cache_max_age_s": 900,
+  "log_path": "artifacts/usage-router/decisions.jsonl"
+}

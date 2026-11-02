@@ -22,7 +22,31 @@ https://jev.43-160-233-161.sslip.io/mcp
 
 当前部署启用操作员策略 `autoAdmitAi: true`、`allowContinuations: true`。执行设备就绪时，AI 在 initialize 返回前即获准接入；不再依赖外部轮询程序抢在短连接结束前审批。名称只是展示标签，不是身份。操作员手动关闭仍然有效，AI 不调用管理 API 自行开启。
 
-> 给另一个 AI 的指令：连接上面的 MCP，先 tools/list 和 jev.network_status。把返回的 continuation_token 私密缓存，在所有后续网络调用中自动带上；不要让用户提供这个 token。确认 enabled、connector_online、local_ready。真实网页使用 browser_open/observe/act/close；手机先 host_tools(host=android)，再按实际 schema 构造 host_act。QUEUED/DISPATCHED 查原 request_id，跨短连接仍带同一 continuation_token。UNKNOWN 停止并保留编号。按实际页面/设备后验报告结果，结束时 release_connection；不要停止共享服务或请求模型 Key。
+> 给另一个 AI 的指令：连接上面的 MCP，先 tools/list 和 jev.network_status。把返回的 continuation_token 私密缓存，在所有后续网络调用中自动带上；不要让用户提供这个 token。确认 enabled、connector_online、local_ready。真实网页使用 browser_open/observe/act/close；手机先 host_tools(host=android)，再按实际 schema 构造 host_act。QUEUED/DISPATCHED 查原 request_id，跨短连接仍带同一 continuation_token。UNKNOWN 停止并保留编号。按实际页面/设备后验报告结果，结束时 release_connection；不要停止共享服务或请求模型 Key。有 shell/Node 时，在 browser_open、重试失败步骤、追加 observe/调研之前先运行 usage router，并按 `effective_action` 分支；遇 `ask_human` 停下问人。
+
+## 当前使用方式与 usage router
+
+**当前使用方式**（不变）：`network_status` → 私密缓存 `continuation_token` → `browser_*` 或 `host_tools`/`host_act` → 后验核对 → `browser_close` → `release_connection`。
+
+- `browser_*` 是服务 Mac 上的**隔离无头 Chromium**，不是用户日常 Chrome，没有其登录态；日常 Chrome / Mac GUI 走 `host_act` 的 `host=mac`。
+- 禁发：发送、发布、上传、付款、删除等不可逆步骤，以及登录墙/扫码/验证码，一律先问人（`ask_human`），不自行完成。
+- Mac GUI 只经由本服务的 `host=mac` 操作；调用方自己的 computerUse/云端虚拟桌面不是这台 Mac，不能用来操作或验证它。
+
+**新增 usage router**（调用方本地运行，零依赖，不连网、不调用 Jev，不替代 `jev.choose_action` 的签名选择）。在下列时机调用：
+
+1. 每次 `jev.browser_open` 之前；
+2. 重试同一个失败的 `browser_act`/`host_act` 之前；
+3. 第二次 observe、额外调研或开子任务之前。
+
+```sh
+R="node /path/to/jev-fast/scripts/usage-router.mjs"   # 仓库内也可: npm run -s usage-router --
+$R --task-type browser_open --goal "核验 example.com 标题"
+$R --task-type retry --goal "点击搜索" --last-error "$ERR" --previous-error "$PREV_ERR" --repeats 1
+$R --task-type browser_observe --goal "找价格" --observes 3 --observation "$PAGE_TITLE"
+# 输出一行 JSON；按 effective_action 分支：proceed 照常调用；reuse_cache 用已有结果；stop_retry 停止并保留 request_id 报告；research_capped 写结论；ask_human 暂停问人
+```
+
+默认 `enabled:true, mode:"shadow"`：只写本地日志，`effective_action` 恒为 `proceed`；把 `config/usage-router.json` 的 mode 改为 `active` 后调用方必须执行，绝不覆盖 `ask_human`。Kill switch：配置 `enabled:false`、`JEV_USAGE_ROUTER=off`，或人在对话中说 `bypass jev router` / `bypass usage router`（原样放进 `--notes`）。关闭路由器不放宽上述禁发与 UNKNOWN 规则。输入字段、规则、日志与 Node SDK 用法见 [usage router 手册](usage-router.md)；它不是 TypeSafe 产品。
 
 ## 2026-11-02 心跳维护已完成
 
