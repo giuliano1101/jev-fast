@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-02",
+  "base_revision": "56d4cd5e8fc80064aa112b11cf6abe2c2cc0524b",
+  "delivery_state": "real-windows-accepted-mac-regression-pending",
+  "typecheck": "passed",
+  "lint": "passed",
+  "windows_executor_suite": {
+    "tests": 28,
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_ms": null,
+    "hosted_model_calls": 0,
+    "decision_source": "explicit offline test signer only",
+    "execution": "actual local Chromium, actual native WPF window, actual stdio and loopback HTTP MCP clients"
+  },
+  "validated": [
+    "stable request recovery and no replay after lost response",
+    "continuation stays private and uncertain contexts cannot be released",
+    "operator off and cancellation prevent new local input",
+    "signed response structure and request digest binding",
+    "immutable candidates and executor identity",
+    "unknown physical result quarantines new operation keys",
+    "fresh verification cannot retain an obsolete success flag",
+    "two real stdio facades share one backend and isolate their resources",
+    "same browser-open operation id reuses the original tab",
+    "closing one owner leaves another owner usable",
+    "cancellation crosses both MCP layers before physical input",
+    "persistent synthetic login and existing CDP synthetic login",
+    "forms, iframe, popup, upload, PDF download, canvas touch and replay",
+    "mobile viewport and browser diagnostics",
+    "native UIA input, invocation and scoped screenshot",
+    "upstream native driver Unicode keyboard input, guarded invocation and screenshot",
+    "native observation invalidation and cross-owner target isolation",
+    "host request recovery retains the original step while blocking new keys",
+    "operator off before a host step leaves no phantom quarantine",
+    "named mobile workflow progress and unknown quarantine",
+    "local HTTP panel state and receipt verification",
+    "artifact signatures, parser integration and invalid download rejection",
+    "countdown-only viewport changes retain valid page identity",
+    "replacement DOM controls cannot inherit the old control authorization",
+    "actual ZIP download receives full archive CRC parsing",
+    "real SDK native metadata initializes in the G-drive workspace",
+    "private ACL hardening preserves owner without requiring WRITE_OWNER"
+  ],
+  "legacy_service_unit_run_on_windows": {
+    "tests_at_run_time": 562,
+    "passed": 325,
+    "failed": 237,
+    "status": "not-passed-platform-regression-required-on-mac",
+    "observed_causes": "Full suite is not passed on Windows. Observed codes include STORAGE_WRITE_UNCERTAIN, PRIVATE_STORAGE_REQUIRED, ENOENT, UNSAFE_RUNTIME and JOURNAL_WRITE_UNCERTAIN. Mac/POSIX service assumptions remain; full supported-platform regression is required. These failures are not all certified harmless."
+  },
+  "pending": [
+    "Mac full source-bundle regression",
+    "Actual existing business-account portal or browser-extension acceptance",
+    "H5 game collision/settlement and real iPhone/WeChat/audio checks",
+    "Separately authorized production live video/audio/RTC",
+    "Matched measured Codex business baseline"
+  ],
+  "not_claimed": [
+    "existing daily bank or tax account connected",
+    "real production Vidu audio, video, RTC or avatar confirmation",
+    "real iPhone or WeChat acceptance",
+    "final provider account bill or overall cost savings"
+  ],
+  "global_policy": "V2 draft prepared outside repository, not applied before real acceptance",
+  "github": "not committed or pushed before required acceptance",
+  "combined_windows_and_private_storage_run": {
+    "tests": 32,
+    "passed": 32,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_ms": 46469.495
+  },
+  "actual_workspace_sdk_recheck": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}
