@@ -17,18 +17,18 @@ function redact<T>(value:T,device?:string):T{const copy=jsonCopy(value);if(!devi
 /** SDK stdio transport and validators, without the high-level Client's unavoidable 60-second default timer.
  * There are no retries or implicit reconnects. initialize and every request use normal MCP JSON-RPC.
  */
-export async function createHostMcpClient(config:HostConfig,_host?:string,signal?:AbortSignal,onSpawn?:(pid:number)=>void):Promise<HostMcpClient>{
+export async function createHostMcpClient(config:HostConfig,_host?:string,signal?:AbortSignal,onSpawn?:(pid:number)=>void,onUnavailable?:()=>void):Promise<HostMcpClient>{
  if(signal?.aborted)throw new Fault('HOST_UNAVAILABLE');
  const transport=new StdioClientTransport({command:config.serverCommand,args:[...config.serverArgs],env:{...getDefaultEnvironment(),...config.serverEnv},stderr:'ignore',maxBufferSize:HOST_BYTES});
- const pending=new Map<string,{resolve:(value:unknown)=>void;reject:(error:Fault)=>void}>();let dead=false;
- const unavailable=()=>{dead=true;for(const request of pending.values())request.reject(new Fault('HOST_UNAVAILABLE'));pending.clear();};
- const abort=()=>{unavailable();void transport.close().catch(()=>{});};signal?.addEventListener('abort',abort,{once:true});
+ const pending=new Map<string,{resolve:(value:unknown)=>void;reject:(error:Fault)=>void}>();let dead=false,stopping=false;
+ const unavailable=()=>{const first=!dead;dead=true;for(const request of pending.values())request.reject(new Fault('HOST_UNAVAILABLE'));pending.clear();if(first&&!stopping)onUnavailable?.();};
+ const abort=()=>{stopping=true;unavailable();void transport.close().catch(()=>{});};signal?.addEventListener('abort',abort,{once:true});
  transport.onclose=unavailable;transport.onerror=unavailable;
  transport.onmessage=(message:JSONRPCMessage)=>{if('method' in message){if('id' in message)void transport.send({jsonrpc:'2.0',id:message.id,error:{code:-32601,message:'Unsupported host client method'}}).catch(unavailable);return;}if(!('id' in message)||typeof message.id!=='string')return;const request=pending.get(message.id);if(!request)return;pending.delete(message.id);if('error' in message)request.reject(new Fault('HOST_TOOL_ERROR'));else request.resolve(message.result);};
  const request=(method:string,params:Record<string,unknown>)=>new Promise<unknown>((resolve,reject)=>{if(dead){reject(new Fault('HOST_UNAVAILABLE'));return;}const id=randomUUID();pending.set(id,{resolve,reject});void transport.send({jsonrpc:'2.0',id,method,params}).catch(()=>{pending.delete(id);reject(new Fault('HOST_UNAVAILABLE'));});});
  try{await transport.start();if(transport.pid)onSpawn?.(transport.pid);if(signal?.aborted)throw new Fault('HOST_UNAVAILABLE');const initialized=InitializeResultSchema.parse(await request('initialize',{protocolVersion:LATEST_PROTOCOL_VERSION,capabilities:{},clientInfo:{name:'jev-host-bridge',version:'1.0.0'}}));if(!SUPPORTED_PROTOCOL_VERSIONS.includes(initialized.protocolVersion))throw new Fault('HOST_PROTOCOL_UNSUPPORTED');await transport.send({jsonrpc:'2.0',method:'notifications/initialized'});}
  catch{unavailable();signal?.removeEventListener('abort',abort);await transport.close();throw new Fault('HOST_UNAVAILABLE');}
- return {listTools:async()=>{const tools:Tool[]=[],cursors=new Set<string>();let cursor:string|undefined;do{const result=ListToolsResultSchema.parse(await request('tools/list',cursor?{cursor}:{}));tools.push(...result.tools);cursor=result.nextCursor;if(cursor){if(cursors.has(cursor))throw new Fault('HOST_INVALID_RESPONSE');cursors.add(cursor);}}while(cursor);return {tools};},callTool:async params=>CallToolResultSchema.parse(await request('tools/call',params)),close:async()=>{unavailable();signal?.removeEventListener('abort',abort);await transport.close();}};
+ return {listTools:async()=>{const tools:Tool[]=[],cursors=new Set<string>();let cursor:string|undefined;do{const result=ListToolsResultSchema.parse(await request('tools/list',cursor?{cursor}:{}));tools.push(...result.tools);cursor=result.nextCursor;if(cursor){if(cursors.has(cursor))throw new Fault('HOST_INVALID_RESPONSE');cursors.add(cursor);}}while(cursor);return {tools};},callTool:async params=>CallToolResultSchema.parse(await request('tools/call',params)),close:async()=>{stopping=true;unavailable();signal?.removeEventListener('abort',abort);await transport.close();}};
 }
 type Job={owner:string;args:HostActArgs;controller:AbortController;context:ReturnType<typeof choiceSignal>;decision?:ChoiceResponse;physical?:Promise<CallToolResult>;finished:boolean};
 /** Operator-selected MCP backends only. Each successful call means one MCP tool returned, never that the user's task is complete.
