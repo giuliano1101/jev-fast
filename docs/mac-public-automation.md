@@ -24,6 +24,8 @@
 4. 用 `jev.host_act` 选择并执行原生动作。`desktop_*` 是候选的 `tool` 名，**不是额外的公网顶层工具**。
 5. 先执行 `desktop_status`，核对 `platform=macos`、`accessibility=true`、`screen_capture=true`。`mac_available` 表示桥与隧道可达，不代替 OS 权限检查。
 
+`actions` 是单步候选集，Jev 每次只执行选中的一个动作，不会把候选数组当作顺序脚本。多步任务由调用 AI 观察、决策、执行并核验各步。
+
 工具发现：
 
 ```json
@@ -116,7 +118,7 @@ COMPLETED 还须检查 `reply.ok`、`execution`、原生 `isError` 与实际后�
 
 新桥持久保存前置和 Mac 两端的请求记录；丢失 POST 回执后仅 GET 原任务，不重新提交。进程重启将未完成任务保留为 UNKNOWN；权威的后到结果可以澄清。原生后台崩溃使新桥不健康并触发它自己的监督恢复，旧后台须确认退出后才启动新的物理队列。
 
-Mac 输入串行排队；Android 使用原有执行路径。每次决策与输入前检查原 relay 的调用者续接身份及设备状态；操作员原有 AI、设备、全局和本机开关继续生效。临时无法验证身份时不执行新输入；实际关闭或撤销后旧 token 不复活。没有新增模型 Key、付费封顶、固定步骤数或会话数量配额。
+Mac 输入串行排队；Android 使用原有执行路径。每次决策与输入前检查原 relay 的调用者续接身份及设备状态，并直接核对本机协调器的 ready 和实例编号；每次 IPC 自动读取现有最新凭据，不要求调用者提供 Key。操作员原有 AI、设备、全局和本机开关继续生效。临时无法验证身份时不执行新输入；实际关闭或撤销后旧 token 不复活。没有新增模型 Key、付费封顶、固定步骤数或会话数量配额。
 
 结束时只关闭自己的窗口/测试文档，正常完成后 `jev.release_connection` 释放自己的逻辑连接；不要停止共享服务。
 
@@ -142,3 +144,5 @@ Mac 需开机、登录且桌面可操作；锁屏、系统安全界面、App 自
 CLI：`node dist/src/mac-public/main.js front /absolute/private/front.json` 或 `mac /absolute/private/mac.json`。这只是操作员启动入口，外部 Grok 无须在其机器运行。维护新桥前保留 UNKNOWN 编号；不要重启 relay、清理其他连接、改 provider 或重置账本来恢复桌面任务。
 
 配置字段示例见 [front.example.json](../deploy/mac-public/front.example.json) 与 [mac.example.json](../deploy/mac-public/mac.example.json)。示例不包含任何真实 capability；仅由操作员在私有目录生成和保存。新版 Mac 桥使用自己的 release 下的桌面 entry 与 native 二进制，便于修复截图而不替换原独立执行器的二进制。构建时还需 `npm run desktop:build`；普通 `npm run build` 不编译 Swift。
+
+协调器暂不可达或实例不同会返回不确定/未就绪结果：保留原编号、先查状态，不换键重放。原协调器恢复并完成 relay 实例同步后，新独立任务可自动读取最新本机凭据；不能用旧实例的许可绕过本机关闭。

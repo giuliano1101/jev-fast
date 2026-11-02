@@ -1,6 +1,6 @@
 # 同一公网 MCP 的日常 Chrome 与 Mac GUI 接线验收
 
-日期：2026-11-03（Asia/Shanghai）。测试代码：`73bb25804f05215bade04274ded32aa10cfadd4b`。公网入口保持 `https://jev.43-160-233-161.sslip.io/mcp`。[机器可读结果](2026-11-03-public-mac-automation.json) · [Cursor / Grok 使用手册](../mac-public-automation.md)。
+日期：2026-11-03（Asia/Shanghai）。测试代码：`d5eef71871204961ca42e1a668716b0304f31fa3`。公网入口保持 `https://jev.43-160-233-161.sslip.io/mcp`。[机器可读结果](2026-11-03-public-mac-automation.json) · [Cursor / Grok 使用手册](../mac-public-automation.md)。
 
 ## 结果
 
@@ -21,7 +21,7 @@
 | 新外部 AI | 使用新 SDK 客户端身份，发现工具并通过真实 Jev 读取实际 OS 权限 | 自动准入、Mac 14 工具、真实 provider/model、权限均通过；仅释放该新客户端 |
 | 后台退出恢复 | 发布前确认专属桥无执行中任务，只结束它自己的空闲 stdio 后台 | 约 2.3 秒恢复，新独立工具发现成功；没有原服务信号或请求重放 |
 
-所有 GUI 输入均通过真实 `jev.host_act`，返回 `provider=jev`、`model=jev-1.14.0`；任务成功依据新页面状态、有效 PNG 和独立文件回读，未把签名决策当作完成。
+上述验收题目的 App 输入均通过真实 `jev.host_act`，返回 `provider=jev`、`model=jev-1.14.0`；任务成功依据新页面状态、有效 PNG 和独立文件回读，未把签名决策当作完成。
 
 ## 实测发现与修改
 
@@ -32,11 +32,17 @@
 5. 原生 stdio 异常退出原本会缓存失效客户端。新桥会标记不健康、收尾自己的进程并由监督器恢复；未完成请求保留 UNKNOWN，旧后台须确认退出，绝不自动重放。相关崩溃/恢复测试通过。
 6. 校验调用原本重复经过可选 Mac 健康查询。内部授权只跳过健康信息扩充，仍由原 relay 验证同一 token/会话和开关；真实关闭/撤销回归保留。减少探测没有在本轮证明明显的端到端加速，不据此宣传速度提升。
 
+## 本机开关与协调器重启边界补强
+
+GUI 全流程运行于 `73bb258`。最终追加 `d5eef7` 仅改 Mac 授权/凭据读取：每次 IPC 都重新读取现有私有凭据，在原 relay 核验后直接检查 `service.local_health` 的 ready 与精确实例编号，输入前和活动监测都使用同一校验。没有改 Key、provider、账本或公网 schema。
+
+离线先复现了三处旧行为：选动作后本机已关闭仍可能执行、启动后凭据轮换导致后续独立请求一直失败、relay 旧实例与本机新实例仍可能通过。实际 startMac 配合专属替身 Unix IPC、签名选择及效果文件回归，现在本机关闭/IPC 断开后均 UNKNOWN 且零输入，实例不符时零决策/零输入；凭据轮换只使新的独立意图成功，旧 UNKNOWN 不重放。这些停机/重启边界仅在离线替身测试，没有停止当前共享协调器。最终部署后再次用新独立公网客户端读取真实权限通过。
+
 ## 检查与计量
 
-最终 revision 上，`npm run typecheck`、`npm run lint`、`npm test`、`npm run test:integration`、`npm run test:safety` 全部退出 0：556 项单元通过，119 项集成通过、1 项需有头环境的既有测试跳过，40 项安全测试通过。另已构建 Swift 原生后端，纯窗口匹配回归及独立规格/质量审查通过。普通测试不调用付费服务；本节之外的实机验收单独执行。
+最终 revision 上，`npm run typecheck`、`npm run lint`、`npm test`、`npm run test:integration`、`npm run test:safety` 全部退出 0：556 项单元通过，123 项集成通过、1 项需有头环境的既有测试跳过，40 项安全测试通过。另已构建 Swift 原生后端，纯窗口匹配回归及独立规格/质量审查通过。普通测试不调用付费服务；本节之外的实机验收单独执行。
 
-本次专属 Mac 审计共有 40 次 host_act，返回 40 个真实 Jev 决策；API usage 合计 input 15477、output 1108 tokens，包含权限探测、失败前提、清理及复测。未获取实际美元金额，不虚构费用。计入现有 usage-only 账本，未设置新付费上限。
+本次专属 Mac 审计共有 41 次 host_act，返回 41 个真实 Jev 决策；API usage 合计 input 15836、output 1132 tokens，包含权限探测、失败前提、清理及复测。未获取实际美元金额，不虚构费用。计入现有 usage-only 账本，未设置新付费上限。
 
 记录到 39 个原生步骤墙钟耗时，中位数 19.33 秒，范围 14.99–23.21 秒。它们混合不同工具和阶段，不是公平配对速度基准，也不证明广泛稳定性或全部 App 的成功率。
 

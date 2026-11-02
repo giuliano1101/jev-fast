@@ -1,10 +1,11 @@
 {
   "report_date": "2026-11-03",
-  "tested_revision": "73bb25804f05215bade04274ded32aa10cfadd4b",
+  "tested_revision": "d5eef71871204961ca42e1a668716b0304f31fa3",
   "endpoint": "https://jev.43-160-233-161.sslip.io/mcp",
   "deployment": {
     "front_revision": "f6510f814629ab21453e35cc3904ec35162719b3",
-    "mac_revision": "73bb25804f05215bade04274ded32aa10cfadd4b",
+    "mac_revision": "d5eef71871204961ca42e1a668716b0304f31fa3",
+    "native_revision": "73bb25804f05215bade04274ded32aa10cfadd4b",
     "original_local": {
       "original_profile_unchanged": true,
       "original_local_pids_preserved": true,
@@ -32,36 +33,38 @@
     {
       "command": "npm run typecheck",
       "exit": 0,
-      "seconds": 2.8
+      "seconds": 3.1
     },
     {
       "command": "npm run lint",
       "exit": 0,
-      "seconds": 2.65
+      "seconds": 2.18
     },
     {
       "command": "npm run test",
       "exit": 0,
-      "seconds": 23.51
+      "seconds": 22.36
     },
     {
       "command": "npm run test:integration",
       "exit": 0,
-      "seconds": 191.26
+      "seconds": 192.72
     },
     {
       "command": "npm run test:safety",
       "exit": 0,
-      "seconds": 18.95
+      "seconds": 19.12
     }
   ],
   "offline_counts": {
     "unit_pass": 556,
-    "integration_pass": 119,
+    "integration_pass": 123,
     "integration_skip": 1,
     "safety_pass": 40
   },
   "acceptance": {
+    "gui_revision": "73bb25804f05215bade04274ded32aa10cfadd4b",
+    "fresh_client_revision": "d5eef71871204961ca42e1a668716b0304f31fa3",
     "daily_chrome_and_textedit": [
       {
         "name": "daily_chrome_real_page",
@@ -164,16 +167,16 @@
       "execution": "executed",
       "accessibility": true,
       "screen_capture": true,
-      "request_id": "ed137c3d-3614-4dd3-bd12-9e1c10ac9e1e",
+      "request_id": "6a1c5547-b155-4a82-8a90-2ab2a2f1d457",
       "passed": true
     }
   },
   "metering": {
-    "host_act_requests": 40,
-    "returned_real_jev_decisions": 40,
+    "host_act_requests": 41,
+    "returned_real_jev_decisions": 41,
     "all_decisions_jev": true,
-    "input_tokens": 15477,
-    "output_tokens": 1108,
+    "input_tokens": 15836,
+    "output_tokens": 1132,
     "actual_usd": null,
     "note": "API usage only; no USD amount inferred. Includes permission probes, failed preconditions, cleanup and retests."
   },
