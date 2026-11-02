@@ -9,7 +9,7 @@ import {removeDeadMarker} from '../service/recovery.js';
 import {HostService,createHostMcpClient,type HostServiceOptions} from '../host/service.js';
 import {choiceResponseSchema} from '../remote/choice.js';
 import {canonicalDigest} from '../remote/protocol.js';
-import {JobStore,jobSchema} from './jobs.js';
+import {JobStore,jobSchema,type Job} from './jobs.js';
 import {MacExecutor} from './executor.js';
 import {OwnerValidator} from './auth.js';
 import {startFront,rawClient,privateMacClient,json,body} from './http.js';
@@ -20,15 +20,18 @@ async function recover(directory:string){mkdirSync(directory,{recursive:true,mod
 function capability(path:string){const token=readFileSync(path,'utf8').trim();if(token.length<32||token.length>4096)throw new Fault('INVALID_CAPABILITY');return token;}
 export interface MacDependencies{validator?:Pick<OwnerValidator,'validate'|'close'>;chooseAction?:HostServiceOptions['chooseAction']}
 export async function startMac(config:z.infer<typeof macSchema>,dependencies:MacDependencies={}){
- await recover(config.stateDir);const hostState=join(config.stateDir,'host'),processState=join(config.stateDir,'desktop-process');await recover(hostState);await recover(processState);const store=new JobStore(config.stateDir),secret=capability(config.capabilityFile),credential=await readCredential(config.credentialFile),validator=dependencies.validator??new OwnerValidator(config.publicEndpoint);let healthy=true,failed!:()=>void;const failure=new Promise<void>(resolve=>{failed=resolve;}),unavailable=()=>{healthy=false;failed();};
- const authorize=async(owner:string)=>{const job=executor.context(owner);await validator.validate(job.token,owner);};
+ await readCredential(config.credentialFile);
+ await recover(config.stateDir);const hostState=join(config.stateDir,'host'),processState=join(config.stateDir,'desktop-process');await recover(hostState);await recover(processState);const store=new JobStore(config.stateDir),secret=capability(config.capabilityFile),validator=dependencies.validator??new OwnerValidator(config.publicEndpoint);let healthy=true,failed!:()=>void;const failure=new Promise<void>(resolve=>{failed=resolve;}),unavailable=()=>{healthy=false;failed();};
+ const coordinatorCall=async(method:string,params:unknown)=>ipcCall(await readCredential(config.credentialFile),method,params);
+ const validateJob=async(job:Job)=>{const context=await validator.validate(job.token,job.owner),local=await coordinatorCall('service.local_health',{}) as {ready?:boolean;instance_id?:unknown}|null;if(!local||local.ready!==true)throw new Fault('LOCAL_COORDINATOR_UNAVAILABLE');if(typeof context.local_instance_id!=='string'||local.instance_id!==context.local_instance_id)throw new Fault('LOCAL_INSTANCE_CHANGED');};
+ const authorize=async(owner:string):Promise<void>=>validateJob(executor.context(owner));
  const runner=new HostService({storageDir:hostState,hosts:{mac:{serverCommand:config.desktopCommand,serverArgs:config.desktopArgs}},clientFactory:(hostConfig,host,signal)=>createHostMcpClient(hostConfig,host,signal,pid=>{writeFileSync(join(processState,'owner.lock'),JSON.stringify({pid})+'\n',{flag:'wx',mode:0o600});},unavailable),authorize,chooseAction:dependencies.chooseAction??(async(owner,args,signal)=>{
-  await authorize(owner);if(signal.aborted)throw new Fault('OWNER_REVOKED');const health=await ipcCall(credential,'service.health',{}) as Record<string,unknown>;
+  await authorize(owner);if(signal.aborted)throw new Fault('OWNER_REVOKED');const health=await coordinatorCall('service.health',{}) as Record<string,unknown>;
   if(health.ready!==true||health.provider!=='jev'||health.transport!=='remote'||health.remoteReachable!==true||health.identityMatches!==true||health.routeCompatible!==true)throw new Fault('REAL_JEV_UNAVAILABLE');
   await authorize(owner);if(signal.aborted)throw new Fault('OWNER_REVOKED');const scoped={...args,idempotency_key:canonicalDigest({namespace:'public-mac-owner-choice-v1',owner,key:args.idempotency_key})};
-  const decision=choiceResponseSchema.parse(await ipcCall(credential,'jev.choose_action',scoped));if(decision.provider!=='jev')throw new Fault('REAL_JEV_REQUIRED');return decision;
+  const decision=choiceResponseSchema.parse(await coordinatorCall('jev.choose_action',scoped));if(decision.provider!=='jev')throw new Fault('REAL_JEV_REQUIRED');return decision;
  })});
- const executor=new MacExecutor({store,runner,authorize:async job=>{await validator.validate(job.token,job.owner);}});
+ const executor=new MacExecutor({store,runner,authorize:validateJob});
  const server=createServer((req,res)=>{void(async()=>{const supplied=req.headers['x-jev-mac-capability'];if(typeof supplied!=='string'||Buffer.byteLength(supplied)!==Buffer.byteLength(secret)||!timingSafeEqual(Buffer.from(supplied),Buffer.from(secret))){req.resume();json(res,403,{code:'FORBIDDEN'});return;}
  if(req.url==='/health'&&req.method==='GET'){json(res,healthy?200:503,{ok:healthy,host:'mac',execution:'native-desktop'});return;}
  if(req.url==='/jobs'&&req.method==='POST'){const input=jobSchema.parse(JSON.parse((await body(req)).toString()));json(res,202,executor.submit(input));return;}

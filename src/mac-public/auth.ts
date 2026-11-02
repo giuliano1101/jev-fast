@@ -6,7 +6,7 @@ import type {OwnerContext} from './front.js';
 export function parseTool(value:unknown):Record<string,unknown>{const result=value as {isError?:boolean;content?:{type:string;text?:string}[]},text=result?.content?.find(item=>item.type==='text')?.text;if(!text)throw new Fault('INVALID_RESPONSE');let obj:Record<string,unknown>;try{obj=JSON.parse(text);}catch{throw new Fault('INVALID_RESPONSE');}if(result.isError)throw new Fault(typeof obj.code==='string'&&/^[A-Z][A-Z0-9_]{0,63}$/.test(obj.code)?obj.code:'UPSTREAM_ERROR');return obj;}
 export function ownerContext(status:Record<string,unknown>):OwnerContext{
  if(status.enabled!==true||status.connector_online!==true||status.local_ready!==true||typeof status.continuation_token!=='string'||typeof status.connection_id!=='string')throw new Fault('ADMISSION_REQUIRED');
- return {owner:createHash('sha256').update(status.connection_id+'\0'+status.continuation_token).digest('hex'),token:status.continuation_token};
+ return {owner:createHash('sha256').update(status.connection_id+'\0'+status.continuation_token).digest('hex'),token:status.continuation_token,...(typeof status.local_instance_id==='string'?{local_instance_id:status.local_instance_id}:{})};
 }
 export interface ValidationSession{status(token:string):Promise<Record<string,unknown>>;close():Promise<void>}
 async function connectValidator(endpoint:string):Promise<ValidationSession>{

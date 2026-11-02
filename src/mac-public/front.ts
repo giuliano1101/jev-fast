@@ -2,7 +2,7 @@ import {Fault} from '../core/errors.js';
 import {hostSchemas} from '../host/contracts.js';
 import {idSchema} from '../core/contracts.js';
 import {JobStore,jobId,envelope,type Job} from './jobs.js';
-export interface OwnerContext{owner:string;token:string}
+export interface OwnerContext{owner:string;token:string;local_instance_id?:string}
 export interface MacClient{submit(job:Job):Promise<Job>;get(id:string):Promise<Job>}
 export interface FrontOptions{store:JobStore;authorize:(context:Record<string,unknown>)=>Promise<OwnerContext>;legacyStatus:(context:Record<string,unknown>,request:string)=>Promise<unknown>;mac:MacClient}
 /** The submission gate also surrounds legacy acknowledgements in the HTTP front. */
