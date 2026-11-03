@@ -6,6 +6,8 @@ dist/
 
 # Stage evidence is intentionally versioned; secrets and runtime state are not.
 .DS_Store
+__pycache__/
+*.py[cod]
 *.pem
 *.key
 api-key
