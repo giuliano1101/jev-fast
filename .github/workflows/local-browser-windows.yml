@@ -39,6 +39,5 @@ jobs:
         run: |
           node -e "const {createRequire}=require('node:module');const {join,dirname}=require('node:path');const nested=createRequire(require.resolve('@playwright/mcp/package.json'));const driver=join(dirname(nested.resolve('playwright/package.json')),'cli.js');require('node:child_process').execFileSync(process.execPath,[driver,'install','chromium'],{stdio:'inherit'});"
       - run: node --test --test-concurrency=1 dist/tests/integration/local-browser*.test.js
-      - run: node scripts/setup-local-browser.mjs --no-build --print-config --mode extension --browser msedge
       # These are real browser processes on the hosted Windows runner with offline decision stubs.
       # They do not claim acceptance on the user's physical Windows machine or existing daily profile.

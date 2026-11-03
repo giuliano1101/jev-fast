@@ -8,7 +8,6 @@
   },
   "scripts": {
     "desktop:build": "node scripts/build-desktop.mjs",
-    "desktop:mcp": "node dist/src/desktop/main.js",
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -17,15 +16,9 @@
     "test:safety": "npm run build && node --test dist/tests/safety/*.test.js",
     "bench:mock": "npm run build && node dist/bench/run.js",
     "start:service": "node dist/src/service/main.js",
-    "start:mcp": "node dist/src/mcp/index.js",
-    "cli": "node dist/src/cli/index.js",
     "gateway": "node dist/src/remote/main.js",
     "release": "node scripts/release.mjs",
-    "control": "node dist/src/control/main.js",
-    "network:server": "node dist/src/network/main.js server",
-    "network:connector": "node dist/src/network/main.js connector",
-    "local-browser:setup": "node scripts/setup-local-browser.mjs",
-    "local-browser:mcp": "node dist/src/local/main.js"
+    "control": "node dist/src/control/main.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
@@ -39,10 +32,11 @@
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.4"
   },
-  "description": "Jev action execution through browser, configured MCP hosts, CLI and network MCP",
+  "description": "Per-host Jev browser, native desktop and Android execution library",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "https://github.com/giuliano1101/jev-fast.git"
-  }
+  },
+  "main": "dist/src/index.js"
 }

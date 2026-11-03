@@ -10,7 +10,6 @@ export const MAX_CALL_MS=65000;
 /** A small transport grace allows the caller's execution timeout to return its result. */
 export function requestedRpcTimeoutMs(method:string,params:unknown,diagnosticTimeoutMs=MAX_CALL_MS):number|null {
  const args=params&&typeof params==='object'?params as Record<string,unknown>:{};
- if(method==='service.network_dispatch')return typeof args.method==='string'?requestedRpcTimeoutMs(args.method,args.params,diagnosticTimeoutMs):diagnosticTimeoutMs;
  if(!method.startsWith('jev.'))return diagnosticTimeoutMs;
  const budget=args.time_budget_ms??args.timeout_ms;
  return typeof budget==='number'&&Number.isSafeInteger(budget)&&budget>0?Math.min(Number.MAX_SAFE_INTEGER,budget+5000):null;

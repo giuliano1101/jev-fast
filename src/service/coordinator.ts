@@ -19,7 +19,6 @@ export class Coordinator {
  private credentialFiles:string[]=[];
  private closing?:Promise<void>;
  private stopping=false;
- private networkOwners=new Set<string>();
  private choices=new Map<AbortController,{client:string;done:Promise<unknown>}>();
  private readonly instanceId=randomUUID();
  private constructor(private options:CoordinatorOptions){this.server=createServer(socket=>this.accept(socket));}
@@ -73,23 +72,6 @@ export class Coordinator {
    return {stopping:true};
   }
   if(this.stopping)throw new Fault('KILLED');if(client==='operator')throw new Fault('UNAUTHORIZED');
-  if(method.startsWith('service.network_')){
-   if(client!=='a')throw new Fault('UNAUTHORIZED');
-   if(method==='service.network_reconcile'){
-    const input=z.strictObject({owners:z.array(z.string().regex(/^network-[a-f0-9]{64}$/))}).parse(params);
-    const removed=[...this.networkOwners].filter(owner=>!input.owners.includes(owner));for(const owner of removed)await this.revokeGeneralOwner(owner);this.networkOwners=new Set(input.owners);
-    return this.options.engine.reconcileNetworkOwners(input.owners);
-   }
-   if(method==='service.network_revoke'){
-    const input=z.strictObject({owner:z.string().regex(/^network-[a-f0-9]{64}$/)}).parse(params);
-    await this.revokeGeneralOwner(input.owner);this.networkOwners.delete(input.owner);await this.options.engine.revokeNetworkOwner(input.owner);return {revoked:true};
-   }
-   if(method==='service.network_dispatch'){
-    const input=z.strictObject({owner:z.string().regex(/^network-[a-f0-9]{64}$/),method:z.string(),params:z.unknown()}).parse(params);
-    return this.tool(input.owner,input.method,input.params);
-   }
-   throw new Fault('UNKNOWN_METHOD');
-  }
   return this.tool(client,method,params);
  }
  private tool(client:string,method:string,params:unknown){
@@ -108,7 +90,6 @@ export class Coordinator {
   }
  }
  private async abortChoices(matches:(client:string)=>boolean){const jobs=[...this.choices].filter(([,entry])=>matches(entry.client));for(const [controller] of jobs)controller.abort();await Promise.allSettled(jobs.map(([,entry])=>entry.done));}
- private async revokeGeneralOwner(owner:string){await this.abortChoices(client=>client===owner);await this.options.realBrowser?.revokeOwner(owner);await this.options.hostService?.revokeOwner(owner);}
  private choose(client:string,args:ChoiceArgs):Promise<unknown>{this.options.engine.authorizeClient(client);if(!this.options.chooseAction)throw new Fault('GENERAL_CHOICE_UNAVAILABLE');return this.scoped(client,signal=>this.options.chooseAction!(client,args,signal));}
  private scoped(client:string,operation:(signal:AbortSignal)=>Promise<unknown>):Promise<unknown>{
   this.options.engine.authorizeClient(client);const controller=new AbortController();

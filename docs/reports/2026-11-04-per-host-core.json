@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-04",
+  "architecture": "per-host-library",
+  "hosted_calls": 0,
+  "checks": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "unit": {
+      "tests": 458,
+      "pass": 458,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "integration": {
+      "tests": 88,
+      "pass": 87,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 1
+    },
+    "safety": {
+      "tests": 40,
+      "pass": 40,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "native": {
+      "tests": 8,
+      "fail": 0,
+      "result": "OK"
+    }
+  },
+  "deployment": {
+    "public_http": {
+      "/mcp": 410,
+      "/connector/register": 410,
+      "/connector/sync": 410,
+      "/health": 410
+    },
+    "vps": {
+      "units": {
+        "jev-mac-public.service": {
+          "active": "inactive",
+          "enabled": "disabled"
+        },
+        "jev-network.service": {
+          "active": "inactive",
+          "enabled": "disabled"
+        }
+      },
+      "nginx_validation": true,
+      "routes_retired": true
+    },
+    "local": {
+      "new_panel": true,
+      "panel_state": "running",
+      "panel_provider": "jev",
+      "coordinator_ready": true,
+      "decision_provider": "jev",
+      "configured_hosts": [
+        "android"
+      ],
+      "original_coordinator_alive": true,
+      "original_gateway_alive": true,
+      "retired_processes_absent": true,
+      "native_library_tools": 14
+    },
+    "guardian": {
+      "local_guardian_loaded": true,
+      "original_coordinator_alive": true,
+      "original_gateway_alive": true,
+      "profile_and_key_unchanged": true,
+      "cli_free_guardian": true
+    }
+  },
+  "private_state": {
+    "key_profile_unchanged": true,
+    "historical_ledgers_reset": false,
+    "private_state_published": false
+  },
+  "limits": [
+    "No new paid/count/session/step cap",
+    "Windows lifecycle/profile helpers remain POSIX-only; Windows executors use host DecisionPort",
+    "One pre-existing opt-in headed browser integration skipped on this Mac",
+    "No new paid/physical Windows task acceptance in this removal"
+  ],
+  "historical_evidence_preserved": true
+}

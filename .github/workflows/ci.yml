@@ -31,7 +31,6 @@ jobs:
       - run: npx playwright install chromium
       - run: npm run typecheck
       - run: npm run lint
-      - run: python3 -m unittest discover -s deploy/network/tests -v
       - run: python3 -m unittest discover -s tests/native -p test_macos_driver.py -v
       - run: npm test
       - run: npm run test:integration

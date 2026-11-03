@@ -1,3 +1,5 @@
+> 历史环境快照（2026-10-30），不是当前权限或接口状态。当前版本见[快速开始](quickstart-agent.md)。
+
 # 开发环境（2026-10-30，Asia/Shanghai）
 
 实际检查：Mac mini / Apple M4 / 16 GB RAM，macOS 27.0.1 (26A434)，arm64。交接包假设的 M4 Pro 64 GB 与本机不同，所有性能结果须使用实际环境。

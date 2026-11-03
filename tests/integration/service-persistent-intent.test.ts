@@ -1,12 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,writeFile,readFile,rm,realpath,mkdir} from 'node:fs/promises';
-import {join,resolve} from 'node:path';
-import {executeBounded} from '../../src/control/server.js';
-const cli=resolve('dist/src/cli/index.js');
+import {join} from 'node:path';
+import {runLifecycle} from '../helpers/lifecycle.js';
 const modulePath='../../src/service/intent.js';
 const api=await import(modulePath);
-const run=(runtime:string,args:string[])=>executeBounded(process.execPath,[cli,'service',...args,'--runtime',runtime,'--json'],{timeoutMs:20000});
+const run=runLifecycle;
 test('bound running intent survives runtime deletion and recovery retains the exact configured profile',{timeout:30000},async()=>{
  assert.equal(typeof api.bindServiceIntent,'function');const root=await realpath(await mkdtemp('/tmp/jev-intent-persist-')),runtime=join(root,'run'),stable=join(root,'stable'),registry=join(stable,'bindings.json'),intentFile=join(stable,'intent.json'),config=join(root,'profile.json');
  const previous=process.env.JEV_SERVICE_INTENT_BINDINGS;process.env.JEV_SERVICE_INTENT_BINDINGS=registry;
@@ -20,7 +19,7 @@ test('bound running intent survives runtime deletion and recovery retains the ex
   assert.equal((await readFile(registry,'utf8')).includes(runtime),true);
  }finally{await run(runtime,['stop']);if(previous===undefined)delete process.env.JEV_SERVICE_INTENT_BINDINGS;else process.env.JEV_SERVICE_INTENT_BINDINGS=previous;await rm(root,{recursive:true,force:true});}
 });
-test('CLI stop updates only bound durable authority; deleting runtime cannot resurrect operator off',{timeout:30000},async()=>{
+test('library stop updates only bound durable authority; deleting runtime cannot resurrect operator off',{timeout:30000},async()=>{
  assert.equal(typeof api.bindServiceIntent,'function');const root=await realpath(await mkdtemp('/tmp/jev-intent-off-')),runtime=join(root,'run'),stable=join(root,'stable'),registry=join(stable,'bindings.json'),intentFile=join(stable,'intent.json');const previous=process.env.JEV_SERVICE_INTENT_BINDINGS;process.env.JEV_SERVICE_INTENT_BINDINGS=registry;
  try{
   assert.equal((await run(runtime,['start'])).code,0);await api.bindServiceIntent(runtime,intentFile);

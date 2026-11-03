@@ -24,10 +24,9 @@ test('general choices need no browser session and run concurrently with authenti
  const f=await setup(async(client)=>{scopes.push(client);if(scopes.length===2)entered();await new Promise<void>(r=>releases.push(r));return {provider:'jev',selected_id:'search'};});
  try{const a=ipcCall(f.a,'jev.choose_action',args),b=ipcCall(f.b,'jev.choose_action',{...args,idempotency_key:'second'});await Promise.race([both,Promise.all([a,b]).then(()=>{throw new Error("CALLS_ENDED_WITHOUT_CONCURRENCY");})]);assert.deepEqual(new Set(scopes),new Set(['a','b']));releases.forEach(r=>r());assert.equal((await a as {selected_id:string}).selected_id,'search');await b;const health=await ipcCall(f.a,'service.health',{}) as {active_session_limit:number|null;general_choice_available:boolean};assert.equal(health.active_session_limit,null);assert.equal(health.general_choice_available,true);}finally{releases.forEach(r=>r());await f.close();}
 });
-test('network revocation cancels a general decision without granting caller-supplied ownership',async()=>{
- let began!:()=>void;const ready=new Promise<void>(r=>began=r);const owner='network-'+'a'.repeat(64);
- const f=await setup(async(client,_args,signal)=>{assert.equal(client,owner);began();await new Promise<void>((_r,reject)=>signal.addEventListener('abort',()=>reject(new Error('CANCELLED')),{once:true}));});
- try{await ipcCall(f.a,'service.network_reconcile',{owners:[owner]});const request=ipcCall(f.a,'service.network_dispatch',{owner,method:'jev.choose_action',params:args});const rejected=assert.rejects(request);await Promise.race([ready,request.then(()=>{throw new Error("DECISION_NOT_ENTERED");})]);await ipcCall(f.a,'service.network_revoke',{owner});await rejected;await assert.rejects(ipcCall(f.a,'service.network_dispatch',{owner,method:'jev.choose_action',params:args}));}finally{await f.close();}
+test('local coordinator rejects retired network dispatch and caller-supplied ownership',async()=>{
+ let calls=0;const f=await setup(async()=>{calls++;return {};});
+ try{for(const method of ['service.network_reconcile','service.network_dispatch','service.network_revoke'])await assert.rejects(ipcCall(f.a,method,{owner:'network-'+'a'.repeat(64),method:'jev.choose_action',params:args}),/UNKNOWN_METHOD/);assert.equal(calls,0);}finally{await f.close();}
 });
 test('unconfigured offline service reports unavailable without silently enabling hosted choice',async()=>{const f=await setup();try{await assert.rejects(ipcCall(f.a,'jev.choose_action',args),/GENERAL_CHOICE_UNAVAILABLE/);}finally{await f.close();}});
 

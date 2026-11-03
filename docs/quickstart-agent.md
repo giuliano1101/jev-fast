@@ -1,71 +1,51 @@
-# 让另一个 AI 接入 Jev
+# 各主机本地接入
 
-## Windows 本机浏览器
+2026-11-04 起不再安装 Jev CLI/MCP 服务或网络连接器。每台主机运行自己的决策配置和执行器，宿主通过本地模块接入。既有私有 profile、Key 和账本不随仓库分发，也不要复制另一台机器的操作系统凭据。
 
-公网 `jev.browser_*` 在服务 Mac 的无头浏览器执行；Windows 调用方不会自动改变执行位置。控制 Windows 本机可见 Edge/Chrome 或已有登录标签时，请在 **Windows 本机**安装独立的 [jev-local-browser MCP](local-browser.md)。该入口暴露 local_status/local_tools/local_observe/local_act，由现有真实公网 Jev 选动作，Windows 本地执行。无需模型 Key 或新的额度审批；工具参数直接传入，不加公网 wrapper。先确认 platform=win32、execution_host=local，再观察实际页面。
+## 安装
 
-## 已部署共享服务：直接连接
+使用本机 Node 24.19+，按 README 安装依赖并构建。Mac 原生驱动另运行 `npm run desktop:build`；Windows 使用本机 PowerShell 原生驱动。浏览器及 OS 权限必须在实际执行机器验证。
 
-先读[其他 AI 接入与真实任务手册](other-ai-real-testing.md)。使用 Streamable HTTP：
+## macOS / Unix 生命周期与本机调用
 
-```text
-https://jev.43-160-233-161.sslip.io/mcp
+以下生命周期、私有 profile 加载和 Unix socket 辅助函数目前依赖 POSIX uid / mode，仅适用于 macOS / Unix。Windows 直接使用 DesktopExecutor，或使用 LocalBrowserService + 宿主提供的 DecisionPort；不能调用下例 startService/loadServiceProfile 作为 Windows 安装验收。本轮没有新增 Windows 凭据/协调器移植。
+
+保存为 macOS / Unix 宿主程序的模块，调整为本机的真实绝对路径：
+
+```js
+import {startService, serviceHealth, inspectService, stopService,
+        ipcCall, readCredential, toolDefinitions} from './dist/src/index.js';
+import {join} from 'node:path';
+
+const runtime = '/absolute/private/jev-runtime';
+await startService({runtime, configFile: '/absolute/private/profile.json'});
+const health = await serviceHealth(runtime);
+console.log({ready: health.ready});
+const credential = await readCredential(join(runtime, 'client-a.json'));
+const invoke = (name, params) => ipcCall(credential, name, params);
+// toolDefinitions 包含本机业务参数 schema；没有公网 wrapper 或 continuation。
+console.log(toolDefinitions.map(tool => tool.name));
+// 仅在操作员明确要关闭这个 runtime 时：await stopService(runtime);
+// 只读安装/运行诊断：await inspectService(runtime);
 ```
 
-无需 Authorization、模型 Key、profile、证书或新额度审批。当前共享部署已经配置 remote Jev/usage-only、自动 AI 即时准入和 continuation；其他 AI 不另起 mock、不停止或重启共享服务。
+导出的生命周期保留原 profile 匹配、启动锁、手动开关意图和未知结果规则。服务重启后重新读取本机凭据，不能一直缓存旧 token。只管理自己的 runtime；不要清理别人的会话或历史账本。
 
-先 tools/list，再 network_status。就绪后自动私密缓存返回的 `continuation_token`，在业务 wrapper、request_status 和 release_connection 中传回，跨 DELETE/短连接恢复原 owner；不要要求用户手填或把 token 贴到聊天。全部调用、可运行 SDK 和错误处理见[接入手册](other-ai-real-testing.md)。正常结束释放自己的逻辑连接；UNKNOWN 保留原编号并停止重放。
+省略 configFile 是离线 mock 开发模式，不请求付费模型；不会静默把已有真实服务切成 mock。默认 mock 仅支持合成流程，不代表任意网站或 App 的真实 Jev 已配置。
 
-本地有 13 个业务工具，公网为 16 个：六个兼容 fixture 工具、choose_action、browser_open/observe/act/close、host_tools/act，以及网络专用 network_status/request_status/release_connection。真实网页在隔离无头 Chromium 中执行任意 HTTP/HTTPS URL，独立于用户 Chrome。手机使用配置的 android host，先 host_tools 再按返回 schema 调用 host_act。
+本机业务接口仍包含 fixture 的六个方法、choose_action、browser_open/observe/act/close 和 host_tools/act。这些是模块/私有 IPC 方法，不是 MCP 工具服务。查看导出的 toolDefinitions 与实际 health，确认 choose_action、真实浏览器和已配置 host 是否存在。
 
-当前已验证的公网真实网页、短连接与手机操作见[本轮报告](reports/2026-11-02-unrestricted-service.md)。同一页面/实体手机的动作需要顺序协调；独立浏览器会话不再受全局单会话限制。无固定步骤/队列/会话数和默认业务 TTL，显式调用者预算、资源边界、TLS/owner/UNKNOWN 规则仍保留。
+## 真正执行的位置
 
-## 新机器：离线开发安装
+- `browser_*`：该主机上的隔离 Playwright 浏览器，独立于日常 Chrome。
+- 日常已登录 Chrome / Edge：本机 LocalBrowserService 的 attach/extension，或本机原生桌面驱动；见[本机浏览器](local-browser.md)。
+- 已装 App：直接使用 DesktopExecutor；见[桌面手册](native-desktop.md)。
+- 安卓：保留 HostService 对本机已配置 mobile backend 的客户端调用；先 tools 发现实际 schema，配置设备，不假设所有手机工具可用。
 
-下面仅用于新安装，不用于替换当前运行中的共享服务。需要 Node24.19+、npm、Git、执行机上的独立 Chromium。
+`remote` profile 指模型决策网关，不再表示由公共 MCP 把操作转到另一台电脑。每台机器自行配置已有的 Jev 决策接入；不需要为本次代码拆除新增 Key。
 
-```sh
-git clone https://github.com/giuliano1101/jev-fast.git
-cd jev-fast
-npm ci --ignore-scripts
-npx playwright install chromium
-npm run build
-node -p process.execPath
-node dist/src/cli/index.js service start --runtime /tmp/jev-agent-demo --json
-node dist/src/cli/index.js doctor --runtime /tmp/jev-agent-demo --json
-node dist/src/cli/index.js policy status --runtime /tmp/jev-agent-demo --json
-node dist/src/cli/index.js schemas --json
-node dist/src/cli/index.js demo --runtime /tmp/jev-agent-demo --json
-```
+## 升级与旧部署
 
-保存实际 Node 绝对路径；不要在其他机器套用 scripts/env.sh 的原开发 Mac 路径。新安装默认 `mock/test_mock`，上述 fixture 演示不调用付费模型，也不能证明已使用真实 Jev。tools/list/schema 发现工具不代表当前 profile 配置了所有 backend；健康信息可查看 `general_choice_available`、`real_browser_available`、`configured_hosts`。ready 仅表示本地协调器运行，远程状态还需核对身份/路由与可达性。
+先保存原私有目录，不覆盖运行中的 dist 或删掉账本。更新依赖并构建时，编译目录会清理旧入口；已经运行的旧进程不会因此自动停止。旧部署是否停用请看[本次报告](reports/2026-11-04-per-host-core.md)，不能仅因源码文件已删除就宣布公网下线。
 
-## 本地 CLI/stdio MCP
-
-先运行同一个 coordinator，再配置宿主（替换绝对路径）：
-
-```json
-{"mcpServers":{"jev":{"command":"/absolute/path/to/node","args":["/absolute/checkout/dist/src/mcp/index.js","--credential","/tmp/jev-agent-demo/client-a.json"]}}}
-```
-
-本机工具直接传业务 params，不加网络 request_id/continuation 外层。schema 由 `schemas --json` 给出；13 个工具的范围见[主手册](other-ai-real-testing.md)。例如配置真实 remote profile 后，CLI `browser_open` 可使用 `--args '{"url":"https://example.com"}'`；新安装 mock 未配置真实决策/host 时，相关工具会如实返回不可用，不自动连接未知 backend。
-
-fixture 兼容任务仍为 form/filter/detail/back/cancel/correction/duplicate/async/scroll/select/wait/navigation；`run_goal` 的 max_steps/time_budget_ms 可选，不强加旧 8 步/60 秒。多个独立 session 可以并行，同 session 的活动目标和观察/关闭仍受一致性仲裁。
-
-关闭自己创建的开发服务由操作员执行：
-
-```sh
-node dist/src/cli/index.js service stop --runtime /tmp/jev-agent-demo --json
-```
-
-该命令不用于当前共享 `/tmp/jev-501`。服务重启会轮换本地凭据，旧 MCP 进程需重连；锁和 UNKNOWN 不能通过清账本处理。
-
-## 新安装接入真实 Jev
-
-操作员按[跨机器手册](cross-machine-cli-mcp.md)准备受信网关、私有证书/身份与 remote profile，显式选择 usage-only 或可选有上限策略。当前共享服务已有用户授权的 usage-only，AI 无需再申请付费次数/额度。provider、host backend、设备和密钥不是普通 MCP 参数。
-
-可选 hostConfigs 仅由操作员绑定已知 MCP backend；AI 不能传任意 serverCommand 或设备标识创建主机。新部署手动接入默认关闭；autoAdmitAi/allowContinuations 是私有服务端可选策略，当前公网已开启。完整接入语义见[手动接入](manual-admission.md)，旧 Bearer 接线见[网络手册](network-mcp.md)。
-
-找不到 Node/入口时检查宿主绝对路径；本地不可达检查实际 runtime/服务，不直接重启共享服务。`SERVICE_PROFILE_MISMATCH`、`CONTINUATION_INVALID`、资源/上游错误应按实际层报告，不索取已配置的模型 Key、不自动切换 mock。宿主根本没有远程 MCP/Node 能力时，报告宿主缺少入口，而非 Jev 未授权。
-
-原生桌面 App 使用独立[原生 MCP](native-desktop.md)和已有真实 Jev 选择组合。原 Mac 的构建已实测；其他机器需构建自己的执行器。共享 profile 本轮未增加 desktop / Windows host，实时网络状态应再次核对。
+旧 MCP 客户端配置不再适用于新版。支持本地模块的宿主导入本项目；只支持 MCP 的 AI 客户端不能直接把模块当作 MCP URL 使用，由该主机的宿主程序集成执行器。

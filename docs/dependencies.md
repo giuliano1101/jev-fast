@@ -2,6 +2,7 @@
 
 | 包 | 精确版本 | 许可 |
 |---|---|---|
+| @playwright/mcp | 0.0.84 | Apache-2.0 |
 | @modelcontextprotocol/sdk | 1.32.2 | MIT |
 | playwright | 1.61.1 | Apache-2.0 |
 | zod | 4.6.7 | MIT |
@@ -13,3 +14,4 @@
 安装使用 `--ignore-scripts`；完整传递依赖与 integrity 见 package-lock.json。开发中 npm audit 发现 Zod <4.6.6 的高危内存耗尽问题，已更新到 4.6.7；最终 audit 结果写入验收产物。
 
 不使用 TypeSafe SDK；直接 fetch 实现单层受预算控制的重试。Node 原生 test runner，无额外测试框架。
+2026-11-04：MCP 依赖仅用于调用第三方浏览器/安卓执行后端，项目不再发布 MCP server。当前依赖精确版本仍以 package-lock.json 为准。

@@ -4,32 +4,32 @@ import {spawn} from 'node:child_process';
 import {mkdtemp,rm,access,readFile,writeFile} from 'node:fs/promises';
 import {join,resolve} from 'node:path';
 import {chromium} from 'playwright';
-import {Client} from '@modelcontextprotocol/sdk/client/index.js';
-import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
-import {startControlPanel,executeBounded} from '../../src/control/server.js';
+import {startControlPanel} from '../../src/control/server.js';
+import {executeBounded} from '../helpers/process.js';
+import {runLifecycle} from '../helpers/lifecycle.js';
+import {readCredential,ipcCall} from '../../src/service/ipc.js';
 import {chromiumExecutable} from '../../src/browser/executable.js';
-const cli=resolve('dist/src/cli/index.js');
-const run=(args:string[])=>executeBounded(process.execPath,[cli,...args],{timeoutMs:20000});
-test('real browser starts mock, shares healthy CLI/MCP coordinator, preserves service on panel close, and stops via operator lifecycle',{timeout:60000},async()=>{
+const run=async(args:string[])=>{const index=args.indexOf('--runtime');return runLifecycle(args[index+1]!,args[0]==='service'?args.slice(1):args);};
+test('real browser starts mock, uses local coordinator library, preserves service on panel close, and stops via operator lifecycle',{timeout:60000},async()=>{
  const root=await mkdtemp('/tmp/jev-panel-'),runtime=join(root,'run');let panel=await startControlPanel({runtime,port:0});
- const browser=await chromium.launch({headless:true,executablePath:chromiumExecutable()});let client:Client|undefined;
+ const browser=await chromium.launch({headless:true,executablePath:chromiumExecutable()});
  try{
   await assert.rejects(access(runtime));const page=await browser.newPage({viewport:{width:1100,height:1200}});const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto(panel.url);await page.waitForFunction(()=>document.getElementById('status')?.textContent==='未连接');assert.equal(new URL(page.url()).hash,'');await assert.rejects(access(runtime));
   assert.equal(await page.locator('h1').innerText(),'Jev 控制台');await page.locator('#instructions > summary').click();assert.ok(await page.getByText('运行能力以实际服务检查为准',{exact:false}).count());
-  const mcp=JSON.parse(await page.getByLabel('MCP 配置').innerText());assert.equal(mcp.mcpServers.jev.command,process.execPath);assert.deepEqual(mcp.mcpServers.jev.args,[resolve('dist/src/mcp/index.js'),'--credential',join(runtime,'client-a.json')]);
+  assert.equal(await page.getByLabel('MCP 配置').count(),0);
   await page.getByRole('button',{name:'启动服务',exact:true}).click();await page.waitForFunction(()=>document.getElementById('status')?.textContent==='运行中');assert.match(await page.locator('#mode').innerText(),/mock/);assert.equal(await page.locator('#reachability').innerText(),'无需远程连接');
   const health=JSON.parse((await run(['service','health','--runtime',runtime,'--json'])).stdout);assert.equal(health.ready,true);assert.equal(health.provider,'mock');
   const credential=JSON.parse(await readFile(join(runtime,'client-a.json'),'utf8'));assert.ok(!await page.content().then(content=>content.includes(credential.token)));
   await page.reload();await page.waitForFunction(()=>document.getElementById('status')?.textContent==='运行中');assert.equal(await page.locator('#error').isVisible(),false);
-  client=new Client({name:'control-panel-integration',version:'1.0.0'});await client.connect(new StdioClientTransport({command:mcp.mcpServers.jev.command,args:mcp.mcpServers.jev.args,stderr:'pipe'}));assert.equal((await client.listTools()).tools.length,13);
-  const opened=await client.callTool({name:'jev.open_session',arguments:{fixture_id:'standard'}});const text=(opened.content as {type:string;text:string}[])[0]!.text;const session_id=String(JSON.parse(text).session_id);assert.ok(session_id&&session_id!=='undefined');
-  const status=await run(['status','--runtime',runtime,'--args',JSON.stringify({session_id}),'--json']);assert.equal(status.code,0,status.stdout);assert.equal(JSON.parse(status.stdout).busy,false);
+  const client=await readCredential(join(runtime,'client-a.json'));
+  const opened=await ipcCall(client,'jev.open_session',{fixture_id:'standard'}) as {session_id:string};assert.ok(opened.session_id);
+  const status=await ipcCall(client,'jev.status',{session_id:opened.session_id}) as {busy:boolean};assert.equal(status.busy,false);
   await panel.close();assert.equal(JSON.parse((await run(['service','health','--runtime',runtime,'--json'])).stdout).ready,true);
   panel=await startControlPanel({runtime,port:0});await page.goto(panel.url);await page.waitForFunction(()=>document.getElementById('status')?.textContent==='运行中');await page.getByRole('button',{name:'停止服务',exact:true}).click();await page.waitForFunction(()=>document.getElementById('status')?.textContent==='未连接');
   await assert.rejects(access(join(runtime,'coordinator.sock')));await assert.rejects(access(join(runtime,'service.lock')));assert.notEqual((await run(['service','health','--runtime',runtime,'--json'])).code,0);assert.deepEqual(errors,[]);
   await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile UI must fit viewport');
- }finally{await client?.close().catch(()=>{});await browser.close();await panel.close();await run(['service','stop','--runtime',runtime,'--json']);await rm(root,{recursive:true,force:true});}
+ }finally{await browser.close();await panel.close();await run(['service','stop','--runtime',runtime,'--json']);await rm(root,{recursive:true,force:true});}
 });
 test('browser reports invalid fixed private config inline without exposing its contents or switching to mock',{timeout:30000},async()=>{
  const root=await mkdtemp('/tmp/jev-panel-config-'),runtime=join(root,'run'),config=join(root,'config.json');await writeFile(config,JSON.stringify({mode:'invalid',secret:'NEVER_DISPLAY_ME'}),{mode:0o600});

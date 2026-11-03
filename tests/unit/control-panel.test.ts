@@ -5,9 +5,9 @@ import {mkdtemp,rm,writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 const modulePath='../../src/control/server.js';
 const panel=await import(modulePath).catch(()=>undefined);
-test('control panel exports the loopback server and fixed CLI adapter',()=>{
+test('control panel exports the loopback server and direct lifecycle adapter',()=>{
  assert.equal(typeof panel?.startControlPanel,'function','missing local control panel server');
- assert.equal(typeof panel?.CliControlAdapter,'function');
+ assert.equal(typeof panel?.LifecycleControlAdapter,'function');
 });
 function http(url:string,method='GET',headers:Record<string,string>={},body=''):Promise<{status:number;headers:Record<string,string|string[]|undefined>;body:string}>{return new Promise((resolve,reject)=>{const req=request(url,{method,headers},res=>{let data='';res.on('data',chunk=>data+=chunk);res.on('end',()=>resolve({status:res.statusCode!,headers:res.headers,body:data}));});req.on('error',reject);req.end(body);});}
 if(panel){
@@ -25,7 +25,7 @@ if(panel){
   try{
    assert.equal(calls.length,0);assert.match(server.url,/^http:\/\/127\.0\.0\.1:\d+\/#/);
    const origin=new URL(server.url).origin,token=new URL(server.url).hash.slice(1),auth={'x-jev-control-token':token,origin};
-   const root=await http(origin+'/');assert.equal(root.status,200);assert.match(root.body,/启动服务/);assert.match(root.body,/运行能力以实际服务检查为准/);assert.match(root.body,/MCP/);const script=await http(origin+'/app.js');assert.match(script.body,/sessionStorage/);assert.match(script.body,/history.replaceState/);assert.match(root.headers['content-security-policy'] as string,/default-src 'none'/);assert.equal(root.headers['cache-control'],'no-store');assert.equal(root.headers['referrer-policy'],'no-referrer');
+   const root=await http(origin+'/');assert.equal(root.status,200);assert.match(root.body,/启动服务/);assert.match(root.body,/运行能力以实际服务检查为准/);assert.doesNotMatch(root.body,/MCP|CLI|连接管理/);const script=await http(origin+'/app.js');assert.match(script.body,/sessionStorage/);assert.match(script.body,/history.replaceState/);assert.match(root.headers['content-security-policy'] as string,/default-src 'none'/);assert.equal(root.headers['cache-control'],'no-store');assert.equal(root.headers['referrer-policy'],'no-referrer');
    assert.equal((await http(origin+'/api/status')).status,403);
    assert.equal((await http(origin+'/api/status','GET',{'x-jev-control-token':token})).status,403);
    assert.equal((await http(origin+'/api/status','GET',{...auth,origin:'http://evil.example'})).status,403);
@@ -78,50 +78,16 @@ if(panel){
    assert.ok(Date.now()-started>=4500);assert.equal(invoked,false);
   }finally{await server.close();}
  });
- test('adapter invokes only fixed shell-free CLI and projects allowlisted doctor metadata',async()=>{
-  const calls:{file:string;args:string[]}[]=[];let response={code:0,stdout:JSON.stringify({ready:true,provider:'jev',transport:'remote',remoteReachable:false,routeCompatible:false,model:'SECRET',identity:{secret:'SECRET'},installation:{node:{supported:true},runtime:{status:'private'},socket:{status:'private'}}})};
-  const adapter=new panel.CliControlAdapter({runtime:'/tmp/fixed-runtime',config:'/tmp/fixed-config',execute:async(file:string,args:string[])=>{calls.push({file,args});return response;}});
+ test('adapter calls direct lifecycle functions and projects allowlisted installation data',async()=>{
+  const calls:unknown[]=[];const response={ready:true,provider:'jev',transport:'remote',remoteReachable:false,routeCompatible:false,identity:{secret:'SECRET'},installation:{node:{supported:true},runtime:{status:'private'},socket:{status:'private'}}};
+  const adapter=new panel.LifecycleControlAdapter({runtime:'/tmp/fixed-runtime',config:'/tmp/fixed-config',lifecycle:{inspectService:async(runtime:string)=>{calls.push(runtime);return response;},startService:async(options:unknown)=>{calls.push(options);},stopService:async(runtime:string)=>{calls.push(runtime);}}});
   assert.deepEqual(await adapter.status(),{state:'running',mode:'remote',decisionProvider:'jev',remoteReachable:false,routeCompatible:false,installation:{nodeSupported:true,chromiumAvailable:null,runtime:'private',socket:'private'}});
-  response={code:0,stdout:JSON.stringify({ready:true,provider:'mock',transport:'remote'})};const remoteMock=await adapter.status();assert.equal(remoteMock.mode,'remote');assert.equal(remoteMock.decisionProvider,'mock');
-  response={code:0,stdout:JSON.stringify({ready:true,provider:'remote',transport:'remote'})};assert.equal((await adapter.status()).decisionProvider,'unknown');
-  calls.splice(1);await adapter.start();await adapter.stop();assert.equal(calls[0]!.file,process.execPath);assert.ok(calls.every(call=>call.args[0]!.endsWith('/dist/src/cli/index.js')));assert.deepEqual(calls.map(call=>call.args.slice(1)),[['doctor','--runtime','/tmp/fixed-runtime','--json'],['service','start','--runtime','/tmp/fixed-runtime','--config','/tmp/fixed-config','--json'],['service','stop','--runtime','/tmp/fixed-runtime','--json']]);
-  response={code:0,stdout:JSON.stringify({ready:false,installation:{node:{supported:true},runtime:{status:'missing'},socket:{status:'missing'}}})};assert.equal((await adapter.status()).state,'unavailable');
-  response={code:0,stdout:JSON.stringify({ready:false,installation:{runtime:{status:'unsafe'},socket:{status:'private'}}})};assert.equal((await adapter.status()).state,'blocked');
-  response={code:1,stdout:'PRIVATE ERROR'};assert.equal((await adapter.status()).state,'blocked');await assert.rejects(adapter.start(),/CONTROL_ACTION_FAILED/);
-  response={code:0,stdout:JSON.stringify({error:{code:'SERVICE_PROFILE_MISMATCH',secret:'PRIVATE'}})};await assert.rejects(adapter.start(),/SERVICE_PROFILE_MISMATCH/);
- });
- test('subprocess adapter bounds time output and never exposes process stderr',async()=>{
-  const root=await mkdtemp('/tmp/jev-control-exec-');
-  try{
-   const fixture=join(root,'fixture.mjs');await writeFile(fixture,"process.stderr.write('SECRET');process.stdout.write('x'.repeat(100));setInterval(()=>{},1000);");
-   const result=await panel.executeBounded(process.execPath,[fixture],{timeoutMs:50,maxBytes:32});assert.equal(result.code,null);assert.equal(result.stdout,'');assert.equal(result.failure,'CONTROL_COMMAND_LIMIT');
-   const timeout=await panel.executeBounded(process.execPath,[fixture],{timeoutMs:80,maxBytes:1024});assert.equal(timeout.code,null);assert.equal(timeout.stdout,'');assert.equal(timeout.failure,'CONTROL_COMMAND_LIMIT');
-  }finally{await rm(root,{recursive:true,force:true});}
+  await adapter.start();await adapter.stop();assert.deepEqual(calls,['/tmp/fixed-runtime',{runtime:'/tmp/fixed-runtime',configFile:'/tmp/fixed-config'},'/tmp/fixed-runtime']);
  });
 }
 
-if(panel)test('one authenticated local console lists and switches exact connection instances without exposing a second management page',async()=>{
- const changes:{id:string;enabled:boolean}[]=[];let reads=0;
- const row={id:'device-one',name:'My Mac',type:'device',state:'enabled',enabled:true,generation:1,firstSeen:1,lastSeen:2};
- const admissionAdapter={list:async()=>{reads++;return {connections:[row],publicMcpUrl:'https://example.invalid/mcp'};},setEnabled:async(id:string,enabled:boolean)=>{changes.push({id,enabled});return {...row,enabled,state:'stopping'};}};
- const server=await panel.startControlPanel({runtime:'/tmp/unified-console',port:0,adapter:{status:async()=>({state:'running',mode:'mock',decisionProvider:'mock',remoteReachable:null}),start:async()=>{},stop:async()=>{}},admissionAdapter});
- const origin=new URL(server.url).origin,headers={origin,'x-jev-control-token':new URL(server.url).hash.slice(1)};
- try{
-  assert.equal((await http(origin+'/api/connections','POST')).status,403);assert.equal(reads,0);
-  const list=await http(origin+'/api/connections','POST',headers);assert.equal(list.status,200);assert.equal(JSON.parse(list.body).configured,true);assert.equal(JSON.parse(list.body).connections[0].name,'My Mac');
-  assert.equal((await http(origin+'/api/admission','GET',headers)).status,405);
-  assert.equal((await http(origin+'/api/admission','POST',{...headers,'content-type':'application/json'},JSON.stringify({id:'device-one',enabled:false,url:'http://evil.invalid'}))).status,400);
-  assert.equal((await http(origin+'/api/admission','POST',{...headers,origin:'http://evil.invalid','content-type':'application/json'},JSON.stringify({id:'device-one',enabled:false}))).status,403);assert.equal(changes.length,0);
-  const changed=await http(origin+'/api/admission','POST',{...headers,'content-type':'application/json'},JSON.stringify({id:'device-one',enabled:false}));assert.equal(changed.status,200);assert.equal(JSON.parse(changed.body).connection.state,'stopping');assert.deepEqual(changes,[{id:'device-one',enabled:false}]);
- }finally{await server.close();}
- assert.equal(changes.length,1,'closing unified panel does not change any admission');
+if(panel)test('retired admission routes are absent from the per-host panel',async()=>{
+ const server=await panel.startControlPanel({runtime:'/tmp/no-admission',port:0,adapter:{status:async()=>({state:'unavailable',mode:'unknown',remoteReachable:null}),start:async()=>{},stop:async()=>{}}});
+ try{const origin=new URL(server.url).origin,auth={origin,'x-jev-control-token':new URL(server.url).hash.slice(1)};for(const path of ['connections','admission'])assert.equal((await http(origin+'/api/'+path,'POST',auth)).status,404);}finally{await server.close();}
 });
-if(panel)test('unconfigured admission and configured-unavailable admission are distinct states',async()=>{
- const adapter={status:async()=>({state:'running',mode:'mock',decisionProvider:'mock',remoteReachable:null}),start:async()=>{},stop:async()=>{}};
- for(const configured of [false,true]){const server=await panel.startControlPanel({runtime:'/tmp/unified-console-error',port:0,adapter,...(configured?{admissionAdapter:{list:async()=>{throw Error('PRIVATE_KEY');},setEnabled:async()=>{throw Error('PRIVATE_KEY');}}}:{})});
-  try{const origin=new URL(server.url).origin,auth={origin,'x-jev-control-token':new URL(server.url).hash.slice(1)};const result=await http(origin+'/api/connections','POST',auth);assert.equal(result.status,configured?503:200);assert.ok(!result.body.includes('PRIVATE_KEY'));if(!configured)assert.deepEqual(JSON.parse(result.body),{configured:false,connections:[]});}
-  finally{await server.close();}
- }
-});
-
 if(panel)test('fixed private panel token keeps the same console capability across restart',async()=>{const root=await mkdtemp('/tmp/jev-panel-token-'),tokenFile=join(root,'token');await writeFile(tokenFile,'a'.repeat(64),{mode:0o600});const adapter={status:async()=>({state:'unavailable',mode:'unknown',decisionProvider:'unknown',remoteReachable:null}),start:async()=>{},stop:async()=>{}};let server=await panel.startControlPanel({runtime:root,port:0,tokenFile,adapter});try{const token=new URL(server.url).hash;await server.close();server=await panel.startControlPanel({runtime:root,port:0,tokenFile,adapter});assert.equal(new URL(server.url).hash,token);const origin=new URL(server.url).origin;assert.equal((await http(origin+'/api/status','POST',{origin,'x-jev-control-token':token.slice(1)})).status,200);}finally{await server.close();await rm(root,{recursive:true,force:true});}});

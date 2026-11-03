@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,writeFile,readFile,rm} from 'node:fs/promises';
-import {join,resolve} from 'node:path';
-import {createHostMcpClient} from '../../src/host/service.js';
+import {join} from 'node:path';
+import {DesktopExecutor} from '../../src/desktop/executor.js';
 const contractPath='../../src/desktop/contracts.js',driverPath='../../src/desktop/driver.js';
 const contracts=await import(contractPath).catch(()=>undefined),driver=await import(driverPath).catch(()=>undefined);
 test('native desktop exposes a platform-neutral grounded tool contract and native process adapter',()=>{assert.equal(typeof contracts?.parseDesktopTool,'function');assert.equal(typeof driver?.NativeDesktopDriver,'function');});
@@ -33,10 +33,10 @@ if(contracts&&driver){
   try{const held=native.call('hold',{});void held.catch(()=>{});for(let i=0;i<100;i++){if((await readFile(f.log,'utf8').catch(()=>'' )).includes('hold'))break;await new Promise(resolve=>setTimeout(resolve,5));}const queued=native.call('click',{app:'later'});void queued.catch(()=>{});await native.close();await assert.rejects(held);await assert.rejects(queued);assert.deepEqual((await readFile(f.log,'utf8')).trim().split('\n').map(line=>JSON.parse(line).method),['hold']);await assert.rejects(native.call('status',{}),/DESKTOP_NATIVE_CLOSED/);}
   finally{await native.close();await f.close();}
  });
- test('actual desktop MCP stdio advertises native tools and separates screenshot pixels from text metadata',async()=>{
-  const f=await fixture();const client=await createHostMcpClient({serverCommand:process.execPath,serverArgs:[resolve('dist/src/desktop/main.js'),'--native-command',process.execPath,'--native-arg='+f.file],serverEnv:{NATIVE_TEST_LOG:f.log}});
-  try{assert.equal((await client.listTools()).tools.length,14);const seen=await client.callTool({name:'desktop_get_state',arguments:{app:'Arbitrary real app'}});assert.equal(JSON.parse((seen.content[0] as {text:string}).text).app.name,'Arbitrary real app');const screenshot=await client.callTool({name:'desktop_screenshot',arguments:{app:'Any'}});assert.equal(screenshot.content.length,2);assert.equal(screenshot.content[1]!.type,'image');assert.ok(!(screenshot.content[0] as {text:string}).text.includes('iVBOR'));const invalid=await client.callTool({name:'desktop_click',arguments:{app:'Any',x:1,y:2}});assert.equal(invalid.isError,true);}
-  finally{await client.close();await f.close();}
+ test('direct desktop executor preserves screenshot pixels separately from metadata',async()=>{
+  const f=await fixture(),executor=new DesktopExecutor({launchSpec:{command:process.execPath,args:[f.file],env:{NATIVE_TEST_LOG:f.log}}});
+  try{assert.equal(executor.tools.length,14);const seen=await executor.call('desktop_get_state',{app:'Arbitrary real app'});assert.equal((seen.app as {name:string}).name,'Arbitrary real app');const screenshot=await executor.call('desktop_screenshot',{app:'Any'});assert.equal((screenshot.image as {mimeType:string}).mimeType,'image/png');assert.equal((screenshot.image_metadata as {scale:number}).scale,2);await assert.rejects(executor.call('desktop_click',{app:'Any',x:1,y:2}));}
+  finally{await executor.close();await f.close();}
  });
  test('normal native shutdown allows paired input release before helper exit',async()=>{
   const root=await mkdtemp('/tmp/jev-desktop-pair-'),file=join(root,'pair.mjs'),log=join(root,'events');

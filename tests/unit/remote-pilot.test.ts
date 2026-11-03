@@ -1,10 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {mkdtempSync,writeFileSync,readFileSync,existsSync,rmSync} from 'node:fs';
-import {tmpdir} from 'node:os';
-import {join} from 'node:path';
-import {validatePilotApproval,createAttemptObserver,validateUnstartedContinuation,runPilot} from '../../bench/remote/pilot.js';
+import {validatePilotApproval,createAttemptObserver,validateUnstartedContinuation} from '../../bench/remote/pilot.js';
 
 function approval(){const now=Date.now();return {authorization:{approval_id:'pilot-test',expires_at:now+3600000,max_requests:30,max_cost_usd:.1,synthetic_only:true},approval:{approval_id:'pilot-test',expires_at:now+3600000,max_requests:30,max_cost_usd:.1,reservation_usd:.003},authorized_at:new Date(now).toISOString(),scope:'local Mac loopback TLS synthetic pilot only; no physical second device or production app'};}
 test('pilot accepts explicit bounded approval but rejects changed ceilings, stale authorization and mismatched durable budget',()=>{
@@ -20,16 +17,6 @@ function continuationFixture(){
 test('continuation accepts only nine untouched formal trials and a closed zero-action failed warmup with the original budget',()=>{
  const fixture=continuationFixture();assert.equal(validateUnstartedContinuation(fixture),'old-output/summary.json');
  for(const mutate of [(v:ReturnType<typeof continuationFixture>)=>{v.rows[0]!.status='SUCCEEDED';},(v:ReturnType<typeof continuationFixture>)=>{v.summary.formal_attempted=1;},(v:ReturnType<typeof continuationFixture>)=>{v.ledger.goals['session:warmup'].status='UNKNOWN';},(v:ReturnType<typeof continuationFixture>)=>{v.marker.approval_sha256='0'.repeat(64);},(v:ReturnType<typeof continuationFixture>)=>{v.budget.requests=0;v.budget.reserved_usd=0;},(v:ReturnType<typeof continuationFixture>)=>{v.ledger.sessions.session.quarantined=true;},(v:ReturnType<typeof continuationFixture>)=>{v.ledger.sessions.session.closed=false;},(v:ReturnType<typeof continuationFixture>)=>{v.warmup.result.steps=1;}]){const value=continuationFixture();mutate(value);assert.throws(()=>validateUnstartedContinuation(value));}
-});
-test('a second continuation is refused without deleting original or continuation markers or the budget database',async()=>{
- const state=mkdtempSync(join(tmpdir(),'jev-pilot-continuation-guard-'));
- try{
-  writeFileSync(join(state,'approval.json'),JSON.stringify(approval()),{mode:0o600});
-  for(const name of ['pilot-started.json','continuation-started.json','gateway.sqlite'])writeFileSync(join(state,name),'KEEP_'+name,{mode:0o600});
-  await assert.rejects(runPilot(['--approval',join(state,'approval.json'),'--state',state,'--out',join(state,'second-output'),'--mock','--continue-unstarted']),/CONTINUATION_NOT_ALLOWED/);
-  for(const name of ['pilot-started.json','continuation-started.json','gateway.sqlite'])assert.equal(readFileSync(join(state,name),'utf8'),'KEEP_'+name);
-  assert.equal(existsSync(join(state,'second-output')),false);assert.equal(existsSync(join(state,'pilot.lock')),false);
- }finally{rmSync(state,{recursive:true,force:true});}
 });
 test('metadata observer returns original response before body completes and retains only safe usage/confidence',async()=>{
  let release!:(bytes:Uint8Array)=>void;
