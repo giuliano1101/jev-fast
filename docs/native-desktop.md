@@ -6,13 +6,12 @@
 
 ```sh
 npm run build
-npm run desktop:build
 ```
 
 Mac 需要 Swift 编译工具链。Windows 使用原 PowerShell / UI Automation / Win32 实现，必须在目标 Windows 的交互式登录会话中验证。
 
 ```js
-import {DesktopExecutor} from './dist/src/index.js';
+import {DesktopExecutor} from './direct/index.mjs';
 const desktop = new DesktopExecutor();
 try {
   const status = await desktop.call('desktop_status', {});
@@ -45,7 +44,9 @@ Mac App 可使用 bundle ID、PID、名称或安装路径。日常 Chrome 使用
 
 新观察替换同 App 的旧观察；发生控件变化时拒绝 STALE_OBSERVATION。原生 helper 丢失动作结果时不自动重放；关闭会尽力释放输入并收尾自己的 helper。
 
-Chrome 的 AX 窗口标题可能带“ - Google Chrome”，截图窗口可能没有后缀。匹配仅规范化实际 App 后缀，仍要求精确 PID、窗口矩形和唯一候选，不随意选一个同名窗口。
+Chrome 的 AX 窗口标题可能带“ - Google Chrome”或“ - Google Chrome - 个人资料名称”，截图窗口可能只有文档标题。匹配仅规范化实际 App 后缀，以及已观察到的 Chrome 资料后缀格式；仍要求精确 PID、窗口矩形和唯一候选。不会把任意 App 的任意尾部文字都删掉，也不会随意选一个同名窗口。
+
+2026-11-05 原验收 Mac 实测：宿主在实际图形登录会话运行时，accessibility / screen_capture 均为 true，已完成 Jev 官方直连 → Chrome 原生点击 → 独立后验与窗口截图。沙盒内可能返回 false、APP_NOT_RUNNING 或空 App 列表，不能据此断言系统缺少授权。应先核对执行上下文。[实测记录](reports/2026-11-05-official-direct-acceptance.md)。
 
 截图带坐标原点及 scale，不能猜 Retina 比例。优先指定 App/窗口；整屏会包含其他窗口。Mac 辅助功能/录屏权限、Windows UIPI/受保护桌面、App 的 AX 支持和主机是否登录影响可用性。无应用白名单不等于所有应用都已验收。
 

@@ -1,42 +1,25 @@
 {
-  "name": "jev-p0",
-  "version": "0.2.0",
+  "name": "jev-official-direct",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">=24.19"
   },
+  "main": "direct/index.mjs",
+  "exports": "./direct/index.mjs",
   "scripts": {
-    "desktop:build": "node scripts/build-desktop.mjs",
-    "build": "node scripts/build.mjs",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
-    "test": "npm run build && node --test dist/tests/unit/*.test.js dist/tests/safety/core.test.js",
-    "test:integration": "npm run build && node --test --test-concurrency=1 dist/tests/integration/*.test.js",
-    "test:safety": "npm run build && node --test dist/tests/safety/*.test.js",
-    "bench:mock": "npm run build && node dist/bench/run.js",
-    "start:service": "node dist/src/service/main.js",
-    "gateway": "node dist/src/remote/main.js",
-    "release": "node scripts/release.mjs",
-    "control": "node dist/src/control/main.js"
+    "build": "npm --prefix direct run build",
+    "typecheck": "npm --prefix direct run typecheck",
+    "lint": "npm --prefix direct run lint",
+    "test": "npm --prefix direct run test",
+    "test:integration": "npm --prefix direct run test:integration",
+    "test:safety": "npm --prefix direct run test:safety"
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "1.32.2",
-    "@playwright/mcp": "0.0.84",
-    "playwright": "1.61.1",
-    "zod": "4.6.7"
-  },
-  "devDependencies": {
-    "@types/node": "24.10.0",
-    "eslint": "9.39.1",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.46.4"
-  },
-  "description": "Per-host Jev browser, native desktop and Android execution library",
+  "description": "Official TypeSafe API direct decisions with local browser/native executors and Codex defaults",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "https://github.com/giuliano1101/jev-fast.git"
-  },
-  "main": "dist/src/index.js"
+  }
 }

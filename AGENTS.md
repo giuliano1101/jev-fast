@@ -1,15 +1,16 @@
-# Working with jev-fast
+# Working with Jev official direct
 
-Current architecture (2026-11-04): each physical host runs its own execution core. Read docs/quickstart-agent.md and docs/agent-integration-guide.md. Product CLI, stdio/public MCP servers, relay/connectors, public Mac bridge and admission management have been removed. Do not resurrect them or instruct users to connect to the historical public URL.
+Default host module: `direct/index.mjs`. Read `README.md`, `docs/quickstart-agent.md`, and the installed `jev-direct` skill before real local GUI work.
 
-- The lifecycle/profile loader/Unix socket helpers remain POSIX-only; Windows uses direct DesktopExecutor or LocalBrowserService with a host-supplied DecisionPort. Do not claim Windows coordinator/profile installation works without porting uid/mode checks.
-- Import local APIs from src/index.ts (compiled dist/src/index.js). The loopback operator console calls lifecycle functions directly. The owner-private coordinator IPC and model decision gateway remain internal infrastructure, not replacement public business APIs.
-- Preserve browser, native desktop (Swift/macOS and PowerShell/Windows), Android/HostService backend clients and hybrid learning/verification modules. MCP client dependencies support third-party executors only; do not confuse them with a product MCP server.
-- Daily Chrome/Edge requires an explicitly configured local attach/extension backend or the native desktop driver. RealBrowserService creates separate isolated contexts and does not reuse daily login state. Verify actual platform, OS permissions, browser connection and postconditions.
-- Keep Key/profile/identity and historical ledgers private and intact. Upgrading source does not authorize deleting runtime files, rotating credentials, changing provider, overwriting live builds or stopping unrelated processes. Live retirement status is recorded in docs/reports/2026-11-04-per-host-core.md.
-- Model choice is not task completion. Observe, select, execute and verify. Preserve idempotency_key/goal_id. UNKNOWN means preserve evidence and stop; never change keys, clear journals or replay uncertain physical actions.
-- Manual stop intent stays authoritative; recovery uses the original selected profile and fails closed on mismatch. Proven-dead lock recovery must preserve audit data. Only close resources owned by your task.
-- There is no new global paid/count/session/step cap. Explicit operator policies and caller budgets remain supported; correctness and OS/resource rules remain. No hosted calls in ordinary tests/CI.
-- Historical reports/artifacts and archived manuals describe earlier versions. Preserve evidence, but never treat historical service URLs or old CLI commands as current support.
+**操作本机 App 和 Chrome 默认使用 Jev 官方直连执行器，不使用 Computer Use、MCP 或 CLI。** Do not use those channels for preparation, observation, screenshots, recovery or verification either. Node hosting these local modules, ordinary builds/file work, and dedicated deterministic service connectors remain allowed. Do not call GUI CLIs from Node as a workaround.
 
-Use applicable Superpowers engineering skills. Before claiming code complete run npm run typecheck, npm run lint, npm test, npm run test:integration and npm run test:safety. Native changes also need platform-specific checks. Report skipped tests, actual physical acceptance scope and limitations.
+- Official TypeSafe API Key only, fixed endpoint/model. No relay, gateway, MCP configuration, provider auto-detection or silent model/control fallback.
+- Each supported input goes through fresh observation, Jev selection, rebind, persistent journal, exactly one dispatch and independent verification. Use BrowserWorkflow for already-understood sequential web work. Candidates are single alternatives, not a batch script.
+- Daily logged-in Chrome/App uses native Session; isolated browser Session owns its own process and never copies a personal profile. Do not assume installation proves OS permission or GUI availability.
+- Keep Key, private runtime, ledgers, goalId and idempotencyKey intact. All native sessions use the same default physical-host lease. UNKNOWN stops further input; never change keys, clear journals, delete locks or create another install to bypass it.
+- Close only owned resources. Failures and unknown billing remain in evidence; test budgets are caller authorizations, not transferable defaults. New-machine credentials and OS permissions are provided on that machine.
+- Repository skill files are templates. `installCodexDefaults` renders target-machine paths and updates one managed global block while backing up existing files and preserving unrelated user rules. Do not ship a user's absolute paths or private files.
+- Root package commands delegate to direct; install only direct dependencies. Legacy source/reports are retained for history, not supported gateway/MCP/CLI installation routes. Android's historical MCP backend is outside direct mode; physical Windows acceptance is not established by Mac tests.
+- Before claiming code complete run root build/typecheck/lint/test/test:integration/test:safety (all target direct), plus platform checks for native changes. Ordinary CI/tests are offline; paid calls need explicit authorization. Report actual scope and limitations.
+
+The rule does not add task, data-transfer, system-permission or spending authorization and does not override higher-priority instructions or the user's current request.

@@ -19,6 +19,9 @@ jobs:
     # macos-14 is in scheduled brownout and retires 2026-11-02.
     runs-on: macos-15
     timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: direct
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -27,11 +30,12 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+          cache-dependency-path: direct/package-lock.json
       - run: npm ci --ignore-scripts
-      - run: npx playwright install chromium
+      - run: npm run build
       - run: npm run typecheck
       - run: npm run lint
-      - run: python3 -m unittest discover -s tests/native -p test_macos_driver.py -v
+      - run: python3 -m unittest discover -s ../tests/native -p test_macos_driver.py -v
       - run: npm test
       - run: npm run test:integration
       - run: npm run test:safety

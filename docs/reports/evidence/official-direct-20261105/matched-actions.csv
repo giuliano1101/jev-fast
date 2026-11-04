@@ -1,0 +1,39 @@
+id,task,before_ms,after_ms,before_status,after_status
+A001,Navigate to https://the-internet.herokuapp.com/login,4044,3654.485,VERIFIED,VERIFIED
+A002,Enter official public demonstration username,1106,299.101,VERIFIED,VERIFIED
+A003,Enter official public demonstration password,520,313.454,VERIFIED,VERIFIED
+A004,Activate observed Login,2042,1170.262,VERIFIED,VERIFIED
+A005,Activate observed Logout,1175,1007.891,VERIFIED,VERIFIED
+A006,Open SauceDemo in a second owned tab,3239,3153.997,VERIFIED,VERIFIED
+A007,Enter public SauceDemo username,861,456.677,VERIFIED,VERIFIED
+A008,Enter public SauceDemo password,303,410.719,VERIFIED,VERIFIED
+A009,Log in without shopping,540,339.022,VERIFIED,VERIFIED
+A010,Switch to first owned tab,500,379.282,VERIFIED,VERIFIED
+A011,Switch back to second owned tab,326,398.91,VERIFIED,VERIFIED
+A012,Navigate to https://www.selenium.dev/selenium/web/web-form.html,2910,3256.795,VERIFIED,VERIFIED
+A013,Fill fictional Chinese test name,1041,300.36,VERIFIED,VERIFIED
+A014,Fill fictional email in comments,657,348.476,VERIFIED,VERIFIED
+A015,Choose Two,682,433.726,VERIFIED,VERIFIED
+A016,Activate observed Default checkbox,581,481.605,VERIFIED,VERIFIED
+A017,Activate observed Default radio,501,451.455,VERIFIED,VERIFIED
+A018,Increase range slider once,624,477.05,VERIFIED,VERIFIED
+A019,Activate observed Submit,1085,807.704,VERIFIED,VERIFIED
+A020,Back to form,514,286.271,VERIFIED,VERIFIED
+A021,Activate observed Return to index,784,995.224,VERIFIED,VERIFIED
+A022,Back from index,470,310.941,VERIFIED,VERIFIED
+A023,Forward to index,657,313.57,VERIFIED,VERIFIED
+A024,Navigate to https://testpages.eviltester.com/styled/basic-html-form-test.html,4850,5146.654,VERIFIED,VERIFIED
+A028,Fill fictional Chinese username,556,1124.438,VERIFIED,VERIFIED
+A029,Fill fictional comments/email,671,355.995,VERIFIED,VERIFIED
+A031,Choose dropdown item five,490,311.707,VERIFIED,VERIFIED
+A032,Check checkbox one,696,354.538,VERIFIED,VERIFIED
+A033,Choose radio three,567,396.137,VERIFIED,VERIFIED
+A035,Navigate to https://commons.wikimedia.org/wiki/Main_Page,2723,2500.91,VERIFIED,VERIFIED
+A036,Search for after-rain city reference,1130,418.435,VERIFIED,VERIFIED
+A038,Open observed matching city result,1870,749.665,VERIFIED,VERIFIED
+A043,Navigate to https://commons.wikimedia.org/w/index.php?search=park+four+seasons&title=Special:MediaSearch&type=image,3797,1351.795,VERIFIED,VERIFIED
+A044,Navigate to https://commons.wikimedia.org/wiki/File:Four_Seasons_Park_-_geograph.org.uk_-_6889499.jpg,2011,1013.834,VERIFIED,VERIFIED
+A045,Navigate to https://commons.wikimedia.org/wiki/File:LOHAS_Park_The_Park_Four_Seasons_Garden_2009.jpg,2001,683.147,VERIFIED,VERIFIED
+A049,Navigate to https://commons.wikimedia.org/w/index.php?search=MountainLandscape&title=Special:MediaSearch&type=image,2148,1863.185,VERIFIED,VERIFIED
+A050,Navigate to https://commons.wikimedia.org/wiki/File:MountainLandscape.jpg,1880,591.028,VERIFIED,VERIFIED
+A054,Open owned Chrome download history,1338,448.124,VERIFIED,VERIFIED

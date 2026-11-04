@@ -1,0 +1,27 @@
+{
+  "name": "jev-official-direct-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.19"
+  },
+  "exports": "./index.mjs",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "node --test test/runtime.test.mjs test/install.test.mjs test/executors.test.mjs dist/tests/unit/choice.test.js dist/tests/unit/desktop.test.js dist/tests/unit/metered-usage.test.js dist/tests/unit/hybrid-controller.test.js dist/tests/unit/hybrid-execution-journal.test.js dist/tests/unit/hybrid-procedure-store.test.js dist/tests/unit/hybrid-router.test.js dist/tests/unit/hybrid-teacher-port.test.js dist/tests/unit/hybrid-workflow-contracts.test.js",
+    "test:integration": "node --test test/*integration.test.mjs",
+    "test:safety": "node --test test/safety.test.mjs"
+  },
+  "dependencies": {
+    "zod": "4.6.7",
+    "playwright": "1.61.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "typescript": "5.9.3",
+    "eslint": "9.39.1"
+  }
+}

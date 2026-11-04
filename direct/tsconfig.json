@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2023", "module": "NodeNext", "moduleResolution": "NodeNext",
+    "strict": true, "noUncheckedIndexedAccess": true, "esModuleInterop": true,
+    "skipLibCheck": true, "rootDir": "..", "outDir": "dist",
+    "baseUrl": ".", "paths": {"zod": ["node_modules/zod/index.d.ts"], "playwright": ["node_modules/playwright/index.d.ts"]},
+    "typeRoots": ["node_modules/@types"], "types": ["node"]
+  },
+  "include": [
+    "../src/desktop/**/*.ts", "../src/providers/choice.ts", "../src/remote/usage.ts", "../src/service/private-directory.ts",
+    "../bench/hybrid/**/*.ts", "../tests/unit/choice.test.ts", "../tests/unit/desktop.test.ts",
+    "../tests/unit/metered-usage.test.ts", "../tests/unit/hybrid-*.test.ts"
+  ]
+}

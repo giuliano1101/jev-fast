@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "tests": 13,
+  "input_count": 48,
+  "record_count": 74,
+  "cached_inputs": 0,
+  "all_records_verified": true,
+  "requests": 50,
+  "baseline_wall_seconds": 1158.632,
+  "new_wall_seconds": 56.107561375,
+  "new_to_report_seconds": 56.113022625000006,
+  "speedup": 20.650193514135776,
+  "reduction_percent": 95.15743036831367,
+  "matched_count": 38,
+  "matched_before_median_ms": 822.5,
+  "matched_after_median_ms": 454.06600000000003,
+  "new_input_median_ms": 498.697,
+  "baseline_inter_record_gap_seconds": 947.508,
+  "new_preparation_seconds": 0.644179292,
+  "new_outside_record_seconds": 1.9490203750000292,
+  "input_phase_sum_ms": {
+    "observe_ms": 348.401,
+    "model_ms": 17648.662,
+    "rebind_ms": 479.384,
+    "execute_ms": 22862.923,
+    "verify_observe_ms": 1196.046,
+    "verify_ms": 15.163
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "output": "<INSTALL_ROOT>/.runtime/verification/chrome-optimized-20261105",
+      "status": "FAILED",
+      "tests_passed": 9,
+      "wall_seconds": 46.79407054199999,
+      "requests": 35,
+      "estimated_usd": 0.00065751,
+      "error": "WORKFLOW_STOPPED:city-reveal:0:FAILED:INVALID_SCROLL_REGION"
+    },
+    {
+      "round": 2,
+      "output": "<INSTALL_ROOT>/.runtime/verification/chrome-optimized-20261105-round2",
+      "status": "FAILED",
+      "tests_passed": 9,
+      "wall_seconds": 47.039865125,
+      "requests": 36,
+      "estimated_usd": 0.0006782580000000002,
+      "error": "WORKFLOW_STOPPED:city-reveal:0:STALE:STATE_CHANGED"
+    },
+    {
+      "round": 3,
+      "output": "<INSTALL_ROOT>/.runtime/verification/chrome-optimized-20261105-round3",
+      "status": "FAILED",
+      "tests_passed": 10,
+      "wall_seconds": 45.522508791,
+      "requests": 41,
+      "estimated_usd": 0.0007733879999999999,
+      "error": "WORKFLOW_STOPPED:A044:STALE:STATE_CHANGED"
+    },
+    {
+      "round": 4,
+      "output": "<INSTALL_ROOT>/.runtime/verification/chrome-optimized-20261105-round4",
+      "status": "FAILED",
+      "tests_passed": 9,
+      "wall_seconds": 46.064502083,
+      "requests": 39,
+      "estimated_usd": 0.0007271880000000001,
+      "error": "WORKFLOW_STOPPED:city-reveal:3:STALE:STATE_CHANGED"
+    },
+    {
+      "round": 5,
+      "output": "<INSTALL_ROOT>/.runtime/verification/chrome-optimized-20261105-round5",
+      "status": "PASS",
+      "tests_passed": 13,
+      "wall_seconds": 56.107561375,
+      "requests": 50,
+      "estimated_usd": 0.0010182899999999998,
+      "error": ""
+    }
+  ],
+  "all_five_rounds_active_wall_seconds": 241.528507916,
+  "all_five_rounds_requests": 201,
+  "all_five_rounds_estimated_usd": 0.003854634,
+  "global_historical_known_estimated_usd": 0.008729741999999988,
+  "budget_limit_usd": 0.5,
+  "unknown_cost_attempts": 0,
+  "codex_cost": "不可得",
+  "measured_implementation_window_start": "2026-11-04T20:03:41+00:00",
+  "report_generated_at": "2026-11-04T20:24:19.490510+00:00",
+  "timing_caveat": "研发窗口起点来自实施前时钟记录，早期阅读和诊断未逐项精确计时；不能将熟悉题目复跑的56秒当作此次改造整段对话耗时。",
+  "measured_implementation_window_seconds": 1238.4906
+}

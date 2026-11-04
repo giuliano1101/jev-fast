@@ -1,0 +1,6 @@
+interface:
+  display_name: "Jev 官方直连执行"
+  short_description: "本机 App 与 Chrome 默认走 Jev 官方直连执行器，禁用 CU、MCP 和 CLI"
+  default_prompt: "使用 $jev-direct 官方直连执行器操作本机 App 或 Chrome，不使用 Computer Use、MCP 或 CLI，并核验实际结果。"
+policy:
+  allow_implicit_invocation: true

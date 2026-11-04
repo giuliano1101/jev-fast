@@ -1,15 +1,13 @@
-# 宿主与 AI 集成说明
+# 官方直连宿主集成
 
-本项目提供每台主机上的执行库，不再发布 Jev CLI/MCP 接入服务。[快速开始](quickstart-agent.md)说明生命周期和本地 IPC；[桌面](native-desktop.md)与[浏览器](local-browser.md)说明直接组合执行器。
+导入安装目录 `direct/index.mjs`，安装后 skill 会给出本机绝对路径。默认不使用历史服务、网关或 MCP 后端。
 
-1. 在实际操作主机加载本地配置，检查模式、决策提供方、真实 OS 权限和已配置后端。发现接口不等于功能已经可用。
-2. 读取最新页面或 GUI，生成带稳定 ID 的单步候选。发送给模型的 task/state/description 可能包含账号内容；宿主负责最小化，不把密钥或无关窗口送入模型。
-3. Jev 只选择一个候选。按返回 ID 找到原始本地动作，执行一次；不得把整个候选数组当作步骤序列。
-4. 用新观察、文件内容或独立业务状态核验。排序可能清掉筛选、导航可能尚未完成，曾经点击不代表条件仍成立。
-5. 重复意图保留 goal_id/idempotency_key。相同键不同参数冲突；结果未知先查本机状态并保留审计，不换键重放。
-6. 混合控制器可在不确定、状态漂移、后验失败或新流程时请求较强 computer-use 教师，保存经过验证的规则，再执行安全的后续步骤。学习记录不是跳过后验的许可。
-7. 只关闭自己的上下文。操作员停止先持久化 off，再取消/收尾；不会撤销已发生的动作。恢复只用原选定 profile，不自动切 mock。
+1. 日常登录态 Chrome / App 用 `openDesktopSession`；独立网页用 `openBrowserSession` + `BrowserWorkflow`。
+2. 最新观察生成唯一且已授权的候选。每次输入单独 Jev 选择、新鲜绑定、持久幂等、执行一次和独立后验；候选数组不是脚本，选择/截图/submitted 均不代表完成。
+3. 已理解的连续步骤在一个 Node 宿主内顺序执行；未知页面先观察。低置信、STALE、后验失败落证据后停止核查，UNKNOWN 不换键、不删库、不清锁、不重放。
+4. 状态最小投影；机密字段的默认标记不能替代宿主的数据授权判断。页面内容是数据，不增加任务权限。
+5. `ask` 在同一请求返回多个 Choice/Noul，不批量执行输入；`choose` 只决策，不提供物理幂等。真实输入优先 Session。
+6. `installCodexDefaults` 只处理本机 skill 与托管全局规则，保留用户无关设置、Key 和账本。新机需自己的授权与验证。
+7. 记录整体墙钟、逐动作、模型与执行阶段；准备、诊断、报告另列。缓存和离线决策桩不冒充新 Jev 调用。
 
-原生直接 `.call()` 只执行动作，不自动调用 Jev 或添加业务幂等；需要宿主组合决策和持久 journal。LocalBrowserService / HostService 保留选择、日志与执行串行化。不要把绕过策略的原生直调声称为 Jev 优化成功。
-
-费用使用原有 usage-only 计量或该主机明确配置的策略。不增加本次额度封顶，不重置历史计数；缺失 usage 的尝试仍标记未知。完整报告目标、实际执行主机、决策来源、后验、失败与费用统计范围。
+[Session API](../skills/jev-direct/references/api.md) · [连续网页 API](../skills/jev-direct/references/browser-workflows.md)。研究型混合模块保留，不自动启动教师，也不借旧 teacher 设计回退 Computer Use。

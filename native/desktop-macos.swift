@@ -99,12 +99,23 @@ func windowCaptureTitleMatches(_ axTitle: String, _ captureTitle: String, applic
     guard let name=applicationName, !name.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty else { return false }
     let suffix=" - "+name
     func normalized(_ title: String) -> String {
-        guard title.hasSuffix(suffix) else { return title }
-        let prefix=String(title.dropLast(suffix.count))
+        let prefix: String
+        if title.hasSuffix(suffix) {
+            prefix=String(title.dropLast(suffix.count))
+        } else if name == "Google Chrome", let marker=title.range(of:suffix+" - ",options:.backwards),
+                  !title[marker.upperBound...].trimmingCharacters(in:.whitespacesAndNewlines).isEmpty {
+            // Observed Chrome AX titles append a profile name after the app name;
+            // ScreenCaptureKit omits both. Only normalize this known Chrome shape.
+            // The caller still requires exact PID, geometry, and a unique match.
+            prefix=String(title[..<marker.lowerBound])
+        } else { return title }
         // An app name alone is not evidence for an untitled window.
         return prefix.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty ? title : prefix
     }
-    return normalized(axTitle) == normalized(captureTitle)
+    // Preserve a literal app/profile-like fragment that belongs to the document
+    // title by comparing each undecorated candidate with the other's raw title.
+    let axDocument=normalized(axTitle), captureDocument=normalized(captureTitle)
+    return axDocument == captureTitle || axTitle == captureDocument || axDocument == captureDocument
 }
 func requireUniqueCaptureWindow(_ candidates: [CaptureWindowIdentity], owner: pid_t, bounds: CGRect, title: String, applicationName: String?) throws -> Int {
     let matches=candidates.indices.filter { index in

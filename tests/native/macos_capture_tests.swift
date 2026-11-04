@@ -32,6 +32,21 @@ import Foundation
         }
         let reversed=try match([window("Example Domain - Google Chrome")])
         precondition(reversed == 0)
+        // Chrome's AX title can append the active profile after its application name.
+        // ScreenCaptureKit still exposes only the document title.
+        let profiled=try match([window("Example Domain")],title:"Example Domain - Google Chrome - Work")
+        let unicodeProfile=try match([window("示例页面")],title:"示例页面 - Google Chrome - 工作")
+        precondition(profiled == 0 && unicodeProfile == 0)
+        let embedded=try match([window("Page - Google Chrome - literal")],title:"Page - Google Chrome - literal - Google Chrome - Work")
+        precondition(embedded == 0)
+        expectMissing([window("Example Domain"),window("Example Domain - Google Chrome - Work")],title:"Example Domain - Google Chrome - Work")
+        expectMissing([window("Example Domain",owner:777)],title:"Example Domain - Google Chrome - Work")
+        expectMissing([window("Example Domain",bounds:bounds.offsetBy(dx:1,dy:0))],title:"Example Domain - Google Chrome - Work")
+        expectMissing([window("Unrelated")],title:"Example Domain - Google Chrome - Work")
+        expectMissing([window("Example Domain")],title:"Example Domain - Google Chrome - Work",applicationName:"Other App")
+        expectMissing([window("Example Domain")],title:"Example Domain - Other App - Work",applicationName:"Other App")
+        expectMissing([window("Example Domain")],title:"Example Domain - Google Chrome - ")
+        expectMissing([window("Example Domain")],title:"Example Domain - Google Chrome -    ")
         let localized=try match([window("示例页面")],title:"示例页面 - 浏览器",applicationName:"浏览器")
         precondition(localized == 0)
         let appTitle=try match([window("Google Chrome")],title:"Google Chrome")

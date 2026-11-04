@@ -1,8 +1,17 @@
 node_modules/
 dist/
 .runtime/
+direct/node_modules/
+direct/dist/
 .env
 .env.*
+/.codex/
+/.agents/
+/.aws/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+owner.lock
 
 # Stage evidence is intentionally versioned; secrets and runtime state are not.
 .DS_Store

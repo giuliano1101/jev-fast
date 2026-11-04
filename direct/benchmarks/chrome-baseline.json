@@ -1,0 +1,14 @@
+{
+  "acceptance_wall_ms": 1158632,
+  "action_sum_ms": 83479,
+  "action_median_ms": 1041,
+  "model_sum_ms": 38916,
+  "model_median_ms": 601,
+  "request_count": 56,
+  "inter_record_gap_ms": 947508,
+  "preparation_ms": 127645,
+  "input_tokens": 106052,
+  "estimate_usd": 0.004454184,
+  "source_report": "docs/reports/2026-11-05-official-direct-acceptance.md",
+  "scope": "Original Mac Chrome blind acceptance, Nov 5 2026; not a generic speed guarantee."
+}
