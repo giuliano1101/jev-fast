@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-06",
+  "upstream": "254b48103ce659f15b5bf7c1422a247f4dc2f984",
+  "policy": "jev-preferred",
+  "fallback": "authorized host tools only if no uncertain or pending physical input",
+  "checks": {
+    "build": "pass",
+    "typecheck": "pass",
+    "lint": "pass",
+    "unit": {
+      "tests": 120,
+      "pass": 120,
+      "fail": 0,
+      "skipped": 0
+    },
+    "integration": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "skipped": 0
+    },
+    "safety": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "skipped": 0
+    },
+    "native_protocol": {
+      "pass": 8,
+      "fail": 0
+    }
+  },
+  "native_status": {
+    "platform": "macos",
+    "accessibility": true,
+    "screen_capture": true,
+    "native_tools": 14
+  },
+  "installed": {
+    "global_policy": true,
+    "skill": true,
+    "canonical_installation": true,
+    "prior_user_rules_preserved": true,
+    "managed_block_count": 1,
+    "idempotent": true,
+    "existing_local_key_reused": true,
+    "key_printed": false
+  },
+  "paid_calls": 0,
+  "physical_input_calls": 0,
+  "scope": "Mac install/update and offline/read-only verification; not hosted API authentication or physical Windows acceptance"
+}
