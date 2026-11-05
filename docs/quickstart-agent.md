@@ -8,6 +8,8 @@
 
 ## Codex 全局设置
 
+规则为 Jev 优先：支持且就绪的 GUI 任务先用 Jev；确定性 API/文件操作保留专用工具。Jev 不支持或派发前失败时可在确认无未决动作后选用后备路径，报告原因和实际执行器；UNKNOWN 停止输入。
+
 本机 Node 宿主导入 `direct/index.mjs` 的 `installCodexDefaults`，调用 `installCodexDefaults({root:实际安装绝对路径})`。默认目标是 CODEX_HOME 或本机用户的 `.codex`；安装器备份原 skill/AGENTS、渲染本机路径、更新一个托管准则块，保留无关规则。它不联网、不请求模型、不处理 Key、不改 MCP 或模型配置。新开/重载 Codex 对话后验证默认发现。
 
 仓库 skill 是路径模板，不能将含 `{{JEV_ROOT}}` 的文件直接复制为安装版。模块路径会按 JSON 字符串转义，支持空格、中文和引号；发现损坏标记或符号链接目标会停止。
@@ -18,6 +20,6 @@
 
 官方端点 `https://api.typesafe.ai/v1/systemone`，模型 `jev-1.14.0`；模型推理在官方执行，不下载本机权重。安装路径固定，升级保留 `.runtime`；禁止建立另一安装绕过同一物理主机账本或 UNKNOWN。
 
-先跑离线检查和原生 `status()` 只读探测。沙盒看不到桌面先核对真实图形上下文，不直接判断缺权限。需要系统授权、验证码或密码时请用户操作，不能切换控制通道。
+先跑离线检查和原生 `status()` 只读探测。沙盒看不到桌面先核对真实图形上下文，不直接判断缺权限。需要系统授权、验证码或密码时请用户操作。Jev 不适用或确认派发前失败且无未决动作时，可在任务授权内使用后备工具；不能用切换工具重放 UNKNOWN。
 
 普通测试不请求付费 API。真实 Chrome 基准必须显式提供 `JEV_ACCEPTANCE_BUDGET_DIR` 和 `JEV_ACCEPTANCE_LIMIT_USD`，复用当前已授权活动账本；缺少配置在请求前拒绝。历史 $0.50 不授予新机任何额度。[执行器说明](agent-integration-guide.md)。

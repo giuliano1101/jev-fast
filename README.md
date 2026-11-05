@@ -1,6 +1,6 @@
 # Jev 官方直连与本机执行器
 
-通过官方 TypeSafe API 让 Jev 选择有限候选动作，由本机执行器操作 Chrome 和 macOS App。默认接入是 **`direct/index.mjs`**，不使用 Computer Use、Jev MCP/CLI、旧网关或 relay。Node 宿主和构建工具用于加载执行库，不是另一个 GUI 控制通道。
+通过官方 TypeSafe API 让 Jev 选择有限候选动作，由本机执行器操作 Chrome 和 macOS App。优先接入是 **`direct/index.mjs`**。适用且就绪时使用 Jev；不适用或确认派发前失败且无未决动作时可使用已授权后备工具，并记录原因。已退役的 Jev MCP/CLI、旧网关与 relay 不恢复。Node 宿主和构建工具用于加载执行库，不是另一个 GUI 控制通道。
 
 ## 为什么改为这一方式
 
