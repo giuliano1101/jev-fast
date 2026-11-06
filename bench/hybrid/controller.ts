@@ -234,6 +234,8 @@ export async function reconcileHybridSurface(options:{leaseKey:string;journal?:E
      const pending=stored??memory;if(!pending)return {status:'CLEAR' as const,reason:'NO_PENDING_ACTION'};
      unresolved.set(options.leaseKey,pending);
      const proof:TrustedReconciliationProof=validateReconciliation(pending,await options.verify(Object.freeze(structuredClone(pending)),context));check();
+     // Desktop may record an explicit unconfirmed human review. Hybrid still requires executed or not-executed.
+     if(proof.verdict!=='executed'&&proof.verdict!=='not-executed')throw new Error('INVALID_RECONCILIATION');
      if(options.journal){if(!stored)throw new Error('JOURNAL_EVENT_MISSING');await options.journal.reconcile(pending,proof);check();}
      unresolved.delete(options.leaseKey);return {status:'RESOLVED' as const,reason:proof.verdict==='executed'?'ACTION_CONFIRMED':'ACTION_NOT_EXECUTED'};
    })();

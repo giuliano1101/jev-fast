@@ -94,7 +94,58 @@ try {
 - `VERIFIED`：执行一次并经宿主核验；同键重调返回 cached，不再次调用模型/输入。
 - `REJECTED` / `STALE`：没有物理输入；由宿主读状态判断后续步骤。
 - `POSTCONDITION_FAILED`：输入已确认，后验没有满足；禁止把同一步换键重放。
-- `UNKNOWN` / SURFACE_QUARANTINED：保留步骤库、物理日志、租约证据，只读核对。不要删除数据库或锁文件来“恢复”。可信核对可使用导出的 FileExecutionJournal 协议；不是模型自己宣布解除。
+- `FAILED` + `dispatch:'not-executed'`：官方驱动在提交本次输入前拒绝（例如 `AMBIGUOUS_APP`）。账本已按 rejected 结束，同键不重放；换新键前先消除拒绝原因。
+- `UNKNOWN` / `SURFACE_QUARANTINED`：输入可能已经发出，或进程停在提交窗口。保留 `steps.sqlite`、`physical/executions.json` 和租约。不要删库、改 SQLite、清锁、换目录或自动重放。只调用下面的桌面核查入口。单独调用 `FileExecutionJournal.reconcile` 只会清 pending，不会解除 steps 隔离。
+
+## 桌面隔离核查与恢复
+
+所有原生 Session 仍共用默认目录和 `physical-host` 租约。一个未决步骤会挡住后续无关的桌面任务。恢复入口不执行动作、不重放 UNKNOWN、不删除账本，也不移走 `owner.lock`。模型选择、标题或 URL 没变、旧 observation id，都不能当作“按键没有发出”。
+
+```js
+import {inspectDesktopSession, reconcileDesktopSession, DESKTOP_PRE_DISPATCH_REJECTIONS}
+  from {{JEV_MODULE_JSON}};
+
+const before = inspectDesktopSession(); // 默认同 native-session；不抢锁
+// before.status: CLEAR | QUARANTINED | BUSY | UNREADABLE
+// before.lock.owner 只是 pid 存活性提示。dead 也不许删锁或删账本。
+// before.steps[].code / before.matchingResolutions[] 用来核对旧结论。
+```
+
+`BUSY`：锁还在。先确认锁里的 pid 没有对应进程，备份整个会话目录（`steps.sqlite`、`-wal`、`-shm`、`physical/executions.json`、`physical/owner.lock`），再只把确认属于死进程的 `owner.lock` 移到备份里。不要删除 `executions.json` 或步骤库。活着的 owner 会让 `reconcileDesktopSession` 返回 `JOURNAL_BUSY`。
+
+`QUARANTINED`：先只读观察，记下新的 `observation_id`，然后关闭 Session 释放锁。不要在 Session 仍打开时调用恢复，否则返回 `JOURNAL_BUSY`。
+
+```js
+const session = await openDesktopSession({app:'com.google.Chrome'});
+let observationId;
+try { observationId = (await session.observe()).observation_id; }
+finally { await session.close(); }
+const result = await reconcileDesktopSession({
+  verify: (pending, context) => {
+    const preDispatch = context.step?.status === 'PLANNING' || context.step?.phase === 'armed'
+      || DESKTOP_PRE_DISPATCH_REJECTIONS.includes(context.step?.code);
+    if (!preDispatch) throw Error('HUMAN_REVIEW_REQUIRED');
+    return {
+      eventId: pending.eventId, leaseKey: pending.leaseKey, actionId: pending.actionId,
+      observationId, evidenceId: 'operator-read-1', verdict: 'not-executed', basis: 'pre-dispatch',
+    };
+  },
+});
+```
+
+这段只自动放行有持久派发前证据的记录。其它记录让本次调用失败并不改账本；人工确认后再显式返回 `verdict:'unconfirmed', basis:'human-confirmed'`，或在账本已记录 `input_submitted` 时返回 `executed`。`verify` 只能读 `pending`、`context` 和刚才的观察。不要在里面调用模型，也不要调用 `execute`。`context.journalKind` 为 `partial` 表示账本先前已经 reconcile、步骤仍是 UNKNOWN。
+
+| 能写的结论 | 条件 |
+| --- | --- |
+| `not-executed` + `pre-dispatch` | 步骤仍是 `PLANNING` / `armed`，或 `code` 属于 `DESKTOP_PRE_DISPATCH_REJECTIONS`。`AMBIGUOUS_APP` 属于这一组：当前 Mac 驱动在解析 App 时抛出，发生在按键投递之前。 |
+| `executed` + `observed-effect` 或 `human-confirmed` | 账本已经记下 `input_submitted`（resolution `executed`，或先前的 reconciled verdict 就是 `executed`），并且这次观察是新的。 |
+| `unconfirmed` + `human-confirmed` | 无法证明未派发，也不能证明按键已生效。这只表示人工确认后放行后续任务，不重放原步骤，也不宣称按键没发生。 |
+
+下列证明一律拒绝，隔离保持：重复 `pending.observationId`、重复旧 proof 的 observation id、错误 `actionId`、用标题/URL 未变充当 `not-executed`、用人工确认充当 `not-executed`、对未确认派发写 `executed`、超时后才返回的 proof。拒绝原因分别是 `INVALID_RECONCILIATION`、`NOT_EXECUTED_UNPROVEN`、`EXECUTED_UNPROVEN`、`HUMAN_CONFIRMATION_REQUIRED`、`DEADLINE`。
+
+成功后 `inspectDesktopSession()` 为 `CLEAR`。同一 `goalId` + `idempotencyKey` 返回缓存且 `replayed:false`。新的幂等键才可以进入下一步。再调用一次恢复入口是 `CLEAR` / `NO_PENDING_ACTION`，不会改账本。若仍有 pending 或 UNKNOWN/PLANNING/EXECUTING 步骤，新的 `step()` 继续 `SURFACE_QUARANTINED`。
+
+2026-11-07 的实际形状：创中心 `desktop_press_key` `cmd+l` 得到 `UNKNOWN` / `AMBIGUOUS_APP`，进程退出后留下死 pid 的 `owner.lock`。操作员只调用了 `FileExecutionJournal.reconcile`，verdict 用了 `not-executed`，依据是当时标题未变。结果是 journal pending 变为 0，`openDesktopSession` 和 `observe` 恢复，但 `steps.sqlite` 仍是 UNKNOWN，新步骤仍被 `SURFACE_QUARANTINED`。处理时先按上面的死锁备份流程移锁，再 `inspect`。只有步骤 code 仍是 `AMBIGUOUS_APP` 这类派发前拒绝时，才可以用一次新的 observation id 和 `basis:'pre-dispatch'` 写 `not-executed`。不要复用旧的“标题未变”observation。如果 code 不是派发前拒绝，保持隔离，直到人工写出 `unconfirmed`。
 
 `intent` 是稳定语义参数，禁止同键改意图。`project` / `candidates` / `verify` 是可信宿主回调，verify 只能读取。默认 minConfidence=0.90、单步 timeoutMs=20000、异步后验只读 settleMs=1500；这些是可调请求/稳定等待期限，不是任务总时长或总次数限制。没有新增全局付费或动作数量上限。
 

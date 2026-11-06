@@ -1,16 +1,21 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+import {createHash, randomUUID} from 'node:crypto';
 import {join} from 'node:path';
 import {setTimeout as delay} from 'node:timers/promises';
-import {JevSession,TestBudget,createJevRuntime} from '../index.mjs';
+import {canonicalJson} from '../dist/src/remote/protocol.js';
+import {DESKTOP_PRE_DISPATCH_REJECTIONS, FileExecutionJournal, inspectDesktopSession, JevSession, TestBudget, createJevRuntime, reconcileDesktopSession} from '../index.mjs';
 import {fixture} from './helpers.mjs';
+const stepDigest = value => createHash('sha256').update(canonicalJson(value)).digest('hex');
 
-function adapter({drift=false,unknown=false,hang=false}={}) {
+function adapter({drift=false,unknown=false,hang=false,fail=null}={}) {
   let observations=0,inputs=0;
   return {kind:'native',scope:()=>({app:'test'}),close:async()=>{},
     observe:async()=>({observation_id:'obs-'+(++observations),value:drift&&observations>1?'changed':'ready',complete:inputs>0}),
     guard:(_candidate,state)=>({value:state.value}),
-    execute:async()=>{inputs++;if(unknown)throw Error('NATIVE_RESULT_LOST');if(hang)await delay(60);return {input_submitted:true};},
+    execute:async()=>{inputs++;if(fail)throw Error(fail);if(unknown)throw Error('NATIVE_RESULT_LOST');if(hang)await delay(60);return {input_submitted:true};},
     get inputs(){return inputs;}};
 }
 const step={task:'Click the correct control',goalId:'goal',idempotencyKey:'one',intent:{action:'verify'},
@@ -113,4 +118,164 @@ test('a hanging batch transport reaches deadline once and preserves unknown usag
     await assert.rejects(runtime.ask({state:'ready',questions:{ready:{type:'noul',instructions:'Ready?'}},timeoutMs:20}),/PROVIDER_DEADLINE/);
     assert.equal(calls,1);assert.equal(runtime.usage().unknown_usage_attempts,1);
   }finally{runtime.close();f.cleanup();}
+});
+function desktopProof(event,overrides={}){return {eventId:event.eventId,leaseKey:event.leaseKey,actionId:event.actionId,observationId:'obs-fresh',evidenceId:'operator-read',verdict:'not-executed',basis:'pre-dispatch',...overrides};}
+async function seedSurface(directory,{status,code=null,journalMode='pending',goalId='goal',idempotencyKey='legacy'}={}){
+  mkdirSync(directory,{recursive:true,mode:0o700});chmodSync(directory,0o700);
+  const id=stepDigest({goalId,idempotencyKey}),inputDigest=stepDigest({task:step.task,goalId,intent:step.intent,scope:{app:'test'}});
+  const event={schemaVersion:1,eventId:randomUUID(),leaseKey:'physical-host',sessionId:randomUUID(),actionId:'step-'+id,observationId:'obs-legacy',startedAt:Date.now()};
+  if(journalMode!=='absent'){
+    const journal=await FileExecutionJournal.open(join(directory,'physical'));
+    await journal.begin(event);
+    if(journalMode==='reconciled-not-executed')await journal.reconcile(event,{eventId:event.eventId,leaseKey:event.leaseKey,actionId:event.actionId,observationId:'obs-title-unchanged',evidenceId:'title-url',verdict:'not-executed'});
+    else if(journalMode==='acknowledged-executed')await journal.acknowledge(event,'executed');
+    await journal.close();
+  }
+  const dbPath=join(directory,'steps.sqlite'),db=new DatabaseSync(dbPath);
+  db.exec('PRAGMA journal_mode=DELETE; CREATE TABLE steps(id TEXT PRIMARY KEY,digest TEXT NOT NULL,status TEXT NOT NULL,result TEXT);');
+  db.prepare('INSERT INTO steps(id,digest,status,result) VALUES(?,?,?,?)').run(id,inputDigest,status,status==='PLANNING'?null:JSON.stringify({status,code,goalId,idempotencyKey}));
+  db.close();chmodSync(dbPath,0o600);return {id,event,goalId,idempotencyKey};
+}
+async function recover(directory,overrides={},options={}){
+  let calls=0,seen;const result=await reconcileDesktopSession({directory,...options,verify:async(event,context)=>{calls++;seen={event,context};return typeof overrides==='function'?overrides(event,context):desktopProof(event,overrides);}});
+  return {result,calls,seen};
+}
+async function assertBlocked(directory){
+  const a=adapter(),s=await JevSession.open({adapter:a,jev:model(),directory});
+  try{await assert.rejects(s.step({...step,idempotencyKey:'after-quarantine'}),/SURFACE_QUARANTINED/);assert.equal(a.inputs,0);}finally{await s.close();}
+}
+async function assertResumed(directory,goalId,idempotencyKey,terminal){
+  const a=adapter(),m=model(),s=await JevSession.open({adapter:a,jev:m,directory});
+  try{
+    const cached=await s.step({...step,goalId,idempotencyKey});
+    assert.equal(cached.cached,true);assert.equal(cached.status,terminal);assert.equal(cached.replayed,false);assert.equal(a.inputs,0);assert.equal(m.calls,0);
+    assert.equal((await s.step({...step,idempotencyKey:'legal-new-key'})).status,'VERIFIED');assert.equal(a.inputs,1);assert.equal(m.calls,1);
+    assert.equal((await s.step({...step,idempotencyKey:'legal-new-key'})).cached,true);assert.equal(a.inputs,1);
+  }finally{await s.close();}
+}
+test('desktop pre-dispatch rejections are a closed code set and exclude uncertain losses',()=>{
+  for(const code of ['AMBIGUOUS_APP','APP_NOT_RUNNING','APP_NOT_FOUND','ELEMENT_DISABLED','UNSUPPORTED_KEY','PERMISSION_REQUIRED'])assert.ok(DESKTOP_PRE_DISPATCH_REJECTIONS.includes(code));
+  for(const code of ['NATIVE_RESULT_LOST','INPUT_RESULT_UNKNOWN','DESKTOP_NATIVE_UNKNOWN','STALE_OBSERVATION','FOCUS_CHANGED','ACTIVATION_FAILED','INPUT_FAILED','TITLE_UNCHANGED'])assert.equal(DESKTOP_PRE_DISPATCH_REJECTIONS.includes(code),false);
+});
+test('a pre-dispatch driver rejection is acknowledged and does not quarantine the desktop',async()=>{
+  const f=fixture(),directory=join(f.runtime,'session'),a=adapter({fail:'AMBIGUOUS_APP'}),m=model();
+  const s=await JevSession.open({adapter:a,jev:m,directory});
+  try{
+    const failed=await s.step(step);assert.equal(failed.status,'FAILED');assert.equal(failed.code,'AMBIGUOUS_APP');assert.equal(failed.dispatch,'not-executed');assert.equal(a.inputs,1);
+    assert.equal((await s.step(step)).cached,true);assert.equal(a.inputs,1);assert.equal(m.calls,1);
+    const next=await s.step({...step,idempotencyKey:'next'});
+    assert.equal(next.status,'FAILED');assert.equal(next.code,'AMBIGUOUS_APP');assert.equal(next.dispatch,'not-executed');assert.equal(next.cached,false);assert.equal(a.inputs,2);
+    const state=JSON.parse(readFileSync(join(directory,'physical','executions.json'),'utf8'));
+    assert.equal(state.pending.length,0);assert.equal(state.resolved[0].status,'rejected');assert.equal(state.resolved[0].proof,undefined);
+    await s.close();assert.equal(inspectDesktopSession({directory}).status,'CLEAR');
+  }finally{await s.close();f.cleanup();}
+});
+test('post-dispatch driver failures stay UNKNOWN and are not acknowledged',async()=>{
+  for(const fail of ['STALE_OBSERVATION','DESKTOP_NATIVE_UNKNOWN','ACTIVATION_FAILED','INPUT_FAILED']){
+    const f=fixture(),directory=join(f.runtime,'session'),a=adapter({fail});
+    const s=await JevSession.open({adapter:a,jev:model(),directory});
+    try{
+      assert.equal((await s.step(step)).status,'UNKNOWN');assert.equal(a.inputs,1);
+      const state=JSON.parse(readFileSync(join(directory,'physical','executions.json'),'utf8'));
+      assert.equal(state.pending.length,1);assert.equal(state.resolved.length,0);
+      await assert.rejects(s.step({...step,idempotencyKey:'two'}),/SURFACE_QUARANTINED/);assert.equal(a.inputs,1);
+    }finally{await s.close();f.cleanup();}
+  }
+});
+test('stale, wrong-action, and title-stability proofs do not release a journal-only recovered UNKNOWN step',async()=>{
+  const f=fixture(),directory=join(f.runtime,'session');
+  try{
+    const seeded=await seedSurface(directory,{status:'UNKNOWN',code:'AMBIGUOUS_APP',journalMode:'reconciled-not-executed'});
+    const inspected=inspectDesktopSession({directory});
+    assert.equal(inspected.status,'QUARANTINED');assert.equal(inspected.counts.pending,0);assert.equal(inspected.steps[0].code,'AMBIGUOUS_APP');
+    assert.equal(inspected.matchingResolutions[0].verdict,'not-executed');assert.equal(inspected.matchingResolutions[0].evidenceId,'title-url');
+    const ledger=readFileSync(join(directory,'physical','executions.json'));
+    for(const overrides of [{observationId:'obs-legacy'},{observationId:'obs-title-unchanged'},{actionId:'step-wrong'},{verdict:'nope'},{basis:'observed-effect'},{basis:'human-confirmed'},{verdict:'executed',basis:'observed-effect',observationId:'obs-fresh-2'}]){
+      const {result}=await recover(directory,overrides);
+      assert.notEqual(result.status,'RESOLVED');assert.equal(inspectDesktopSession({directory}).status,'QUARANTINED');
+    }
+    await assertBlocked(directory);
+    const {result,seen}=await recover(directory,{});
+    assert.equal(result.status,'RESOLVED');assert.equal(result.reason,'ACTION_NOT_EXECUTED');assert.equal(result.replayed,false);assert.equal(seen.context.journalKind,'partial');
+    assert.equal(readFileSync(join(directory,'physical','executions.json')).equals(ledger),true);
+    let calls=0;const again=await reconcileDesktopSession({directory,verify(){calls++;throw Error('must not run');}});
+    assert.equal(again.status,'CLEAR');assert.equal(again.reason,'NO_PENDING_ACTION');assert.equal(calls,0);
+    await assertResumed(directory,seeded.goalId,seeded.idempotencyKey,'RECONCILED_NOT_EXECUTED');
+  }finally{f.cleanup();}
+});
+test('an uncertain desktop action is not replayed and not-executed proof cannot invent a miss',async()=>{
+  const f=fixture(),directory=join(f.runtime,'session'),a=adapter({unknown:true});
+  const s=await JevSession.open({adapter:a,jev:model(),directory});
+  try{
+    assert.equal((await s.step(step)).status,'UNKNOWN');assert.equal(a.inputs,1);
+    await s.close();
+    for(const overrides of [{},{basis:'human-confirmed'},{verdict:'executed',basis:'observed-effect',observationId:'obs-fresh-2'},{verdict:'executed',basis:'human-confirmed',observationId:'obs-fresh-3'}]){
+      const {result}=await recover(directory,overrides);assert.equal(result.reason,overrides.verdict==='executed'?'EXECUTED_UNPROVEN':'NOT_EXECUTED_UNPROVEN');
+    }
+    await assertBlocked(directory);assert.equal(a.inputs,1);
+    const released=await recover(directory,{verdict:'unconfirmed',basis:'human-confirmed',observationId:'obs-human'});
+    assert.equal(released.result.status,'RESOLVED');assert.equal(released.result.reason,'ACTION_UNCONFIRMED');assert.equal(released.result.replayed,false);
+    const state=JSON.parse(readFileSync(join(directory,'physical','executions.json'),'utf8'));
+    assert.equal(state.pending.length,0);assert.equal(state.resolved.at(-1).proof.verdict,'unconfirmed');
+    const again=await recover(directory,{verdict:'not-executed'});assert.equal(again.calls,0);assert.equal(again.result.status,'CLEAR');
+    await assertResumed(directory,'goal','one','RECONCILED_UNCONFIRMED');
+  }finally{await s.close();f.cleanup();}
+});
+test('desktop recovery covers crash windows without replaying the armed action',async()=>{
+  const f=fixture();
+  try{
+    const planning=join(f.runtime,'planning');
+    const armed=await seedSurface(planning,{status:'PLANNING',journalMode:'pending',idempotencyKey:'armed'});
+    assert.equal((await recover(planning,{basis:'observed-effect'})).result.reason,'NOT_EXECUTED_UNPROVEN');
+    assert.equal((await recover(planning,{})).result.status,'RESOLVED');
+    await assertResumed(planning,armed.goalId,armed.idempotencyKey,'RECONCILED_NOT_EXECUTED');
+    const executing=join(f.runtime,'executing');
+    const lost=await seedSurface(executing,{status:'EXECUTING',journalMode:'pending',idempotencyKey:'executing'});
+    assert.equal((await recover(executing,{})).result.reason,'NOT_EXECUTED_UNPROVEN');
+    await assertBlocked(executing);
+    assert.equal((await recover(executing,{verdict:'unconfirmed',basis:'human-confirmed',observationId:'obs-human'})).result.status,'RESOLVED');
+    await assertResumed(executing,lost.goalId,lost.idempotencyKey,'RECONCILED_UNCONFIRMED');
+    const submitted=join(f.runtime,'submitted');
+    const done=await seedSurface(submitted,{status:'EXECUTING',journalMode:'acknowledged-executed',idempotencyKey:'submitted'});
+    assert.equal((await recover(submitted,{})).result.reason,'NOT_EXECUTED_UNPROVEN');
+    assert.equal((await recover(submitted,{verdict:'executed',basis:'observed-effect',observationId:'obs-effect'})).result.reason,'ACTION_CONFIRMED');
+    await assertResumed(submitted,done.goalId,done.idempotencyKey,'RECONCILED_EXECUTED');
+    const absent=join(f.runtime,'absent');
+    await seedSurface(absent,{status:'UNKNOWN',journalMode:'absent',idempotencyKey:'absent'});
+    assert.equal((await recover(absent,{})).result.reason,'NOT_EXECUTED_UNPROVEN');
+    assert.equal((await recover(absent,{verdict:'unconfirmed',basis:'human-confirmed',observationId:'obs-human'})).result.status,'RESOLVED');
+    assert.equal(existsSync(join(absent,'physical','executions.json')),false);
+  }finally{f.cleanup();}
+});
+test('a late reconciliation callback cannot release desktop quarantine',async()=>{
+  const f=fixture(),directory=join(f.runtime,'session');
+  const seeded=await seedSurface(directory,{status:'UNKNOWN',code:'NATIVE_RESULT_LOST',journalMode:'pending'});
+  let resolveProof,seen;const proof=new Promise(resolve=>{resolveProof=resolve;});
+  try{
+    const result=await reconcileDesktopSession({directory,maxDurationMs:30,verify:event=>{seen=event;return proof;}});
+    assert.equal(result.reason,'DEADLINE');
+    resolveProof(desktopProof(seen,{verdict:'unconfirmed',basis:'human-confirmed',observationId:'obs-late'}));
+    await delay(20);
+    assert.equal(inspectDesktopSession({directory}).status,'QUARANTINED');
+    assert.equal(JSON.parse(readFileSync(join(directory,'physical','executions.json'),'utf8')).pending[0].eventId,seeded.event.eventId);
+    await assertBlocked(directory);
+  }finally{f.cleanup();}
+});
+test('a live desktop owner is not displaced and a dead owner lock is not removed',async()=>{
+  const f=fixture(),directory=join(f.runtime,'session'),s=await JevSession.open({adapter:adapter(),jev:model(),directory});
+  try{
+    const live=inspectDesktopSession({directory});
+    assert.equal(live.status,'BUSY');assert.equal(live.lock.owner,'alive');assert.equal(live.lock.pid,process.pid);
+    let calls=0;
+    assert.equal((await reconcileDesktopSession({directory,verify(){calls++;}})).status,'BUSY');assert.equal(calls,0);
+    await assert.rejects(JevSession.open({adapter:adapter(),jev:model(),directory}),/JOURNAL_BUSY/);
+    await s.close();
+    const lock=join(directory,'physical','owner.lock');
+    writeFileSync(lock,JSON.stringify({pid:2147483646,token:randomUUID()}),{mode:0o600});
+    const before=readFileSync(lock);
+    const dead=inspectDesktopSession({directory});
+    assert.equal(dead.status,'BUSY');assert.equal(dead.lock.owner,'dead');assert.match(dead.advisoryOwner,/does not authorize deleting/);
+    assert.equal((await reconcileDesktopSession({directory,verify(){calls++;}})).reason,'JOURNAL_BUSY');
+    assert.equal(calls,0);assert.equal(readFileSync(lock).equals(before),true);assert.equal(existsSync(lock),true);
+  }finally{await s.close();f.cleanup();}
 });
