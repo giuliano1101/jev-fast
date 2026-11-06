@@ -51,3 +51,22 @@ Chrome 的 AX 窗口标题可能带“ - Google Chrome”或“ - Google Chrome 
 截图带坐标原点及 scale，不能猜 Retina 比例。优先指定 App/窗口；整屏会包含其他窗口。Mac 辅助功能/录屏权限、Windows UIPI/受保护桌面、App 的 AX 支持和主机是否登录影响可用性。无应用白名单不等于所有应用都已验收。
 
 历史实测保留：[原生桌面报告](reports/2026-11-02-native-desktop.md)、[Chrome / TextEdit 与窗口截图报告](reports/2026-11-03-public-mac-automation.md)。这些记录证明当时版本的指定题目，不是当前所有主机的权限或成功保证。
+
+## 未决桌面步骤的安全核查
+
+默认会话目录是安装目录下的 `.runtime/direct/native-session`。`openDesktopSession` 不传 `directory` 时使用它。不要另建目录绕过 `physical-host`。
+
+离线测试不能代替这台 Mac 的图形会话核查。下面的步骤只读或只恢复账本，不要求发出新的点击、按键或出图任务。
+
+1. 在实际图形登录会话中，用本机 Node 24.19+ 从安装目录执行只读核查：
+
+```sh
+npm --prefix direct ci --ignore-scripts
+npm run build
+node --input-type=module -e "import {inspectDesktopSession} from './direct/index.mjs'; console.log(JSON.stringify(inspectDesktopSession(), null, 2))"
+```
+
+2. `CLEAR`：没有 pending，也没有 `PLANNING` / `EXECUTING` / `UNKNOWN` 步骤。可以另开只读观察：`openDesktopSession({app})` 后 `session.observe()`，然后 `close()`。不要为了验证恢复去跑出图步骤。
+3. `BUSY`：`physical/owner.lock` 仍在。`lock.owner` 只说明 pid 看起来是否存活，程序不会据此删锁。确认该 pid 确实没有进程后，把整个 `native-session` 目录复制到备份，再只把这把死进程锁移入备份。保留 `executions.json`、`steps.sqlite`、`-wal` 和 `-shm`。然后重新执行第 1 步。
+4. `QUARANTINED`：先看 `steps[].code` 和 `matchingResolutions[]`。只读观察一次，关闭 Session，再把新的 `observation_id` 交给 `reconcileDesktopSession`。Session 开着时恢复会返回 `JOURNAL_BUSY`。证明规则、官方字段和 2026-11-07 journal 已清但 steps 仍 UNKNOWN 的处理方式见 [Session API](../skills/jev-direct/references/api.md)。恢复后再次 `inspect`，期望 `CLEAR`；再开一次 Session 做只读 `observe()`，然后关闭。同一步的旧幂等键会返回缓存且不会重放。不要为了这项核查发送新的按键或出图任务。
+5. `UNREADABLE`：停止。先备份，不要删除或手改账本来换一个可读结果。

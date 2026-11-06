@@ -8,6 +8,7 @@ import {preparePrivateDirectory, assertPrivateFile} from './dist/src/service/pri
 import {askQuestions} from './questions.mjs';
 import {JevSession} from './session.mjs';
 import {NativeAdapter} from './native.mjs';
+import {inspectDesktopSurface, reconcileDesktopSurface, DESKTOP_PRE_DISPATCH_REJECTIONS} from './recovery.mjs';
 
 export {DesktopExecutor} from './dist/src/desktop/executor.js';
 export {runHybridSession} from './dist/bench/hybrid/controller.js';
@@ -17,6 +18,15 @@ export {routeHybrid} from './dist/bench/hybrid/router.js';
 export {createFilesystemTeacherPort} from './dist/bench/hybrid/teacher-port.js';
 export {TestBudget} from './budget.mjs';
 export {JevSession} from './session.mjs';
+export {DESKTOP_PRE_DISPATCH_REJECTIONS};
+
+function desktopSurfaceOptions(options = {}) {
+  return {leaseKey: 'physical-host', ...options, directory: options.directory ?? join(deployment.runtime, 'native-session')};
+}
+/** Read-only point-in-time view of the shared desktop session directory. */
+export function inspectDesktopSession(options = {}) { return inspectDesktopSurface(desktopSurfaceOptions(options)); }
+/** Explicit desktop recovery. Does not execute, replay, delete ledgers, or remove a live or dead owner lock. */
+export function reconcileDesktopSession(options = {}) { return reconcileDesktopSurface(desktopSurfaceOptions(options)); }
 export {NativeAdapter, nativeCandidate} from './native.mjs';
 export {BrowserAdapter, browserCandidate, browserProjection} from './browser.mjs';
 export {BrowserWorkflow} from './browser-workflow.mjs';

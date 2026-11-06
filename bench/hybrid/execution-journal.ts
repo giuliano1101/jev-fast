@@ -1,5 +1,5 @@
 export interface PendingExecution {schemaVersion:1;eventId:string;leaseKey:string;sessionId:string;actionId:string;observationId:string;startedAt:number}
-export interface TrustedReconciliationProof {eventId:string;leaseKey:string;actionId:string;observationId:string;evidenceId:string;verdict:'executed'|'not-executed'}
+export interface TrustedReconciliationProof {eventId:string;leaseKey:string;actionId:string;observationId:string;evidenceId:string;verdict:'executed'|'not-executed'|'unconfirmed'}
 export interface ExecutionJournal {
  getPending(leaseKey:string):Promise<PendingExecution|undefined>;
  begin(event:PendingExecution):Promise<void>;
@@ -14,7 +14,7 @@ import {isDeepStrictEqual} from 'node:util';
 import {z} from 'zod';
 import {workflowIdSchema} from './workflow-contracts.js';
 const pendingSchema=z.strictObject({schemaVersion:z.literal(1),eventId:z.uuid(),leaseKey:workflowIdSchema,sessionId:workflowIdSchema,actionId:workflowIdSchema,observationId:workflowIdSchema,startedAt:z.number().int().nonnegative()});
-const proofSchema=z.strictObject({eventId:z.uuid(),leaseKey:workflowIdSchema,actionId:workflowIdSchema,observationId:workflowIdSchema,evidenceId:workflowIdSchema,verdict:z.enum(['executed','not-executed'])});
+const proofSchema=z.strictObject({eventId:z.uuid(),leaseKey:workflowIdSchema,actionId:workflowIdSchema,observationId:workflowIdSchema,evidenceId:workflowIdSchema,verdict:z.enum(['executed','not-executed','unconfirmed'])});
 const resolutionSchema=z.strictObject({event:pendingSchema,status:z.enum(['executed','rejected','reconciled']),proof:proofSchema.optional()});
 const stateSchema=z.strictObject({schemaVersion:z.literal(1),pending:z.array(pendingSchema).max(10000),resolved:z.array(resolutionSchema).max(10000)});
 type JournalState=z.infer<typeof stateSchema>;

@@ -1,12 +1,11 @@
-import {DatabaseSync} from 'node:sqlite';
-import {chmodSync, existsSync} from 'node:fs';
 import {join} from 'node:path';
 import {randomUUID, createHash} from 'node:crypto';
 import {performance} from 'node:perf_hooks';
 import {setTimeout as delay} from 'node:timers/promises';
 import {FileExecutionJournal} from './dist/bench/hybrid/execution-journal.js';
-import {preparePrivateDirectory, assertPrivateFile} from './dist/src/service/private-directory.js';
+import {preparePrivateDirectory} from './dist/src/service/private-directory.js';
 import {canonicalJson} from './dist/src/remote/protocol.js';
+import {openStepsDatabase, isDesktopPreDispatchRejection} from './recovery.mjs';
 const digest = value => createHash('sha256').update(canonicalJson(value)).digest('hex');
 const safeCode = error => /^[A-Z][A-Z0-9_]*$/.test(error?.message ?? '') ? error.message : 'EXECUTION_FAILED';
 function within(operation, signal) {
@@ -23,13 +22,8 @@ export class JevSession {
   static async open({adapter, jev, directory}) {
     const root = preparePrivateDirectory(directory);
     const journal = await FileExecutionJournal.open(join(root, 'physical'));
-    try {
-      const path = join(root, 'steps.sqlite');
-      for(const suffix of ['', '-wal', '-shm']) if(existsSync(path+suffix)) assertPrivateFile(path+suffix);
-      const db = new DatabaseSync(path); chmodSync(path, 0o600);
-      db.exec('PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; CREATE TABLE IF NOT EXISTS steps(id TEXT PRIMARY KEY,digest TEXT NOT NULL,status TEXT NOT NULL,result TEXT);');
-      return new JevSession(adapter, jev, journal, db);
-    } catch(error) {await journal.close(); throw error;}
+    try { return new JevSession(adapter, jev, journal, openStepsDatabase(root)); }
+    catch(error) {await journal.close(); throw error;}
   }
   constructor(adapter, jev, journal, db) {this.adapter=adapter; this.jev=jev; this.#journal=journal; this.#db=db;}
   observe() {if(this.#closed) throw Error('SESSION_CLOSED'); return this.adapter.observe();}
@@ -48,10 +42,10 @@ export class JevSession {
     }
     const leaseKey=this.adapter.kind==='native'?'physical-host':'isolated-browser';
     if(await this.#journal.getPending(leaseKey) || this.#db.prepare("SELECT id FROM steps WHERE status IN ('PLANNING','EXECUTING','UNKNOWN') LIMIT 1").get()) throw Error('SURFACE_QUARANTINED');
-    this.#db.prepare("INSERT INTO steps VALUES(?,?,'PLANNING',NULL)").run(id,inputDigest);
+    this.#db.prepare("INSERT INTO steps(id,digest,status,result,phase) VALUES(?,?,'PLANNING',NULL,'planning')").run(id,inputDigest);
     const started=performance.now(), controller=new AbortController(), timer=setTimeout(()=>controller.abort(),timeoutMs);
     const signal=AbortSignal.any([controller.signal, ...(parent?[parent]:[])]);
-    let result, event, dispatchStarted=false, decision;
+    let result, event, dispatchStarted=false, inputAccepted=false, decision;
     const timings={};
     const measured=async(name,operation)=>{const t=performance.now();try{return await within(operation,signal);}finally{timings[name]=(timings[name]??0)+performance.now()-t;}};
     try {
@@ -70,13 +64,16 @@ export class JevSession {
         const rebound=candidates(fresh).filter(a=>a.id===decision.selected_id);
         if(rebound.length!==1||rebound[0].description!==actions.find(a=>a.id===decision.selected_id).description||digest(project(fresh))!==projectionDigest||digest(this.adapter.guard(rebound[0],fresh))!==guards.get(decision.selected_id)) result={status:'STALE',code:'STATE_CHANGED'};
         else {
-          event={schemaVersion:1,eventId:randomUUID(),leaseKey,sessionId:randomUUID(),actionId:'step-'+id,observationId:fresh.observation_id,startedAt:Date.now()};
-          await this.#journal.begin(event);
+          const nextEvent={schemaVersion:1,eventId:randomUUID(),leaseKey,sessionId:randomUUID(),actionId:'step-'+id,observationId:fresh.observation_id,startedAt:Date.now()};
+          this.#db.prepare('UPDATE steps SET phase=?,method=?,event_json=? WHERE id=?').run('armed',rebound[0].method??null,JSON.stringify(nextEvent),id);
+          try { await this.#journal.begin(nextEvent); event=nextEvent; }
+          catch(error) { if(safeCode(error)==='JOURNAL_WRITE_UNCERTAIN') event=nextEvent; throw error; }
           if(signal.aborted){await this.#journal.acknowledge(event,'rejected');event=undefined;throw Error('STEP_DEADLINE');}
-          this.#db.prepare("UPDATE steps SET status='EXECUTING' WHERE id=?").run(id);
+          this.#db.prepare("UPDATE steps SET status='EXECUTING',phase='executing' WHERE id=?").run(id);
           dispatchStarted=true;
           const submitted=await measured('execute_ms',() => this.adapter.execute(rebound[0]));
           if(submitted?.input_submitted!==true) throw Error('INPUT_RESULT_UNKNOWN');
+          inputAccepted=true;
           await this.#journal.acknowledge(event,'executed');event=undefined;
           let verified=false;
           const settleDeadline=Date.now()+settleMs;
@@ -90,7 +87,13 @@ export class JevSession {
         }
       }
       result.decision_ms=Math.round(decisionMs);
-    }catch(error){result={status:dispatchStarted||event?'UNKNOWN':'FAILED',code:safeCode(error)};}
+    }catch(error){
+      const code=safeCode(error);
+      if(event && !inputAccepted && isDesktopPreDispatchRejection(code)){
+        try{await this.#journal.acknowledge(event,'rejected');event=undefined;result={status:'FAILED',code,dispatch:'not-executed'};}
+        catch{result={status:'UNKNOWN',code,dispatch:'not-executed'};}
+      }else result={status:dispatchStarted||event?'UNKNOWN':'FAILED',code};
+    }
     clearTimeout(timer);
     const output={...result,goalId,idempotencyKey,elapsed_ms:Math.round(performance.now()-started),timings:Object.fromEntries(Object.entries(timings).map(([k,v])=>[k,Math.round(v*1000)/1000])),...(decision?{decision}:{}),cached:false};
     this.#db.prepare('UPDATE steps SET status=?,result=? WHERE id=?').run(output.status,JSON.stringify(output),id);

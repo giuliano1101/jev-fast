@@ -14,7 +14,7 @@
 
 调用 `runHybridSession`，提供固定 catalog、scope、goalPredicates 和可信 adapter。adapter 的 observe 必须从当前可见状态生成三态谓词，不能把“曾经点过”当作仍然成立；bind 必须绑定最新观察；execute 一旦无法确认输入结果必须返回 unknown。
 
-真实设备必须传入 `FileExecutionJournal`，目录按设备/界面稳定保存，不能每题新建来绕过未决记录。该文件存储用独占锁限制多进程，宿主还应统一串行管理所有访问同一设备的外部操作。崩溃遗留 owner.lock 不自动清除；先确认旧进程结束并核对未决记录。不要删账本恢复运行。
+真实设备必须传入 `FileExecutionJournal`，目录按设备/界面稳定保存，不能每题新建来绕过未决记录。该文件存储用独占锁限制多进程，宿主还应统一串行管理所有访问同一设备的外部操作。崩溃遗留 owner.lock 不自动清除；先确认旧进程结束并核对未决记录。不要删账本恢复运行。桌面 `JevSession` 还有独立的 `steps.sqlite`；只调用 `FileExecutionJournal.reconcile` 不会解除步骤隔离，桌面恢复入口是 `reconcileDesktopSession`。
 
 传入 `ProcedureStore` 才启用跨任务证据学习。学习只组合宿主已有动作，不接受任意脚本、坐标回放或新权限。Jev 和 teacher 都只是规划器，必须共享原授权和费用保留器；模式切换不能续期授权。
 
