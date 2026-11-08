@@ -41,7 +41,7 @@ try {
 
 不把整棵 AX 树或其他窗口发给模型。`project` 不含观察/元素编号，且含足以判断前提和已完成状态的语义字段。Session 重新观察后若语义投影或目标 guard 改变，返回 STALE，物理输入次数为零。
 
-`nativeCandidate` 支持原生点击、文本输入/赋值、命名组合键、滚动、拖拽、已观察动作、App 激活/启动和打开本地文档；真实 AX 是否支持某操作须现场确认。窗口级键操作省略 label/role，提供 `params:{key:'cmd+s'}`。字段赋值使用实际可赋值控件和 `params:{value:'宿主提供的内容'}`。截图按需：`await session.adapter.screenshot('/absolute/private/output.png')`。
+`nativeCandidate` 支持原生点击、文本输入/赋值、命名组合键、滚动、拖拽、已观察动作、已选文件的限定复制、App 激活/启动和打开本地文档；真实 AX 是否支持某操作须现场确认。窗口级键操作省略 label/role，提供 `params:{key:'cmd+s'}`。字段赋值使用实际可赋值控件和 `params:{value:'宿主提供的内容'}`。复制已选文件时不传 label，而传 `method:'desktop_copy_files'` 与 `params:{element_ids,files}`：每个元素必须在新鲜观察里 `selected===true`，`files` 是事前批准的 `file:///` URL，且与这些元素的文件 URL 完全一致。成功结果只含 `copy_proof:{match:true,count}`；`match` 不是 `true` 时不得粘贴。它不读取剪贴板文本、凭证或文件内容，也不接受坐标或无目标按键代替。截图按需：`await session.adapter.screenshot('/absolute/private/output.png')`。
 
 初次需打开 App/文档或创建专用测试窗口时，宿主可使用导出的 `DesktopExecutor` 做有明确授权的准备；标明是宿主准备，不冒称模型选择。实际候选选择仍走 Session。不要让多个 Session 绕过默认 `native-session` 目录争抢同一主机。
 

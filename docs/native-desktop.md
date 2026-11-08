@@ -37,6 +37,7 @@ try {
 | desktop_press_key | 命名按键与组合键 |
 | desktop_scroll / desktop_drag | 滚动、拖拽 |
 | desktop_perform_action | 调用控件实际暴露的原生动作 |
+| desktop_copy_files | 仅复制已选中且文件 URL 与批准集合完全一致的控件；结果只有是否匹配和文件 URL 数量 |
 
 Mac App 可使用 bundle ID、PID、名称或安装路径。日常 Chrome 使用 `com.google.Chrome`，复用其当前窗口和登录状态，不重启 Chrome、不复制 cookie。Windows 使用该主机的进程、路径和控件，Mac 驱动不能代替 Windows 本机执行。
 

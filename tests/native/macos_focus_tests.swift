@@ -46,6 +46,13 @@ import AppKit
             fatalError("expected cooperative stop")
         } catch let failure as DriverFailure { precondition(failure.code == "STOPPING") }
         precondition(sequence == ["down","release"])
+        precondition(canonicalFileAllowURL("file:///approved/preview_sub_v2.mp4") == URL(string:"file:///approved/preview_sub_v2.mp4")!.standardizedFileURL.absoluteString)
+        precondition(canonicalFileAllowURL("https://example.com/a.mp4") == nil)
+        precondition(canonicalFileAllowURL("file://localhost/approved/a.mp4") == nil)
+        precondition(canonicalFileAllowURL("file:///approved/a.mp4?token=secret") == nil)
+        precondition(canonicalFileAllowURL("/approved/a.mp4") == nil)
+        precondition(canonicalFileAllowURL("file:///approved/../secret.mp4") == nil)
+        precondition(canonicalFileAllowURL("file:///approved/%2e%2e/secret.mp4") == nil)
         print("focus and per-post parent-fence regression checks passed")
     }
 }

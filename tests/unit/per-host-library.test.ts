@@ -9,7 +9,7 @@ test('native executor validates grounded requests and calls the driver directly'
  assert.equal(typeof library?.DesktopExecutor,'function');
  const calls:unknown[]=[];let closed=false;
  const driver={call:async(method:string,params:unknown)=>{calls.push({method,params});return {status:'input_submitted'};},close:async()=>{closed=true;}};
- const executor=new library.DesktopExecutor({driver});assert.equal(executor.tools.length,14);
+ const executor=new library.DesktopExecutor({driver});assert.equal(executor.tools.length,15);
  assert.deepEqual(await executor.call('desktop_click',{app:'Any',observation_id:'seen',element_id:'e1'}),{status:'input_submitted'});
  await assert.rejects(executor.call('desktop_click',{app:'Any',x:1,y:2}));
  assert.deepEqual(calls,[{method:'click',params:{app:'Any',observation_id:'seen',element_id:'e1'}}]);await executor.close();assert.equal(closed,true);

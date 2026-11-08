@@ -1,6 +1,6 @@
 import {DesktopExecutor} from './dist/src/desktop/executor.js';
 import {parseDesktopTool} from './dist/src/desktop/contracts.js';
-const methods = new Set(['desktop_click', 'desktop_type_text', 'desktop_set_value', 'desktop_press_key', 'desktop_scroll', 'desktop_drag', 'desktop_perform_action', 'desktop_activate_app', 'desktop_launch_app', 'desktop_open_document']);
+const methods = new Set(['desktop_click', 'desktop_type_text', 'desktop_set_value', 'desktop_press_key', 'desktop_scroll', 'desktop_drag', 'desktop_perform_action', 'desktop_copy_files', 'desktop_activate_app', 'desktop_launch_app', 'desktop_open_document']);
 
 /** Exact observed matching only. Omit target for a grounded window-level key action. */
 export function nativeCandidate(state, {id, description, method, label, role, params = {}}) {
@@ -13,6 +13,13 @@ export function nativeCandidate(state, {id, description, method, label, role, pa
     input.element_id = matches[0].element_id;
   }
   return {id, description, method, input:parseDesktopTool(method, input)};
+}
+/** AX omits value and selected when the attribute is absent. Keep that absence out of the digest; do not coerce it to null, false, 0, or "". */
+function targetBinding(node) {
+  const target = {role:node.role, label:node.label, bounds:node.bounds};
+  if (node.value !== undefined) target.value = node.value;
+  if (typeof node.selected === 'boolean') target.selected = node.selected;
+  return target;
 }
 export class NativeAdapter {
   kind = 'native';
@@ -31,13 +38,25 @@ export class NativeAdapter {
   guard(candidate, state) {
     if (!methods.has(candidate.method) || candidate.input.app !== (state.app.bundle_id ?? state.app.pid)) throw Error('INVALID_NATIVE_BINDING');
     const input = parseDesktopTool(candidate.method, candidate.input);
+    if (candidate.method === 'desktop_copy_files') {
+      const nodes = input.element_ids.map(id => state.elements.find(n => n.element_id === id));
+      if (nodes.some(node => !node || !node.enabled || node.selected !== true)) throw Error('INVALID_NATIVE_BINDING');
+      const {observation_id:_observation, ...parameters} = input;
+      return {method:candidate.method, parameters, pid:state.app.pid, window:state.window, target:nodes.map(targetBinding)};
+    }
     const node = input.element_id ? state.elements.find(n => n.element_id === input.element_id) : undefined;
     if (input.element_id && (!node || !node.enabled)) throw Error('INVALID_NATIVE_BINDING');
     const {observation_id:_observation, element_id:_element, ...parameters} = input;
     return {method:candidate.method, parameters, pid:state.app.pid, window:state.window,
-      target:node ? {role:node.role, label:node.label, value:node.value, bounds:node.bounds} : null};
+      target:node ? targetBinding(node) : null};
   }
-  execute(candidate) { return this.desktop.call(candidate.method, candidate.input); }
+  async execute(candidate) {
+    const value = await this.desktop.call(candidate.method, candidate.input);
+    if (candidate.method !== 'desktop_copy_files') return value;
+    const match = value?.copy_proof?.match, count = value?.copy_proof?.count;
+    if (value?.input_submitted !== true || (match !== true && match !== false) || !Number.isSafeInteger(count) || count < 0) throw Error('COPY_PROOF_INVALID');
+    return {input_submitted:true, copy_proof:{match, count}};
+  }
   async screenshot(path) {
     const {writeFile} = await import('node:fs/promises');
     const state = await this.observe();
