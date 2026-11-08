@@ -38,6 +38,7 @@ function scriptedDesktop(script) {
       const spec = script(reads++);
       const element = {element_id:'e-search', role:'AXMenuItem', label:'备忘录列表搜索…', enabled:spec.enabled !== false, bounds:spec.bounds ?? bounds};
       if (spec.value !== ABSENT) element.value = spec.value;
+      if (Object.hasOwn(spec, 'selected')) element.selected = spec.selected;
       return {observation_id:'obs-'+reads, app:{bundle_id:'com.apple.Notes', pid:4242, name:'Notes'}, window:{window_id:'w-notes', title:'Notes'}, elements:[element]};
     }
     if (method === 'desktop_click') return {input_submitted:true};
@@ -196,5 +197,64 @@ test('an illegal accessibility value still fails during guard digest before the 
     assert.equal(result.code, 'TARGET_NOT_UNIQUE');
     assert.equal(clicks(desktop).length, 0);
     assert.equal(jev.calls, 1);
+  });
+});
+
+const videoSpec = {id:'select_video', description:'Select the authorized video', method:'desktop_click', label:'preview_sub_v2.mp4', role:'AXImage'};
+function videoGuard(selected) {
+  const state = notesState(ABSENT, {role:'AXImage', label:'preview_sub_v2.mp4', element_id:'e-video'});
+  if (selected !== ABSENT) state.elements[0].selected = selected;
+  return adapter.guard(nativeCandidate(state, videoSpec), state);
+}
+test('Finder selection is absent, false, or true without inventing a boolean or serializing undefined', () => {
+  const absent = videoGuard(ABSENT);
+  const unselected = videoGuard(false);
+  const selected = videoGuard(true);
+  assert.equal(Object.hasOwn(absent.target, 'selected'), false);
+  assert.equal(absent.target.selected, undefined);
+  assert.equal(unselected.target.selected, false);
+  assert.equal(selected.target.selected, true);
+  assert.equal(new Set([digest(absent), digest(unselected), digest(selected)]).size, 3);
+  assert.equal(canonicalJson(absent).includes('"selected"'), false);
+  assert.equal(canonicalJson(unselected).includes('"selected":false'), true);
+  assert.equal(canonicalJson(selected).includes('"selected":true'), true);
+  const legacy = notesState(ABSENT, {role:'AXImage', label:'preview_sub_v2.mp4', element_id:'e-video'});
+  delete legacy.elements[0].selected;
+  assert.equal(digest(adapter.guard(nativeCandidate(legacy, videoSpec), legacy)), digest(absent));
+  for (const invented of [undefined, null, 0, 1, '', 'false', 'true']) {
+    const state = notesState(ABSENT, {role:'AXImage', label:'preview_sub_v2.mp4', element_id:'e-video'});
+    state.elements[0].selected = invented;
+    const guard = adapter.guard(nativeCandidate(state, videoSpec), state);
+    assert.equal(Object.hasOwn(guard.target, 'selected'), false);
+    assert.equal(digest(guard), digest(absent));
+    assert.doesNotThrow(() => canonicalJson(guard));
+  }
+  assert.throws(() => canonicalJson({selected:undefined}), /INVALID_PROTOCOL/);
+  const candidate = nativeCandidate(notesState(ABSENT, {role:'AXImage', label:'preview_sub_v2.mp4', element_id:'e-video'}), videoSpec);
+  assert.equal(candidate.input.element_id, 'e-video');
+  assert.equal('x' in candidate.input, false);
+  assert.equal('y' in candidate.input, false);
+});
+
+test('a selection change blocks dispatch and a stable boolean stays available to verify', async () => {
+  await withSession(index => ({value:ABSENT, selected:index === 0 ? false : true}), async ({session, desktop}) => {
+    const result = await session.step(step);
+    assert.equal(result.status, 'STALE');
+    assert.equal(result.code, 'STATE_CHANGED');
+    assert.equal(clicks(desktop).length, 0);
+    assert.equal('execute_ms' in result.timings, false);
+  });
+  await withSession(() => ({value:ABSENT, selected:true}), async ({session, desktop}) => {
+    const result = await session.step({...step, verify:state => state.elements.some(e => e.selected === true)});
+    assert.equal(result.status, 'VERIFIED');
+    assert.equal(clicks(desktop).length, 1);
+    const replay = await session.step({...step, verify:() => { throw Error('REPLAYED'); }});
+    assert.equal(replay.cached, true);
+    assert.equal(clicks(desktop).length, 1);
+  });
+  await withSession(() => ({value:ABSENT}), async ({session, desktop}) => {
+    const result = await session.step({...step, verify:state => state.elements.every(e => Object.hasOwn(e, 'selected') === false)});
+    assert.equal(result.status, 'VERIFIED');
+    assert.equal(clicks(desktop).length, 1);
   });
 });

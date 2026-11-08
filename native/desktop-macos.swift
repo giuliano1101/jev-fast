@@ -173,6 +173,11 @@ struct Observation {
         guard AXUIElementCopyAttributeValue(element, name as CFString, &result) == .success else { return nil }
         return result
     }
+    /// AXSelected is emitted only when Accessibility returns a boolean. Absence and non-booleans stay omitted so they cannot be read as false.
+    private func booleanAttribute(_ element: AXUIElement, _ name: String) -> Bool? {
+        guard let raw = attribute(element, name), CFGetTypeID(raw) == CFBooleanGetTypeID(), let number = raw as? NSNumber else { return nil }
+        return number.boolValue
+    }
     private func string(_ element: AXUIElement, _ name: String) -> String? {
         guard let value = attribute(element, name) else { return nil }
         if let value = value as? String { return value }
@@ -482,7 +487,7 @@ struct Observation {
                 let id="e\(nodes.count+1)"; let ident=identity(element)
                 nodes[id]=NodeSnapshot(element:element,identity:ident,menu:isMenu)
                 var row:[String:Any]=["element_id":id,"role":ident.role,"label":ident.label,"enabled":(attribute(element,kAXEnabledAttribute) as? NSNumber)?.boolValue ?? true,"settable":settable(element,kAXValueAttribute),"actions":actions(element)]
-                if let parent { row["parent_id"]=parent }; if let value=ident.value { row["value"]=value }; if let b=ident.bounds { row["bounds"]=rectJSON(b) }
+                if let parent { row["parent_id"]=parent }; if let value=ident.value { row["value"]=value }; if let selected=booleanAttribute(element,kAXSelectedAttribute) { row["selected"]=selected }; if let b=ident.bounds { row["bounds"]=rectJSON(b) }
                 output.append(row)
                 for child in elements(element,kAXChildrenAttribute).reversed() { stack.append((child,id,isMenu)) }
             }

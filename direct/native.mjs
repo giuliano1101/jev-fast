@@ -14,10 +14,11 @@ export function nativeCandidate(state, {id, description, method, label, role, pa
   }
   return {id, description, method, input:parseDesktopTool(method, input)};
 }
-/** AX omits value when the attribute is absent. Keep that absence out of the digest; do not coerce it to null, false, 0, or "". */
+/** AX omits value and selected when the attribute is absent. Keep that absence out of the digest; do not coerce it to null, false, 0, or "". */
 function targetBinding(node) {
   const target = {role:node.role, label:node.label, bounds:node.bounds};
   if (node.value !== undefined) target.value = node.value;
+  if (typeof node.selected === 'boolean') target.selected = node.selected;
   return target;
 }
 export class NativeAdapter {
