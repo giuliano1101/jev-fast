@@ -14,6 +14,14 @@ func checkNativeTermination() throws {
     if nativeStopRequested.load(ordering:.relaxed) { throw DriverFailure("STOPPING") }
 }
 func nativeTerminationRequested() -> Bool { nativeStopRequested.load(ordering:.relaxed) }
+func canonicalFileAllowURL(_ value: String) -> String? {
+    guard value.hasPrefix("file:///"), !value.contains("?"), !value.contains("#"), !value.contains("@"),
+          !value.split(separator: "/").contains(where: { $0 == ".." }),
+          let decoded = value.removingPercentEncoding, !decoded.split(separator: "/").contains(where: { $0 == ".." }),
+          let url = URL(string: value), url.scheme == "file", (url.host ?? "").isEmpty, url.user == nil,
+          url.path.hasPrefix("/"), url.query == nil, url.fragment == nil else { return nil }
+    return url.standardizedFileURL.absoluteString
+}
 func installNativeTerminationHandlers() {
     _ = nativeStopRequested.load(ordering:.relaxed)
     var action=sigaction()
@@ -177,6 +185,42 @@ struct Observation {
     private func booleanAttribute(_ element: AXUIElement, _ name: String) -> Bool? {
         guard let raw = attribute(element, name), CFGetTypeID(raw) == CFBooleanGetTypeID(), let number = raw as? NSNumber else { return nil }
         return number.boolValue
+    }
+    private func elementFileURL(_ element: AXUIElement) -> String? {
+        guard let raw = attribute(element, kAXURLAttribute), CFGetTypeID(raw) == CFURLGetTypeID() else { return nil }
+        return canonicalFileAllowURL(unsafeBitCast(raw, to: NSURL.self).absoluteString ?? "")
+    }
+    /// Writes only the approved file URLs, then reads back only file URLs. Clipboard text and file bytes are never read.
+    private func copyAllowedSelection(_ p: [String:Any], _ observation: Observation) throws -> (Bool, Int) {
+        guard let ids = p["element_ids"] as? [String], let files = p["files"] as? [String],
+              !ids.isEmpty, ids.count == files.count, ids.count <= 8, Set(ids).count == ids.count else { throw DriverFailure("ALLOWLIST_MISMATCH") }
+        let approved = try files.map { value -> String in
+            guard let canonical = canonicalFileAllowURL(value) else { throw DriverFailure("ALLOWLIST_MISMATCH") }
+            return canonical
+        }
+        guard Set(approved).count == approved.count else { throw DriverFailure("ALLOWLIST_MISMATCH") }
+        var requested: [String] = []
+        for id in ids {
+            guard let node = try checkedNode(["element_id":id], observation, required:true) else { throw DriverFailure("SELECTION_REQUIRED") }
+            guard booleanAttribute(node.element, kAXSelectedAttribute) == true else { throw DriverFailure("SELECTION_REQUIRED") }
+            guard let url = elementFileURL(node.element) else { throw DriverFailure("FILE_URL_UNAVAILABLE") }
+            requested.append(url)
+        }
+        guard Set(requested) == Set(approved) else { throw DriverFailure("ALLOWLIST_MISMATCH") }
+        var selectedFiles = Set<String>()
+        for node in observation.nodes.values {
+            guard booleanAttribute(node.element, kAXSelectedAttribute) == true, let url = elementFileURL(node.element) else { continue }
+            selectedFiles.insert(url)
+        }
+        guard selectedFiles == Set(approved) else { throw DriverFailure("EXTRA_SELECTION") }
+        try checkParent()
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        let objects = requested.compactMap { NSURL(string:$0) }
+        guard objects.count == requested.count, pasteboard.writeObjects(objects) else { throw DriverFailure("INPUT_FAILED") }
+        let read = (pasteboard.readObjects(forClasses:[NSURL.self], options:[.urlReadingFileURLsOnly:true]) as? [URL]) ?? []
+        let actual = Set(read.compactMap { canonicalFileAllowURL($0.absoluteString) })
+        return (actual == Set(approved), actual.count)
     }
     private func string(_ element: AXUIElement, _ name: String) -> String? {
         guard let value = attribute(element, name) else { return nil }
@@ -582,6 +626,11 @@ struct Observation {
                 } catch { releaseMouse(.leftMouseUp,from,.left); throw error }
             }
             return ["input_submitted":true]
+        case "copy_files":
+            let (_, observation, _)=try checkedObservation(p)
+            try checkParent()
+            let proof=try copyAllowedSelection(p, observation)
+            return ["input_submitted":true,"copy_proof":["match":proof.0,"count":proof.1]]
         default:throw DriverFailure("METHOD_NOT_FOUND")
         }
     }

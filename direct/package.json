@@ -11,7 +11,7 @@
     "build": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
-    "test": "node --test test/runtime.test.mjs test/install.test.mjs test/executors.test.mjs test/native-guard.test.mjs dist/tests/unit/choice.test.js dist/tests/unit/desktop.test.js dist/tests/unit/metered-usage.test.js dist/tests/unit/hybrid-controller.test.js dist/tests/unit/hybrid-execution-journal.test.js dist/tests/unit/hybrid-procedure-store.test.js dist/tests/unit/hybrid-router.test.js dist/tests/unit/hybrid-teacher-port.test.js dist/tests/unit/hybrid-workflow-contracts.test.js",
+    "test": "node --test test/runtime.test.mjs test/install.test.mjs test/executors.test.mjs test/native-guard.test.mjs test/copy-files.test.mjs dist/tests/unit/choice.test.js dist/tests/unit/desktop.test.js dist/tests/unit/metered-usage.test.js dist/tests/unit/hybrid-controller.test.js dist/tests/unit/hybrid-execution-journal.test.js dist/tests/unit/hybrid-procedure-store.test.js dist/tests/unit/hybrid-router.test.js dist/tests/unit/hybrid-teacher-port.test.js dist/tests/unit/hybrid-workflow-contracts.test.js",
     "test:integration": "node --test test/*integration.test.mjs",
     "test:safety": "node --test test/safety.test.mjs"
   },

@@ -73,6 +73,8 @@ export class JevSession {
           dispatchStarted=true;
           const submitted=await measured('execute_ms',() => this.adapter.execute(rebound[0]));
           if(submitted?.input_submitted!==true) throw Error('INPUT_RESULT_UNKNOWN');
+          const copyProof=submitted.copy_proof===undefined?undefined:{match:submitted.copy_proof.match,count:submitted.copy_proof.count};
+          if(copyProof!==undefined && ((copyProof.match!==true && copyProof.match!==false) || !Number.isSafeInteger(copyProof.count) || copyProof.count<0)) throw Error('COPY_PROOF_INVALID');
           inputAccepted=true;
           await this.#journal.acknowledge(event,'executed');event=undefined;
           let verified=false;
@@ -83,7 +85,8 @@ export class JevSession {
             if(verified===true||Date.now()>=settleDeadline)break;
             await delay(Math.min(100,Math.max(1,settleDeadline-Date.now())),undefined,{signal});
           }while(!signal.aborted);
-          result={status:verified===true?'VERIFIED':'POSTCONDITION_FAILED',code:verified===true?'POSTCONDITION_VERIFIED':'POSTCONDITION_NOT_MET'};
+          const copyOK=copyProof===undefined || copyProof.match===true;
+          result={status:verified===true&&copyOK?'VERIFIED':'POSTCONDITION_FAILED',code:verified===true&&copyOK?'POSTCONDITION_VERIFIED':'POSTCONDITION_NOT_MET',...(copyProof?{copy_proof:copyProof}:{})};
         }
       }
       result.decision_ms=Math.round(decisionMs);

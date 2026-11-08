@@ -8,12 +8,14 @@ const contracts=await import(contractPath).catch(()=>undefined),driver=await imp
 test('native desktop exposes a platform-neutral grounded tool contract and native process adapter',()=>{assert.equal(typeof contracts?.parseDesktopTool,'function');assert.equal(typeof driver?.NativeDesktopDriver,'function');});
 if(contracts&&driver){
  test('arbitrary native applications and unrestricted text are accepted without application policies',()=>{
-  assert.equal(contracts.desktopToolDefinitions.length,14);
+  assert.equal(contracts.desktopToolDefinitions.length,15);
   for(const app of ['com.apple.TextEdit','Example Password Tool','C:\\Apps\\Custom.exe','/Applications/Custom.app',4321])assert.equal(contracts.parseDesktopTool('desktop_get_state',{app}).app,app);
   assert.deepEqual(contracts.parseDesktopTool('desktop_click',{app:'Any App',observation_id:'seen',element_id:'real-element'}),{app:'Any App',observation_id:'seen',element_id:'real-element'});
   for(const params of [{app:'Any App',element_id:'old'},{app:'Any App',observation_id:'seen',x:1},{app:'Any App',observation_id:'seen',element_id:'node',x:1,y:2}])assert.throws(()=>contracts.parseDesktopTool('desktop_click',params));
   assert.equal(contracts.parseDesktopTool('desktop_type_text',{app:'App',observation_id:'seen',text:'中文🙂'.repeat(10000)}).text.length,40000);
   assert.throws(()=>contracts.parseDesktopTool('desktop_shell',{command:'ignored'}));
+  assert.deepEqual(contracts.parseDesktopTool('desktop_copy_files',{app:'com.apple.finder',observation_id:'seen',element_ids:['e1'],files:['file:///approved/preview_sub_v2.mp4']}).files,['file:///approved/preview_sub_v2.mp4']);
+  for(const files of [['https://example.com/a.mp4'],['file://localhost/approved/a.mp4'],['file:///approved/a.mp4?token=secret'],['/approved/a.mp4'],['file:///approved/../secret.mp4'],['file:///approved/%2e%2e/secret.mp4']])assert.throws(()=>contracts.parseDesktopTool('desktop_copy_files',{app:'Finder',observation_id:'seen',element_ids:['e1'],files}));
   assert.deepEqual(contracts.parseDesktopTool('desktop_screenshot',{full_display:true}),{full_display:true});
   assert.throws(()=>contracts.parseDesktopTool('desktop_screenshot',{}));
  });
@@ -35,7 +37,7 @@ if(contracts&&driver){
  });
  test('direct desktop executor preserves screenshot pixels separately from metadata',async()=>{
   const f=await fixture(),executor=new DesktopExecutor({launchSpec:{command:process.execPath,args:[f.file],env:{NATIVE_TEST_LOG:f.log}}});
-  try{assert.equal(executor.tools.length,14);const seen=await executor.call('desktop_get_state',{app:'Arbitrary real app'});assert.equal((seen.app as {name:string}).name,'Arbitrary real app');const screenshot=await executor.call('desktop_screenshot',{app:'Any'});assert.equal((screenshot.image as {mimeType:string}).mimeType,'image/png');assert.equal((screenshot.image_metadata as {scale:number}).scale,2);await assert.rejects(executor.call('desktop_click',{app:'Any',x:1,y:2}));}
+  try{assert.equal(executor.tools.length,15);const seen=await executor.call('desktop_get_state',{app:'Arbitrary real app'});assert.equal((seen.app as {name:string}).name,'Arbitrary real app');const screenshot=await executor.call('desktop_screenshot',{app:'Any'});assert.equal((screenshot.image as {mimeType:string}).mimeType,'image/png');assert.equal((screenshot.image_metadata as {scale:number}).scale,2);await assert.rejects(executor.call('desktop_click',{app:'Any',x:1,y:2}));}
   finally{await executor.close();await f.close();}
  });
  test('normal native shutdown allows paired input release before helper exit',async()=>{

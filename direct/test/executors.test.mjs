@@ -154,7 +154,7 @@ async function assertResumed(directory,goalId,idempotencyKey,terminal){
   }finally{await s.close();}
 }
 test('desktop pre-dispatch rejections are a closed code set and exclude uncertain losses',()=>{
-  for(const code of ['AMBIGUOUS_APP','APP_NOT_RUNNING','APP_NOT_FOUND','ELEMENT_DISABLED','UNSUPPORTED_KEY','PERMISSION_REQUIRED'])assert.ok(DESKTOP_PRE_DISPATCH_REJECTIONS.includes(code));
+  for(const code of ['AMBIGUOUS_APP','APP_NOT_RUNNING','APP_NOT_FOUND','ELEMENT_DISABLED','UNSUPPORTED_KEY','PERMISSION_REQUIRED','ALLOWLIST_MISMATCH','EXTRA_SELECTION','FILE_URL_UNAVAILABLE','SELECTION_REQUIRED'])assert.ok(DESKTOP_PRE_DISPATCH_REJECTIONS.includes(code));
   for(const code of ['NATIVE_RESULT_LOST','INPUT_RESULT_UNKNOWN','DESKTOP_NATIVE_UNKNOWN','STALE_OBSERVATION','FOCUS_CHANGED','ACTIVATION_FAILED','INPUT_FAILED','TITLE_UNCHANGED'])assert.equal(DESKTOP_PRE_DISPATCH_REJECTIONS.includes(code),false);
 });
 test('a pre-dispatch driver rejection is acknowledged and does not quarantine the desktop',async()=>{

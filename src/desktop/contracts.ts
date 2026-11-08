@@ -1,4 +1,8 @@
 import {z} from 'zod';
+function approvedFileURL(file:string){
+  if(!file.startsWith('file:///')||file.includes('?')||file.includes('#')||file.includes('@'))return false;
+  try{if(decodeURIComponent(file).split('/').includes('..'))return false;const url=new URL(file);return url.protocol==='file:'&&url.hostname===''&&url.username===''&&url.pathname.startsWith('/')&&url.search===''&&url.hash==='';}catch{return false;}
+}
 const app=z.union([z.string().min(1),z.number().int().positive().safe()]);
 const id=z.string().min(1),point=z.number().finite();
 const target={app,observation_id:id};
@@ -18,6 +22,7 @@ export const desktopSchemas={
  desktop_scroll:z.strictObject({...target,element_id:id.optional(),dx:point.optional(),dy:point.optional()}),
  desktop_drag:z.strictObject({...target,from_x:point,from_y:point,to_x:point,to_y:point,...coordinates}),
  desktop_perform_action:z.strictObject({...target,element_id:id,action:z.string().min(1)}),
+ desktop_copy_files:z.strictObject({...target,element_ids:z.array(id).min(1).max(8),files:z.array(z.string().min(1).max(4096)).min(1).max(8)}).refine(value=>value.element_ids.length===value.files.length && new Set(value.element_ids).size===value.element_ids.length && new Set(value.files).size===value.files.length && value.files.every(approvedFileURL),{message:'Copy requires the same number of unique observed elements and approved file URLs'}),
 };
 const descriptions:Record<keyof typeof desktopSchemas,string>={
  desktop_status:'Read native desktop platform and actual OS permissions. No application allowlist or model call.',
@@ -34,6 +39,7 @@ const descriptions:Record<keyof typeof desktopSchemas,string>={
  desktop_scroll:'Scroll the observed app/window or control; positive dy moves down.',
  desktop_drag:'Drag between observed coordinates using the app snapshot coordinate mapping.',
  desktop_perform_action:'Invoke an observed native element action exposed by its OS accessibility provider.',
+ desktop_copy_files:'Copy only the observed selected elements whose file URLs exactly match the approved file URL set. Returns whether that set matched and the file URL count, without clipboard text or file contents.',
 };
 export const desktopToolDefinitions=Object.entries(desktopSchemas).map(([name,schema])=>({name,description:descriptions[name as keyof typeof desktopSchemas],inputSchema:z.toJSONSchema(schema)}));
 export function parseDesktopTool(name:string,args:unknown):Record<string,unknown>{
