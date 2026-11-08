@@ -14,6 +14,12 @@ export function nativeCandidate(state, {id, description, method, label, role, pa
   }
   return {id, description, method, input:parseDesktopTool(method, input)};
 }
+/** AX omits value when the attribute is absent. Keep that absence out of the digest; do not coerce it to null, false, 0, or "". */
+function targetBinding(node) {
+  const target = {role:node.role, label:node.label, bounds:node.bounds};
+  if (node.value !== undefined) target.value = node.value;
+  return target;
+}
 export class NativeAdapter {
   kind = 'native';
   constructor({app, windowId, desktop = new DesktopExecutor()}) {
@@ -35,7 +41,7 @@ export class NativeAdapter {
     if (input.element_id && (!node || !node.enabled)) throw Error('INVALID_NATIVE_BINDING');
     const {observation_id:_observation, element_id:_element, ...parameters} = input;
     return {method:candidate.method, parameters, pid:state.app.pid, window:state.window,
-      target:node ? {role:node.role, label:node.label, value:node.value, bounds:node.bounds} : null};
+      target:node ? targetBinding(node) : null};
   }
   execute(candidate) { return this.desktop.call(candidate.method, candidate.input); }
   async screenshot(path) {
